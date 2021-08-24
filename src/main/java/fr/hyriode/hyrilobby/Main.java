@@ -1,17 +1,26 @@
 package fr.hyriode.hyrilobby;
 
 import fr.hyriode.hyriapi.HyriAPI;
-import fr.hyriode.hyrilobby.managers.LobbyManager;
+import fr.hyriode.hyrilobby.events.PlayerJoinListener;
+import fr.hyriode.hyrilobby.events.PlayerQuitListener;
+import fr.hyriode.hyrilobby.scoreboard.ScoreBoardManager;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.logging.Logger;
 
 public class Main extends JavaPlugin {
 
     private static Main INSTANCE;
     private HyriAPI api;
-    private LobbyManager lobbyManager;
-    private Logger logger;
+    private Logger logger = getLogger();
+    private ScheduledExecutorService executorMonoThread;
+    private ScheduledExecutorService scheduledExecutorService;
+    private ScoreBoardManager scoreBoardManager;
 
     @Override
     public void onEnable() {
@@ -28,25 +37,22 @@ public class Main extends JavaPlugin {
         api = HyriAPI.get();
         logger.info("API registered !");
         logger.info("#============================#");
-        logger.info("Connecting to the database");
-        // Here is the method to connect the database
-        logger.info("Database connected !");
-        logger.info("#============================#");
         logger.info("Registering managers...");
-        // Here is the #registerManagers method
+        registerManagers();
         logger.info("Managers registered !");
         logger.info("#============================#");
         logger.info("Registering commands...");
-        // Here is the #registerCommands method
+        registerCommands();
         logger.info("Commands registered !");
         logger.info("#============================#");
         logger.info("Registering listeners...");
-        // Here is the #registerListeners method
+        registerListeners();
         logger.info("Listeners registered !");
         logger.info("#============================#");
-        logger.info("Registering runnables !");
-        // Here is the #registerRunnables method
-        logger.info("Runnables registered !");
+        logger.info("Registering other stuff...");
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(16);
+        this.executorMonoThread = Executors.newScheduledThreadPool(1);
+        logger.info("Other stuff registered !");
         logger.info("#====={------------------------------}=====#");
         logger.info("#====={    HyriLobby is now loaded   }=====#");
         logger.info("#====={    Thanks using HyriLobby !  }=====#");
@@ -55,14 +61,40 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Not needed for now
+     getScoreBoardManager().onDisable();
+        logger.info("#====={------------------------------}=====#");
+        logger.info("#====={   HyriLobby is now disabled  }=====#");
+        logger.info("#====={    Thanks using HyriLobby !  }=====#");
+        logger.info("#====={------------------------------}=====#");
     }
-
-    public static Main getInstance() {
-        return INSTANCE;
+    private void registerManagers() {
+        scoreBoardManager = new ScoreBoardManager(this);
     }
+    private void registerListeners() {
+        PluginManager pm = Bukkit.getServer().getPluginManager();
+        pm.registerEvents(new PlayerJoinListener(this), this);
+        pm.registerEvents(new PlayerQuitListener(this), this);
+    }
+    private void registerCommands() {
 
+    }
+    private void fastCmd(String command, CommandExecutor executor) {
+        getCommand(command).setExecutor(executor);
+        logger.info("Registered command: " +command);
+    }
     public HyriAPI getApi() {
         return api;
+    }
+
+    public ScheduledExecutorService getExecutorMonoThread() {
+        return executorMonoThread;
+    }
+
+    public ScheduledExecutorService getScheduledExecutorService() {
+        return scheduledExecutorService;
+    }
+
+    public ScoreBoardManager getScoreBoardManager() {
+        return scoreBoardManager;
     }
 }
