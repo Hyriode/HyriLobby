@@ -1,0 +1,6 @@
+name: HyriLobby
+main: fr.hyriode.hyrilobby.Main
+version: 1.0
+commands:
+  bypass:
+  fly:

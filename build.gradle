@@ -1,0 +1,45 @@
+import java.nio.charset.StandardCharsets
+
+plugins {
+    id "com.github.johnrengelman.shadow" version "7.0.0"
+}
+
+apply plugin: 'idea'
+apply plugin: 'java-library'
+
+group 'fr.hyriode'
+version '1.0.0-SNAPSHOT'
+archivesBaseName = 'HyriLobby'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+compileJava {
+    targetCompatibility = sourceCompatibility = JavaVersion.VERSION_1_8
+    options.encoding = StandardCharsets.UTF_8
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        name = 'HyriAPI_maven'
+        url 'https://maven.pkg.github.com/Hyriode/HyriAPI/'
+        credentials {
+            username System.getenv("USERNAME")
+            password System.getenv("TOKEN")
+        }
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.runtimeClasspath]
+}
+
+dependencies {
+    implementation 'fr.hyriode:hyriapi:0.0.1-SNAPSHOT'
+    implementation 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
+}
