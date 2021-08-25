@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 
 public class Main extends JavaPlugin {
 
-    private static Main INSTANCE;
     private HyriAPI api;
     private Logger logger = getLogger();
     private ScheduledExecutorService executorMonoThread;
@@ -29,9 +28,10 @@ public class Main extends JavaPlugin {
         logger.info("#====={      The plugin is now       }=====#");
         logger.info("#====={  loading... Author: Akkahsi  }=====#");
         logger.info("#====={------------------------------}=====#");
-        logger.info("Registering instance...");
-        INSTANCE = this;
-        logger.info("Instance registered !");
+        logger.info("Registering runnables...");
+        this.scheduledExecutorService = Executors.newScheduledThreadPool(16);
+        this.executorMonoThread = Executors.newScheduledThreadPool(1);
+        logger.info("Runnables registered !");
         logger.info("#============================#");
         logger.info("Registering API...");
         api = HyriAPI.get();
@@ -48,11 +48,6 @@ public class Main extends JavaPlugin {
         logger.info("Registering listeners...");
         registerListeners();
         logger.info("Listeners registered !");
-        logger.info("#============================#");
-        logger.info("Registering other stuff...");
-        this.scheduledExecutorService = Executors.newScheduledThreadPool(16);
-        this.executorMonoThread = Executors.newScheduledThreadPool(1);
-        logger.info("Other stuff registered !");
         logger.info("#====={------------------------------}=====#");
         logger.info("#====={    HyriLobby is now loaded   }=====#");
         logger.info("#====={    Thanks using HyriLobby !  }=====#");

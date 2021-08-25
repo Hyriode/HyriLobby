@@ -40,6 +40,6 @@ shadowJar {
 }
 
 dependencies {
-    shadow 'fr.hyriode:hyriapi:0.0.1-SNAPSHOT'
+    shadow 'fr.hyriode:hyriapi:0.0.2-SNAPSHOT'
     implementation 'org.spigotmc:spigot:1.8.8-R0.1-SNAPSHOT'
 }

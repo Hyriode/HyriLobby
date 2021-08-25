@@ -18,86 +18,30 @@ import java.util.concurrent.TimeUnit;
 public class ScoreBoardManager {
 
     private Main main;
-
     private final Map<UUID, ScoreBoard> boards;
-    private final ScheduledFuture glowingTask;
-    private final ScheduledFuture reloadingTask;
-    private int cooldown;
 
     public ScoreBoardManager(Main main) {
         this.main = main;
         this.boards = new HashMap<>();
-        this.cooldown = 0;
-
-        glowingTask = main.getScheduledExecutorService().scheduleAtFixedRate(() -> {
-            String displayName = this.titleAnimation();
-
-            for (ScoreBoard scoreboard : this.boards.values())
-                main.getExecutorMonoThread().execute(() -> scoreboard.setLines(displayName));
-        }, 80, 80, TimeUnit.MILLISECONDS);
-
-        reloadingTask = main.getScheduledExecutorService().scheduleAtFixedRate(() -> {
-            for (ScoreBoard scoreboard : this.boards.values())
-                main.getExecutorMonoThread().execute(scoreboard::reloadBoard);
-        }, 20, 20, TimeUnit.SECONDS);
     }
-
     public void onDisable() {
-        this.glowingTask.cancel(true);
-        this.reloadingTask.cancel(true);
-
-        this.boards.values().forEach(ScoreBoard::onLogout);
+        boards.values().forEach(ScoreBoard::onLogout);
     }
 
-    public void onJoin(Player player) {
-        if (this.boards.containsKey(player.getUniqueId())) {
+    public void onLogin(Player player) {
+        if (boards.containsKey(player.getUniqueId())) {
             return;
         }
-        this.boards.put(player.getUniqueId(), new ScoreBoard(main, player));
+        ScoreBoard scoreBoard = new ScoreBoard(this.main, player);
+        boards.put(player.getUniqueId(), scoreBoard);
+        scoreBoard.show();
     }
 
-    public void onLeave(Player player) {
-        if (this.boards.containsKey(player.getUniqueId())) {
-            this.boards.get(player.getUniqueId()).onLogout();
-            this.boards.remove(player.getUniqueId());
+    public void onLogout(Player player) {
+        ScoreBoard scoreBoard = this.boards.get(player.getUniqueId());
+
+        if (scoreBoard != null) {
+            this.boards.remove(player.getUniqueId()).hide();
         }
-    }
-
-    public void reload(Player player) {
-        if (this.boards.containsKey(player.getUniqueId()))
-            this.boards.get(player.getUniqueId()).reloadBoard();
-    }
-
-    private String titleAnimation() {
-        String title = "Hyriode";
-
-        if (cooldown > 0) {
-            cooldown--;
-            return "§3§l" + title;
-        }
-        if (this.cooldown < 50) {
-            if (cooldown == 50) {
-                return "§3§l" + title;
-            }
-            if (cooldown == 40) {
-                return "§b§l" + title;
-            }
-            if (cooldown == 30) {
-                return "§3§l" + title;
-            }
-            if (cooldown == 20) {
-                return "§b§l" + title;
-            }
-            if (cooldown == 10) {
-                return "§3§l" + title;
-            }
-            if(cooldown == 0) {
-                return "§b§l" + title;
-            }
-        } else {
-            cooldown = 50;
-        }
-
-        return ChatColor.DARK_AQUA + title;
     }
 }
