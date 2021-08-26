@@ -1,8 +1,7 @@
 name: HyriLobby
-main: fr.hyriode.hyrilobby.Main
+main: fr.hyriode.hyrilobby.HyriLobby
 version: 1.0
-depend:
-  - HyriAPI
+depend: [HyriAPI]
 commands:
   bypass:
   fly:
