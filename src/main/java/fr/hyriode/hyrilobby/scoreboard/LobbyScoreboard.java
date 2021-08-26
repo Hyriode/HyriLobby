@@ -18,6 +18,8 @@ import java.util.Date;
  */
 public class LobbyScoreboard extends Scoreboard {
 
+    private static final String ARROW = ChatColor.WHITE + "\u27A4";
+
     private static final String DASH = ChatColor.WHITE + " ⁃ ";
 
     private final HyriLobby plugin;
@@ -35,7 +37,7 @@ public class LobbyScoreboard extends Scoreboard {
         this.addProfileLines();
         this.setLine(6, "  ");
         this.addServerLines();
-        this.setLine(9, "   ");
+        this.setLine(10, "   ");
         this.addServerIpLine();
     }
 
@@ -44,21 +46,26 @@ public class LobbyScoreboard extends Scoreboard {
     }
 
     private void addProfileLines() {
-        final IHyriPlayer player = this.plugin.getAPI().getPlayerManager().getPlayer(this.player.getUniqueId());
+        final IHyriPlayer player = this.getHyriPlayer();
 
-        this.setLine(2, this.getPlayerNameLine(player), scoreboardLine -> scoreboardLine.setValue(this.getPlayerNameLine(player)), 60);
-        this.setLine(3, this.getRankLine(player), scoreboardLine -> scoreboardLine.setValue(this.getRankLine(player)), 60);
-        this.setLine(4, this.getHyrisLine(player), scoreboardLine -> scoreboardLine.setValue(this.getHyrisLine(player)), 60);
-        this.setLine(5, this.getHyodeLine(player), scoreboardLine -> scoreboardLine.setValue(this.getHyodeLine(player)), 60);
+        this.setLine(2, this.getPlayerNameLine(player), scoreboardLine -> scoreboardLine.setValue(this.getPlayerNameLine(this.getHyriPlayer())), 60);
+        this.setLine(3, this.getRankLine(player), scoreboardLine -> scoreboardLine.setValue(this.getRankLine(this.getHyriPlayer())), 60);
+        this.setLine(4, this.getHyrisLine(player), scoreboardLine -> scoreboardLine.setValue(this.getHyrisLine(this.getHyriPlayer())), 60);
+        this.setLine(5, this.getHyodeLine(player), scoreboardLine -> scoreboardLine.setValue(this.getHyodeLine(this.getHyriPlayer())), 60);
+    }
+
+    private IHyriPlayer getHyriPlayer() {
+        return this.plugin.getAPI().getPlayerManager().getPlayer(this.player.getUniqueId());
     }
 
     private void addServerLines() {
-        this.setLine(7, this.getServerId());
-        this.setLine(8, this.getConnectedPlayers(), scoreboardLine -> scoreboardLine.setValue(this.getConnectedPlayers()), 80);
+        this.setLine(7, this.getNetworkLine());
+        this.setLine(8, this.getServerId());
+        this.setLine(9, this.getConnectedPlayers(), scoreboardLine -> scoreboardLine.setValue(this.getConnectedPlayers()), 80);
     }
 
     private void addServerIpLine() {
-        this.setLine(10, ChatColor.DARK_AQUA + References.SERVER_IP, new LobbyScoreboardIpConsumer(References.SERVER_IP), 2);
+        this.setLine(11, ChatColor.DARK_AQUA + References.SERVER_IP, new LobbyScoreboardIpConsumer(References.SERVER_IP), 2);
     }
 
     private String getCurrentDate() {
@@ -66,11 +73,11 @@ public class LobbyScoreboard extends Scoreboard {
     }
 
     private String getPlayerNameLine(IHyriPlayer player) {
-        return ChatColor.WHITE + "\u27A2 " + ChatColor.DARK_AQUA + "" + ChatColor.BOLD + player.getName() + ChatColor.RESET + (player.hasNickname() ? ChatColor.GRAY + " (" + player.getCustomName() + ")" : "");
+        return ARROW + " " + (player.hasNickname() ? ChatColor.RED + "" + ChatColor.BOLD + "Nick: " + ChatColor.RESET + ChatColor.GRAY + player.getCustomName() : ChatColor.DARK_AQUA + "" + ChatColor.BOLD + player.getName());
     }
 
     private String getRankLine(IHyriPlayer player) {
-        return DASH + "Grade: " + player.getRank().getDisplayName();
+        return DASH + ChatColor.AQUA + "Grade: " + player.getRank().getDisplayName();
     }
 
     private String getHyrisLine(IHyriPlayer player) {
@@ -81,14 +88,18 @@ public class LobbyScoreboard extends Scoreboard {
         return DASH + ChatColor.GOLD + "Hyode: " + ChatColor.WHITE + player.getHyode().getAmount();
     }
 
+    private String getNetworkLine() {
+        return ARROW + ChatColor.DARK_AQUA + "" + ChatColor.BOLD + " Serveur";
+    }
+
     private String getServerId() {
         // return ChatColor.DARK_GRAY + "Serveur: " + ChatColor.WHITE + this.plugin.getAPI().getServer().getId();
-        return ChatColor.GRAY + "Serveur: " + ChatColor.WHITE + "lobby-sq68zv";
+        return DASH + ChatColor.GRAY + "Actuel: " + ChatColor.WHITE + "lobby-sq68zv";
     }
 
     private String getConnectedPlayers() {
         // TODO Get global players
-        return ChatColor.GRAY + "Joueurs: " + ChatColor.WHITE + Bukkit.getOnlinePlayers().size();
+        return DASH + ChatColor.GRAY + "Joueurs: " + ChatColor.WHITE + Bukkit.getOnlinePlayers().size();
     }
 
 }
