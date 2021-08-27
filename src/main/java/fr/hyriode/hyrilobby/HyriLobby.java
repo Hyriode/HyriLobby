@@ -3,6 +3,7 @@ package fr.hyriode.hyrilobby;
 import fr.hyriode.hyriapi.HyriAPI;
 import fr.hyriode.hyrilobby.listener.PlayerHandler;
 import fr.hyriode.hyrilobby.scoreboard.ScoreboardManager;
+import fr.hyriode.hyrilobby.tab.TabManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.PluginManager;
@@ -16,6 +17,9 @@ public class HyriLobby extends JavaPlugin {
 
     /** Logger */
     private final Logger logger = getLogger();
+
+    /** Tab */
+    private TabManager tabManager;
 
     /** Scoreboard */
     private ScoreboardManager scoreboardManager;
@@ -48,6 +52,7 @@ public class HyriLobby extends JavaPlugin {
 
     private void registerManagers() {
        this.scoreboardManager = new ScoreboardManager(this);
+       this.tabManager = new TabManager();
     }
 
     private void registerListeners() {
@@ -68,6 +73,10 @@ public class HyriLobby extends JavaPlugin {
 
     public HyriAPI getAPI() {
         return this.api;
+    }
+
+    public TabManager getTabManager() {
+        return this.tabManager;
     }
 
     public ScoreboardManager getScoreboardManager() {
