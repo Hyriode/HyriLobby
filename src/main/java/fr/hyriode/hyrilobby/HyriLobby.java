@@ -3,23 +3,16 @@ package fr.hyriode.hyrilobby;
 import fr.hyriode.hyriapi.HyriAPI;
 import fr.hyriode.hyrilobby.listener.PlayerHandler;
 import fr.hyriode.hyrilobby.scoreboard.ScoreboardManager;
-import fr.hyriode.hyrilobby.tab.TabManager;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.logging.Logger;
 
 public class HyriLobby extends JavaPlugin {
 
     /** Logger */
     private final Logger logger = getLogger();
-
-    /** Tab */
-    private TabManager tabManager;
 
     /** Scoreboard */
     private ScoreboardManager scoreboardManager;
@@ -32,7 +25,8 @@ public class HyriLobby extends JavaPlugin {
         this.logger.info("#====={------------------------------}=====#");
         this.logger.info("#====={     Welcome to HyriLobby     }=====#");
         this.logger.info("#====={      The plugin is now       }=====#");
-        this.logger.info("#====={  loading... Author: Akkashi  }=====#");
+        this.logger.info("#====={           loading...         }=====#");
+        this.logger.info("#====={  Authors: Akkashi, AstFaster }=====#");
         this.logger.info("#====={------------------------------}=====#");
 
         this.api = HyriAPI.get();
@@ -52,11 +46,10 @@ public class HyriLobby extends JavaPlugin {
 
     private void registerManagers() {
        this.scoreboardManager = new ScoreboardManager(this);
-       this.tabManager = new TabManager();
     }
 
     private void registerListeners() {
-        final PluginManager pm = Bukkit.getServer().getPluginManager();
+        final PluginManager pm = this.getServer().getPluginManager();
 
         pm.registerEvents(new PlayerHandler(this), this);
     }
@@ -73,10 +66,6 @@ public class HyriLobby extends JavaPlugin {
 
     public HyriAPI getAPI() {
         return this.api;
-    }
-
-    public TabManager getTabManager() {
-        return this.tabManager;
     }
 
     public ScoreboardManager getScoreboardManager() {
