@@ -1,6 +1,7 @@
 package fr.hyriode.hyrilobby.listener;
 
 import fr.hyriode.hyrilobby.HyriLobby;
+import fr.hyriode.hyrilobby.tab.LobbyTab;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -26,6 +27,7 @@ public class PlayerHandler implements Listener {
         final Player player = event.getPlayer();
 
         this.plugin.getScoreboardManager().onLogin(player);
+        this.plugin.getTabManager().onLogin(player);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
