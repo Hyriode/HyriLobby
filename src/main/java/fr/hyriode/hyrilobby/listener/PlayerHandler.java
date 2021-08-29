@@ -1,6 +1,7 @@
 package fr.hyriode.hyrilobby.listener;
 
 import fr.hyriode.hyrilobby.HyriLobby;
+import fr.hyriode.hyrilobby.player.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -24,14 +25,16 @@ public class PlayerHandler implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-
+        PlayerManager playerManager = new PlayerManager(player, plugin);
+        playerManager.onLogin();
         this.plugin.getScoreboardManager().onLogin(player);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onQuit(PlayerQuitEvent event) {
         final Player player = event.getPlayer();
-
+        PlayerManager playerManager = PlayerManager.getByUuid(player.getUniqueId());
+        playerManager.onLogout();
         this.plugin.getScoreboardManager().onLogout(player);
     }
 

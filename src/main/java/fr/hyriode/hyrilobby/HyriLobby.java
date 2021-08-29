@@ -2,6 +2,7 @@ package fr.hyriode.hyrilobby;
 
 import fr.hyriode.hyriapi.HyriAPI;
 import fr.hyriode.hyrilobby.listener.PlayerHandler;
+import fr.hyriode.hyrilobby.player.PlayerManager;
 import fr.hyriode.hyrilobby.scoreboard.ScoreboardManager;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.PluginManager;
@@ -42,6 +43,7 @@ public class HyriLobby extends JavaPlugin {
         this.logger.info("#====={   HyriLobby is now disabled  }=====#");
         this.logger.info("#====={    Thanks using HyriLobby !  }=====#");
         this.logger.info("#====={------------------------------}=====#");
+        PlayerManager.onDisable();
     }
 
     private void registerManagers() {
