@@ -9,6 +9,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Project: HyriLobby
@@ -19,8 +20,9 @@ public class PlayerHandler implements Listener {
 
     private final HyriLobby plugin;
 
-    public PlayerHandler(HyriLobby plugin) {
+    public PlayerHandler(HyriLobby plugin, JavaPlugin javaPlugin) {
         this.plugin = plugin;
+        javaPlugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

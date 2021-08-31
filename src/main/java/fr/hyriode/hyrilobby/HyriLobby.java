@@ -1,12 +1,12 @@
 package fr.hyriode.hyrilobby;
 
+import fr.hyriode.common.inventory.InventoryHandler;
 import fr.hyriode.common.item.ItemHandler;
 import fr.hyriode.hyriapi.HyriAPI;
 import fr.hyriode.hyrilobby.listener.PlayerHandler;
 import fr.hyriode.hyrilobby.player.PlayerManager;
 import fr.hyriode.hyrilobby.scoreboard.ScoreboardManager;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -38,6 +38,9 @@ public class HyriLobby extends JavaPlugin {
         this.registerListeners();
 
         new ItemHandler(this);
+        new InventoryHandler(this);
+        new PlayerHandler(this, this);
+
     }
 
     @Override
@@ -54,9 +57,7 @@ public class HyriLobby extends JavaPlugin {
     }
 
     private void registerListeners() {
-        final PluginManager pm = this.getServer().getPluginManager();
 
-        pm.registerEvents(new PlayerHandler(this), this);
     }
 
     private void registerCommands() {
