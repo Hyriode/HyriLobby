@@ -1,6 +1,7 @@
 package fr.hyriode.hyrilobby.listener;
 
 import fr.hyriode.hyrilobby.HyriLobby;
+import fr.hyriode.hyrilobby.hotbar.HotbarManager;
 import fr.hyriode.hyrilobby.player.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,6 +28,8 @@ public class PlayerHandler implements Listener {
         final Player player = event.getPlayer();
         PlayerManager playerManager = new PlayerManager(player, plugin);
         playerManager.onLogin();
+        HotbarManager hotbarManager = new HotbarManager(player);
+        hotbarManager.addItemsOnJoin();
         this.plugin.getScoreboardManager().onLogin(player);
     }
 
@@ -37,5 +40,4 @@ public class PlayerHandler implements Listener {
         playerManager.onLogout();
         this.plugin.getScoreboardManager().onLogout(player);
     }
-
 }

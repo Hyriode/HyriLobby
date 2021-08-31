@@ -44,8 +44,8 @@ repositories {
         url = 'https://maven.pkg.github.com/Hyriode/HyriCommon/'
 
         credentials {
-            username System.getenv('USERNAME')
-            password System.getenv('TOKEN')
+            username System.getenv("USERNAME")
+            password System.getenv("TOKEN")
         }
     }
 }
@@ -54,8 +54,9 @@ shadowJar {
     configurations = [project.configurations.shadow]
 }
 
+
 dependencies {
-    shadow 'fr.hyriode:hyriapi:0.0.3-SNAPSHOT'
-    shadow 'fr.hyriode:hyricommon:1.0.2-SNAPSHOT'
+    shadow 'fr.hyriode:hyriapi:+'
+    shadow 'fr.hyriode:hyricommon:+'
     implementation 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
 }

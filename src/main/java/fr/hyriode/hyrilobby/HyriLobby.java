@@ -1,5 +1,6 @@
 package fr.hyriode.hyrilobby;
 
+import fr.hyriode.common.item.ItemHandler;
 import fr.hyriode.hyriapi.HyriAPI;
 import fr.hyriode.hyrilobby.listener.PlayerHandler;
 import fr.hyriode.hyrilobby.player.PlayerManager;
@@ -35,6 +36,8 @@ public class HyriLobby extends JavaPlugin {
         this.registerManagers();
         this.registerCommands();
         this.registerListeners();
+
+        new ItemHandler(this);
     }
 
     @Override
