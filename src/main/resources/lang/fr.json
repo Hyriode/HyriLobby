@@ -1,0 +1,18 @@
+{
+  "item.settings.name": "§fOuvrir les Paramètres",
+  "item.settings.lore": "§fFaites Clic-Droit pour Personnaliser votre Jeu",
+
+  "title.settings.gui": "Vos Paramètres",
+  "item.settings.switch.base": "§fClique pour ",
+  "item.settings.switch.on": "l'activer",
+  "item.Settings.switch.off": "le désactiver",
+  "item.settings.soundTag": "§fAlertes Sonores",
+  "item.settings.partyRequest": "§fDemandes de Parties",
+  "item.settings.friendRequest": "§fDemandes d'Ami",
+  "item.settings.globalChat": "§fMessages du Chat Global",
+  "item.settings.privateMessagesSound": "§fAlertes Sonores de Messages Privés",
+  "item.settings.language": "§fLangue du Serveur",
+  "item.settings.privateMessagesLevel": "§fFiltre des Messages Privés",
+  "item.settings.playersVisibilityLevel": "§fFiltre des Joueurs Affichés",
+  "item.settings.quit": "§fQuitter"
+}

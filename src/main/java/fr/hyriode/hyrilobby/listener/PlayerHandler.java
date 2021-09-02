@@ -28,9 +28,9 @@ public class PlayerHandler implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-        PlayerManager playerManager = new PlayerManager(player, plugin);
+        PlayerManager playerManager = new PlayerManager(player, this.plugin);
         playerManager.onLogin();
-        HotbarManager hotbarManager = new HotbarManager(player);
+        HotbarManager hotbarManager = new HotbarManager(player, this.plugin);
         hotbarManager.addItemsOnJoin();
         this.plugin.getScoreboardManager().onLogin(player);
     }

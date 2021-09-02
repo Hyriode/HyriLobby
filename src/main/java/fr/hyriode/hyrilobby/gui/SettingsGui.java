@@ -6,6 +6,7 @@ import fr.hyriode.hyriapi.HyriAPI;
 import fr.hyriode.hyriapi.player.IHyriPlayer;
 import fr.hyriode.hyriapi.player.IHyriPlayerManager;
 import fr.hyriode.hyriapi.settings.IHyriPlayerSettings;
+import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.gui.settings.LanguageGui;
 import fr.hyriode.hyrilobby.gui.settings.PlayersVisibilityLevelGui;
 import fr.hyriode.hyrilobby.gui.settings.PrivateMessagesLevelGui;
@@ -24,6 +25,7 @@ import java.util.logging.Logger;
 public class SettingsGui extends AbstractInventory {
 
     private Player player;
+    private HyriLobby plugin;
     private PlayerManager manager;
     private IHyriPlayer hyriPlayer;
     private IHyriPlayerSettings hyriSettings;
@@ -54,13 +56,14 @@ public class SettingsGui extends AbstractInventory {
 
     private Logger logger = Bukkit.getLogger();
 
-    public SettingsGui(Player owner) {
-        super(owner, "Vos Paramètres", 54);
+    public SettingsGui(Player owner, HyriLobby plugin) {
+        super(owner, plugin.getLanguageManager().getMessageForPlayer(owner, "title.settings.gui"), 54);
 
         /*
             Set Values with HyriAPI
          */
         this.player = owner;
+        this.plugin = plugin;
         this.manager = PlayerManager.getByUuid(this.player.getUniqueId());
         this.hyriPlayer = this.manager.getPlayer();
         this.hyriSettings = this.hyriPlayer.getSettings();

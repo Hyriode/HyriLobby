@@ -1,6 +1,7 @@
 package fr.hyriode.hyrilobby.hotbar;
 
 import fr.hyriode.common.item.ItemBuilder;
+import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.gui.SettingsGui;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,10 +12,11 @@ import org.bukkit.inventory.ItemStack;
 public class HotbarManager {
 
     private Player p;
+    private HyriLobby plugin;
 
-    public HotbarManager(Player p) {
-
+    public HotbarManager(Player p, HyriLobby plugin) {
         this.p = p;
+        this.plugin = plugin;
     }
 
     public void addItemsOnJoin() {
@@ -40,7 +42,7 @@ public class HotbarManager {
                 .withLore("§fFaites Clic-Droit pour Personnaliser votre Jeu")
                 .withEvent(PlayerInteractEvent.class, itemSupplier -> {
                     Player p = ((PlayerInteractEvent) itemSupplier.get()).getPlayer();
-                    new SettingsGui(p).open();
+                    new SettingsGui(p, this.plugin).open();
                 })
                 .build();
         ItemStack netherStar = new ItemBuilder(Material.NETHER_STAR)
