@@ -1,6 +1,7 @@
 package fr.hyriode.hyrilobby.hotbar;
 
 import fr.hyriode.common.item.ItemBuilder;
+import fr.hyriode.hyrilobby.gui.SettingsGui;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -33,15 +34,14 @@ public class HotbarManager {
         ItemStack emerald = new ItemBuilder(Material.EMERALD)
                 .withName("§fOuvrir le Shop")
                 .withLore("§fFaites Clic-Droit pour Ouvrir le Shop")
-                .withEvent(PlayerInteractEvent.class, itemSupplier -> {
-                    PlayerInteractEvent e = (PlayerInteractEvent) itemSupplier.get();
-                    e.getPlayer().sendMessage("Event Passed");
-                    //TODO Afficher le GUI
-                })
                 .build();
         ItemStack comparator = new ItemBuilder(Material.REDSTONE_COMPARATOR)
                 .withName("§fOuvrir les Paramètres")
                 .withLore("§fFaites Clic-Droit pour Personnaliser votre Jeu")
+                .withEvent(PlayerInteractEvent.class, itemSupplier -> {
+                    Player p = ((PlayerInteractEvent) itemSupplier.get()).getPlayer();
+                    new SettingsGui(p).open();
+                })
                 .build();
         ItemStack netherStar = new ItemBuilder(Material.NETHER_STAR)
                 .withName("§fChanger de Lobby")

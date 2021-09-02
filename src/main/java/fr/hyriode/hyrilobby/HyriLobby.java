@@ -2,6 +2,8 @@ package fr.hyriode.hyrilobby;
 
 import fr.hyriode.common.inventory.InventoryHandler;
 import fr.hyriode.common.item.ItemHandler;
+import fr.hyriode.hyrame.Hyrame;
+import fr.hyriode.hyrame.language.LanguageManager;
 import fr.hyriode.hyriapi.HyriAPI;
 import fr.hyriode.hyrilobby.listener.PlayerHandler;
 import fr.hyriode.hyrilobby.player.PlayerManager;
@@ -22,6 +24,12 @@ public class HyriLobby extends JavaPlugin {
     /** API */
     private HyriAPI api;
 
+    /** Hyrame */
+    private Hyrame hyrame;
+
+    /** Language Manager*/
+    private LanguageManager languageManager;
+
     @Override
     public void onEnable() {
         this.logger.info("#====={------------------------------}=====#");
@@ -32,6 +40,8 @@ public class HyriLobby extends JavaPlugin {
         this.logger.info("#====={------------------------------}=====#");
 
         this.api = HyriAPI.get();
+        this.hyrame = new Hyrame(new HyriLobbyProvider(this));
+        this.languageManager = new LanguageManager(this.hyrame);
 
         this.registerManagers();
         this.registerCommands();
@@ -72,6 +82,14 @@ public class HyriLobby extends JavaPlugin {
 
     public HyriAPI getAPI() {
         return this.api;
+    }
+
+    public Hyrame getHyrame() {
+        return this.hyrame;
+    }
+
+    public LanguageManager getLanguageManager() {
+        return this.languageManager;
     }
 
     public ScoreboardManager getScoreboardManager() {

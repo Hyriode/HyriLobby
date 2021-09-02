@@ -31,18 +31,8 @@ repositories {
     maven { url = 'https://oss.sonatype.org/content/groups/public/' }
 
     maven {
-        name = 'HyriAPI_maven'
-        url 'https://maven.pkg.github.com/Hyriode/HyriAPI/'
-        credentials {
-            username System.getenv("USERNAME")
-            password System.getenv("TOKEN")
-        }
-    }
-
-    maven {
-        name = 'HyriCommon_maven'
-        url = 'https://maven.pkg.github.com/Hyriode/HyriCommon/'
-
+        name = 'Hyrame_maven'
+        url 'https://maven.pkg.github.com/Hyriode/Hyrame/'
         credentials {
             username System.getenv("USERNAME")
             password System.getenv("TOKEN")
@@ -56,7 +46,6 @@ shadowJar {
 
 
 dependencies {
-    shadow 'fr.hyriode:hyriapi:+'
-    shadow 'fr.hyriode:hyricommon:+'
+    shadow 'fr.hyriode:hyrame:+'
     implementation 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
 }

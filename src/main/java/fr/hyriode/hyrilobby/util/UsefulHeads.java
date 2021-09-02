@@ -2,44 +2,23 @@ package fr.hyriode.hyrilobby.util;
 
 public enum UsefulHeads {
 
-    MHF_Blaze("Blaze head"),
-    MHF_CaveSpider("Cave Spider head"),
-    MHF_Chicken("Chicken head"),
-    MHF_Cow("Cow head"),
-    MHF_Enderman("Enderman head"),
-    MHF_Ghast("Ghast head"),
-    MHF_Herobrine("Herobrine head"),
-    MHF_LavaSlime("Magma Cube head"),
-    MHF_MushrromCow("Mooshroom head"),
-    MHF_Pig("Pig head"),
-    MHF_PigZombie("Zombie Pigman head"),
-    MHF_Sheep("Sheep head"),
-    MHF_Slime("Slime head"),
-    MHF_Spider("Spider head"),
-    MHF_Squid("Squid head"),
-    MHF_Villager("Villager head"),
-    MHF_Golem("Iron Golem head"),
-    MHF_Cactus("Cactus head"),
-    MHF_Chest("Chest head"),
-    MHF_Melon("Melon head"),
-    MHF_OakLog("Oak Log head"),
-    MHF_Pumpkin("Pumpkin head"),
-    MHF_TNT("TNT head"),
-    MHF_TNT2("TNT head"),
-    MHF_ArrowUp("Arrow Up head"),
-    MHF_ArrowDown("Arrow Down head"),
-    MHF_ArrowLeft("Arrow Left head"),
-    MHF_ArrowRight("Arrow Right head"),
-    MHF_Exclamation("Exclamation Mark head"),
-    MHF_Question("Question Mark head");
+    NOTEBLOCK("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNlZWI3N2Q0ZDI1NzI0YTljYWYyYzdjZGYyZDg4Mzk5YjE0MTdjNmI5ZmY1MjEzNjU5YjY1M2JlNDM3NmUzIn19fQ=="),
+    SWORD("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTg4MzJjMTQ2NmM4NDFjYzc5ZDVmMTAyOTVkNDY0Mjc5OTY3OTc1YTI0NTFjN2E1MzNjNzk5Njg5NzQwOGJlYSJ9fX0="),
+    MAILBOX("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7ImlkIjoiMTFiNTI5ODI5MmRhNDc2NmJhODMzNDk4NWNiN2Y2NzciLCJ0eXBlIjoiU0tJTiIsInVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjBmOGQyNDQ4YTNiZDI4ZmZiNDNjYmZlMGMwNmQ1NzQxYzZkZmEyN2YzYzI5YjhkMDdjYTIxZTVkNjdjNjFiZCIsInByb2ZpbGVJZCI6IjkwMDAzZmIyMGEyZDRjNWQ4YmFkZDdjOThmZjA2NWI0IiwidGV4dHVyZUlkIjoiNjBmOGQyNDQ4YTNiZDI4ZmZiNDNjYmZlMGMwNmQ1NzQxYzZkZmEyN2YzYzI5YjhkMDdjYTIxZTVkNjdjNjFiZCJ9fSwic2tpbiI6eyJpZCI6IjExYjUyOTgyOTJkYTQ3NjZiYTgzMzQ5ODVjYjdmNjc3IiwidHlwZSI6IlNLSU4iLCJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzYwZjhkMjQ0OGEzYmQyOGZmYjQzY2JmZTBjMDZkNTc0MWM2ZGZhMjdmM2MyOWI4ZDA3Y2EyMWU1ZDY3YzYxYmQiLCJwcm9maWxlSWQiOiI5MDAwM2ZiMjBhMmQ0YzVkOGJhZGQ3Yzk4ZmYwNjViNCIsInRleHR1cmVJZCI6IjYwZjhkMjQ0OGEzYmQyOGZmYjQzY2JmZTBjMDZkNTc0MWM2ZGZhMjdmM2MyOWI4ZDA3Y2EyMWU1ZDY3YzYxYmQifSwiY2FwZSI6bnVsbH0="),
+    BUBBLE("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjAyYWYzY2EyZDVhMTYwY2ExMTE0MDQ4Yjc5NDc1OTQyNjlhZmUyYjFiNWVjMjU1ZWU3MmI2ODNiNjBiOTliOSJ9fX0="),
+    EARTH("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2Y0MDk0MmYzNjRmNmNiY2VmZmNmMTE1MTc5NjQxMDI4NmE0OGIxYWViYTc3MjQzZTIxODAyNmMwOWNkMSJ9fX0="),
+    ARROW_DOWN("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDRmN2JjMWZhODIxN2IxOGIzMjNhZjg0MTM3MmEzZjdjNjAyYTQzNWM4MjhmYWE0MDNkMTc2YzZiMzdiNjA1YiJ9fX0="),
+    FRANCE("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTEyNjlhMDY3ZWUzN2U2MzYzNWNhMWU3MjNiNjc2ZjEzOWRjMmRiZGRmZjk2YmJmZWY5OWQ4YjM1Yzk5NmJjIn19fQ=="),
+    ENGLAND("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODc5ZDk5ZDljNDY0NzRlMjcxM2E3ZTg0YTk1ZTRjZTdlOGZmOGVhNGQxNjQ0MTNhNTkyZTQ0MzVkMmM2ZjlkYyJ9fX0="),
+    MISSING_TEXTURE("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTllYjlkYTI2Y2YyZDMzNDEzOTdhN2Y0OTEzYmEzZDM3ZDFhZDEwZWFlMzBhYjI1ZmEzOWNlYjg0YmMifX19");
 
-    private final String desc;
+    private final String texture;
 
-    private UsefulHeads(String desc) {
-        this.desc = desc;
+    UsefulHeads(String texture) {
+        this.texture = texture;
     }
 
-    public String getDesc() {
-        return this.desc;
+    public String getTexture() {
+        return this.texture;
     }
 }
