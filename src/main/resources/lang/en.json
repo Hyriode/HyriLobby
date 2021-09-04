@@ -1,3 +1,18 @@
 {
-  "title.settings.gui": "Your Settings"
+  "item.settings.name": "§fOpen Settings",
+  "item.settings.lore": "§fRight Click to Select your Settings",
+
+  "title.settings.gui": "Your Settings",
+  "item.settings.switch.base": "§fClick to",
+  "item.settings.switch.on": "enable it",
+  "item.Settings.switch.off": "disable it",
+  "item.settings.soundTag": "§fSound Pings",
+  "item.settings.partyRequest": "§fParty Requests",
+  "item.settings.friendRequest": "§fFriend Requests",
+  "item.settings.globalChat": "§fGlobal Chat Messages",
+  "item.settings.privateMessagesSound": "§fSound Pings for Private Messages",
+  "item.settings.language": "§fServer Language",
+  "item.settings.privateMessagesLevel": "§fPrivate Messages Filter",
+  "item.settings.playersVisibilityLevel": "§fDisplayed Players Filter",
+  "item.settings.quit": "§fQuit"
 }

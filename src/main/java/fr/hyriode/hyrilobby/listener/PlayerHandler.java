@@ -30,7 +30,7 @@ public class PlayerHandler implements Listener {
         final Player player = event.getPlayer();
         PlayerManager playerManager = new PlayerManager(player, this.plugin);
         playerManager.onLogin();
-        HotbarManager hotbarManager = new HotbarManager(player, this.plugin);
+        HotbarManager hotbarManager = new HotbarManager(player);
         hotbarManager.addItemsOnJoin();
         this.plugin.getScoreboardManager().onLogin(player);
     }

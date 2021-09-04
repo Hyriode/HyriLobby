@@ -1,18 +1,26 @@
 {
-  "item.settings.name": "§fOuvrir les Paramètres",
-  "item.settings.lore": "§fFaites Clic-Droit pour Personnaliser votre Jeu",
+  "item.settings.name": "Ouvrir les Paramètres",
+  "item.settings.lore": "Faites Clic-Droit pour Personnaliser votre Jeu",
 
   "title.settings.gui": "Vos Paramètres",
-  "item.settings.switch.base": "§fClique pour ",
+  "item.settings.switch.base": "Clique pour ",
   "item.settings.switch.on": "l'activer",
   "item.Settings.switch.off": "le désactiver",
-  "item.settings.soundTag": "§fAlertes Sonores",
-  "item.settings.partyRequest": "§fDemandes de Parties",
-  "item.settings.friendRequest": "§fDemandes d'Ami",
-  "item.settings.globalChat": "§fMessages du Chat Global",
-  "item.settings.privateMessagesSound": "§fAlertes Sonores de Messages Privés",
-  "item.settings.language": "§fLangue du Serveur",
-  "item.settings.privateMessagesLevel": "§fFiltre des Messages Privés",
-  "item.settings.playersVisibilityLevel": "§fFiltre des Joueurs Affichés",
-  "item.settings.quit": "§fQuitter"
+  "item.settings.soundTag": "Alertes Sonores",
+  "item.settings.partyRequest": "Demandes de Parties",
+  "item.settings.friendRequest": "Demandes d'Ami",
+  "item.settings.globalChat": "Messages du Chat Global",
+  "item.settings.privateMessagesSound": "Alertes Sonores de Messages Privés",
+  "item.settings.language": "Langue du Serveur",
+  "item.settings.privateMessagesLevel": "Filtre des Messages Privés",
+  "item.settings.playersVisibilityLevel": "Filtre des Joueurs Affichés",
+  "item.settings.quit": "Quitter",
+
+  "title.language.gui": "Choix de la Langue",
+  "item.language.frItem": "Clique pour changer en \"Français\"",
+  "item.language.enItem": "Clique pour changer en \"Anglais\"",
+  "item.language.current": "Actuellement sur \"",
+  "item.language.frLang": "Français\"",
+  "item.language.enLang": "Anglais\"",
+  "item.language.quit": "Quitter"
 }

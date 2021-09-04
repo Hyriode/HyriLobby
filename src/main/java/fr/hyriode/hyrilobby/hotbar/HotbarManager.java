@@ -1,6 +1,7 @@
 package fr.hyriode.hyrilobby.hotbar;
 
 import fr.hyriode.common.item.ItemBuilder;
+import fr.hyriode.hyrame.language.LanguageManager;
 import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.gui.SettingsGui;
 import org.bukkit.Material;
@@ -12,11 +13,11 @@ import org.bukkit.inventory.ItemStack;
 public class HotbarManager {
 
     private Player p;
-    private HyriLobby plugin;
+    private LanguageManager lang;
 
-    public HotbarManager(Player p, HyriLobby plugin) {
+    public HotbarManager(Player p) {
         this.p = p;
-        this.plugin = plugin;
+        this.lang = HyriLobby.getInstance().getLanguageManager();
     }
 
     public void addItemsOnJoin() {
@@ -38,11 +39,11 @@ public class HotbarManager {
                 .withLore("§fFaites Clic-Droit pour Ouvrir le Shop")
                 .build();
         ItemStack comparator = new ItemBuilder(Material.REDSTONE_COMPARATOR)
-                .withName("§fOuvrir les Paramètres")
-                .withLore("§fFaites Clic-Droit pour Personnaliser votre Jeu")
+                .withName(this.lang.getMessageForPlayer(this.p, "item.settings.name"))
+                .withLore(this.lang.getMessageForPlayer(this.p, "item.settings.lore"))
                 .withEvent(PlayerInteractEvent.class, itemSupplier -> {
                     Player p = ((PlayerInteractEvent) itemSupplier.get()).getPlayer();
-                    new SettingsGui(p, this.plugin).open();
+                    new SettingsGui(p).open();
                 })
                 .build();
         ItemStack netherStar = new ItemBuilder(Material.NETHER_STAR)

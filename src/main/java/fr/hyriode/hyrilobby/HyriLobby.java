@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 
 public class HyriLobby extends JavaPlugin {
 
+    private static HyriLobby instance;
+
     /** Logger */
     private final Logger logger = getLogger();
 
@@ -39,6 +41,7 @@ public class HyriLobby extends JavaPlugin {
         this.logger.info("#====={  Authors: Akkashi, AstFaster }=====#");
         this.logger.info("#====={------------------------------}=====#");
 
+        instance = this;
         this.api = HyriAPI.get();
         this.hyrame = new Hyrame(new HyriLobbyProvider(this));
         this.languageManager = new LanguageManager(this.hyrame);
@@ -86,6 +89,10 @@ public class HyriLobby extends JavaPlugin {
 
     public Hyrame getHyrame() {
         return this.hyrame;
+    }
+
+    public static HyriLobby getInstance() {
+        return instance;
     }
 
     public LanguageManager getLanguageManager() {

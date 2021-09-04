@@ -2,9 +2,11 @@ package fr.hyriode.hyrilobby.gui.settings;
 
 import fr.hyriode.common.inventory.AbstractInventory;
 import fr.hyriode.common.item.ItemBuilder;
+import fr.hyriode.hyrame.language.LanguageManager;
 import fr.hyriode.hyriapi.player.IHyriPlayer;
 import fr.hyriode.hyriapi.player.IHyriPlayerManager;
 import fr.hyriode.hyriapi.settings.IHyriPlayerSettings;
+import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.gui.SettingsGui;
 import fr.hyriode.hyrilobby.util.UsefulHeads;
 import org.bukkit.Material;
@@ -16,9 +18,10 @@ public class LanguageGui extends AbstractInventory {
 
     private Player player;
     private SettingsGui oldGui;
+    private LanguageManager lang;
     private IHyriPlayer hyriPlayer;
     private IHyriPlayerSettings hyriSettings;
-    private IHyriPlayerSettings.Language lang;
+    private IHyriPlayerSettings.Language language;
     private IHyriPlayerManager hyriPlayerManager;
 
     private ItemStack enItem;
@@ -28,44 +31,45 @@ public class LanguageGui extends AbstractInventory {
     private ItemStack currentLangItem;
 
     public LanguageGui(Player owner, IHyriPlayer player, IHyriPlayerManager manager, SettingsGui oldGui) {
-        super(owner, "Choix de la Langue", 27);
+        super(owner, HyriLobby.getInstance().getLanguageManager().getMessageForPlayer(owner, "title.language.gui"), 27);
 
         this.player = owner;
         this.oldGui = oldGui;
         this.hyriPlayer = player;
         this.hyriPlayerManager = manager;
         this.hyriSettings = this.hyriPlayer.getSettings();
-        this.lang = this.hyriSettings.getLanguage();
+        this.language = this.hyriSettings.getLanguage();
+        this.lang = HyriLobby.getInstance().getLanguageManager();
 
         this.fillItem = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (short) 15)
                 .withName(" ").build();
         this.closeItem = new ItemBuilder(Material.BARRIER)
-                .withName("§fQuitter").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.language.quit")).build();
         this.frItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.FRANCE.getTexture())
-                .withName("§fClique pour changer en \"Français\"").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.language.frItem")).build();
         this.enItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.ENGLAND.getTexture())
-                .withName("§fClique pour changer en \"Anglais\"").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.language.enItem")).build();
         this.currentLangItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.ARROW_DOWN.getTexture())
-                .withName("§fActuellement sur \"" + this.getIndicatorName(this.lang) + "\"").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.language.current") + this.getIndicatorName(this.language)).build();
 
         setFill(this.fillItem);
-        setItem(this.getSlot(this.lang), this.currentLangItem);
+        setItem(this.getSlot(this.language), this.currentLangItem);
         setItem(11, this.frItem, e -> {
-            this.lang = IHyriPlayerSettings.Language.FR;
-            this.hyriSettings.setLanguage(this.lang);
+            this.language = IHyriPlayerSettings.Language.FR;
+            this.hyriSettings.setLanguage(this.language);
             e.getInventory().remove(this.currentLangItem);
-            e.getInventory().setItem(this.getSlot(this.lang), this.updateCurrent(this.currentLangItem, this.lang));
+            e.getInventory().setItem(this.getSlot(this.language), this.updateCurrent(this.currentLangItem, this.language));
             setFill(this.fillItem);
             this.player.updateInventory();
         });
         setItem(15, this.enItem, e -> {
-            this.lang = IHyriPlayerSettings.Language.EN;
-            this.hyriSettings.setLanguage(this.lang);
+            this.language = IHyriPlayerSettings.Language.EN;
+            this.hyriSettings.setLanguage(this.language);
             e.getInventory().remove(this.currentLangItem);
-            e.getInventory().setItem(this.getSlot(this.lang), this.updateCurrent(this.currentLangItem, this.lang));
+            e.getInventory().setItem(this.getSlot(this.language), this.updateCurrent(this.currentLangItem, this.language));
             setFill(this.fillItem);
             this.player.updateInventory();
         });
@@ -75,23 +79,23 @@ public class LanguageGui extends AbstractInventory {
         });
     }
 
-    private ItemStack updateCurrent(ItemStack item, IHyriPlayerSettings.Language lang) {
-        return new ItemBuilder(item).withName("§fActuellement sur \"" + this.getIndicatorName(lang) + "\"").build();
+    private ItemStack updateCurrent(ItemStack item, IHyriPlayerSettings.Language language) {
+        return new ItemBuilder(item).withName(this.lang.getMessageForPlayer(this.player, "item.language.current") + this.getIndicatorName(language)).build();
     }
 
-    private String getIndicatorName(IHyriPlayerSettings.Language lang) {
-        switch (lang) {
+    private String getIndicatorName(IHyriPlayerSettings.Language language) {
+        switch (language) {
             case FR:
-                return "Français";
+                return this.lang.getMessageForPlayer(this.player, "item.language.frLang");
             case EN:
-                return "English";
+                return this.lang.getMessageForPlayer(this.player, "item.language.enLang");
             default:
                 return "";
         }
     }
 
-    private int getSlot(IHyriPlayerSettings.Language lang) {
-        switch (lang) {
+    private int getSlot(IHyriPlayerSettings.Language language) {
+        switch (language) {
             case FR:
                 return 2;
             case EN:

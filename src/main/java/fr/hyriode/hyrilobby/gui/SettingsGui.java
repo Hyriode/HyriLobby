@@ -2,6 +2,7 @@ package fr.hyriode.hyrilobby.gui;
 
 import fr.hyriode.common.inventory.AbstractInventory;
 import fr.hyriode.common.item.ItemBuilder;
+import fr.hyriode.hyrame.language.LanguageManager;
 import fr.hyriode.hyriapi.HyriAPI;
 import fr.hyriode.hyriapi.player.IHyriPlayer;
 import fr.hyriode.hyriapi.player.IHyriPlayerManager;
@@ -26,6 +27,7 @@ public class SettingsGui extends AbstractInventory {
 
     private Player player;
     private HyriLobby plugin;
+    private LanguageManager lang;
     private PlayerManager manager;
     private IHyriPlayer hyriPlayer;
     private IHyriPlayerSettings hyriSettings;
@@ -56,14 +58,12 @@ public class SettingsGui extends AbstractInventory {
 
     private Logger logger = Bukkit.getLogger();
 
-    public SettingsGui(Player owner, HyriLobby plugin) {
-        super(owner, plugin.getLanguageManager().getMessageForPlayer(owner, "title.settings.gui"), 54);
+    public SettingsGui(Player owner) {
+        super(owner, HyriLobby.getInstance().getLanguageManager().getMessageForPlayer(owner, "title.settings.gui"), 54);
 
-        /*
-            Set Values with HyriAPI
-         */
         this.player = owner;
-        this.plugin = plugin;
+        this.plugin = HyriLobby.getInstance();
+        this.lang = HyriLobby.getInstance().getLanguageManager();
         this.manager = PlayerManager.getByUuid(this.player.getUniqueId());
         this.hyriPlayer = this.manager.getPlayer();
         this.hyriSettings = this.hyriPlayer.getSettings();
@@ -82,38 +82,35 @@ public class SettingsGui extends AbstractInventory {
                 .withName(" ").build();
         this.soundTagItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.NOTEBLOCK.getTexture())
-                .withName("§fAlertes Sonores").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.soundTag")).build();
         this.soundTagSwitch = new ItemBuilder(this.createSwitch(this.isTagSoundEnabled))
-                .withName("§fClique pour " + this.getSwitchName(this.isTagSoundEnabled)).build();
-        this.partyRequestItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
-                .withCustomHead(UsefulHeads.SWORD.getTexture())
-                .withName("§fDemandes de Parties").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isTagSoundEnabled)).build();
+        this.partyRequestItem = new ItemBuilder(Material.PAPER)
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.partyRequest")).build();
         this.partyRequestSwitch = new ItemBuilder(this.createSwitch(this.isPartyRequestsEnabled))
-                .withName("§fClique pour " + this.getSwitchName(this.isPartyRequestsEnabled)).build();
-        this.friendRequestItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
-                .withCustomHead(UsefulHeads.MISSING_TEXTURE.getTexture())
-                .withName("§fDemandes d'Ami").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isPartyRequestsEnabled)).build();
+        this.friendRequestItem = new ItemBuilder(Material.PAPER)
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.friendRequest")).build();
         this.friendRequestSwitch = new ItemBuilder(this.createSwitch(this.isFriendRequestsEnabled))
-                .withName("§fClique pour " + this.getSwitchName(this.isFriendRequestsEnabled)).build();
-        this.globalChatItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
-                .withCustomHead(UsefulHeads.BUBBLE.getTexture())
-                .withName("§fMessages du Chat Global").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isFriendRequestsEnabled)).build();
+        this.globalChatItem = new ItemBuilder(Material.BOOK)
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.globalChat")).build();
         this.globalChatSwitch = new ItemBuilder(this.createSwitch(this.isGlobalChatMessagesEnabled))
-                .withName("§fClique pour " + this.getSwitchName(this.isGlobalChatMessagesEnabled)).build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isGlobalChatMessagesEnabled)).build();
         this.privateMessagesSoundItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
-                .withCustomHead(UsefulHeads.MAILBOX.getTexture())
-                .withName("§fAlertes Sonores de Messages Privés").build();
+                .withCustomHead(UsefulHeads.NOTEBLOCK.getTexture())
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.privateMessagesSound")).build();
         this.privateMessagesSoundSwitch = new ItemBuilder(this.createSwitch(this.isPrivateMessagesSoundEnabled))
-                .withName("§fClique pour " + this.getSwitchName(this.isPrivateMessagesSoundEnabled)).build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isPrivateMessagesSoundEnabled)).build();
         this.languageItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.EARTH.getTexture())
-                .withName("§fLangue du Serveur").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.language")).build();
         this.privateMessagesLevelItem = new ItemBuilder(Material.REDSTONE_COMPARATOR)
-                .withName("§fFiltre des Messages Privés").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.privateMessagesLevel")).build();
         this.playersVisibilityLevelItem = new ItemBuilder(Material.EYE_OF_ENDER)
-                .withName("§fFiltre des Joueurs Affichés").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.playersVisibilityLevel")).build();
         this.closeItem = new ItemBuilder(Material.BARRIER)
-                .withName("§fQuitter").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.quit")).build();
 
         setFill(this.fillItem);
         setItem(10, this.soundTagItem);
@@ -177,13 +174,13 @@ public class SettingsGui extends AbstractInventory {
         } else {
             dye.setColor(DyeColor.RED);
         }
-        return new ItemBuilder(dye.toItemStack(1)).withName("§fClique pour " + this.getSwitchName(option)).build();
+        return new ItemBuilder(dye.toItemStack(1)).withName(this.lang.getMessageForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(option)).build();
     }
 
     private String getSwitchName(boolean option) {
         if (option) {
-            return "le désactiver";
-        } else return "l'activer";
+            return this.lang.getMessageForPlayer(this.player, "item.Settings.switch.off");
+        } else return this.lang.getMessageForPlayer(this.player, "item.Settings.switch.on");
     }
 
     @Override
