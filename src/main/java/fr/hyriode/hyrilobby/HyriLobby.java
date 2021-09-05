@@ -1,16 +1,21 @@
 package fr.hyriode.hyrilobby;
 
+import fr.hyriode.common.inventory.InventoryHandler;
+import fr.hyriode.common.item.ItemHandler;
+import fr.hyriode.hyrame.Hyrame;
+import fr.hyriode.hyrame.language.LanguageManager;
 import fr.hyriode.hyriapi.HyriAPI;
 import fr.hyriode.hyrilobby.listener.PlayerHandler;
 import fr.hyriode.hyrilobby.player.PlayerManager;
 import fr.hyriode.hyrilobby.scoreboard.ScoreboardManager;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
 public class HyriLobby extends JavaPlugin {
+
+    private static HyriLobby instance;
 
     /** Logger */
     private final Logger logger = getLogger();
@@ -21,6 +26,12 @@ public class HyriLobby extends JavaPlugin {
     /** API */
     private HyriAPI api;
 
+    /** Hyrame */
+    private Hyrame hyrame;
+
+    /** Language Manager*/
+    private LanguageManager languageManager;
+
     @Override
     public void onEnable() {
         this.logger.info("#====={------------------------------}=====#");
@@ -30,11 +41,19 @@ public class HyriLobby extends JavaPlugin {
         this.logger.info("#====={  Authors: Akkashi, AstFaster }=====#");
         this.logger.info("#====={------------------------------}=====#");
 
+        instance = this;
         this.api = HyriAPI.get();
+        this.hyrame = new Hyrame(new HyriLobbyProvider(this));
+        this.languageManager = new LanguageManager(this.hyrame);
 
         this.registerManagers();
         this.registerCommands();
         this.registerListeners();
+
+        new ItemHandler(this);
+        new InventoryHandler(this);
+        new PlayerHandler(this, this);
+
     }
 
     @Override
@@ -51,9 +70,7 @@ public class HyriLobby extends JavaPlugin {
     }
 
     private void registerListeners() {
-        final PluginManager pm = this.getServer().getPluginManager();
 
-        pm.registerEvents(new PlayerHandler(this), this);
     }
 
     private void registerCommands() {
@@ -68,6 +85,18 @@ public class HyriLobby extends JavaPlugin {
 
     public HyriAPI getAPI() {
         return this.api;
+    }
+
+    public Hyrame getHyrame() {
+        return this.hyrame;
+    }
+
+    public static HyriLobby getInstance() {
+        return instance;
+    }
+
+    public LanguageManager getLanguageManager() {
+        return this.languageManager;
     }
 
     public ScoreboardManager getScoreboardManager() {
