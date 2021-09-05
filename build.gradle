@@ -1,5 +1,3 @@
-import java.nio.charset.StandardCharsets
-
 plugins {
     id "com.github.johnrengelman.shadow" version "7.0.0"
 }
@@ -19,7 +17,7 @@ java {
 
 compileJava {
     targetCompatibility = sourceCompatibility = JavaVersion.VERSION_1_8
-    options.encoding = StandardCharsets.UTF_8
+    options.encoding = 'UTF-8'
 }
 
 repositories {

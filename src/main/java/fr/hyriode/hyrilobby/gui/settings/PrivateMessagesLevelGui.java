@@ -2,10 +2,12 @@ package fr.hyriode.hyrilobby.gui.settings;
 
 import fr.hyriode.common.inventory.AbstractInventory;
 import fr.hyriode.common.item.ItemBuilder;
+import fr.hyriode.hyrame.language.LanguageManager;
 import fr.hyriode.hyriapi.player.IHyriPlayer;
 import fr.hyriode.hyriapi.player.IHyriPlayerManager;
 import fr.hyriode.hyriapi.settings.HyriPrivateMessagesLevel;
 import fr.hyriode.hyriapi.settings.IHyriPlayerSettings;
+import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.gui.SettingsGui;
 import fr.hyriode.hyrilobby.util.UsefulHeads;
 import org.bukkit.DyeColor;
@@ -19,6 +21,7 @@ public class PrivateMessagesLevelGui extends AbstractInventory {
 
     private Player player;
     private SettingsGui oldGui;
+    private LanguageManager lang;
     private IHyriPlayer hyriPlayer;
     private HyriPrivateMessagesLevel level;
     private IHyriPlayerSettings hyriSettings;
@@ -32,28 +35,29 @@ public class PrivateMessagesLevelGui extends AbstractInventory {
     private ItemStack currentLevelItem;
 
     public PrivateMessagesLevelGui(Player owner, IHyriPlayer player, IHyriPlayerManager manager, SettingsGui oldGui) {
-        super(owner, "Filtre des Messages Privés", 27);
+        super(owner, HyriLobby.getInstance().getLanguageManager().getMessageForPlayer(owner, "title.mp.gui"), 27);
 
         this.player = owner;
         this.oldGui = oldGui;
         this.hyriPlayer = player;
         this.hyriPlayerManager = manager;
         this.hyriSettings = this.hyriPlayer.getSettings();
+        this.lang = HyriLobby.getInstance().getLanguageManager();
         this.level = this.hyriSettings.getPrivateMessagesLevel();
 
         this.fillItem = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (short) 15)
                 .withName(" ").build();
         this.closeItem = new ItemBuilder(Material.BARRIER)
-                .withName("§fQuitter").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.mp.quit")).build();
         this.allLevelItem = new ItemBuilder(new Wool(DyeColor.LIME).toItemStack(1))
-                .withName("§fClique pour passer sur \"Tout le Monde\"").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.mp.allItem")).build();
         this.noneLevelItem = new ItemBuilder(new Wool(DyeColor.RED).toItemStack(1))
-                .withName("§fClique pour passer sur \"Aucun\"").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.mp.noneItem")).build();
         this.friendsLevelItem = new ItemBuilder(new Wool(DyeColor.ORANGE).toItemStack(1))
-                .withName("§fClique pour passer sur \"Amis Uniquement\"").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.mp.friendsItem")).build();
         this.currentLevelItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.ARROW_DOWN.getTexture())
-                .withName("§fActuellement sur \"" + this.getIndicatorName(this.level) + "\"").build();
+                .withName(this.lang.getMessageForPlayer(this.player, "item.mp.current") + this.getIndicatorName(this.level)).build();
 
         setFill(this.fillItem);
         setItem(this.getSlot(this.level), this.currentLevelItem);
@@ -88,17 +92,17 @@ public class PrivateMessagesLevelGui extends AbstractInventory {
     }
 
     private ItemStack updateCurrent(ItemStack item, HyriPrivateMessagesLevel level) {
-        return new ItemBuilder(item).withName("§fActuellement sur \"" + this.getIndicatorName(level) + "\"").build();
+        return new ItemBuilder(item).withName(this.lang.getMessageForPlayer(this.player, "item.mp.current") + this.getIndicatorName(level)).build();
     }
 
     private String getIndicatorName(HyriPrivateMessagesLevel level) {
         switch (level) {
             case ALL:
-                return "Tout le Monde";
+                return this.lang.getMessageForPlayer(this.player, "item.mp.allLevel");
             case FRIENDS:
-                return "Amis Uniquement";
+                return this.lang.getMessageForPlayer(this.player, "item.mp.friendsLevel");
             case NONE:
-                return "Aucun";
+                return this.lang.getMessageForPlayer(this.player, "item.mp.noneLevel");
             default:
                 return "";
         }
