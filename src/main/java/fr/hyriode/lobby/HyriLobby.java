@@ -1,21 +1,19 @@
-package fr.hyriode.hyrilobby;
+package fr.hyriode.lobby;
 
-import fr.hyriode.common.inventory.InventoryHandler;
-import fr.hyriode.common.item.ItemHandler;
-import fr.hyriode.hyrame.Hyrame;
-import fr.hyriode.hyrame.language.LanguageManager;
+import fr.hyriode.hyrame.HyrameLoader;
+import fr.hyriode.hyrame.IHyrame;
+import fr.hyriode.hyrame.language.IHyriLanguageManager;
 import fr.hyriode.hyriapi.HyriAPI;
-import fr.hyriode.hyrilobby.listener.PlayerHandler;
-import fr.hyriode.hyrilobby.player.PlayerManager;
-import fr.hyriode.hyrilobby.scoreboard.ScoreboardManager;
+import fr.hyriode.lobby.listener.PlayerHandler;
+import fr.hyriode.lobby.player.PlayerManager;
+import fr.hyriode.lobby.scoreboard.ScoreboardManager;
+import fr.hyriode.tools.inventory.InventoryHandler;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
 public class HyriLobby extends JavaPlugin {
-
-    private static HyriLobby instance;
 
     /** Logger */
     private final Logger logger = getLogger();
@@ -27,10 +25,10 @@ public class HyriLobby extends JavaPlugin {
     private HyriAPI api;
 
     /** Hyrame */
-    private Hyrame hyrame;
+    private IHyrame hyrame;
 
     /** Language Manager*/
-    private LanguageManager languageManager;
+    private IHyriLanguageManager languageManager;
 
     @Override
     public void onEnable() {
@@ -41,18 +39,16 @@ public class HyriLobby extends JavaPlugin {
         this.logger.info("#====={  Authors: Akkashi, AstFaster }=====#");
         this.logger.info("#====={------------------------------}=====#");
 
-        instance = this;
         this.api = HyriAPI.get();
-        this.hyrame = new Hyrame(new HyriLobbyProvider(this));
-        this.languageManager = new LanguageManager(this.hyrame);
+        this.hyrame = HyrameLoader.load(new HyriLobbyProvider(this));
+        this.languageManager = this.hyrame.getLanguageManager();
 
         this.registerManagers();
         this.registerCommands();
         this.registerListeners();
 
-        new ItemHandler(this);
         new InventoryHandler(this);
-        new PlayerHandler(this, this);
+        new PlayerHandler(this);
 
     }
 
@@ -87,16 +83,8 @@ public class HyriLobby extends JavaPlugin {
         return this.api;
     }
 
-    public Hyrame getHyrame() {
+    public IHyrame getHyrame() {
         return this.hyrame;
-    }
-
-    public static HyriLobby getInstance() {
-        return instance;
-    }
-
-    public LanguageManager getLanguageManager() {
-        return this.languageManager;
     }
 
     public ScoreboardManager getScoreboardManager() {

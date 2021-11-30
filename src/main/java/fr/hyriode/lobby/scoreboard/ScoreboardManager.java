@@ -1,7 +1,7 @@
-package fr.hyriode.hyrilobby.scoreboard;
+package fr.hyriode.lobby.scoreboard;
 
-import fr.hyriode.common.board.Scoreboard;
-import fr.hyriode.hyrilobby.HyriLobby;
+import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.tools.scoreboard.Scoreboard;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;

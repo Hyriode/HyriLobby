@@ -1,11 +1,11 @@
-package fr.hyriode.hyrilobby.player;
+package fr.hyriode.lobby.player;
 
-import fr.hyriode.common.title.Title;
 import fr.hyriode.hyriapi.player.IHyriPlayer;
 import fr.hyriode.hyriapi.rank.HyriRank;
-import fr.hyriode.hyrilobby.HyriLobby;
-import fr.hyriode.hyrilobby.util.References;
-import fr.hyriode.hyrilobby.util.Utils;
+import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.util.References;
+import fr.hyriode.lobby.util.Utils;
+import fr.hyriode.tools.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -44,7 +44,7 @@ public class PlayerManager {
         messages.add(ChatColor.GRAY + "Boutique du serveur: " + ChatColor.GOLD + "store.hyriode.fr");
         messages.add(ChatColor.GRAY + "Notre discord " + ChatColor.BLUE + "discord.hyriode.fr");
         Player p = Bukkit.getPlayer(uuid);
-        Title.setTitle(p, ChatColor.AQUA + "»" + ChatColor.DARK_AQUA + " " + References.SERVER_NAME + " " + ChatColor.AQUA + "«", ChatColor.GRAY + "Bienvenue sur " + ChatColor.AQUA + References.SERVER_IP + ChatColor.GRAY + " !", 40, 60, 20);
+        Title.sendTitle(p, ChatColor.AQUA + "»" + ChatColor.DARK_AQUA + " " + References.SERVER_NAME + " " + ChatColor.AQUA + "«", ChatColor.GRAY + "Bienvenue sur " + ChatColor.AQUA + References.SERVER_IP + ChatColor.GRAY + " !", 40, 60, 20);
         p.playSound(p.getLocation(), Sound.LEVEL_UP, 5f, 5f);
         if (p.isOp()) {
             Bukkit.broadcastMessage(ChatColor.RED + player.getDisplayName() + ChatColor.GOLD + " a rejoint le lobby !");

@@ -1,15 +1,15 @@
-package fr.hyriode.hyrilobby.gui.settings;
+package fr.hyriode.lobby.gui.settings;
 
-import fr.hyriode.common.inventory.AbstractInventory;
-import fr.hyriode.common.item.ItemBuilder;
-import fr.hyriode.hyrame.language.LanguageManager;
+import fr.hyriode.hyrame.language.IHyriLanguageManager;
 import fr.hyriode.hyriapi.player.IHyriPlayer;
 import fr.hyriode.hyriapi.player.IHyriPlayerManager;
 import fr.hyriode.hyriapi.settings.HyriPrivateMessagesLevel;
 import fr.hyriode.hyriapi.settings.IHyriPlayerSettings;
-import fr.hyriode.hyrilobby.HyriLobby;
-import fr.hyriode.hyrilobby.gui.SettingsGui;
-import fr.hyriode.hyrilobby.util.UsefulHeads;
+import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.gui.SettingsGui;
+import fr.hyriode.lobby.util.UsefulHeads;
+import fr.hyriode.tools.inventory.AbstractInventory;
+import fr.hyriode.tools.item.ItemBuilder;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,45 +19,46 @@ import org.bukkit.material.Wool;
 
 public class PrivateMessagesLevelGui extends AbstractInventory {
 
-    private Player player;
-    private SettingsGui oldGui;
-    private LanguageManager lang;
-    private IHyriPlayer hyriPlayer;
+    private final Player player;
+    private final SettingsGui oldGui;
+    private final IHyriPlayer hyriPlayer;
+    private final IHyriLanguageManager lang;
+    private final IHyriPlayerSettings hyriSettings;
+    private final IHyriPlayerManager hyriPlayerManager;
+
     private HyriPrivateMessagesLevel level;
-    private IHyriPlayerSettings hyriSettings;
-    private IHyriPlayerManager hyriPlayerManager;
 
-    private ItemStack fillItem;
-    private ItemStack closeItem;
-    private ItemStack allLevelItem;
-    private ItemStack noneLevelItem;
-    private ItemStack friendsLevelItem;
-    private ItemStack currentLevelItem;
+    private final ItemStack fillItem;
+    private final ItemStack closeItem;
+    private final ItemStack allLevelItem;
+    private final ItemStack noneLevelItem;
+    private final ItemStack friendsLevelItem;
+    private final ItemStack currentLevelItem;
 
-    public PrivateMessagesLevelGui(Player owner, IHyriPlayer player, IHyriPlayerManager manager, SettingsGui oldGui) {
-        super(owner, HyriLobby.getInstance().getLanguageManager().getMessageForPlayer(owner, "title.mp.gui"), 27);
+    public PrivateMessagesLevelGui(HyriLobby plugin, Player owner, IHyriPlayer player, IHyriPlayerManager manager, SettingsGui oldGui) {
+        super(owner, plugin.getHyrame().getLanguageManager().getMessageValueForPlayer(owner, "title.mp.gui"), 27);
 
         this.player = owner;
         this.oldGui = oldGui;
         this.hyriPlayer = player;
         this.hyriPlayerManager = manager;
         this.hyriSettings = this.hyriPlayer.getSettings();
-        this.lang = HyriLobby.getInstance().getLanguageManager();
+        this.lang = plugin.getHyrame().getLanguageManager();
         this.level = this.hyriSettings.getPrivateMessagesLevel();
 
         this.fillItem = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (short) 15)
                 .withName(" ").build();
         this.closeItem = new ItemBuilder(Material.BARRIER)
-                .withName(this.lang.getMessageForPlayer(this.player, "item.mp.quit")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.mp.quit")).build();
         this.allLevelItem = new ItemBuilder(new Wool(DyeColor.LIME).toItemStack(1))
-                .withName(this.lang.getMessageForPlayer(this.player, "item.mp.allItem")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.mp.allItem")).build();
         this.noneLevelItem = new ItemBuilder(new Wool(DyeColor.RED).toItemStack(1))
-                .withName(this.lang.getMessageForPlayer(this.player, "item.mp.noneItem")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.mp.noneItem")).build();
         this.friendsLevelItem = new ItemBuilder(new Wool(DyeColor.ORANGE).toItemStack(1))
-                .withName(this.lang.getMessageForPlayer(this.player, "item.mp.friendsItem")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.mp.friendsItem")).build();
         this.currentLevelItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.ARROW_DOWN.getTexture())
-                .withName(this.lang.getMessageForPlayer(this.player, "item.mp.current") + this.getIndicatorName(this.level)).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.mp.current") + this.getIndicatorName(this.level)).build();
 
         setFill(this.fillItem);
         setItem(this.getSlot(this.level), this.currentLevelItem);
@@ -92,17 +93,17 @@ public class PrivateMessagesLevelGui extends AbstractInventory {
     }
 
     private ItemStack updateCurrent(ItemStack item, HyriPrivateMessagesLevel level) {
-        return new ItemBuilder(item).withName(this.lang.getMessageForPlayer(this.player, "item.mp.current") + this.getIndicatorName(level)).build();
+        return new ItemBuilder(item).withName(this.lang.getMessageValueForPlayer(this.player, "item.mp.current") + this.getIndicatorName(level)).build();
     }
 
     private String getIndicatorName(HyriPrivateMessagesLevel level) {
         switch (level) {
             case ALL:
-                return this.lang.getMessageForPlayer(this.player, "item.mp.allLevel");
+                return this.lang.getMessageValueForPlayer(this.player, "item.mp.allLevel");
             case FRIENDS:
-                return this.lang.getMessageForPlayer(this.player, "item.mp.friendsLevel");
+                return this.lang.getMessageValueForPlayer(this.player, "item.mp.friendsLevel");
             case NONE:
-                return this.lang.getMessageForPlayer(this.player, "item.mp.noneLevel");
+                return this.lang.getMessageValueForPlayer(this.player, "item.mp.noneLevel");
             default:
                 return "";
         }

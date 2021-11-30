@@ -1,9 +1,9 @@
-package fr.hyriode.hyrilobby.scoreboard;
+package fr.hyriode.lobby.scoreboard;
 
-import fr.hyriode.common.board.Scoreboard;
 import fr.hyriode.hyriapi.player.IHyriPlayer;
-import fr.hyriode.hyrilobby.HyriLobby;
-import fr.hyriode.hyrilobby.util.References;
+import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.util.References;
+import fr.hyriode.tools.scoreboard.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -73,7 +73,7 @@ public class LobbyScoreboard extends Scoreboard {
     }
 
     private String getPlayerNameLine(IHyriPlayer player) {
-        return ARROW + " " + (player.hasNickname() ? ChatColor.RED + "" + ChatColor.BOLD + "Nick: " + ChatColor.RESET + ChatColor.GRAY + player.getCustomName() : ChatColor.DARK_AQUA + "" + ChatColor.BOLD + player.getName());
+        return ARROW + " " + (player.hasCustomName() ? ChatColor.RED + "" + ChatColor.BOLD + "Nick: " + ChatColor.RESET + ChatColor.GRAY + player.getCustomName() : ChatColor.DARK_AQUA + "" + ChatColor.BOLD + player.getName());
     }
 
     private String getRankLine(IHyriPlayer player) {

@@ -1,15 +1,14 @@
-package fr.hyriode.hyrilobby.listener;
+package fr.hyriode.lobby.listener;
 
-import fr.hyriode.hyrilobby.HyriLobby;
-import fr.hyriode.hyrilobby.hotbar.HotbarManager;
-import fr.hyriode.hyrilobby.player.PlayerManager;
+import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.hotbar.HotbarManager;
+import fr.hyriode.lobby.player.PlayerManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Project: HyriLobby
@@ -20,26 +19,23 @@ public class PlayerHandler implements Listener {
 
     private final HyriLobby plugin;
 
-    public PlayerHandler(HyriLobby plugin, JavaPlugin javaPlugin) {
+    public PlayerHandler(HyriLobby plugin) {
         this.plugin = plugin;
-        javaPlugin.getServer().getPluginManager().registerEvents(this, plugin);
+        this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-        PlayerManager playerManager = new PlayerManager(player, this.plugin);
-        playerManager.onLogin();
-        HotbarManager hotbarManager = new HotbarManager(player);
-        hotbarManager.addItemsOnJoin();
+        new PlayerManager(player, this.plugin).onLogin();
+        new HotbarManager(this.plugin, player).onLogin();
         this.plugin.getScoreboardManager().onLogin(player);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onQuit(PlayerQuitEvent event) {
         final Player player = event.getPlayer();
-        PlayerManager playerManager = PlayerManager.getByUuid(player.getUniqueId());
-        playerManager.onLogout();
+        PlayerManager.getByUuid(player.getUniqueId()).onLogout();
         this.plugin.getScoreboardManager().onLogout(player);
     }
 }

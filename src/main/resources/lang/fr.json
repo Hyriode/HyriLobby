@@ -1,6 +1,18 @@
 {
+  "item.infos.name": "§fVos Informations",
+  "item.infos.lore": "§fFaites Clic-Droit pour accéder à vos Informations",
+
+  "item.chooser.name": "§fSélection des Mini-Jeux",
+  "item.chooser.lore": "§fFaites Clic-Droit pour Choisir votre Mini-Jeu",
+
+  "item.shop.name": "§fOuvrir le Shop",
+  "item.shop.lore": "§fFaites Clic-Droit pour Ouvrir le Shop",
+
   "item.settings.name": "&fOuvrir les Paramètres",
   "item.settings.lore": "&fFaites Clic-Droit pour Personnaliser votre Jeu",
+
+  "item.lobbySelector.name": "§fChanger de Lobby",
+  "item.lobbySelector.lore": "§fFaites Clic-Droit pour Choisir votre Lobby",
 
   "title.settings.gui": "&fVos Paramètres",
   "item.settings.switch.base": "&fClique pour ",

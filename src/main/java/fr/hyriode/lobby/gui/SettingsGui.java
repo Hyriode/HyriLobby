@@ -1,19 +1,18 @@
-package fr.hyriode.hyrilobby.gui;
+package fr.hyriode.lobby.gui;
 
-import fr.hyriode.common.inventory.AbstractInventory;
-import fr.hyriode.common.item.ItemBuilder;
-import fr.hyriode.hyrame.language.LanguageManager;
+import fr.hyriode.hyrame.language.IHyriLanguageManager;
 import fr.hyriode.hyriapi.HyriAPI;
 import fr.hyriode.hyriapi.player.IHyriPlayer;
 import fr.hyriode.hyriapi.player.IHyriPlayerManager;
 import fr.hyriode.hyriapi.settings.IHyriPlayerSettings;
-import fr.hyriode.hyrilobby.HyriLobby;
-import fr.hyriode.hyrilobby.gui.settings.LanguageGui;
-import fr.hyriode.hyrilobby.gui.settings.PlayersVisibilityLevelGui;
-import fr.hyriode.hyrilobby.gui.settings.PrivateMessagesLevelGui;
-import fr.hyriode.hyrilobby.player.PlayerManager;
-import fr.hyriode.hyrilobby.util.UsefulHeads;
-import org.bukkit.Bukkit;
+import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.gui.settings.LanguageGui;
+import fr.hyriode.lobby.gui.settings.PlayersVisibilityLevelGui;
+import fr.hyriode.lobby.gui.settings.PrivateMessagesLevelGui;
+import fr.hyriode.lobby.player.PlayerManager;
+import fr.hyriode.lobby.util.UsefulHeads;
+import fr.hyriode.tools.inventory.AbstractInventory;
+import fr.hyriode.tools.item.ItemBuilder;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -21,17 +20,13 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Dye;
 
-import java.util.logging.Logger;
-
 public class SettingsGui extends AbstractInventory {
 
-    private Player player;
-    private HyriLobby plugin;
-    private LanguageManager lang;
-    private PlayerManager manager;
-    private IHyriPlayer hyriPlayer;
-    private IHyriPlayerSettings hyriSettings;
-    private IHyriPlayerManager hyriPlayerManager;
+    private final Player player;
+    private final IHyriPlayer hyriPlayer;
+    private final IHyriLanguageManager lang;
+    private final IHyriPlayerSettings hyriSettings;
+    private final IHyriPlayerManager hyriPlayerManager;
 
     private boolean isTagSoundEnabled;
     private boolean isPartyRequestsEnabled;
@@ -39,33 +34,30 @@ public class SettingsGui extends AbstractInventory {
     private boolean isGlobalChatMessagesEnabled;
     private boolean isPrivateMessagesSoundEnabled;
 
-    private ItemStack fillItem;
-    private ItemStack closeItem;
-    private ItemStack soundTagItem;
+    private final ItemStack fillItem;
+    private final ItemStack closeItem;
+    private final ItemStack soundTagItem;
     private ItemStack soundTagSwitch;
-    private ItemStack globalChatItem;
+    private final ItemStack globalChatItem;
     private ItemStack globalChatSwitch;
-    private ItemStack partyRequestItem;
+    private final ItemStack partyRequestItem;
     private ItemStack partyRequestSwitch;
-    private ItemStack friendRequestItem;
+    private final ItemStack friendRequestItem;
     private ItemStack friendRequestSwitch;
-    private ItemStack privateMessagesSoundItem;
+    private final ItemStack privateMessagesSoundItem;
     private ItemStack privateMessagesSoundSwitch;
 
-    private ItemStack languageItem;
-    private ItemStack privateMessagesLevelItem;
-    private ItemStack playersVisibilityLevelItem;
+    private final ItemStack languageItem;
+    private final ItemStack privateMessagesLevelItem;
+    private final ItemStack playersVisibilityLevelItem;
 
-    private Logger logger = Bukkit.getLogger();
-
-    public SettingsGui(Player owner) {
-        super(owner, HyriLobby.getInstance().getLanguageManager().getMessageForPlayer(owner, "title.settings.gui"), 54);
+    public SettingsGui(HyriLobby plugin, Player owner) {
+        super(owner, plugin.getHyrame().getLanguageManager().getMessageValueForPlayer(owner, "title.settings.gui"), 54);
 
         this.player = owner;
-        this.plugin = HyriLobby.getInstance();
-        this.lang = HyriLobby.getInstance().getLanguageManager();
-        this.manager = PlayerManager.getByUuid(this.player.getUniqueId());
-        this.hyriPlayer = this.manager.getPlayer();
+        this.lang = plugin.getHyrame().getLanguageManager();
+        PlayerManager manager = PlayerManager.getByUuid(this.player.getUniqueId());
+        this.hyriPlayer = manager.getPlayer();
         this.hyriSettings = this.hyriPlayer.getSettings();
         this.hyriPlayerManager = HyriAPI.get().getPlayerManager();
 
@@ -82,35 +74,35 @@ public class SettingsGui extends AbstractInventory {
                 .withName(" ").build();
         this.soundTagItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.NOTEBLOCK.getTexture())
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.soundTag")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.soundTag")).build();
         this.soundTagSwitch = new ItemBuilder(this.createSwitch(this.isTagSoundEnabled))
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isTagSoundEnabled)).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isTagSoundEnabled)).build();
         this.partyRequestItem = new ItemBuilder(Material.PAPER)
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.partyRequest")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.partyRequest")).build();
         this.partyRequestSwitch = new ItemBuilder(this.createSwitch(this.isPartyRequestsEnabled))
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isPartyRequestsEnabled)).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isPartyRequestsEnabled)).build();
         this.friendRequestItem = new ItemBuilder(Material.PAPER)
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.friendRequest")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.friendRequest")).build();
         this.friendRequestSwitch = new ItemBuilder(this.createSwitch(this.isFriendRequestsEnabled))
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isFriendRequestsEnabled)).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isFriendRequestsEnabled)).build();
         this.globalChatItem = new ItemBuilder(Material.BOOK)
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.globalChat")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.globalChat")).build();
         this.globalChatSwitch = new ItemBuilder(this.createSwitch(this.isGlobalChatMessagesEnabled))
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isGlobalChatMessagesEnabled)).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isGlobalChatMessagesEnabled)).build();
         this.privateMessagesSoundItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.NOTEBLOCK.getTexture())
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.privateMessagesSound")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.privateMessagesSound")).build();
         this.privateMessagesSoundSwitch = new ItemBuilder(this.createSwitch(this.isPrivateMessagesSoundEnabled))
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isPrivateMessagesSoundEnabled)).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isPrivateMessagesSoundEnabled)).build();
         this.languageItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.EARTH.getTexture())
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.language")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.language")).build();
         this.privateMessagesLevelItem = new ItemBuilder(Material.REDSTONE_COMPARATOR)
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.privateMessagesLevel")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.privateMessagesLevel")).build();
         this.playersVisibilityLevelItem = new ItemBuilder(Material.EYE_OF_ENDER)
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.playersVisibilityLevel")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.playersVisibilityLevel")).build();
         this.closeItem = new ItemBuilder(Material.BARRIER)
-                .withName(this.lang.getMessageForPlayer(this.player, "item.settings.quit")).build();
+                .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.quit")).build();
 
         setFill(this.fillItem);
         setItem(10, this.soundTagItem);
@@ -154,13 +146,13 @@ public class SettingsGui extends AbstractInventory {
             this.player.updateInventory();
         });
         setItem(38, this.languageItem, e -> {
-            new LanguageGui(this.player, this.hyriPlayer, this.hyriPlayerManager, this).open();
+            new LanguageGui(plugin, this.player, this.hyriPlayer, this.hyriPlayerManager, this).open();
         });
         setItem(40, this.privateMessagesLevelItem, e -> {
-            new PrivateMessagesLevelGui(this.player, this.hyriPlayer, this.hyriPlayerManager, this).open();
+            new PrivateMessagesLevelGui(plugin, this.player, this.hyriPlayer, this.hyriPlayerManager, this).open();
         });
         setItem(42, this.playersVisibilityLevelItem, e -> {
-            new PlayersVisibilityLevelGui(this.player, this.hyriPlayer, this.hyriPlayerManager, this).open();
+            new PlayersVisibilityLevelGui(plugin, this.player, this.hyriPlayer, this.hyriPlayerManager, this).open();
         });
         setItem(49, this.closeItem, e -> {
             e.getWhoClicked().closeInventory();
@@ -174,13 +166,13 @@ public class SettingsGui extends AbstractInventory {
         } else {
             dye.setColor(DyeColor.RED);
         }
-        return new ItemBuilder(dye.toItemStack(1)).withName(this.lang.getMessageForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(option)).build();
+        return new ItemBuilder(dye.toItemStack(1)).withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(option)).build();
     }
 
     private String getSwitchName(boolean option) {
         if (option) {
-            return this.lang.getMessageForPlayer(this.player, "item.Settings.switch.off");
-        } else return this.lang.getMessageForPlayer(this.player, "item.Settings.switch.on");
+            return this.lang.getMessageValueForPlayer(this.player, "item.Settings.switch.off");
+        } else return this.lang.getMessageValueForPlayer(this.player, "item.Settings.switch.on");
     }
 
     @Override

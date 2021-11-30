@@ -1,7 +1,7 @@
-package fr.hyriode.hyrilobby.util;
+package fr.hyriode.lobby.util;
 
-import fr.hyriode.common.chat.ActionBar;
-import fr.hyriode.hyrilobby.HyriLobby;
+import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.tools.actionbar.ActionBar;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
