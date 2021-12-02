@@ -56,5 +56,7 @@
   "item.mp.allLevel": "Tout le Monde\"",
   "item.mp.friendsLevel": "Amis Uniquement\"",
   "item.mp.noneLevel": "Aucun\"",
-  "item.mp.quit": "&fQuitter"
+  "item.mp.quit": "&fQuitter",
+
+  "title.chooser.gui": "&fSélecteur de Mini-Jeu"
 }

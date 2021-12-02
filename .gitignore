@@ -120,10 +120,4 @@ run/
 .idea
 *.iml
 
-# Limbo files
-world.schematic
-server.properties
-src/main/java/fr/fistin/limbo/packets/
-
-
 server
