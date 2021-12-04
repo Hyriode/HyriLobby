@@ -1,5 +1,6 @@
 package fr.hyriode.lobby.listener;
 
+import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.hotbar.HotbarManager;
 import fr.hyriode.lobby.player.PlayerManager;
@@ -15,13 +16,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
  * Created by AstFaster
  * on 25/08/2021 at 19:12
  */
-public class PlayerHandler implements Listener {
-
-    private final HyriLobby plugin;
+public class PlayerHandler extends HyriListener<HyriLobby> {
 
     public PlayerHandler(HyriLobby plugin) {
-        this.plugin = plugin;
-        this.plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        super(plugin);
     }
 
     @EventHandler(priority = EventPriority.LOWEST)

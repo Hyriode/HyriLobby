@@ -23,6 +23,6 @@ public class Utils {
                 if (i == messages.size())
                     i = 0;
             }
-        }.runTaskTimer(lobby, 0, stay * 20l);
+        }.runTaskTimer(lobby, 0, stay * 20L);
     }
 }

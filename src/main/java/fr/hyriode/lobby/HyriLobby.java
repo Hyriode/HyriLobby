@@ -29,52 +29,25 @@ public class HyriLobby extends JavaPlugin {
     @Override
     public void onEnable() {
         this.logger.info("#====={------------------------------}=====#");
-        this.logger.info("#====={     Welcome to HyriLobby     }=====#");
-        this.logger.info("#====={      The plugin is now       }=====#");
-        this.logger.info("#====={           loading...         }=====#");
-        this.logger.info("#====={  Authors: Akkashi, AstFaster }=====#");
+        this.logger.info("#====={   HyriLobby is starting...   }=====#");
+        this.logger.info("#====={  Authors: Akkashi, AstFaster,}=====#");
         this.logger.info("#====={------------------------------}=====#");
 
         this.api = HyriAPI.get();
         this.hyrame = HyrameLoader.load(new HyriLobbyProvider(this));
 
-        this.registerManagers();
-        this.registerCommands();
-        this.registerListeners();
+        this.scoreboardManager = new ScoreboardManager(this);
 
-        new InventoryHandler(this);
         new PlayerHandler(this);
-
-        for (int i = 0; i < 10; i++) {
-            this.hyrame.getGameManager().registerGame(new TestGame(this.hyrame, this));
-        }
     }
 
     @Override
     public void onDisable() {
         this.logger.info("#====={------------------------------}=====#");
         this.logger.info("#====={   HyriLobby is now disabled  }=====#");
-        this.logger.info("#====={    Thanks using HyriLobby !  }=====#");
         this.logger.info("#====={------------------------------}=====#");
+
         PlayerManager.onDisable();
-    }
-
-    private void registerManagers() {
-       this.scoreboardManager = new ScoreboardManager(this);
-    }
-
-    private void registerListeners() {
-
-    }
-
-    private void registerCommands() {
-
-    }
-
-    private void fastCmd(String command, CommandExecutor executor) {
-        this.getCommand(command).setExecutor(executor);
-
-        this.logger.info("Registered command: " +command);
     }
 
     public HyriAPI getAPI() {

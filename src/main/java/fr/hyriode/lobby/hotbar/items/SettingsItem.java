@@ -30,9 +30,7 @@ public class SettingsItem extends HyriItem<HyriLobby> {
         this.onClick(event);
     }
 
-    public void onClick(PlayerInteractEvent e) {
-        final Player p = e.getPlayer();
-        p.sendMessage("Triggered " + this.name);
-        new SettingsGui(this.plugin, p).open();
+    public void onClick(PlayerInteractEvent event) {
+        new SettingsGui(this.plugin, event.getPlayer()).open();
     }
 }

@@ -18,50 +18,53 @@ import java.util.UUID;
 
 public class PlayerManager {
 
-    private HyriLobby lobby;
-    private static HashSet<PlayerManager> players = new HashSet<>();
-    private UUID uuid;
-    private String name;
-    private IHyriPlayer player;
-    private HyriRank rank;
+    private static final HashSet<PlayerManager> PLAYERS = new HashSet<>();
 
-    public PlayerManager(Player player, HyriLobby hyriLobby) {
-        this.lobby = hyriLobby;
+    private final UUID uuid;
+    private final String name;
+    private final IHyriPlayer player;
+    private final HyriRank rank;
+
+    private final HyriLobby plugin;
+
+    public PlayerManager(Player player, HyriLobby plugin) {
+        this.plugin = plugin;
         this.uuid = player.getUniqueId();
         this.name = player.getName();
-        this.player = lobby.getAPI().getPlayerManager().getPlayer(player.getUniqueId());
-        this.rank = lobby.getAPI().getPlayerManager().getPlayer(player.getUniqueId()).getRank();
+        this.player = plugin.getAPI().getPlayerManager().getPlayer(player.getUniqueId());
+        this.rank = plugin.getAPI().getPlayerManager().getPlayer(player.getUniqueId()).getRank();
     }
 
     public static PlayerManager getByUuid(UUID uuid) {
-        return players.stream().filter(p -> p.getUuid().compareTo(uuid) == 0).findFirst().orElse(null);
+        return PLAYERS.stream().filter(p -> p.getUuid().compareTo(uuid) == 0).findFirst().orElse(null);
     }
 
     public void onLogin() {
-        players.add(this);
-        List<String> messages = new ArrayList<>();
+        final List<String> messages = new ArrayList<>();
+        final Player p = Bukkit.getPlayer(uuid);
+
+        PLAYERS.add(this);
+
         messages.add(ChatColor.GRAY + "Site et Forum: " + ChatColor.AQUA + "www.hyriode.fr");
         messages.add(ChatColor.GRAY + "Boutique du serveur: " + ChatColor.GOLD + "store.hyriode.fr");
         messages.add(ChatColor.GRAY + "Notre discord " + ChatColor.BLUE + "discord.hyriode.fr");
-        Player p = Bukkit.getPlayer(uuid);
-        Title.sendTitle(p, ChatColor.AQUA + "»" + ChatColor.DARK_AQUA + " " + References.SERVER_NAME + " " + ChatColor.AQUA + "«", ChatColor.GRAY + "Bienvenue sur " + ChatColor.AQUA + References.SERVER_IP + ChatColor.GRAY + " !", 40, 60, 20);
+
+        Title.sendTitle(p, ChatColor.AQUA + "»" + ChatColor.DARK_AQUA + " " + References.SERVER_NAME + " " + ChatColor.AQUA + "«", ChatColor.GRAY + "Bienvenue sur " + ChatColor.AQUA + References.SERVER_IP + ChatColor.GRAY + " !", 12, 30, 12);
+        Utils.sendActionBar(plugin, p, messages, 5);
+
         p.playSound(p.getLocation(), Sound.LEVEL_UP, 5f, 5f);
-        if (p.isOp()) {
-            Bukkit.broadcastMessage(ChatColor.RED + player.getDisplayName() + ChatColor.GOLD + " a rejoint le lobby !");
-        }
-        Utils.sendActionBar(lobby, p, messages, 5);
     }
 
     public void onLogout() {
-        players.remove(this);
+        PLAYERS.remove(this);
     }
 
     public static void onDisable() {
-        players.clear();
+        PLAYERS.clear();
     }
 
     public static HashSet<PlayerManager> getPlayers() {
-        return players;
+        return PLAYERS;
     }
 
     public UUID getUuid() {

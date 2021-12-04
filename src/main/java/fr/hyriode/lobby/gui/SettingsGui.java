@@ -84,14 +84,7 @@ public class SettingsGui extends AbstractInventory {
     private void addSoundTagSwitch() {
         this.setItem(19, new ItemBuilder(this.createSwitch(this.isTagSoundEnabled))
                 .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isTagSoundEnabled))
-                .build(), e -> {
-                    this.isTagSoundEnabled = !this.isTagSoundEnabled;
-                    this.hyriSettings.setTagSoundEnabled(this.isTagSoundEnabled);
-                    e.getWhoClicked().sendMessage("Tag sound : " + this.isTagSoundEnabled);
-                    e.getInventory().setItem(19, this.createSwitch(this.isTagSoundEnabled, e.getCurrentItem()));
-                    e.getWhoClicked().sendMessage("Updated");
-                    e.getWhoClicked().sendMessage("Tag sound : " + this.isTagSoundEnabled);
-                });
+                .build(), e -> e.getInventory().setItem(19, this.createSwitch(this.isTagSoundEnabled = !this.isTagSoundEnabled, e.getCurrentItem())));
     }
 
     private void addPartyRequestItem() {
@@ -188,7 +181,6 @@ public class SettingsGui extends AbstractInventory {
             dye.setColor(DyeColor.RED);
         }
         return new ItemBuilder(dye.toItemStack(1)).withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(option)).build();
-
     }
 
     private ItemStack createSwitch(boolean option, ItemStack itemStack) {
