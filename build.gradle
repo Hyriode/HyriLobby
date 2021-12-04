@@ -6,7 +6,7 @@ apply plugin: 'idea'
 apply plugin: 'java-library'
 
 group 'fr.hyriode'
-version '1.0.0-SNAPSHOT'
+version '1.0.0'
 archivesBaseName = 'HyriLobby'
 
 java {

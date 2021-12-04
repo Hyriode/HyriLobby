@@ -18,6 +18,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.Dye;
 
 public class SettingsGui extends AbstractInventory {
@@ -87,10 +88,9 @@ public class SettingsGui extends AbstractInventory {
                     this.isTagSoundEnabled = !this.isTagSoundEnabled;
                     this.hyriSettings.setTagSoundEnabled(this.isTagSoundEnabled);
                     e.getWhoClicked().sendMessage("Tag sound : " + this.isTagSoundEnabled);
-                    e.getInventory().setItem(19, this.createSwitch(this.isTagSoundEnabled));
+                    e.getInventory().setItem(19, this.createSwitch(this.isTagSoundEnabled, e.getCurrentItem()));
                     e.getWhoClicked().sendMessage("Updated");
                     e.getWhoClicked().sendMessage("Tag sound : " + this.isTagSoundEnabled);
-                    this.player.updateInventory();
                 });
     }
 
@@ -105,8 +105,7 @@ public class SettingsGui extends AbstractInventory {
                 .build(), e -> {
                     this.isPartyRequestsEnabled = !this.isPartyRequestsEnabled;
                     this.hyriSettings.setPartyRequestsEnabled(this.isPartyRequestsEnabled);
-                    e.getInventory().setItem(24, this.createSwitch(this.isPartyRequestsEnabled));
-                    this.player.updateInventory();
+                    e.getInventory().setItem(24, this.createSwitch(this.isPartyRequestsEnabled, e.getCurrentItem()));
                 });
     }
 
@@ -121,8 +120,7 @@ public class SettingsGui extends AbstractInventory {
                 .build(), e -> {
                     this.isFriendRequestsEnabled = !this.isFriendRequestsEnabled;
                     this.hyriSettings.setFriendRequestsEnabled(this.isFriendRequestsEnabled);
-                    e.getInventory().setItem(25, this.createSwitch(this.isFriendRequestsEnabled));
-                    this.player.updateInventory();
+                    e.getInventory().setItem(25, this.createSwitch(this.isFriendRequestsEnabled, e.getCurrentItem()));
                 });
     }
 
@@ -137,8 +135,7 @@ public class SettingsGui extends AbstractInventory {
                 .build(), e -> {
                     this.isGlobalChatMessagesEnabled = !this.isGlobalChatMessagesEnabled;
                     this.hyriSettings.setGlobalChatMessagesEnabled(this.isGlobalChatMessagesEnabled);
-                    e.getInventory().setItem(22, this.createSwitch(this.isGlobalChatMessagesEnabled));
-                    this.player.updateInventory();
+                    e.getInventory().setItem(22, this.createSwitch(this.isGlobalChatMessagesEnabled, e.getCurrentItem()));
                 });
     }
 
@@ -154,8 +151,7 @@ public class SettingsGui extends AbstractInventory {
                 .build(), e -> {
                     this.isPrivateMessagesSoundEnabled = !this.isPrivateMessagesSoundEnabled;
                     this.hyriSettings.setPrivateMessagesSoundEnabled(this.isPrivateMessagesSoundEnabled);
-                    e.getInventory().setItem(20, createSwitch(this.isPrivateMessagesSoundEnabled));
-                    this.player.updateInventory();
+                    e.getInventory().setItem(20, createSwitch(this.isPrivateMessagesSoundEnabled, e.getCurrentItem()));
                 });
     }
 
@@ -192,6 +188,19 @@ public class SettingsGui extends AbstractInventory {
             dye.setColor(DyeColor.RED);
         }
         return new ItemBuilder(dye.toItemStack(1)).withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(option)).build();
+
+    }
+
+    private ItemStack createSwitch(boolean option, ItemStack itemStack) {
+        final ItemMeta meta = itemStack.getItemMeta();
+        if (option) {
+            itemStack.setDurability((short) 10);
+        } else {
+            itemStack.setDurability((short) 1);
+        }
+        meta.setDisplayName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(option));
+        itemStack.setItemMeta(meta);
+        return itemStack;
     }
 
     private String getSwitchName(boolean option) {
