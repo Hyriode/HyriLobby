@@ -42,8 +42,7 @@ public class SettingsGui extends AbstractInventory {
         this.player = owner;
         this.plugin = plugin;
         this.lang = plugin.getHyrame().getLanguageManager();
-        PlayerManager manager = PlayerManager.getByUuid(this.player.getUniqueId());
-        this.hyriPlayer = manager.getPlayer();
+        this.hyriPlayer = PlayerManager.getByUuid(this.player.getUniqueId()).getPlayer();
         this.hyriSettings = this.hyriPlayer.getSettings();
         this.hyriPlayerManager = HyriAPI.get().getPlayerManager();
 
@@ -84,7 +83,10 @@ public class SettingsGui extends AbstractInventory {
     private void addSoundTagSwitch() {
         this.setItem(19, new ItemBuilder(this.createSwitch(this.isTagSoundEnabled))
                 .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isTagSoundEnabled))
-                .build(), e -> e.getInventory().setItem(19, this.createSwitch(this.isTagSoundEnabled = !this.isTagSoundEnabled, e.getCurrentItem())));
+                .build(), e -> {
+                    e.getInventory().setItem(19, this.createSwitch(this.isTagSoundEnabled = !this.isTagSoundEnabled, e.getCurrentItem()));
+                    this.hyriSettings.setTagSoundEnabled(this.isTagSoundEnabled);
+            });
     }
 
     private void addPartyRequestItem() {
@@ -96,9 +98,8 @@ public class SettingsGui extends AbstractInventory {
         this.setItem(24, new ItemBuilder(this.createSwitch(this.isPartyRequestsEnabled))
                 .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isPartyRequestsEnabled))
                 .build(), e -> {
-                    this.isPartyRequestsEnabled = !this.isPartyRequestsEnabled;
+                    e.getInventory().setItem(24, this.createSwitch(this.isPartyRequestsEnabled = !this.isPartyRequestsEnabled, e.getCurrentItem()));
                     this.hyriSettings.setPartyRequestsEnabled(this.isPartyRequestsEnabled);
-                    e.getInventory().setItem(24, this.createSwitch(this.isPartyRequestsEnabled, e.getCurrentItem()));
                 });
     }
 
@@ -111,9 +112,8 @@ public class SettingsGui extends AbstractInventory {
         this.setItem(25, new ItemBuilder(this.createSwitch(this.isFriendRequestsEnabled))
                 .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isFriendRequestsEnabled))
                 .build(), e -> {
-                    this.isFriendRequestsEnabled = !this.isFriendRequestsEnabled;
+                    e.getInventory().setItem(25, this.createSwitch(this.isFriendRequestsEnabled = !this.isFriendRequestsEnabled, e.getCurrentItem()));
                     this.hyriSettings.setFriendRequestsEnabled(this.isFriendRequestsEnabled);
-                    e.getInventory().setItem(25, this.createSwitch(this.isFriendRequestsEnabled, e.getCurrentItem()));
                 });
     }
 
@@ -126,9 +126,8 @@ public class SettingsGui extends AbstractInventory {
         this.setItem(22, new ItemBuilder(this.createSwitch(this.isGlobalChatMessagesEnabled))
                 .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isGlobalChatMessagesEnabled))
                 .build(), e -> {
-                    this.isGlobalChatMessagesEnabled = !this.isGlobalChatMessagesEnabled;
+                    e.getInventory().setItem(22, this.createSwitch(this.isGlobalChatMessagesEnabled = !this.isGlobalChatMessagesEnabled, e.getCurrentItem()));
                     this.hyriSettings.setGlobalChatMessagesEnabled(this.isGlobalChatMessagesEnabled);
-                    e.getInventory().setItem(22, this.createSwitch(this.isGlobalChatMessagesEnabled, e.getCurrentItem()));
                 });
     }
 
@@ -142,9 +141,8 @@ public class SettingsGui extends AbstractInventory {
         this.setItem(20, new ItemBuilder(this.createSwitch(this.isPrivateMessagesSoundEnabled))
                 .withName(this.lang.getMessageValueForPlayer(this.player, "item.settings.switch.base") + this.getSwitchName(this.isPrivateMessagesSoundEnabled))
                 .build(), e -> {
-                    this.isPrivateMessagesSoundEnabled = !this.isPrivateMessagesSoundEnabled;
+                    e.getInventory().setItem(20, createSwitch(this.isPrivateMessagesSoundEnabled = !this.isPrivateMessagesSoundEnabled, e.getCurrentItem()));
                     this.hyriSettings.setPrivateMessagesSoundEnabled(this.isPrivateMessagesSoundEnabled);
-                    e.getInventory().setItem(20, createSwitch(this.isPrivateMessagesSoundEnabled, e.getCurrentItem()));
                 });
     }
 

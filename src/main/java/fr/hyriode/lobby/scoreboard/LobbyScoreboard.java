@@ -77,7 +77,7 @@ public class LobbyScoreboard extends Scoreboard {
     }
 
     private String getRankLine(IHyriPlayer player) {
-        return DASH + ChatColor.AQUA + "Grade: " + player.getRank().getDisplayName();
+        return DASH + ChatColor.AQUA + "Grade: " + player.getRank().getName();
     }
 
     private String getHyrisLine(IHyriPlayer player) {

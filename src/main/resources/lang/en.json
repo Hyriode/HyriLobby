@@ -15,7 +15,7 @@
   "item.lobbySelector.lore": "§fRight-Click to choose your Lobby",
 
   "title.settings.gui": "&fYour Settings",
-  "item.settings.switch.base": "&fClick to",
+  "item.settings.switch.base": "&fClick to ",
   "item.settings.switch.on": "enable it",
   "item.Settings.switch.off": "disable it",
   "item.settings.soundTag": "&fSound Pings",

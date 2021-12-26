@@ -32,8 +32,8 @@ repositories {
         name = 'Hyrame_maven'
         url 'https://maven.pkg.github.com/Hyriode/Hyrame/'
         credentials {
-            username System.getenv("USERNAME")
-            password System.getenv("TOKEN")
+            username System.getenv("GITHUB_USERNAME")
+            password System.getenv("GITHUB_TOKEN")
         }
     }
 }
@@ -44,6 +44,6 @@ shadowJar {
 
 
 dependencies {
-    implementation 'fr.hyriode:hyrame:1.0.8'
+    implementation 'fr.hyriode:hyrame:1.1.0'
     implementation 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
 }
