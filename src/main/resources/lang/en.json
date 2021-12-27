@@ -56,5 +56,7 @@
   "item.mp.allLevel": "Everybody\"",
   "item.mp.friendsLevel": "Friends Only\"",
   "item.mp.noneLevel": "None\"",
-  "item.mp.quit": "&fQuit"
+  "item.mp.quit": "&fQuit",
+
+  "title.chooser.gui": "Game chooser"
 }

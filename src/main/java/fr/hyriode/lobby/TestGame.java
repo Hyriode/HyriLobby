@@ -8,10 +8,11 @@ import java.util.UUID;
 
 public class TestGame extends HyriGame<TestGamePlayer> {
 
-    public TestGame(IHyrame hyrame, JavaPlugin plugin) {
-        super(hyrame, plugin, "test-" + UUID.randomUUID().toString().split("-")[0], "Game Test-" + UUID.randomUUID().toString().split("-")[0], TestGamePlayer.class, true);
 
-        this.minPlayers = 2;
+    public TestGame(IHyrame hyrame, JavaPlugin plugin) {
+        super(hyrame, plugin, "test", "Game Test", TestGamePlayer.class, true);
+
+        this.minPlayers = 5;
         this.maxPlayers = 10;
     }
 

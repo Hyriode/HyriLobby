@@ -1,13 +1,13 @@
 package fr.hyriode.lobby;
 
+import com.google.gson.Gson;
 import fr.hyriode.hyrame.HyrameLoader;
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyriapi.HyriAPI;
+import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.listener.PlayerHandler;
 import fr.hyriode.lobby.player.PlayerManager;
 import fr.hyriode.lobby.scoreboard.ScoreboardManager;
-import fr.hyriode.tools.inventory.InventoryHandler;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -26,6 +26,9 @@ public class HyriLobby extends JavaPlugin {
     /** Hyrame */
     private IHyrame hyrame;
 
+    /** Lobby API */
+    private LobbyAPI lobbyAPI;
+
     @Override
     public void onEnable() {
         this.logger.info("#====={------------------------------}=====#");
@@ -35,10 +38,13 @@ public class HyriLobby extends JavaPlugin {
 
         this.api = HyriAPI.get();
         this.hyrame = HyrameLoader.load(new HyriLobbyProvider(this));
+        this.lobbyAPI = new LobbyAPI(new Gson(), this.api.getRedisResource());
 
         this.scoreboardManager = new ScoreboardManager(this);
 
         new PlayerHandler(this);
+
+        this.hyrame.getGameManager().registerGame(new TestGame(this.hyrame, this));
     }
 
     @Override
@@ -56,6 +62,10 @@ public class HyriLobby extends JavaPlugin {
 
     public IHyrame getHyrame() {
         return this.hyrame;
+    }
+
+    public LobbyAPI getLobbyAPI() {
+        return this.lobbyAPI;
     }
 
     public ScoreboardManager getScoreboardManager() {

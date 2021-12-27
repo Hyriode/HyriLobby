@@ -18,7 +18,6 @@ public class HotbarManager {
     }
 
     public void onLogin() {
-
         this.p.getInventory().clear();
 
         this.item.giveItem(this.p, 0, GameChooserItem.class);
