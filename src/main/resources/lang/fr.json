@@ -58,5 +58,6 @@
   "item.mp.noneLevel": "Aucun\"",
   "item.mp.quit": "&fQuitter",
 
-  "title.chooser.gui": "&fSélecteur de Mini-Jeu"
+  "title.chooser.gui": "&fSélecteur de Mini-Jeu",
+  "item.chooser.customize": "Personnaliser"
 }

@@ -43,8 +43,6 @@ public class HyriLobby extends JavaPlugin {
         this.scoreboardManager = new ScoreboardManager(this);
 
         new PlayerHandler(this);
-
-        this.hyrame.getGameManager().registerGame(new TestGame(this.hyrame, this));
     }
 
     @Override
