@@ -19,12 +19,11 @@ public class LobbyPlayerManager {
 
     /**
      * Constructor of {@link LobbyPlayerManager}
-     * @param gson Instance of {@link Gson} to serialize/deserialize data
-     * @param pool Instance of {@link JedisPool} to store data
+     * @param api The {@link LobbyAPI}
      */
-    public LobbyPlayerManager(Gson gson, JedisPool pool) {
-        this.gson = gson;
-        this.pool = pool;
+    public LobbyPlayerManager(LobbyAPI api) {
+        this.gson = api.getGson();
+        this.pool = api.getJedisPool();
     }
 
     /**
@@ -64,7 +63,6 @@ public class LobbyPlayerManager {
         } finally {
             jedis.close();
         }
-
     }
 
     /**

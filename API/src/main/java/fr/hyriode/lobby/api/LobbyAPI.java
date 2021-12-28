@@ -8,6 +8,8 @@ public class LobbyAPI {
 
     public static final String REDIS_KEY = "lobby:";
 
+    private final Gson gson;
+    private final JedisPool jedisPool;
     private final LobbyPlayerManager playerManager;
 
     /**
@@ -16,7 +18,25 @@ public class LobbyAPI {
      * @param jedis Instance of {@link JedisPool} to store data
      */
     public LobbyAPI(Gson gson, JedisPool jedis) {
-        this.playerManager = new LobbyPlayerManager(gson, jedis);
+        this.gson = gson;
+        this.jedisPool = jedis;
+        this.playerManager = new LobbyPlayerManager(this);
+    }
+
+    /**
+     * Get {@link Gson}
+     * @return {@link Gson}
+     */
+    public Gson getGson() {
+        return gson;
+    }
+
+    /**
+     * Get the {@link JedisPool}
+     * @return The {@link JedisPool}
+     */
+    public JedisPool getJedisPool() {
+        return jedisPool;
     }
 
     /**
