@@ -32,11 +32,8 @@ public class LobbyPlayerManager {
      * @return The {@link LobbyPlayer} with the given {@link UUID}
      */
     public LobbyPlayer getPlayer(UUID uuid) {
-        final Jedis jedis = this.pool.getResource();
-        try {
+        try (Jedis jedis = this.pool.getResource()) {
             return this.gson.fromJson(jedis.get(this.getPlayersKey(uuid)), LobbyPlayer.class);
-        } finally {
-            jedis.close();
         }
     }
 
@@ -57,11 +54,8 @@ public class LobbyPlayerManager {
      * @param player The {@link LobbyPlayer} to save
      */
     public void sendPlayer(LobbyPlayer player) {
-        final Jedis jedis = this.pool.getResource();
-        try {
+        try (Jedis jedis = this.pool.getResource()) {
             jedis.set(this.getPlayersKey(player.getUuid()), this.gson.toJson(player));
-        } finally {
-            jedis.close();
         }
     }
 
@@ -70,11 +64,8 @@ public class LobbyPlayerManager {
      * @param uuid The player {@link UUID} to delete
      */
     public void removePlayer(UUID uuid) {
-        final Jedis jedis = this.pool.getResource();
-        try {
+        try (Jedis jedis = this.pool.getResource()) {
             jedis.del(this.getPlayersKey(uuid));
-        } finally {
-            jedis.close();
         }
     }
 
