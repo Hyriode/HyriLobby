@@ -2,7 +2,7 @@ package fr.hyriode.lobby.api;
 
 import com.google.gson.Gson;
 import fr.hyriode.lobby.api.player.LobbyPlayerManager;
-import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 public class LobbyAPI {
 
@@ -13,9 +13,9 @@ public class LobbyAPI {
     /**
      * Constructor of {@link LobbyAPI}
      * @param gson Instance of {@link Gson} to serialize/deserialize data
-     * @param jedis Instance of {@link Jedis} to store data
+     * @param jedis Instance of {@link JedisPool} to store data
      */
-    public LobbyAPI(Gson gson, Jedis jedis) {
+    public LobbyAPI(Gson gson, JedisPool jedis) {
         this.playerManager = new LobbyPlayerManager(gson, jedis);
     }
 

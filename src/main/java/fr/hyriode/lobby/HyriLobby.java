@@ -38,7 +38,7 @@ public class HyriLobby extends JavaPlugin {
 
         this.api = HyriAPI.get();
         this.hyrame = HyrameLoader.load(new HyriLobbyProvider(this));
-        this.lobbyAPI = new LobbyAPI(new Gson(), this.api.getRedisResource());
+        this.lobbyAPI = new LobbyAPI(new Gson(), this.api.getRedisConnection().getPool());
 
         this.scoreboardManager = new ScoreboardManager(this);
 

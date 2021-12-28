@@ -3,6 +3,7 @@ package fr.hyriode.lobby.api.player;
 import com.google.gson.Gson;
 import fr.hyriode.lobby.api.LobbyAPI;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.util.UUID;
 
@@ -14,16 +15,16 @@ public class LobbyPlayerManager {
     private static final String REDIS_KEY = "player:";
 
     private final Gson gson;
-    private final Jedis jedis;
+    private final JedisPool pool;
 
     /**
      * Constructor of {@link LobbyPlayerManager}
      * @param gson Instance of {@link Gson} to serialize/deserialize data
-     * @param jedis Instance of {@link Jedis} to store data
+     * @param pool Instance of {@link JedisPool} to store data
      */
-    public LobbyPlayerManager(Gson gson, Jedis jedis) {
+    public LobbyPlayerManager(Gson gson, JedisPool pool) {
         this.gson = gson;
-        this.jedis = jedis;
+        this.pool = pool;
     }
 
     /**
@@ -32,7 +33,12 @@ public class LobbyPlayerManager {
      * @return The {@link LobbyPlayer} with the given {@link UUID}
      */
     public LobbyPlayer getPlayer(UUID uuid) {
-        return this.gson.fromJson(this.jedis.get(this.getPlayersKey(uuid)), LobbyPlayer.class);
+        final Jedis jedis = this.pool.getResource();
+        try {
+            return this.gson.fromJson(jedis.get(this.getPlayersKey(uuid)), LobbyPlayer.class);
+        } finally {
+            jedis.close();
+        }
     }
 
     /**
@@ -52,7 +58,13 @@ public class LobbyPlayerManager {
      * @param player The {@link LobbyPlayer} to save
      */
     public void sendPlayer(LobbyPlayer player) {
-        this.jedis.set(this.getPlayersKey(player.getUuid()), this.gson.toJson(player));
+        final Jedis jedis = this.pool.getResource();
+        try {
+            jedis.set(this.getPlayersKey(player.getUuid()), this.gson.toJson(player));
+        } finally {
+            jedis.close();
+        }
+
     }
 
     /**
@@ -60,7 +72,12 @@ public class LobbyPlayerManager {
      * @param uuid The player {@link UUID} to delete
      */
     public void removePlayer(UUID uuid) {
-        this.jedis.del(this.getPlayersKey(uuid));
+        final Jedis jedis = this.pool.getResource();
+        try {
+            jedis.del(this.getPlayersKey(uuid));
+        } finally {
+            jedis.close();
+        }
     }
 
     /**
