@@ -23,7 +23,7 @@ public class GameChooserMenu {
         this.games.put(2, GameItem.RTF);
 
         for (int i = 3; i <= 6; i++) {
-            this.games.put(i, GameItem.NULL);
+            this.games.put(i, GameItem.TEST);
         }
     }
 

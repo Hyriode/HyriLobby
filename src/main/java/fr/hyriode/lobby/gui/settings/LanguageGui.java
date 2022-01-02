@@ -33,7 +33,7 @@ public class LanguageGui extends AbstractInventory {
     private final ItemStack currentLangItem;
 
     public LanguageGui(HyriLobby plugin, Player owner, IHyriPlayer player, IHyriPlayerManager manager, SettingsGui oldGui) {
-        super(owner, plugin.getHyrame().getLanguageManager().getMessageValueForPlayer(owner, "title.language.gui"), 27);
+        super(owner, plugin.getHyrame().getLanguageManager().getValue(owner, "title.language.gui"), 27);
 
         this.player = owner;
         this.oldGui = oldGui;
@@ -46,16 +46,16 @@ public class LanguageGui extends AbstractInventory {
         this.fillItem = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (short) 15)
                 .withName(" ").build();
         this.closeItem = new ItemBuilder(Material.BARRIER)
-                .withName(this.lang.getMessageValueForPlayer(this.player, "item.language.quit")).build();
+                .withName(this.lang.getValue(this.player, "item.language.quit")).build();
         this.frItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.FRANCE.getTexture())
-                .withName(this.lang.getMessageValueForPlayer(this.player, "item.language.frItem")).build();
+                .withName(this.lang.getValue(this.player, "item.language.frItem")).build();
         this.enItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.ENGLAND.getTexture())
-                .withName(this.lang.getMessageValueForPlayer(this.player, "item.language.enItem")).build();
+                .withName(this.lang.getValue(this.player, "item.language.enItem")).build();
         this.currentLangItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.ARROW_DOWN.getTexture())
-                .withName(this.lang.getMessageValueForPlayer(this.player, "item.language.current") + this.getIndicatorName(this.language)).build();
+                .withName(this.lang.getValue(this.player, "item.language.current") + this.getIndicatorName(this.language)).build();
 
         setFill(this.fillItem);
         setItem(this.getSlot(this.language), this.currentLangItem);
@@ -82,15 +82,15 @@ public class LanguageGui extends AbstractInventory {
     }
 
     private ItemStack updateCurrent(ItemStack item, HyriLanguage language) {
-        return new ItemBuilder(item).withName(this.lang.getMessageValueForPlayer(this.player, "item.language.current") + this.getIndicatorName(language)).build();
+        return new ItemBuilder(item).withName(this.lang.getValue(this.player, "item.language.current") + this.getIndicatorName(language)).build();
     }
 
     private String getIndicatorName(HyriLanguage language) {
         switch (language) {
             case FR:
-                return this.lang.getMessageValueForPlayer(this.player, "item.language.frLang");
+                return this.lang.getValue(this.player, "item.language.frLang");
             case EN:
-                return this.lang.getMessageValueForPlayer(this.player, "item.language.enLang");
+                return this.lang.getValue(this.player, "item.language.enLang");
             default:
                 return "";
         }

@@ -12,6 +12,8 @@ public enum GameItem {
     BEDWARS("Bedwars", "BED", Arrays.asList("1v1", "2v2", "4v4")),
     RTF("RTF", "BANNER", Arrays.asList("2v2", "5v5")),
 
+    TEST("TEST", "LEAVES", Arrays.asList("1v1", "2v2")),
+
     NULL(" ", "BARRIER", null);
 
     private final String name;

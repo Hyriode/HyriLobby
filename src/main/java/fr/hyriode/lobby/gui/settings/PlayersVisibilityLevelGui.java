@@ -37,7 +37,7 @@ public class PlayersVisibilityLevelGui extends AbstractInventory {
     private final ItemStack currentLevelItem;
 
     public PlayersVisibilityLevelGui(HyriLobby plugin, Player owner, IHyriPlayer player, IHyriPlayerManager manager, SettingsGui oldGui) {
-        super(owner, plugin.getHyrame().getLanguageManager().getMessageValueForPlayer(owner, "title.visibility.gui"), 27);
+        super(owner, plugin.getHyrame().getLanguageManager().getValue(owner, "title.visibility.gui"), 27);
 
         this.player = owner;
         this.oldGui = oldGui;
@@ -50,18 +50,18 @@ public class PlayersVisibilityLevelGui extends AbstractInventory {
         this.fillItem = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (short) 15)
                 .withName(" ").build();
         this.closeItem = new ItemBuilder(Material.BARRIER)
-                .withName(this.lang.getMessageValueForPlayer(this.player, "item.visibility.quit")).build();
+                .withName(this.lang.getValue(this.player, "item.visibility.quit")).build();
         this.allLevelItem = new ItemBuilder(new Wool(DyeColor.LIME).toItemStack(1))
-                .withName(this.lang.getMessageValueForPlayer(this.player, "item.visibility.allItem")).build();
+                .withName(this.lang.getValue(this.player, "item.visibility.allItem")).build();
         this.noneLevelItem = new ItemBuilder(new Wool(DyeColor.RED).toItemStack(1))
-                .withName(this.lang.getMessageValueForPlayer(this.player, "item.visibility.noneItem")).build();
+                .withName(this.lang.getValue(this.player, "item.visibility.noneItem")).build();
         this.partyLevelItem = new ItemBuilder(new Wool(DyeColor.ORANGE).toItemStack(1))
-                .withName(this.lang.getMessageValueForPlayer(this.player, "item.visibility.partyItem")).build();
+                .withName(this.lang.getValue(this.player, "item.visibility.partyItem")).build();
         this.friendsLevelItem = new ItemBuilder(new Wool(DyeColor.YELLOW).toItemStack(1))
-                .withName(this.lang.getMessageValueForPlayer(this.player, "item.visibility.friendsItem")).build();
+                .withName(this.lang.getValue(this.player, "item.visibility.friendsItem")).build();
         this.currentLevelItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3)
                 .withCustomHead(UsefulHeads.ARROW_DOWN.getTexture())
-                .withName(this.lang.getMessageValueForPlayer(this.player, "item.visibility.current") + this.getIndicatorName(this.level)).build();
+                .withName(this.lang.getValue(this.player, "item.visibility.current") + this.getIndicatorName(this.level)).build();
 
         setFill(this.fillItem);
         setItem(this.getSlot(this.level), this.currentLevelItem);
@@ -104,19 +104,19 @@ public class PlayersVisibilityLevelGui extends AbstractInventory {
     }
 
     private ItemStack updateCurrent(ItemStack item, HyriPlayersVisibilityLevel level) {
-        return new ItemBuilder(item).withName(this.lang.getMessageValueForPlayer(this.player, "item.visibility.current") + this.getIndicatorName(level)).build();
+        return new ItemBuilder(item).withName(this.lang.getValue(this.player, "item.visibility.current") + this.getIndicatorName(level)).build();
     }
 
     private String getIndicatorName(HyriPlayersVisibilityLevel level) {
         switch (level) {
             case ALL:
-                return this.lang.getMessageValueForPlayer(this.player, "item.visibility.allLevel");
+                return this.lang.getValue(this.player, "item.visibility.allLevel");
             case FRIENDS:
-                return this.lang.getMessageValueForPlayer(this.player, "item.visibility.friendsLevel");
+                return this.lang.getValue(this.player, "item.visibility.friendsLevel");
             case PARTY:
-                return this.lang.getMessageValueForPlayer(this.player, "item.visibility.partyLevel");
+                return this.lang.getValue(this.player, "item.visibility.partyLevel");
             case NONE:
-                return this.lang.getMessageValueForPlayer(this.player, "item.visibility.noneLevel");
+                return this.lang.getValue(this.player, "item.visibility.noneLevel");
             default:
                 return "";
         }

@@ -59,5 +59,8 @@
   "item.mp.quit": "&fQuit",
 
   "title.chooser.gui": "Game chooser",
-  "item.chooser.customize": "Customize"
+  "item.chooser.customize": "Customize",
+
+  "title.customize.chooser.gui": "Click to replace",
+  "item.customize.same": "The game cannot be replaced by itself !"
 }
