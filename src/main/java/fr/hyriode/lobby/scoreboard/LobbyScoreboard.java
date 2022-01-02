@@ -1,9 +1,9 @@
 package fr.hyriode.lobby.scoreboard;
 
+import fr.hyriode.hyrame.scoreboard.Scoreboard;
 import fr.hyriode.hyriapi.player.IHyriPlayer;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.util.References;
-import fr.hyriode.tools.scoreboard.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

@@ -7,9 +7,9 @@ public class HyriLobbyProvider implements IPluginProvider {
 
     public static final String PACKAGE = "fr.hyriode.lobby";
 
-    private final JavaPlugin plugin;
+    private final HyriLobby plugin;
 
-    public HyriLobbyProvider(JavaPlugin plugin) {
+    public HyriLobbyProvider(HyriLobby plugin) {
         this.plugin = plugin;
     }
 

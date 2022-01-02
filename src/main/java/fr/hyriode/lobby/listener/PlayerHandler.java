@@ -4,10 +4,9 @@ import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.hotbar.HotbarManager;
 import fr.hyriode.lobby.player.PlayerManager;
+import fr.hyriode.lobby.scoreboard.ScoreboardManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -18,22 +17,43 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 public class PlayerHandler extends HyriListener<HyriLobby> {
 
+    private final PlayerManager pm;
+    private final HotbarManager hotbar;
+    private final ScoreboardManager scoreboard;
+
     public PlayerHandler(HyriLobby plugin) {
         super(plugin);
+
+        this.pm = new PlayerManager(plugin);
+        this.hotbar = new HotbarManager(plugin);
+        this.scoreboard = new ScoreboardManager(plugin);
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
-        new PlayerManager(player, this.plugin).onLogin();
-        new HotbarManager(this.plugin, player).onLogin();
-        this.plugin.getScoreboardManager().onLogin(player);
+
+        this.pm.onLogin(player);
+        this.hotbar.onLogin(player);
+        this.scoreboard.onLogin(player);
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         final Player player = event.getPlayer();
-        PlayerManager.getByUuid(player.getUniqueId()).onLogout();
-        this.plugin.getScoreboardManager().onLogout(player);
+
+        this.scoreboard.onLogout(player);
+    }
+
+    public PlayerManager getPlayerManager() {
+        return this.pm;
+    }
+
+    public HotbarManager getHotbarManager() {
+        return this.hotbar;
+    }
+
+    public ScoreboardManager getScoreboardManager() {
+        return this.scoreboard;
     }
 }

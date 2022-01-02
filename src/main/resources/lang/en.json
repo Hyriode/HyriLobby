@@ -1,4 +1,9 @@
 {
+  "title.welcome.welcome": "Welcome on",
+  "title.welcome.website": "Website and Forum",
+  "title.welcome.shop": "Shop",
+  "title.welcome.discord": "Our Discord",
+
   "item.infos.name": "§fYour profile",
   "item.infos.lore": "§fRight-Click to view your profile",
 

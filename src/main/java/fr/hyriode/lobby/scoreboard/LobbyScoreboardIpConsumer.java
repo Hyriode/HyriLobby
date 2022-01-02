@@ -1,7 +1,7 @@
 package fr.hyriode.lobby.scoreboard;
 
+import fr.hyriode.hyrame.scoreboard.ScoreboardLine;
 import fr.hyriode.lobby.util.References;
-import fr.hyriode.tools.scoreboard.ScoreboardLine;
 import org.bukkit.ChatColor;
 
 import java.util.function.Consumer;

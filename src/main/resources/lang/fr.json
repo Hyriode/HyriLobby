@@ -1,4 +1,9 @@
 {
+  "title.welcome.welcome": "Bienvenue sur",
+  "title.welcome.website": "Site et Forum",
+  "title.welcome.shop": "Boutique",
+  "title.welcome.discord": "Notre Discord",
+
   "item.infos.name": "§fVos Informations",
   "item.infos.lore": "§fFaites Clic-Droit pour accéder à vos Informations",
 

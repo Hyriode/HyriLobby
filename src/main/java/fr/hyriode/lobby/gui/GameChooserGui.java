@@ -2,6 +2,9 @@ package fr.hyriode.lobby.gui;
 
 import com.google.common.base.MoreObjects;
 import fr.hyriode.hyrame.game.IHyriGameManager;
+import fr.hyriode.hyrame.inventory.HyriInventory;
+import fr.hyriode.hyrame.item.ItemBuilder;
+import fr.hyriode.hyrame.item.enchant.HyriEnchant;
 import fr.hyriode.hyrame.language.IHyriLanguageManager;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.api.chooser.GameChooserMenu;
@@ -9,10 +12,8 @@ import fr.hyriode.lobby.api.chooser.GameItem;
 import fr.hyriode.lobby.api.player.LobbyPlayer;
 import fr.hyriode.lobby.api.player.LobbyPlayerManager;
 import fr.hyriode.lobby.gui.chooser.GameCustomizerGui;
+import fr.hyriode.lobby.util.References;
 import fr.hyriode.lobby.util.UsefulHeads;
-import fr.hyriode.tools.inventory.AbstractInventory;
-import fr.hyriode.tools.item.ItemBuilder;
-import fr.hyriode.tools.item.enchant.HyriEnchant;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -23,9 +24,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class GameChooserGui extends AbstractInventory {
+public class GameChooserGui extends HyriInventory {
 
-    private final List<Integer> dontFill = Arrays.asList(28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43);
+    private static final List<Integer> DONT_FILL = Arrays.asList(28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43);
+    private static final String CUSTOMIZER_BASE = "item.customize.";
+    private static final String BASE = "item.chooser.";
+
     private final List<Integer> enchantedSlots;
 
     public final Player player;
@@ -36,7 +40,6 @@ public class GameChooserGui extends AbstractInventory {
     public final LobbyPlayer lp;
     public final LobbyPlayerManager pm;
 
-    public final ItemStack fillItem;
     public final ItemStack currentItem;
 
     public boolean isCustomizeEnabled;
@@ -60,7 +63,6 @@ public class GameChooserGui extends AbstractInventory {
         });
         this.enchantedSlots.add(53);
 
-        this.fillItem = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (short) 15).withName(" ").build();
         this.currentItem = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (short) 3).withName(" ").build();
 
         this.isCustomizeEnabled = false;
@@ -70,25 +72,23 @@ public class GameChooserGui extends AbstractInventory {
 
     private void init() {
         this.inventory.clear();
-        this.setItem(4, new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3).withCustomHead(UsefulHeads.EARTH.getTexture())
-                .withName(this.lang.getValue(this.player, "title.chooser.gui")).build()
-        );
 
-        this.setItem(53, new ItemBuilder(Material.BLAZE_POWDER).withName(this.lang.getValue(this.player, "item.chooser.customize")).build(), e -> {
+        //Items part
+        this.setItem(4, new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3).withCustomHead(UsefulHeads.EARTH.getTexture()).withName(this.lang.getValue(this.player, "title.chooser.gui")).build());
+
+        //Items with Consumer part
+        this.setItem(53, new ItemBuilder(Material.BLAZE_POWDER).withName(this.lang.getValue(this.player, BASE + "customize")).build(), e -> {
             this.switchWithEnchantedItems(this.isCustomizeEnabled = !this.isCustomizeEnabled, this.enchantedSlots);
         });
-
-        this.addGameItems();
-        this.setCustomFill(false);
-    }
-
-    private void addGameItems() {
         this.menu.getGames().forEach((itemSlot, item) -> {
             final int slot = itemSlot + 10;
-            this.setItem(slot, new ItemBuilder(Material.getMaterial(item.getMaterial())).withName("§f" + item.getName()).build(), e -> {
-                this.onGameClick(slot, Material.getMaterial(item.getMaterial()), item.getName(), item.getModes());
-            });
+            this.setItem(slot, new ItemBuilder(Material.getMaterial(item.getMaterial())).withName("§f" + item.getName()).build(),
+                    e -> this.onGameClick(slot, Material.getMaterial(item.getMaterial()), item.getName(), item.getModes())
+            );
         });
+
+        //Fill part
+        this.setCustomFill(false);
     }
 
     private void onGameClick(int itemSlot, Material material, String gameName, List<String> modes) {
@@ -97,7 +97,7 @@ public class GameChooserGui extends AbstractInventory {
             return;
         }
 
-        this.dontFill.forEach(slot -> this.setItem(slot, new ItemStack(Material.AIR)));
+        DONT_FILL.forEach(slot -> this.setItem(slot, new ItemStack(Material.AIR)));
 
         final int[] slot = {27};
         modes.forEach(type -> {
@@ -120,9 +120,6 @@ public class GameChooserGui extends AbstractInventory {
     }
 
     public void enchantedGameClickCallback(GameItem oldItem, int oldSlot, GameItem newItem, int newSlot) {
-        this.menu.setGame(oldSlot, newItem);
-        this.menu.setGame(newSlot, oldItem);
-
         this.init();
         this.switchWithEnchantedItems(this.isCustomizeEnabled, this.enchantedSlots);
     }
@@ -132,11 +129,11 @@ public class GameChooserGui extends AbstractInventory {
             if (this.inventory.getItem(i) == null) {
                 //Check for GUI style
                 if (selected) {
-                    if (!this.dontFill.contains(i)) {
-                        this.setItem(i, this.fillItem);
+                    if (!DONT_FILL.contains(i)) {
+                        this.setItem(i, References.FILL_ITEM);
                     }
                 } else {
-                    this.setItem(i, this.fillItem);
+                    this.setItem(i, References.FILL_ITEM);
                 }
             }
         }
@@ -166,11 +163,11 @@ public class GameChooserGui extends AbstractInventory {
         if (item.getType() == Material.BLAZE_POWDER) {
             final String name;
             if (isEnchanted) {
-                name = displayName.equalsIgnoreCase(this.lang.getValue(this.player, "item.customize.replacer"))
-                        ? this.lang.getValue(this.player, "item.chooser.customize") : displayName;
+                name = displayName.equalsIgnoreCase(this.lang.getValue(this.player, CUSTOMIZER_BASE + "replacer"))
+                        ? this.lang.getValue(this.player, BASE + "customize") : displayName;
             } else {
-                name = item.getItemMeta().getDisplayName().equalsIgnoreCase(this.lang.getValue(this.player, "item.chooser.customize"))
-                        ? this.lang.getValue(this.player, "item.customize.replacer") : displayName;
+                name = item.getItemMeta().getDisplayName().equalsIgnoreCase(this.lang.getValue(this.player, BASE + "customize"))
+                        ? this.lang.getValue(this.player, CUSTOMIZER_BASE + "replacer") : displayName;
             }
             return name;
         }
@@ -178,7 +175,7 @@ public class GameChooserGui extends AbstractInventory {
     }
 
     @Override
-    protected void onClose(InventoryCloseEvent event) {
+    public void onClose(InventoryCloseEvent event) {
         this.pm.sendPlayer(this.lp);
     }
 }
