@@ -1,0 +1,7 @@
+version = '1.0.0'
+archivesBaseName = 'HyriLobby-API'
+
+dependencies {
+    api 'com.google.code.gson:gson:2.8.9'
+    api 'redis.clients:jedis:4.0.0'
+}

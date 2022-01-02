@@ -1,9 +1,21 @@
 {
+  "item.infos.name": "§fYour profile",
+  "item.infos.lore": "§fRight-Click to view your profile",
+
+  "item.chooser.name": "§fMini-Games selector",
+  "item.chooser.lore": "§fRight-Click to select your mini-game",
+
+  "item.shop.name": "§fOpen the Shop",
+  "item.shop.lore": "§fRight-Click to open the Shop",
+
   "item.settings.name": "&fOpen Settings",
   "item.settings.lore": "&fRight Click to Select your Settings",
 
+  "item.lobbySelector.name": "§fChange Lobby",
+  "item.lobbySelector.lore": "§fRight-Click to choose your Lobby",
+
   "title.settings.gui": "&fYour Settings",
-  "item.settings.switch.base": "&fClick to",
+  "item.settings.switch.base": "&fClick to ",
   "item.settings.switch.on": "enable it",
   "item.Settings.switch.off": "disable it",
   "item.settings.soundTag": "&fSound Pings",
@@ -44,5 +56,11 @@
   "item.mp.allLevel": "Everybody\"",
   "item.mp.friendsLevel": "Friends Only\"",
   "item.mp.noneLevel": "None\"",
-  "item.mp.quit": "&fQuit"
+  "item.mp.quit": "&fQuit",
+
+  "title.chooser.gui": "Game chooser",
+  "item.chooser.customize": "Customize",
+
+  "title.customize.chooser.gui": "Click to replace",
+  "item.customize.same": "The game cannot be replaced by itself !"
 }
