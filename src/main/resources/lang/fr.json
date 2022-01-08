@@ -65,7 +65,4 @@
 
   "title.chooser.gui": "&fSélecteur de Mini-Jeu",
   "item.chooser.customize": "Personnaliser",
-
-  "item.customize.replacer": "Clique pour remplacer",
-  "item.customize.same": "Le jeu ne peut etre remplacé par lui même !"
 }

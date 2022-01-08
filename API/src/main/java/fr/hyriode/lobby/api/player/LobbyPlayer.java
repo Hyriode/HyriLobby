@@ -1,7 +1,5 @@
 package fr.hyriode.lobby.api.player;
 
-import fr.hyriode.lobby.api.chooser.GameChooserMenu;
-
 import java.util.UUID;
 
 /**
@@ -10,7 +8,7 @@ import java.util.UUID;
 public class LobbyPlayer {
 
     private final UUID uuid;
-    private final GameChooserMenu menu;
+    private final Games menu;
 
     /**
      * Constructor of {@link LobbyPlayer}
@@ -18,15 +16,15 @@ public class LobbyPlayer {
      */
     public LobbyPlayer(UUID uuid) {
         this.uuid = uuid;
-        this.menu = new GameChooserMenu();
+        this.menu = new Games();
     }
 
     /**
      * Constructor of {@link LobbyPlayer}
      * @param uuid The player {@link UUID}
-     * @param menu The player {@link GameChooserMenu}, with game items in custom slots
+     * @param menu The player {@link Games}, with game items in custom slots
      */
-    public LobbyPlayer(UUID uuid, GameChooserMenu menu) {
+    public LobbyPlayer(UUID uuid, Games menu) {
         this.uuid = uuid;
         this.menu = menu;
     }
@@ -41,9 +39,9 @@ public class LobbyPlayer {
 
     /**
      * Get the player game menu
-     * @return The player {@link GameChooserMenu}
+     * @return The player {@link Games}
      */
-    public GameChooserMenu getMenu() {
+    public Games getMenu() {
         return menu;
     }
 }

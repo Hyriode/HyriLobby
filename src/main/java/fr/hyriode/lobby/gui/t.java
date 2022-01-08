@@ -7,11 +7,9 @@ import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.item.enchant.HyriEnchant;
 import fr.hyriode.hyrame.language.IHyriLanguageManager;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.api.chooser.GameChooserMenu;
-import fr.hyriode.lobby.api.chooser.GameItem;
+import fr.hyriode.lobby.api.chooser.games.GameItems;
 import fr.hyriode.lobby.api.player.LobbyPlayer;
 import fr.hyriode.lobby.api.player.LobbyPlayerManager;
-import fr.hyriode.lobby.gui.chooser.GameCustomizerGui;
 import fr.hyriode.lobby.util.References;
 import fr.hyriode.lobby.util.UsefulHeads;
 import org.bukkit.Material;
@@ -24,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class GameChooserGui extends HyriInventory {
+public class t extends HyriInventory {
 
     private static final List<Integer> DONT_FILL = Arrays.asList(28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43);
     private static final String CUSTOMIZER_BASE = "item.customize.";
@@ -34,7 +32,7 @@ public class GameChooserGui extends HyriInventory {
 
     public final Player player;
     public final IHyriGameManager gm;
-    public final GameChooserMenu menu;
+    public final Games menu;
     public final IHyriLanguageManager lang;
 
     public final LobbyPlayer lp;
@@ -44,7 +42,7 @@ public class GameChooserGui extends HyriInventory {
 
     public boolean isCustomizeEnabled;
 
-    public GameChooserGui(HyriLobby plugin, Player owner) {
+    public t(HyriLobby plugin, Player owner) {
         super(owner, plugin.getHyrame().getLanguageManager().getValue(owner, "title.chooser.gui"), 54);
 
         this.player = owner;
@@ -119,7 +117,7 @@ public class GameChooserGui extends HyriInventory {
         new GameCustomizerGui(this.menu.getGames().get(slot - 10), slot, this).open();
     }
 
-    public void enchantedGameClickCallback(GameItem oldItem, int oldSlot, GameItem newItem, int newSlot) {
+    public void enchantedGameClickCallback(GameItems oldItem, int oldSlot, GameItems newItem, int newSlot) {
         this.init();
         this.switchWithEnchantedItems(this.isCustomizeEnabled, this.enchantedSlots);
     }
