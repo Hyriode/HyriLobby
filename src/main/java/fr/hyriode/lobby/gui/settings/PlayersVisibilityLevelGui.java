@@ -79,7 +79,7 @@ public class PlayersVisibilityLevelGui extends LobbyInventory {
     }
 
     private void updateCurrent() {
-        this.owner.getInventory().remove(this.currentItem);
+        this.inventory.remove(this.currentItem);
         this.setItem(this.getSlot(), new ItemBuilder(this.currentItem).withName(this.getKey("current") + this.getIndicatorName()).build());
     }
 
