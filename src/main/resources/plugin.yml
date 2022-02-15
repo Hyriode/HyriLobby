@@ -2,3 +2,4 @@ name: HyriLobby
 main: fr.hyriode.lobby.HyriLobby
 version: 1.0
 depend: [HyriAPI, Hyrame]
+prefix: HyriLobby

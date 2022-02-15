@@ -5,21 +5,23 @@ import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.hotbar.items.*;
 import org.bukkit.entity.Player;
 
+import java.util.function.Supplier;
+
 public class HotbarManager {
 
-    private final IHyriItemManager item;
+    private final Supplier<IHyriItemManager> item;
 
-    public HotbarManager(HyriLobby lobby) {
-        this.item = lobby.getHyrame().getItemManager();
+    public HotbarManager(HyriLobby plugin) {
+        this.item = () -> plugin.getHyrame().getItemManager();
     }
 
     public void onLogin(Player player) {
         player.getInventory().clear();
 
-        this.item.giveItem(player, 0, GameChooserItem.class);
-        this.item.giveItem(player, 1, PlayerInfosItem.class);
-        this.item.giveItem(player, 4, ShopItem.class);
-        this.item.giveItem(player, 7, SettingsItem.class);
-        this.item.giveItem(player, 8, LobbySelectorItem.class);
+        this.item.get().giveItem(player, 0, GameChooserItem.class);
+        this.item.get().giveItem(player, 1, PlayerInfosItem.class);
+        this.item.get().giveItem(player, 4, ShopItem.class);
+        this.item.get().giveItem(player, 7, SettingsItem.class);
+        this.item.get().giveItem(player, 8, LobbySelectorItem.class);
     }
 }

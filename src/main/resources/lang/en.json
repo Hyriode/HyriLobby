@@ -63,6 +63,6 @@
   "item.mp.noneLevel": "None\"",
   "item.mp.quit": "&fQuit",
 
-  "title.chooser.gui": "Game chooser",
-  "item.chooser.customize": "Customize"
+  "title.chooser.gui": "§fGame chooser",
+  "item.chooser.customized": "§fUse own GUI"
 }

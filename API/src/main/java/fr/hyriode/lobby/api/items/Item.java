@@ -43,4 +43,12 @@ public class Item {
     public void setData(int data) {
         this.data = (short) data;
     }
+
+    public boolean isSimilar(Item compareTo) {
+        return this.isSimilarWithoutData(compareTo) && this.data == compareTo.getData();
+    }
+
+    public boolean isSimilarWithoutData(Item compareTo) {
+        return this.name.equalsIgnoreCase(compareTo.getName()) && this.material.equalsIgnoreCase(compareTo.getMaterial());
+    }
 }

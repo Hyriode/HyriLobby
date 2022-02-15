@@ -32,7 +32,7 @@ public class HyriLobby extends JavaPlugin {
         this.hyrame = HyrameLoader.load(new HyriLobbyProvider(this));
         this.lobbyAPI = new LobbyAPI(new Gson(), this.api.getRedisConnection().getPool());
 
-        this.playerHandler = new PlayerHandler(this);
+        this.playerHandler = this.hyrame.getListenerManager().getListener(PlayerHandler.class);
     }
 
     @Override

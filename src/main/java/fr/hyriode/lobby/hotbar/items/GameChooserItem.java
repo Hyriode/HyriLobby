@@ -3,7 +3,7 @@ package fr.hyriode.lobby.hotbar.items;
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.item.HyriItem;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.t;
+import fr.hyriode.lobby.gui.chooser.DefaultChooserGui;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -31,6 +31,6 @@ public class GameChooserItem extends HyriItem<HyriLobby> {
     }
 
     public void onClick(PlayerInteractEvent e) {
-        new t(this.plugin, e.getPlayer()).open();
+        new DefaultChooserGui(this.plugin, e.getPlayer()).open();
     }
 }

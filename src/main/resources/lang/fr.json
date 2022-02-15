@@ -64,5 +64,5 @@
   "item.mp.quit": "&fQuitter",
 
   "title.chooser.gui": "&fSélecteur de Mini-Jeu",
-  "item.chooser.customize": "Personnaliser",
+  "item.chooser.customized": "§fUtiliser le GUI personnalisé"
 }

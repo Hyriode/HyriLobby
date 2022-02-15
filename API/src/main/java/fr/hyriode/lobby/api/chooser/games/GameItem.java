@@ -7,7 +7,7 @@ import java.util.List;
 
 public class GameItem {
 
-    private final Item item;
+    private Item item;
     private final List<String> modes;
 
     public GameItem(Item item, String... modes) {
@@ -21,6 +21,10 @@ public class GameItem {
 
     public Item getItem() {
         return this.item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public List<String> getModes() {
