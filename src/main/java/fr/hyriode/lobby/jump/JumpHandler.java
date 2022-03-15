@@ -98,6 +98,7 @@ public class JumpHandler extends HyriListener<HyriLobby> {
         player.setStartedJump(null);
         player.setLastCheckpoint(null);
 
+        this.lm.removeFromLeaderboard(end.getName(), player.getUniqueId().toString());
         this.lm.addToLeaderboard(end.getName(), player.getUniqueId().toString(), duration.toSeconds());
 
         this.jm.getTaskIds().remove(player.getUniqueId());

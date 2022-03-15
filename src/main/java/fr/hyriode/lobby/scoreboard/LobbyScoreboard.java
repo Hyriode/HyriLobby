@@ -2,6 +2,7 @@ package fr.hyriode.lobby.scoreboard;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.hyrame.game.scoreboard.HyriScoreboardIpConsumer;
 import fr.hyriode.hyrame.scoreboard.Scoreboard;
 import fr.hyriode.lobby.HyriLobby;
 import org.bukkit.Bukkit;
@@ -62,7 +63,7 @@ public class LobbyScoreboard extends Scoreboard {
     }
 
     private void addServerIpLine() {
-        this.setLine(11, ChatColor.DARK_AQUA + "CHANGEME", new LobbyScoreboardIpConsumer("CHANGEME"), 2);
+        this.setLine(11, ChatColor.DARK_AQUA + "CHANGEME", new HyriScoreboardIpConsumer("CHANGEME"), 2);
     }
 
     private String getCurrentDate() {

@@ -3,6 +3,7 @@ package fr.hyriode.lobby.leaderboard;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.packet.HyriPacket;
 import fr.hyriode.api.packet.IHyriPacketReceiver;
+import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.hologram.Hologram;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.api.LobbyAPI;
@@ -14,7 +15,6 @@ import fr.hyriode.lobby.api.packet.model.leaderboard.LeaderboardCreatedPacket;
 import fr.hyriode.lobby.api.packet.model.leaderboard.LeaderboardDeletedPacket;
 import fr.hyriode.lobby.api.packet.model.leaderboard.LeaderboardUpdatedPacket;
 import fr.hyriode.lobby.utils.LocationConverter;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public class LeaderboardHandler implements IHyriPacketReceiver {
         final LobbyLeaderboard leaderboard = this.lm.get(((LobbyPacket) hyriPacket).getName());
 
         if (hyriPacket instanceof LeaderboardCreatedPacket) {
-            final Hologram.Builder builder = new Hologram.Builder(this.plugin, LocationConverter.toBukkitLocation(Bukkit.getWorlds().get(0), leaderboard.getLocation()));
+            final Hologram.Builder builder = new Hologram.Builder(this.plugin, LocationConverter.toBukkitLocation(IHyrame.WORLD.get(), leaderboard.getLocation()));
 
             builder.withLine(0, leaderboard::getName);
             for (int i = 1; i <= leaderboard.getTopRange(); i++) {
@@ -63,7 +63,7 @@ public class LeaderboardHandler implements IHyriPacketReceiver {
             }
 
             if (packet.getReason() == LeaderboardUpdatedPacket.Reason.MOVED) {
-                hologram.setLocation(LocationConverter.toBukkitLocation(Bukkit.getWorlds().get(0), leaderboard.getLocation()));
+                hologram.setLocation(LocationConverter.toBukkitLocation(IHyrame.WORLD.get(), leaderboard.getLocation()));
             }
         }
 

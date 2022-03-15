@@ -1,57 +1,74 @@
 package fr.hyriode.lobby.api.utils;
 
+/**
+ * Represents a location in the lobby.
+ */
 public class LobbyLocation {
 
-    private int x;
-    private int y;
-    private int z;
+    /**
+     * The x coordinate.
+     */
+    private final int x;
+    /**
+     * The y coordinate.
+     */
+    private final int y;
+    /**
+     * The z coordinate.
+     */
+    private final int z;
 
-    public LobbyLocation() {
-        this.x = 0;
-        this.y = 0;
-        this.z = 0;
-    }
-
+    /**
+     * The constructor of the location.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     * @param z The z coordinate.
+     */
     public LobbyLocation(int x, int y, int z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
-    
+
+    /**
+     * Get the x coordinate.
+     * @return The x coordinate.
+     */
     public int getX() {
         return this.x;
     }
-    
+
+    /**
+     * Get the y coordinate.
+     * @return The y coordinate.
+     */
     public int getY() {
         return this.y;
     }
-    
+
+    /**
+     * Get the z coordinate.
+     * @return The z coordinate.
+     */
     public int getZ() {
         return this.z;
     }
-    
-    public void setX(int x) {
-        this.x = x;
-    }
-    
-    public void setY(int y) {
-        this.y = y;
-    }
-    
-    public void setZ(int z) {
-        this.z = z;
-    }
-    
-    public void setLocation(int x, int y, int z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
 
+    /**
+     * Check if the given location is equals to the other location.
+     * @param first The first location.
+     * @param second The second location to compare with.
+     * @return <code>true</code> if the two locations are equals, <code>false</code> otherwise.
+     */
     public static boolean isEquals(LobbyLocation first, LobbyLocation second) {
         return first.getX() == second.getX() && first.getY() == second.getY() && first.getZ() == second.getZ();
     }
 
+    /**
+     * Get the location formatted as a string.
+     * @param lobbyLocation The location to format.
+     * @return The formatted location.
+     */
     public static String toStringFormat(LobbyLocation lobbyLocation) {
         return lobbyLocation.getX() + ":" + lobbyLocation.getY() + ":" + lobbyLocation.getZ();
     }
