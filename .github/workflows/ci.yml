@@ -16,6 +16,12 @@ jobs:
           java-version: '8'
           distribution: 'adopt'
 
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1.0.4
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
       - name: Build shade jar with Gradle
         run: ./gradlew shadowJar
         env:
