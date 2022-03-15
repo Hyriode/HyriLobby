@@ -3,13 +3,15 @@ plugins {
 }
 
 allprojects {
-
     apply plugin: 'idea'
     apply plugin: 'java-library'
 
     group = 'fr.hyriode'
 
     java {
+        withSourcesJar()
+        withJavadocJar()
+
         toolchain {
             languageVersion = JavaLanguageVersion.of(8)
         }
@@ -17,6 +19,10 @@ allprojects {
 
     compileJava {
         targetCompatibility = sourceCompatibility = JavaVersion.VERSION_1_8
+        options.encoding = 'UTF-8'
+    }
+
+    tasks.withType(Javadoc) {
         options.encoding = 'UTF-8'
     }
 
@@ -36,9 +42,19 @@ allprojects {
                 password System.getenv("GITHUB_TOKEN")
             }
         }
+
+        maven {
+            name = 'HyriAPI_maven'
+            url 'https://maven.pkg.github.com/Hyriode/HyriAPI/'
+            credentials {
+                username System.getenv("GITHUB_USERNAME")
+                password System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 
     dependencies {
+
     }
 
 }
@@ -54,6 +70,7 @@ shadowJar {
 
 dependencies {
     implementation 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
-    implementation 'fr.hyriode:hyrame:1.1.6'
+    implementation 'fr.hyriode:hyriapi:+'
+    implementation 'fr.hyriode:hyrame:+'
     shadow project(':API')
 }

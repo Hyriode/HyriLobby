@@ -1,4 +1,4 @@
-package fr.hyriode.lobby.util;
+package fr.hyriode.lobby.utils;
 
 public enum UsefulHeads {
 

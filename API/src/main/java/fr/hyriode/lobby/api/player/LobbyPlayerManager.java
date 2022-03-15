@@ -1,80 +1,53 @@
 package fr.hyriode.lobby.api.player;
 
-import com.google.gson.Gson;
+import fr.hyriode.api.HyriAPI;
+import fr.hyriode.api.redis.IHyriRedisProcessor;
 import fr.hyriode.lobby.api.LobbyAPI;
+import fr.hyriode.lobby.api.redis.ILobbyDataManager;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
-/**
- * The {@link LobbyPlayer} manager
- */
-public class LobbyPlayerManager {
+public class LobbyPlayerManager implements ILobbyDataManager<LobbyPlayer, UUID> {
 
     private static final String REDIS_KEY = "player:";
 
-    private final Gson gson;
-    private final JedisPool pool;
+    private final IHyriRedisProcessor redisProcessor;
 
-    /**
-     * Constructor of {@link LobbyPlayerManager}
-     * @param api The {@link LobbyAPI}
-     */
-    public LobbyPlayerManager(LobbyAPI api) {
-        this.gson = api.getGson();
-        this.pool = api.getJedisPool();
+    public LobbyPlayerManager() {
+        this.redisProcessor = HyriAPI.get().getRedisProcessor();
     }
 
-    /**
-     * Get a player from {@link Jedis} with his {@link UUID}
-     * @param uuid The player {@link UUID}
-     * @return The {@link LobbyPlayer} with the given {@link UUID}
-     */
-    public LobbyPlayer getPlayer(UUID uuid) {
-        try (Jedis jedis = this.pool.getResource()) {
-            return this.gson.fromJson(jedis.get(this.getPlayersKey(uuid)), LobbyPlayer.class);
+    @Override
+    public LobbyPlayer get(UUID key) {
+        try (final Jedis jedis = HyriAPI.get().getRedisResource()) {
+            return LobbyAPI.GSON.fromJson(jedis.get(LobbyAPI.REDIS_KEY + REDIS_KEY + key), LobbyPlayer.class);
         }
     }
 
-    /**
-     * Create a player in {@link Jedis} if he doesn't exist
-     * @param uuid The player {@link UUID}
-     * @return The created {@link LobbyPlayer}
-     */
-    public LobbyPlayer createPlayer(UUID uuid) {
-        final LobbyPlayer player = new LobbyPlayer(uuid);
-
-        this.sendPlayer(player);
-        return player;
+    @Override
+    public void save(LobbyPlayer data) {
+        this.redisProcessor.process(jedis -> jedis.set(LobbyAPI.REDIS_KEY + REDIS_KEY + data.getUniqueId(), LobbyAPI.GSON.toJson(data)));
     }
 
-    /**
-     * Save player in {@link Jedis}
-     * @param player The {@link LobbyPlayer} to save
-     */
-    public void sendPlayer(LobbyPlayer player) {
-        try (Jedis jedis = this.pool.getResource()) {
-            jedis.set(this.getPlayersKey(player.getUuid()), this.gson.toJson(player));
+    @Override
+    public void delete(LobbyPlayer data) {
+        this.redisProcessor.process(jedis -> jedis.del(LobbyAPI.REDIS_KEY + REDIS_KEY + data.getUniqueId()));
+    }
+
+    @Override
+    public Set<String> getAllKeys() {
+        try (final Jedis jedis = HyriAPI.get().getRedisResource()) {
+            return jedis.keys(LobbyAPI.REDIS_KEY + REDIS_KEY + "*");
         }
     }
 
-    /**
-     * Delete a player in {@link Jedis}
-     * @param uuid The player {@link UUID} to delete
-     */
-    public void removePlayer(UUID uuid) {
-        try (Jedis jedis = this.pool.getResource()) {
-            jedis.del(this.getPlayersKey(uuid));
-        }
-    }
-
-    /**
-     * Get the {@link Jedis} key
-     * @param uuid The {@link UUID} of the wanted key
-     * @return A {@link Jedis} key
-     */
-    private String getPlayersKey(UUID uuid) {
-        return LobbyAPI.REDIS_KEY + REDIS_KEY + uuid.toString();
+    @Override
+    public Set<LobbyPlayer> getAllKeysAsValues() {
+        final Set<LobbyPlayer> players = new HashSet<>();
+        this.getAllKeys().forEach(key -> players.add(this.get(UUID.fromString(key.split(":")[key.split(":").length - 1]))));
+        return players;
     }
 }

@@ -1,5 +1,7 @@
 package fr.hyriode.lobby.hotbar.items;
 
+import fr.hyriode.api.HyriAPI;
+import fr.hyriode.api.server.IHyriServerManager;
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.item.HyriItem;
 import fr.hyriode.lobby.HyriLobby;
@@ -10,9 +12,13 @@ import java.util.Collections;
 
 public class LobbySelectorItem extends HyriItem<HyriLobby> {
 
+    private final IHyriServerManager server;
+
     public LobbySelectorItem(HyriLobby plugin) {
-        super(plugin, "lobby_selector", () -> plugin.getHyrame().getLanguageManager().getMessage("item.lobbySelector.name"),
-                () -> Collections.singletonList(plugin.getHyrame().getLanguageManager().getMessage("item.lobbySelector.lore")), Material.NETHER_STAR);
+        super(plugin, "lobby_selector", () -> plugin.getHyrame().getLanguageManager().getMessage("item.selector.name"),
+                () -> Collections.singletonList(plugin.getHyrame().getLanguageManager().getMessage("item.selector.lore")), Material.NETHER_STAR);
+
+        this.server = HyriAPI.get().getServerManager();
     }
 
     @Override
@@ -26,6 +32,6 @@ public class LobbySelectorItem extends HyriItem<HyriLobby> {
     }
 
     public void onClick(PlayerInteractEvent e) {
-        e.getPlayer().sendMessage("Triggered " + this.name);
+        this.server.sendPlayerToLobby(e.getPlayer().getUniqueId());
     }
 }

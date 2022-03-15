@@ -1,30 +1,28 @@
 package fr.hyriode.lobby.api.player;
 
-import fr.hyriode.lobby.api.chooser.GameMenuTemplate;
+import fr.hyriode.lobby.api.jump.LobbyCheckpoint;
+import fr.hyriode.lobby.api.redis.ILobbyData;
 
 import java.util.UUID;
 
-/**
- * Represents a player in the Lobby
- */
-public class LobbyPlayer {
+public class LobbyPlayer implements ILobbyData {
 
     private final UUID uuid;
     private boolean usingCustomMenu;
-    private final GameMenuTemplate menu;
+
+    private String startedJump;
+    private LobbyCheckpoint lastCheckpoint;
 
     public LobbyPlayer(UUID uuid) {
         this.uuid = uuid;
         this.usingCustomMenu = false;
-        this.menu = new GameMenuTemplate();
+
+        this.startedJump = null;
+        this.lastCheckpoint = null;
     }
 
-    public UUID getUuid() {
-        return uuid;
-    }
-    
-    public GameMenuTemplate getMenu() {
-        return menu;
+    public UUID getUniqueId() {
+        return this.uuid;
     }
 
     public boolean isUsingCustomMenu() {
@@ -33,5 +31,21 @@ public class LobbyPlayer {
 
     public void setUsingCustomMenu(boolean usingCustomMenu) {
         this.usingCustomMenu = usingCustomMenu;
+    }
+    
+    public String getStartedJump() {
+        return this.startedJump;
+    }
+    
+    public void setStartedJump(String startedJump) {
+        this.startedJump = startedJump;
+    }
+    
+    public LobbyCheckpoint getLastCheckpoint() {
+        return this.lastCheckpoint;
+    }
+    
+    public void setLastCheckpoint(LobbyCheckpoint lastCheckpoint) {
+        this.lastCheckpoint = lastCheckpoint;
     }
 }

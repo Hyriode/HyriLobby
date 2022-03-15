@@ -1,9 +1,9 @@
 package fr.hyriode.lobby.scoreboard;
 
+import fr.hyriode.api.HyriAPI;
+import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.scoreboard.Scoreboard;
-import fr.hyriode.hyriapi.player.IHyriPlayer;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.util.References;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -22,11 +22,8 @@ public class LobbyScoreboard extends Scoreboard {
 
     private static final String DASH = ChatColor.WHITE + " ⁃ ";
 
-    private final HyriLobby plugin;
-
     public LobbyScoreboard(HyriLobby plugin, Player player) {
         super(plugin, player, "lobby", ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Hyriode");
-        this.plugin = plugin;
 
         this.addLines();
     }
@@ -55,7 +52,7 @@ public class LobbyScoreboard extends Scoreboard {
     }
 
     private IHyriPlayer getHyriPlayer() {
-        return this.plugin.getAPI().getPlayerManager().getPlayer(this.player.getUniqueId());
+        return HyriAPI.get().getPlayerManager().getPlayer(this.player.getUniqueId());
     }
 
     private void addServerLines() {
@@ -65,7 +62,7 @@ public class LobbyScoreboard extends Scoreboard {
     }
 
     private void addServerIpLine() {
-        this.setLine(11, ChatColor.DARK_AQUA + References.SERVER_IP, new LobbyScoreboardIpConsumer(References.SERVER_IP), 2);
+        this.setLine(11, ChatColor.DARK_AQUA + "CHANGEME", new LobbyScoreboardIpConsumer("CHANGEME"), 2);
     }
 
     private String getCurrentDate() {
@@ -93,12 +90,10 @@ public class LobbyScoreboard extends Scoreboard {
     }
 
     private String getServerId() {
-        // return ChatColor.DARK_GRAY + "Serveur: " + ChatColor.WHITE + this.plugin.getAPI().getServer().getId();
-        return DASH + ChatColor.GRAY + "Actuel: " + ChatColor.WHITE + "lobby-sq68zv";
+        return DASH + ChatColor.GRAY + "Actuel: " + ChatColor.WHITE + HyriAPI.get().getServer().getName();
     }
 
     private String getConnectedPlayers() {
-        // TODO Get global players
         return DASH + ChatColor.GRAY + "Joueurs: " + ChatColor.WHITE + Bukkit.getOnlinePlayers().size();
     }
 

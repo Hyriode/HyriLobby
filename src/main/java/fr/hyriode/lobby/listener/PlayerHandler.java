@@ -3,6 +3,7 @@ package fr.hyriode.lobby.listener;
 import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.hotbar.HotbarManager;
+import fr.hyriode.lobby.leaderboard.LeaderboardHandler;
 import fr.hyriode.lobby.player.PlayerManager;
 import fr.hyriode.lobby.scoreboard.ScoreboardManager;
 import org.bukkit.entity.Player;
@@ -20,6 +21,7 @@ public class PlayerHandler extends HyriListener<HyriLobby> {
     private final PlayerManager pm;
     private final HotbarManager hotbar;
     private final ScoreboardManager scoreboard;
+    private final LeaderboardHandler leaderboard;
 
     public PlayerHandler(HyriLobby plugin) {
         super(plugin);
@@ -27,6 +29,7 @@ public class PlayerHandler extends HyriListener<HyriLobby> {
         this.pm = new PlayerManager(plugin);
         this.hotbar = new HotbarManager(plugin);
         this.scoreboard = new ScoreboardManager(plugin);
+        this.leaderboard = plugin.getLeaderboardHandler();
     }
 
     @EventHandler
@@ -36,13 +39,16 @@ public class PlayerHandler extends HyriListener<HyriLobby> {
         this.pm.onLogin(player);
         this.hotbar.onLogin(player);
         this.scoreboard.onLogin(player);
+        this.leaderboard.onLogin(player);
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         final Player player = event.getPlayer();
 
+        this.pm.onLogout(player);
         this.scoreboard.onLogout(player);
+        this.leaderboard.onLogout(player);
     }
 
     public PlayerManager getPlayerManager() {

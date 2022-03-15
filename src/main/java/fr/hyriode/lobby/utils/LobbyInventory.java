@@ -1,4 +1,4 @@
-package fr.hyriode.lobby.util;
+package fr.hyriode.lobby.utils;
 
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.inventory.HyriInventory;

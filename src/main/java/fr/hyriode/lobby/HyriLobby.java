@@ -1,26 +1,24 @@
 package fr.hyriode.lobby;
 
-import com.google.gson.Gson;
 import fr.hyriode.hyrame.HyrameLoader;
 import fr.hyriode.hyrame.IHyrame;
-import fr.hyriode.hyriapi.HyriAPI;
-import fr.hyriode.lobby.api.LobbyAPI;
+import fr.hyriode.hyrame.item.ItemBuilder;
+import fr.hyriode.lobby.jump.JumpHandler;
+import fr.hyriode.lobby.leaderboard.LeaderboardHandler;
 import fr.hyriode.lobby.listener.PlayerHandler;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class HyriLobby extends JavaPlugin {
 
-    /** API */
-    private HyriAPI api;
+    public static final ItemStack FILL_ITEM = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (short) 15).withName(" ").build();
 
-    /** Hyrame */
     private IHyrame hyrame;
 
-    /** Lobby API */
-    private LobbyAPI lobbyAPI;
-
-    /** Player Handler */
+    private JumpHandler jumpHandler;
     private PlayerHandler playerHandler;
+    private LeaderboardHandler leaderboardHandler;
 
     @Override
     public void onEnable() {
@@ -28,10 +26,10 @@ public class HyriLobby extends JavaPlugin {
         this.getLogger().info("#====={   HyriLobby is starting...   }=====#");
         this.getLogger().info("#====={------------------------------}=====#");
 
-        this.api = HyriAPI.get();
         this.hyrame = HyrameLoader.load(new HyriLobbyProvider(this));
-        this.lobbyAPI = new LobbyAPI(new Gson(), this.api.getRedisConnection().getPool());
 
+        this.leaderboardHandler = new LeaderboardHandler(this);
+        this.jumpHandler = this.hyrame.getListenerManager().getListener(JumpHandler.class);
         this.playerHandler = this.hyrame.getListenerManager().getListener(PlayerHandler.class);
     }
 
@@ -40,21 +38,23 @@ public class HyriLobby extends JavaPlugin {
         this.getLogger().info("#====={------------------------------}=====#");
         this.getLogger().info("#====={  HyriLobby is now disabled ! }=====#");
         this.getLogger().info("#====={------------------------------}=====#");
-    }
 
-    public HyriAPI getAPI() {
-        return this.api;
+        this.hyrame.getListenerManager().getListener(JumpHandler.class).stop();
     }
 
     public IHyrame getHyrame() {
         return this.hyrame;
     }
 
-    public LobbyAPI getLobbyAPI() {
-        return this.lobbyAPI;
+    public JumpHandler getJumpHandler() {
+        return this.jumpHandler;
     }
 
     public PlayerHandler getPlayerHandler() {
         return this.playerHandler;
+    }
+
+    public LeaderboardHandler getLeaderboardHandler() {
+        return this.leaderboardHandler;
     }
 }

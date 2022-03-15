@@ -1,15 +1,15 @@
 package fr.hyriode.lobby.gui.settings;
 
+import fr.hyriode.api.HyriAPI;
 import fr.hyriode.hyrame.item.ItemBuilder;
-import fr.hyriode.hyriapi.player.IHyriPlayer;
-import fr.hyriode.hyriapi.player.IHyriPlayerManager;
-import fr.hyriode.hyriapi.settings.HyriLanguage;
-import fr.hyriode.hyriapi.settings.IHyriPlayerSettings;
+import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.api.player.IHyriPlayerManager;
+import fr.hyriode.api.settings.HyriLanguage;
+import fr.hyriode.api.settings.IHyriPlayerSettings;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.SettingsGui;
-import fr.hyriode.lobby.util.LobbyInventory;
-import fr.hyriode.lobby.util.References;
-import fr.hyriode.lobby.util.UsefulHeads;
+import fr.hyriode.lobby.utils.LobbyInventory;
+import fr.hyriode.lobby.utils.UsefulHeads;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
@@ -33,7 +33,7 @@ public class LanguageGui extends LobbyInventory {
 
         this.oldGui = oldGui;
 
-        this.pm = plugin.getAPI().getPlayerManager();
+        this.pm = HyriAPI.get().getPlayerManager();
         this.player = this.pm.getPlayer(this.owner.getUniqueId());
 
         this.settings = this.player.getSettings();
@@ -44,6 +44,7 @@ public class LanguageGui extends LobbyInventory {
         this.init();
     }
 
+    @Override
     protected void init() {
         this.inventory.clear();
 
@@ -59,7 +60,7 @@ public class LanguageGui extends LobbyInventory {
         );
 
         //Fill part
-        this.setFill(References.FILL_ITEM);
+        this.setFill(HyriLobby.FILL_ITEM);
 
         this.updateCurrent();
     }
@@ -69,7 +70,7 @@ public class LanguageGui extends LobbyInventory {
         this.settings.setLanguage(this.language);
 
         this.updateCurrent();
-        this.setFill(References.FILL_ITEM);
+        this.setFill(HyriLobby.FILL_ITEM);
     }
 
     private void updateCurrent() {
