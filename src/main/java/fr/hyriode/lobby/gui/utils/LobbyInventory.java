@@ -1,11 +1,16 @@
-package fr.hyriode.lobby.utils;
+package fr.hyriode.lobby.gui.utils;
 
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.inventory.HyriInventory;
+import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.language.IHyriLanguageManager;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public abstract class LobbyInventory extends HyriInventory {
+
+    public static final ItemStack FILL_ITEM = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (short) 15).withName(" ").build();
 
     protected final String baseKey;
     protected final IHyriLanguageManager langManager;

@@ -18,6 +18,7 @@
 
   "item.selector.name": "§fLobby selector",
   "item.selector.lore": "§fRight-Click to choose your lobby",
+  "item.lobbySelector.connected": "§fConnected players: ",
 
   "title.settings.gui": "&fYour settings",
   "item.settings.switch.base": "&fClick to ",

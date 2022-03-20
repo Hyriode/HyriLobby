@@ -1,5 +1,6 @@
 package fr.hyriode.lobby.jump;
 
+import fr.hyriode.api.HyriAPI;
 import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.api.LobbyAPI;
@@ -17,30 +18,46 @@ import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.util.Vector;
+
+import java.util.function.Supplier;
 
 public class JumpHandler extends HyriListener<HyriLobby> {
 
-    private final LobbyJumpManager jm;
-    private final LobbyPlayerManager pm;
-    private final LobbyLeaderboardManager lm;
+    private final Supplier<LobbyJumpManager> jm;
+    private final Supplier<LobbyPlayerManager> pm;
+    private final Supplier<LobbyLeaderboardManager> lm;
 
-    JumpHandler(HyriLobby plugin) {
+    public JumpHandler(HyriLobby plugin) {
         super(plugin);
 
-        this.jm = LobbyAPI.get().getJumpManager();
-        this.pm = LobbyAPI.get().getPlayerManager();
-        this.lm = LobbyAPI.get().getLeaderboardManager();
+        this.jm = () -> LobbyAPI.get().getJumpManager();
+        this.pm = () -> LobbyAPI.get().getPlayerManager();
+        this.lm = () -> LobbyAPI.get().getLeaderboardManager();
     }
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
-        final LobbyPlayer player = this.pm.get(event.getEntity().getUniqueId());
+        event.setDeathMessage("");
+        event.getEntity().spigot().respawn();
 
-        if (player.getStartedJump() == null) {
+        final LobbyPlayer player = this.pm.get().get(event.getEntity().getUniqueId());
+
+        if (player.getStartedJump() == null || player.getLastCheckpoint() == -1) {
             return;
         }
-        
-        event.getEntity().teleport(LocationConverter.toBukkitLocation(event.getEntity().getWorld(), player.getLastCheckpoint().getLocation()));
+
+        final LobbyJump jump = this.jm.get().get(player.getStartedJump());
+        final LobbyCheckpoint nextCheckpoint = jump.getCheckpoints().size() < player.getLastCheckpoint() + 1 ? jump.getCheckpoints().get(player.getLastCheckpoint() + 1) : null;
+        final Location loc = LocationConverter.toBukkitLocation(jump.getCheckpoints().get(player.getLastCheckpoint()).getLocation());
+
+        final Location nextLoc = LocationConverter.toBukkitLocation(nextCheckpoint != null ? nextCheckpoint.getLocation() : jump.getEnd());
+        nextLoc.setY(nextLoc.getY() - 1);
+
+        final Vector vector = nextLoc.toVector().subtract(loc.toVector());
+
+        loc.setDirection(vector);
+        event.getEntity().teleport(loc);
     }
 
     @EventHandler
@@ -48,11 +65,11 @@ public class JumpHandler extends HyriListener<HyriLobby> {
         final Location bukkitLoc = event.getTo();
         final LobbyLocation loc = LocationConverter.toLobbyLocation(bukkitLoc);
 
-        final LobbyJump start = this.jm.getJumpByStart(loc);
-        final LobbyJump end = this.jm.getJumpByEnd(loc);
-        final LobbyCheckpoint checkpoint = this.jm.getCheckpointByLocation(loc);
+        final LobbyJump start = this.jm.get().getJumpByStart(loc);
+        final LobbyJump end = this.jm.get().getJumpByEnd(loc);
+        final LobbyCheckpoint checkpoint = this.jm.get().getCheckpointByLocation(loc);
 
-        final LobbyPlayer player = this.pm.get(event.getPlayer().getUniqueId());
+        final LobbyPlayer player = this.pm.get().get(event.getPlayer().getUniqueId());
 
         //Check if jump start/end or checkpoint exists at this location
         if (start == null && end == null && checkpoint == null) {
@@ -60,52 +77,98 @@ public class JumpHandler extends HyriListener<HyriLobby> {
         }
 
         //Starting the jump
-        if (start != null) {
-            if (player.getStartedJump() != null || player.getLastCheckpoint() != null) {
+        if (start != null && checkpoint != null && end == null) {
+            if (player.getStartedJump() != null || player.getLastCheckpoint() != -1) {
                 return;
             }
 
+            event.getPlayer().sendMessage(RandomTools.getPrefix(false) + "You started the jump " + start.getName() + " !");
+
             player.setStartedJump(start.getName());
             //Checkpoint 0 is always the start
-            player.setLastCheckpoint(start.getCheckpoints().get(0));
+            player.setLastCheckpoint(0);
 
-            this.pm.save(player);
+            this.pm.get().save(player);
 
-            this.jm.addTask(player.getUniqueId(), Bukkit.getScheduler().scheduleSyncRepeatingTask(this.plugin, () ->
-                    this.jm.addTimer(player.getUniqueId(), this.jm.getTimers().getOrDefault(player.getUniqueId(), 0) + 1), 0, 20));
+            this.jm.get().addTimer(player.getUniqueId(), 0);
+
+            this.jm.get().addTask(player.getUniqueId(), Bukkit.getScheduler().scheduleSyncRepeatingTask(this.plugin, () ->
+                    this.jm.get().increaseTimer(player.getUniqueId(), 1), 0, 20));
             return;
         }
 
         //Checkpoint reached
-        if (checkpoint != null) {
-            final RandomTools.HyriDuration duration = new RandomTools.HyriDuration(this.jm.getTimers().get(player.getUniqueId()));
+        if (checkpoint != null && start == null && end == null) {
+            if (player.getStartedJump() == null || player.getLastCheckpoint() == -1) {
+                return;
+            }
 
-            event.getPlayer().sendMessage(RandomTools.getPrefix(false) + "Congrats ! Checkpoint reached in " + duration.toMinutesPart()
-                    + " minutes and " + duration.toSecondsPart() + " seconds !");
-            player.setLastCheckpoint(checkpoint);
+            if (!player.getStartedJump().equalsIgnoreCase(checkpoint.getJumpName())) {
+                return;
+            }
 
-            this.pm.save(player);
+            if (player.getLastCheckpoint() >= checkpoint.getId()) {
+                return;
+            }
+
+            final RandomTools.HyriDuration duration = new RandomTools.HyriDuration(this.jm.get().getTimers().get(player.getUniqueId()));
+
+            event.getPlayer().sendMessage(RandomTools.getPrefix(false) + "Congrats ! Checkpoint reached in "
+                    + RandomTools.getDurationMessage(duration, player.getUniqueId()) + " !");
+
+            player.setLastCheckpoint(checkpoint.getId());
+
+            this.pm.get().save(player);
             return;
         }
 
         //End of jump reached
-        final RandomTools.HyriDuration duration = new RandomTools.HyriDuration(this.jm.getTimers().get(player.getUniqueId()));
+        if (end != null && start == null && checkpoint == null) {
+            if (player.getStartedJump() == null || player.getLastCheckpoint() == -1) {
+                return;
+            }
 
-        event.getPlayer().sendMessage(RandomTools.getPrefix(false) + "Congrats ! Jump "+ end.getName() + " ended in " + duration.toMinutesPart()
-                + " minutes and " + duration.toSecondsPart() + " seconds !");
+            if (!player.getStartedJump().equalsIgnoreCase(end.getName())) {
+                return;
+            }
 
-        Bukkit.getScheduler().cancelTask(this.jm.getTaskIds().get(player.getUniqueId()));
-        player.setStartedJump(null);
-        player.setLastCheckpoint(null);
+            final RandomTools.HyriDuration duration = new RandomTools.HyriDuration(this.jm.get().getTimers().getOrDefault(player.getUniqueId(), 0));
 
-        this.lm.removeFromLeaderboard(end.getName(), player.getUniqueId().toString());
-        this.lm.addToLeaderboard(end.getName(), player.getUniqueId().toString(), duration.toSeconds());
+            event.getPlayer().sendMessage(RandomTools.getPrefix(false) + "Congrats ! Jump " + end.getName() + " ended in "
+                    + RandomTools.getDurationMessage(duration, player.getUniqueId()) + " !");
 
-        this.jm.getTaskIds().remove(player.getUniqueId());
-        this.jm.getTimers().remove(player.getUniqueId());
+            if (this.jm.get().getTaskIds().get(player.getUniqueId()) != null) {
+                Bukkit.getScheduler().cancelTask(this.jm.get().getTaskIds().get(player.getUniqueId()));
+            }
+
+            this.lm.get().removeFromLeaderboard(end.getName(), player.getUniqueId().toString());
+            this.lm.get().addToLeaderboard(end.getName(), player.getUniqueId().toString(), duration.toSeconds());
+
+            this.jm.get().getTaskIds().remove(player.getUniqueId());
+            this.jm.get().getTimers().remove(player.getUniqueId());
+
+            player.setStartedJump(null);
+            player.setLastCheckpoint(-1);
+
+            if (!player.getFinishedJumps().contains(end.getName())) {
+                player.getFinishedJumps().add(end.getName());
+                HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId()).getHyris().add(500);
+            }
+
+            this.pm.get().save(player);
+        }
     }
 
     public void stop() {
-        this.jm.getTaskIds().values().forEach(id -> Bukkit.getScheduler().cancelTask(id));
+        this.jm.get().getTaskIds().values().forEach(id -> Bukkit.getScheduler().cancelTask(id));
+
+        this.jm.get().getTimers().keySet().forEach(uuid -> {
+            final LobbyPlayer player = this.pm.get().get(uuid);
+
+            player.setStartedJump(null);
+            player.setLastCheckpoint(-1);
+
+            this.pm.get().save(player);
+        });
     }
 }

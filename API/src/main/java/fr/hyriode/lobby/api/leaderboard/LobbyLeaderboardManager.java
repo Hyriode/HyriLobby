@@ -7,11 +7,13 @@ import fr.hyriode.lobby.api.packet.LobbyPacketManager;
 import fr.hyriode.lobby.api.packet.model.leaderboard.LeaderboardUpdatedPacket;
 import fr.hyriode.lobby.api.redis.ILobbyDataManager;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.params.ZAddParams;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Supplier;
 
 /**
  * Represents the manager for the leaderboards in the lobby.
@@ -19,18 +21,18 @@ import java.util.Set;
 public class LobbyLeaderboardManager implements ILobbyDataManager<LobbyLeaderboard, String> {
 
     /**
-     * The base key for storing data in Redis.
+     * The base key for storing leaderboards data in Redis.
      */
-    private static final String REDIS_KEY = "leaderboard:";
+    private static final String LEADERBOARD_REDIS_KEY = "leaderboards:" + "leaderboard:";
     /**
      * The base key for storing rankings data in Redis.
      */
-    private static final String TOP_REDIS_KEY = "leaderboard-top:";
+    private static final String RANKINGS_REDIS_KEY = "leaderboards:" + "rankings:";
 
     /**
      * The {@link LobbyPacketManager} instance.
      */
-    private final LobbyPacketManager pm;
+    private final Supplier<LobbyPacketManager> pm;
     /**
      * The {@link IHyriRedisProcessor} instance.
      */
@@ -40,19 +42,36 @@ public class LobbyLeaderboardManager implements ILobbyDataManager<LobbyLeaderboa
      * The constructor of the leaderboard manager.
      */
     public LobbyLeaderboardManager() {
-        this.pm = LobbyAPI.get().getPacketManager();
+        this.pm = () -> LobbyAPI.get().getPacketManager();
         this.redisProcessor = HyriAPI.get().getRedisProcessor();
     }
 
     /**
-     * Add a player and his score to the leaderboard.
+     * Add a player and his score to the leaderboard. <br>
+     * If the player is already in the leaderboard, we add only if the new score is better (lower) than the old one.
      * @param leaderboard The leaderboard to add the player to.
      * @param player The player to add.
      * @param score The score of the player.
      */
     public void addToLeaderboard(String leaderboard, String player, int score) {
-        this.redisProcessor.process(jedis -> jedis.zadd(LobbyAPI.REDIS_KEY + TOP_REDIS_KEY + leaderboard, score, player));
-        this.pm.sendPacket(new LeaderboardUpdatedPacket(leaderboard, LeaderboardUpdatedPacket.Reason.SCORE_UPDATED));
+        this.addToLeaderboard(leaderboard, player, score, false);
+    }
+
+    /**
+     * Add a player and his score to the leaderboard. <br>
+     * If the player is already in the leaderboard, we add only if the new score is better (lower) than the old one.
+     * @param leaderboard The leaderboard to add the player to.
+     * @param player The player to add.
+     * @param score The score of the player.
+     * @param silent <code>false</code> if the packet should be sent, <code>true</code> otherwise.
+     */
+    public void addToLeaderboard(String leaderboard, String player, int score, boolean silent) {
+        this.redisProcessor.process(jedis -> {
+            jedis.zadd(LobbyAPI.REDIS_KEY + RANKINGS_REDIS_KEY + leaderboard.toLowerCase(), score, player, ZAddParams.zAddParams().lt());
+            if (!silent) {
+                this.pm.get().sendPacket(new LeaderboardUpdatedPacket(leaderboard, LeaderboardUpdatedPacket.Reason.SCORE_UPDATED));
+            }
+        });
     }
 
     /**
@@ -61,7 +80,7 @@ public class LobbyLeaderboardManager implements ILobbyDataManager<LobbyLeaderboa
      * @param player The player to remove.
      */
     public void removeFromLeaderboard(String leaderboard, String player) {
-        this.redisProcessor.process(jedis -> jedis.zrem(LobbyAPI.REDIS_KEY + TOP_REDIS_KEY + leaderboard, player));
+        this.redisProcessor.process(jedis -> jedis.zrem(LobbyAPI.REDIS_KEY + RANKINGS_REDIS_KEY + leaderboard.toLowerCase(), player));
     }
 
     /**
@@ -72,7 +91,7 @@ public class LobbyLeaderboardManager implements ILobbyDataManager<LobbyLeaderboa
     public Map<Integer, String> getTopLeaderboard(LobbyLeaderboard leaderboard) {
         try (final Jedis jedis = HyriAPI.get().getRedisResource()) {
             final Map<Integer, String> topPlayers = new HashMap<>();
-            jedis.zrevrangeWithScores(LobbyAPI.REDIS_KEY + TOP_REDIS_KEY + leaderboard, 0, leaderboard.getTopRange() - 1)
+            jedis.zrevrangeWithScores(LobbyAPI.REDIS_KEY + RANKINGS_REDIS_KEY + leaderboard.getName().toLowerCase(), 0, leaderboard.getTopRange() - 1)
                     .forEach(tuple -> topPlayers.put((int) tuple.getScore(), tuple.getElement()));
             return topPlayers;
         }
@@ -86,7 +105,7 @@ public class LobbyLeaderboardManager implements ILobbyDataManager<LobbyLeaderboa
     @Override
     public LobbyLeaderboard get(String key) {
         try (final Jedis jedis = HyriAPI.get().getRedisResource()) {
-            return LobbyAPI.GSON.fromJson(jedis.get(LobbyAPI.REDIS_KEY + REDIS_KEY + key), LobbyLeaderboard.class);
+            return LobbyAPI.GSON.fromJson(jedis.get(LobbyAPI.REDIS_KEY + LEADERBOARD_REDIS_KEY + key.toLowerCase()), LobbyLeaderboard.class);
         }
     }
 
@@ -96,13 +115,7 @@ public class LobbyLeaderboardManager implements ILobbyDataManager<LobbyLeaderboa
      */
     @Override
     public void save(LobbyLeaderboard data) {
-        this.redisProcessor.process(jedis -> {
-            final String key = LobbyAPI.REDIS_KEY + REDIS_KEY + data.getName();
-            if (jedis.exists(key)) {
-                throw new IllegalArgumentException("A leaderboard with the same name '" + data.getName() + "' already exists");
-            }
-            jedis.set(key, LobbyAPI.GSON.toJson(data));
-        });
+        this.redisProcessor.process(jedis -> jedis.set(LobbyAPI.REDIS_KEY + LEADERBOARD_REDIS_KEY + data.getName().toLowerCase(), LobbyAPI.GSON.toJson(data)));
     }
 
     /**
@@ -111,7 +124,7 @@ public class LobbyLeaderboardManager implements ILobbyDataManager<LobbyLeaderboa
      */
     @Override
     public void delete(LobbyLeaderboard data) {
-        this.redisProcessor.process(jedis -> jedis.del(LobbyAPI.REDIS_KEY + REDIS_KEY + data.getName()));
+        this.redisProcessor.process(jedis -> jedis.del(LobbyAPI.REDIS_KEY + LEADERBOARD_REDIS_KEY + data.getName().toLowerCase()));
     }
 
     /**
@@ -121,7 +134,7 @@ public class LobbyLeaderboardManager implements ILobbyDataManager<LobbyLeaderboa
     @Override
     public Set<String> getAllKeys() {
         try (final Jedis jedis = HyriAPI.get().getRedisResource()) {
-            return jedis.keys(LobbyAPI.REDIS_KEY + REDIS_KEY + "*");
+            return jedis.keys(LobbyAPI.REDIS_KEY + LEADERBOARD_REDIS_KEY + "*");
         }
     }
 

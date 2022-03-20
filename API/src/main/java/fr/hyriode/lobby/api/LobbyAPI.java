@@ -1,10 +1,13 @@
 package fr.hyriode.lobby.api;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import fr.hyriode.lobby.api.jump.LobbyJumpManager;
 import fr.hyriode.lobby.api.leaderboard.LobbyLeaderboardManager;
 import fr.hyriode.lobby.api.packet.LobbyPacketManager;
 import fr.hyriode.lobby.api.player.LobbyPlayerManager;
+
+import java.util.function.Consumer;
 
 /**
  * The API to interact with the lobby.
@@ -13,8 +16,9 @@ public class LobbyAPI {
 
     /**
      * The {@link Gson} instance.
+     * Its very important to serialize null values.
      */
-    public static final Gson GSON = new Gson();
+    public static final Gson GSON = new GsonBuilder().serializeNulls().create();
     /**
      * The base key for storing data in Redis.
      */
@@ -27,28 +31,41 @@ public class LobbyAPI {
     /**
      * The {@link LobbyJumpManager} instance.
      */
-    private final LobbyJumpManager jumpManager;
-    /**
-     * The {@link LobbyLeaderboardManager} instance.
-     */
-    private final LobbyLeaderboardManager leaderboardManager;
+    private final LobbyJumpManager jump;
     /**
      * The {@link LobbyPacketManager} instance.
      */
-    private final LobbyPacketManager packetManager;
+    private final LobbyPacketManager packet;
     /**
      * The {@link LobbyPlayerManager} instance.
      */
-    private final LobbyPlayerManager playerManager;
+    private final LobbyPlayerManager player;
+    /**
+     * The {@link LobbyLeaderboardManager} instance.
+     */
+    private final LobbyLeaderboardManager leaderboard;
 
     /**
      * The constructor of the API.
      */
-    private LobbyAPI() {
-        this.jumpManager = new LobbyJumpManager();
-        this.leaderboardManager = new LobbyLeaderboardManager();
-        this.packetManager = new LobbyPacketManager();
-        this.playerManager = new LobbyPlayerManager();
+    LobbyAPI() {
+        this.jump = new LobbyJumpManager();
+        this.packet = new LobbyPacketManager();
+        this.player = new LobbyPlayerManager();
+        this.leaderboard = new LobbyLeaderboardManager();
+    }
+
+    public void start(Consumer<String[]> consumer) {
+        consumer.accept(new String[]{
+                "  _           _     _                    _____ _____ ",
+                " | |         | |   | |             /\\   |  __ \\_   _|",
+                " | |     ___ | |__ | |__  _   _   /  \\  | |__) || |  ",
+                " | |    / _ \\| '_ \\| '_ \\| | | | / /\\ \\ |  ___/ | |  ",
+                " | |___| (_) | |_) | |_) | |_| |/ ____ \\| |    _| |_ ",
+                " |______\\___/|_.__/|_.__/ \\__, /_/    \\_\\_|   |_____|",
+                "                           __/ |                     ",
+                "                          |___/                      "
+        });
     }
 
     /**
@@ -64,15 +81,7 @@ public class LobbyAPI {
      * @return The {@link LobbyJumpManager} instance.
      */
     public LobbyJumpManager getJumpManager() {
-        return this.jumpManager;
-    }
-
-    /**
-     * Get the {@link LobbyLeaderboardManager} instance.
-     * @return The {@link LobbyLeaderboardManager} instance.
-     */
-    public LobbyLeaderboardManager getLeaderboardManager() {
-        return this.leaderboardManager;
+        return this.jump;
     }
 
     /**
@@ -80,7 +89,7 @@ public class LobbyAPI {
      * @return The {@link LobbyPacketManager} instance.
      */
     public LobbyPacketManager getPacketManager() {
-        return this.packetManager;
+        return this.packet;
     }
 
     /**
@@ -88,6 +97,14 @@ public class LobbyAPI {
      * @return The {@link LobbyPlayerManager} instance.
      */
     public LobbyPlayerManager getPlayerManager() {
-        return this.playerManager;
+        return this.player;
+    }
+
+    /**
+     * Get the {@link LobbyLeaderboardManager} instance.
+     * @return The {@link LobbyLeaderboardManager} instance.
+     */
+    public LobbyLeaderboardManager getLeaderboardManager() {
+        return this.leaderboard;
     }
 }

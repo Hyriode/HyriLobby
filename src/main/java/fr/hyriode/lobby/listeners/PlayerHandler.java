@@ -1,4 +1,4 @@
-package fr.hyriode.lobby.listener;
+package fr.hyriode.lobby.listeners;
 
 import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.lobby.HyriLobby;
@@ -11,6 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import java.util.function.Supplier;
+
 /**
  * Project: HyriLobby
  * Created by AstFaster
@@ -21,7 +23,7 @@ public class PlayerHandler extends HyriListener<HyriLobby> {
     private final PlayerManager pm;
     private final HotbarManager hotbar;
     private final ScoreboardManager scoreboard;
-    private final LeaderboardHandler leaderboard;
+    private final Supplier<LeaderboardHandler> leaderboard;
 
     public PlayerHandler(HyriLobby plugin) {
         super(plugin);
@@ -29,7 +31,7 @@ public class PlayerHandler extends HyriListener<HyriLobby> {
         this.pm = new PlayerManager(plugin);
         this.hotbar = new HotbarManager(plugin);
         this.scoreboard = new ScoreboardManager(plugin);
-        this.leaderboard = plugin.getLeaderboardHandler();
+        this.leaderboard = plugin::getLeaderboardHandler;
     }
 
     @EventHandler
@@ -39,7 +41,7 @@ public class PlayerHandler extends HyriListener<HyriLobby> {
         this.pm.onLogin(player);
         this.hotbar.onLogin(player);
         this.scoreboard.onLogin(player);
-        this.leaderboard.onLogin(player);
+        this.leaderboard.get().onLogin(player);
     }
 
     @EventHandler
@@ -48,18 +50,6 @@ public class PlayerHandler extends HyriListener<HyriLobby> {
 
         this.pm.onLogout(player);
         this.scoreboard.onLogout(player);
-        this.leaderboard.onLogout(player);
-    }
-
-    public PlayerManager getPlayerManager() {
-        return this.pm;
-    }
-
-    public HotbarManager getHotbarManager() {
-        return this.hotbar;
-    }
-
-    public ScoreboardManager getScoreboardManager() {
-        return this.scoreboard;
+        this.leaderboard.get().onLogout(player);
     }
 }

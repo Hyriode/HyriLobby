@@ -3,7 +3,7 @@ package fr.hyriode.lobby.scoreboard;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.game.scoreboard.HyriScoreboardIpConsumer;
-import fr.hyriode.hyrame.scoreboard.Scoreboard;
+import fr.hyriode.hyrame.scoreboard.HyriScoreboard;
 import fr.hyriode.lobby.HyriLobby;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,7 +17,7 @@ import java.util.Date;
  * Created by AstFaster
  * on 25/08/2021 at 19:13
  */
-public class LobbyScoreboard extends Scoreboard {
+public class LobbyScoreboard extends HyriScoreboard {
 
     private static final String ARROW = ChatColor.WHITE + "\u27A4";
 

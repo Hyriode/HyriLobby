@@ -1,9 +1,12 @@
 package fr.hyriode.lobby.api.player;
 
+import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.jump.LobbyCheckpoint;
 import fr.hyriode.lobby.api.jump.LobbyJump;
 import fr.hyriode.lobby.api.redis.ILobbyData;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -25,9 +28,14 @@ public class LobbyPlayer implements ILobbyData {
      */
     private String startedJump;
     /**
-     * The last {@link LobbyCheckpoint} reached, if any.
+     * The last {@link LobbyCheckpoint} id reached, if any.
      */
-    private LobbyCheckpoint lastCheckpoint;
+    private int lastCheckpoint;
+
+    /**
+     * All the jumps name completed by the player.
+     */
+    private final List<String> finishedJumps;
 
     /**
      * The constructor of the player.
@@ -38,7 +46,8 @@ public class LobbyPlayer implements ILobbyData {
         this.usingCustomMenu = false;
 
         this.startedJump = null;
-        this.lastCheckpoint = null;
+        this.lastCheckpoint = -1;
+        this.finishedJumps = new ArrayList<>();
     }
 
     /**
@@ -82,18 +91,31 @@ public class LobbyPlayer implements ILobbyData {
     }
 
     /**
-     * Gets the last {@link LobbyCheckpoint} reached, if any.
-     * @return The last {@link LobbyCheckpoint} reached, if any.
+     * Gets the last {@link LobbyCheckpoint} id reached, if any.
+     * @return The last {@link LobbyCheckpoint} id reached, if any.
      */
-    public LobbyCheckpoint getLastCheckpoint() {
+    public int getLastCheckpoint() {
         return this.lastCheckpoint;
     }
 
     /**
-     * Sets the last {@link LobbyCheckpoint} reached.
-     * @param lastCheckpoint The last {@link LobbyCheckpoint} reached.
+     * Sets the last {@link LobbyCheckpoint} id reached.
+     * @param lastCheckpoint The last {@link LobbyCheckpoint} id reached.
      */
-    public void setLastCheckpoint(LobbyCheckpoint lastCheckpoint) {
+    public void setLastCheckpoint(int lastCheckpoint) {
         this.lastCheckpoint = lastCheckpoint;
+    }
+
+    /**
+     * Gets all the jumps name completed by the player.
+     * @return All the jumps name completed by the player.
+     */
+    public List<String> getFinishedJumps() {
+        return this.finishedJumps;
+    }
+
+    @Override
+    public String toString() {
+        return LobbyAPI.GSON.toJson(this);
     }
 }

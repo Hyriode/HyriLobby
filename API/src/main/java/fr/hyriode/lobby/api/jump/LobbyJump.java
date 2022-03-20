@@ -1,5 +1,6 @@
 package fr.hyriode.lobby.api.jump;
 
+import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.redis.ILobbyData;
 import fr.hyriode.lobby.api.utils.LobbyLocation;
 
@@ -91,5 +92,10 @@ public class LobbyJump implements ILobbyData {
      */
     public List<LobbyCheckpoint> getCheckpoints() {
         return this.checkpoints;
+    }
+
+    @Override
+    public String toString() {
+        return LobbyAPI.GSON.toJson(this);
     }
 }

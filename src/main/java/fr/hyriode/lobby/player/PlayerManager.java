@@ -21,18 +21,18 @@ public class PlayerManager {
     private static final List<String> MESSAGES = new ArrayList<>();
 
     private final HyriLobby plugin;
-    private final LobbyPlayerManager pm;
+    private final Supplier<LobbyPlayerManager> pm;
     private final Supplier<IHyriLanguageManager> lang;
 
     public PlayerManager(HyriLobby plugin) {
         this.plugin = plugin;
-        this.pm = LobbyAPI.get().getPlayerManager();
+        this.pm = () -> LobbyAPI.get().getPlayerManager();
         this.lang = () -> plugin.getHyrame().getLanguageManager();
     }
 
     public void onLogin(Player player) {
-        if (this.pm.get(player.getUniqueId()) == null) {
-            this.pm.save(new LobbyPlayer(player.getUniqueId()));
+        if (this.pm.get().get(player.getUniqueId()) == null) {
+            this.pm.get().save(new LobbyPlayer(player.getUniqueId()));
         }
 
         this.addMessages(player);
@@ -46,10 +46,10 @@ public class PlayerManager {
     }
 
     public void onLogout(Player player) {
-        final LobbyPlayer lp = this.pm.get(player.getUniqueId());
+        final LobbyPlayer lp = this.pm.get().get(player.getUniqueId());
 
-        lp.setLastCheckpoint(null);
-        this.pm.save(lp);
+        lp.setLastCheckpoint(-1);
+        this.pm.get().save(lp);
     }
 
     private void addMessages(Player player) {

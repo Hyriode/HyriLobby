@@ -1,5 +1,7 @@
 package fr.hyriode.lobby.api.utils;
 
+import fr.hyriode.lobby.api.LobbyAPI;
+
 /**
  * Represents a location in the lobby.
  */
@@ -54,6 +56,11 @@ public class LobbyLocation {
         return this.z;
     }
 
+    @Override
+    public String toString() {
+        return LobbyAPI.GSON.toJson(this);
+    }
+
     /**
      * Check if the given location is equals to the other location.
      * @param first The first location.
@@ -70,6 +77,6 @@ public class LobbyLocation {
      * @return The formatted location.
      */
     public static String toStringFormat(LobbyLocation lobbyLocation) {
-        return lobbyLocation.getX() + ":" + lobbyLocation.getY() + ":" + lobbyLocation.getZ();
+        return lobbyLocation.getX() + " " + lobbyLocation.getY() + " " + lobbyLocation.getZ();
     }
 }

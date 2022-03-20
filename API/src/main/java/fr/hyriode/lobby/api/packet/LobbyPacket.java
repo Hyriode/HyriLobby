@@ -1,6 +1,7 @@
 package fr.hyriode.lobby.api.packet;
 
 import fr.hyriode.api.packet.HyriPacket;
+import fr.hyriode.lobby.api.LobbyAPI;
 
 /**
  * Represents a packet sent with data about the lobby.
@@ -26,5 +27,10 @@ public abstract class LobbyPacket extends HyriPacket {
      */
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public String toString() {
+        return LobbyAPI.GSON.toJson(this);
     }
 }

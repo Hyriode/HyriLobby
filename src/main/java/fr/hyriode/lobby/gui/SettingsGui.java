@@ -9,7 +9,7 @@ import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.settings.LanguageGui;
 import fr.hyriode.lobby.gui.settings.PlayersVisibilityLevelGui;
 import fr.hyriode.lobby.gui.settings.PrivateMessagesLevelGui;
-import fr.hyriode.lobby.utils.LobbyInventory;
+import fr.hyriode.lobby.gui.utils.LobbyInventory;
 import fr.hyriode.lobby.utils.UsefulHeads;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -64,13 +64,13 @@ public class SettingsGui extends LobbyInventory {
 
         //Items with Consumer part
         this.setItem(38, new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3).withCustomHead(UsefulHeads.EARTH.getTexture()).withName(this.getKey("language")).build(),
-                e -> new LanguageGui(this.plugin, this.owner, this).open()
+                e -> new LanguageGui(this.plugin, this.owner).open()
         );
         this.setItem(40, new ItemBuilder(Material.REDSTONE_COMPARATOR).withName(this.getKey("privateMessagesLevel")).build(),
-                e -> new PrivateMessagesLevelGui(plugin, this.owner, this).open()
+                e -> new PrivateMessagesLevelGui(plugin, this.owner).open()
         );
         this.setItem(42, new ItemBuilder(Material.EYE_OF_ENDER).withName(this.getKey("playersVisibilityLevel")).build(),
-                e-> new PlayersVisibilityLevelGui(plugin, this.owner, this).open()
+                e-> new PlayersVisibilityLevelGui(plugin, this.owner).open()
         );
         this.setItem(49, new ItemBuilder(Material.BARRIER).withName(this.getKey("quit")).build(),
                 e -> e.getWhoClicked().closeInventory()
@@ -99,7 +99,7 @@ public class SettingsGui extends LobbyInventory {
         });
 
         //Fill part
-        this.setFill(HyriLobby.FILL_ITEM);
+        this.setFill(FILL_ITEM);
     }
 
     private ItemStack createSwitch(boolean option) {

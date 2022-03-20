@@ -18,6 +18,7 @@
 
   "item.lobbySelector.name": "§fChanger de Lobby",
   "item.lobbySelector.lore": "§fFaites Clic-Droit pour Choisir votre Lobby",
+  "item.lobbySelector.connected": "§fJoueurs connectés: ",
 
   "title.settings.gui": "&fVos Paramètres",
   "item.settings.switch.base": "&fClique pour ",

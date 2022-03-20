@@ -1,5 +1,6 @@
 package fr.hyriode.lobby.api.jump;
 
+import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.utils.LobbyLocation;
 
 /**
@@ -12,6 +13,10 @@ public class LobbyCheckpoint {
      */
     private final int id;
     /**
+     * The jump name.
+     */
+    private final String jumpName;
+    /**
      * The checkpoint location.
      */
     private final LobbyLocation location;
@@ -21,8 +26,9 @@ public class LobbyCheckpoint {
      * @param id The checkpoint id.
      * @param location The checkpoint location.
      */
-    public LobbyCheckpoint(int id, LobbyLocation location) {
+    public LobbyCheckpoint(int id, String jumpName, LobbyLocation location) {
         this.id = id;
+        this.jumpName = jumpName;
         this.location = location;
     }
 
@@ -35,10 +41,23 @@ public class LobbyCheckpoint {
     }
 
     /**
+     * Gets the jump name.
+     * @return The jump name.
+     */
+    public String getJumpName() {
+        return this.jumpName;
+    }
+
+    /**
      * Gets the checkpoint location.
      * @return The checkpoint location.
      */
     public LobbyLocation getLocation() {
         return this.location;
+    }
+
+    @Override
+    public String toString() {
+        return LobbyAPI.GSON.toJson(this);
     }
 }

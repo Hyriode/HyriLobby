@@ -5,7 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class HyriLobbyProvider implements IPluginProvider {
 
-    public static final String PACKAGE = "fr.hyriode.lobby";
+    public static final String PACKAGE = "fr.hyriode.lobby.";
 
     private final HyriLobby plugin;
 
@@ -25,17 +25,17 @@ public class HyriLobbyProvider implements IPluginProvider {
 
     @Override
     public String[] getCommandsPackages() {
-        return new String[]{PACKAGE};
+        return new String[]{PACKAGE + "jump", PACKAGE + "leaderboard"};
     }
 
     @Override
     public String[] getListenersPackages() {
-        return new String[]{PACKAGE};
+        return new String[]{PACKAGE + "listeners", PACKAGE + "jump"};
     }
 
     @Override
     public String[] getItemsPackages() {
-        return new String[]{PACKAGE};
+        return new String[]{PACKAGE + "hotbar.items"};
     }
 
     @Override

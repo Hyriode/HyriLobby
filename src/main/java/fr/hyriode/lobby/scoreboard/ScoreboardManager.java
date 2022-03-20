@@ -1,6 +1,6 @@
 package fr.hyriode.lobby.scoreboard;
 
-import fr.hyriode.hyrame.scoreboard.Scoreboard;
+import fr.hyriode.hyrame.scoreboard.HyriScoreboard;
 import fr.hyriode.lobby.HyriLobby;
 import org.bukkit.entity.Player;
 
@@ -30,7 +30,7 @@ public class ScoreboardManager {
     }
 
     public void onLogout(Player player) {
-        final Scoreboard scoreboard = this.lobbyScoreboards.get(player.getUniqueId());
+        final HyriScoreboard scoreboard = this.lobbyScoreboards.get(player.getUniqueId());
 
         if (scoreboard != null) {
             this.lobbyScoreboards.remove(player.getUniqueId()).hide();

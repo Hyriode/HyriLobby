@@ -1,5 +1,6 @@
 package fr.hyriode.lobby.api.leaderboard;
 
+import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.redis.ILobbyData;
 import fr.hyriode.lobby.api.utils.LobbyLocation;
 
@@ -71,5 +72,10 @@ public class LobbyLeaderboard implements ILobbyData {
      */
     public void setLocation(LobbyLocation location) {
         this.location = location;
+    }
+
+    @Override
+    public String toString() {
+        return LobbyAPI.GSON.toJson(this);
     }
 }

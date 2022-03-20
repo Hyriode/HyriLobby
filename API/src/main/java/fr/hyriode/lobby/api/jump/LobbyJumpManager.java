@@ -92,7 +92,7 @@ public class LobbyJumpManager implements ILobbyDataManager<LobbyJump, String> {
     @Override
     public LobbyJump get(String key) {
         try (final Jedis jedis = HyriAPI.get().getRedisResource()) {
-            return LobbyAPI.GSON.fromJson(jedis.get(LobbyAPI.REDIS_KEY + REDIS_KEY + key), LobbyJump.class);
+            return LobbyAPI.GSON.fromJson(jedis.get(LobbyAPI.REDIS_KEY + REDIS_KEY + key.toLowerCase()), LobbyJump.class);
         }
     }
 
@@ -102,13 +102,7 @@ public class LobbyJumpManager implements ILobbyDataManager<LobbyJump, String> {
      */
     @Override
     public void save(LobbyJump data) {
-        this.redisProcessor.process(jedis -> {
-            final String key = LobbyAPI.REDIS_KEY + REDIS_KEY + data.getName();
-            if (jedis.exists(key)) {
-                throw new IllegalArgumentException("A jump with the same name '" + data.getName() + "' already exists");
-            }
-            jedis.set(key, LobbyAPI.GSON.toJson(data));
-        });
+        this.redisProcessor.process(jedis -> jedis.set(LobbyAPI.REDIS_KEY + REDIS_KEY + data.getName().toLowerCase(), LobbyAPI.GSON.toJson(data)));
     }
 
     /**
@@ -117,7 +111,7 @@ public class LobbyJumpManager implements ILobbyDataManager<LobbyJump, String> {
      */
     @Override
     public void delete(LobbyJump data) {
-        this.redisProcessor.process(jedis -> jedis.del(LobbyAPI.REDIS_KEY + REDIS_KEY + data.getName()));
+        this.redisProcessor.process(jedis -> jedis.del(LobbyAPI.REDIS_KEY + REDIS_KEY + data.getName().toLowerCase()));
     }
 
     /**
@@ -158,6 +152,15 @@ public class LobbyJumpManager implements ILobbyDataManager<LobbyJump, String> {
      */
     public void addTimer(UUID uuid, int timer) {
         this.timers.put(uuid, timer);
+    }
+
+    /**
+     * Increment the timer of the given player.
+     * @param uuid The player uuid.
+     * @param seconds The seconds to increment.
+     */
+    public void increaseTimer(UUID uuid, int seconds) {
+        this.timers.put(uuid, this.timers.get(uuid) + seconds);
     }
 
     /**

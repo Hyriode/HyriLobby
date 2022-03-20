@@ -50,10 +50,7 @@ allprojects {
         }
     }
 
-    dependencies {
-
-    }
-
+    dependencies {}
 }
 
 version = '1.0.0'
@@ -62,11 +59,17 @@ archivesBaseName = 'HyriLobby'
 shadowJar {
     configurations = [project.configurations.shadow]
     minimize()
-}
 
+    doLast {
+        copy {
+            from "build/libs/HyriLobby-1.0.0-all.jar"
+            into "Server/plugins"
+        }
+    }
+}
 
 dependencies {
     implementation 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
-    implementation 'fr.hyriode:hyrame:+'
+    implementation fileTree(dir: 'libs')
     shadow project(':API')
 }
