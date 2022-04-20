@@ -2,9 +2,12 @@ package fr.hyriode.lobby;
 
 import fr.hyriode.hyrame.HyrameLoader;
 import fr.hyriode.hyrame.IHyrame;
+import fr.hyriode.hyrame.language.IHyriLanguageManager;
+import fr.hyriode.hyrame.placeholder.PlaceholderAPI;
 import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.jump.JumpHandler;
 import fr.hyriode.lobby.leaderboard.LeaderboardHandler;
+import fr.hyriode.lobby.placeholder.LobbyPlaceholder;
 import fr.hyriode.lobby.utils.LobbyPermission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -32,12 +35,14 @@ public class HyriLobby extends JavaPlugin {
         sender.sendMessage(ChatColor.GREEN + "         |___/                                |___/ ");
 
         this.hyrame = HyrameLoader.load(new HyriLobbyProvider(this));
+        IHyriLanguageManager.Provider.registerInstance(() -> this.hyrame.getLanguageManager());
 
         LobbyAPI.get().start(str -> Arrays.asList(str).forEach(s -> sender.sendMessage(ChatColor.DARK_GREEN + s)));
 
         this.leaderboard = new LeaderboardHandler(this);
 
         LobbyPermission.register();
+        PlaceholderAPI.registerHandler(new LobbyPlaceholder(this.hyrame));
     }
 
     @Override

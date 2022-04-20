@@ -1,11 +1,11 @@
 package fr.hyriode.lobby.scoreboard;
 
 import fr.hyriode.api.HyriAPI;
+import fr.hyriode.api.HyriConstants;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.game.scoreboard.HyriScoreboardIpConsumer;
 import fr.hyriode.hyrame.scoreboard.HyriScoreboard;
 import fr.hyriode.lobby.HyriLobby;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -49,7 +49,6 @@ public class LobbyScoreboard extends HyriScoreboard {
         this.setLine(2, this.getPlayerNameLine(player), scoreboardLine -> scoreboardLine.setValue(this.getPlayerNameLine(this.getHyriPlayer())), 60);
         this.setLine(3, this.getRankLine(player), scoreboardLine -> scoreboardLine.setValue(this.getRankLine(this.getHyriPlayer())), 60);
         this.setLine(4, this.getHyrisLine(player), scoreboardLine -> scoreboardLine.setValue(this.getHyrisLine(this.getHyriPlayer())), 60);
-        this.setLine(5, this.getHyodeLine(player), scoreboardLine -> scoreboardLine.setValue(this.getHyodeLine(this.getHyriPlayer())), 60);
     }
 
     private IHyriPlayer getHyriPlayer() {
@@ -63,7 +62,7 @@ public class LobbyScoreboard extends HyriScoreboard {
     }
 
     private void addServerIpLine() {
-        this.setLine(11, ChatColor.DARK_AQUA + "CHANGEME", new HyriScoreboardIpConsumer("CHANGEME"), 2);
+        this.setLine(11, ChatColor.DARK_AQUA + HyriConstants.SERVER_IP, new HyriScoreboardIpConsumer(HyriConstants.SERVER_IP), 2);
     }
 
     private String getCurrentDate() {
@@ -82,10 +81,6 @@ public class LobbyScoreboard extends HyriScoreboard {
         return DASH + ChatColor.BLUE + "Hyris: " + ChatColor.WHITE + player.getHyris().getAmount();
     }
 
-    private String getHyodeLine(IHyriPlayer player) {
-        return DASH + ChatColor.GOLD + "Hyode: " + ChatColor.WHITE + player.getHyode().getAmount();
-    }
-
     private String getNetworkLine() {
         return ARROW + ChatColor.DARK_AQUA + "" + ChatColor.BOLD + " Serveur";
     }
@@ -95,7 +90,7 @@ public class LobbyScoreboard extends HyriScoreboard {
     }
 
     private String getConnectedPlayers() {
-        return DASH + ChatColor.GRAY + "Joueurs: " + ChatColor.WHITE + Bukkit.getOnlinePlayers().size();
+        return DASH + ChatColor.GRAY + "Joueurs: " + ChatColor.WHITE + HyriAPI.get().getNetwork().getPlayers();
     }
 
 }

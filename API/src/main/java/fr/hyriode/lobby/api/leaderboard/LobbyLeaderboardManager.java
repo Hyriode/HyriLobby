@@ -5,6 +5,7 @@ import fr.hyriode.api.redis.IHyriRedisProcessor;
 import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.packet.LobbyPacketManager;
 import fr.hyriode.lobby.api.packet.model.leaderboard.LeaderboardUpdatedPacket;
+import fr.hyriode.lobby.api.player.LobbyPlayer;
 import fr.hyriode.lobby.api.redis.ILobbyDataManager;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.params.ZAddParams;
@@ -53,8 +54,8 @@ public class LobbyLeaderboardManager implements ILobbyDataManager<LobbyLeaderboa
      * @param player The player to add.
      * @param score The score of the player.
      */
-    public void addToLeaderboard(String leaderboard, String player, int score) {
-        this.addToLeaderboard(leaderboard, player, score, false);
+    public void addToLeaderboard(String leaderboard, LobbyPlayer player, int score) {
+        this.addToLeaderboard(leaderboard, player.getName(), score, false);
     }
 
     /**
@@ -67,6 +68,9 @@ public class LobbyLeaderboardManager implements ILobbyDataManager<LobbyLeaderboa
      */
     public void addToLeaderboard(String leaderboard, String player, int score, boolean silent) {
         this.redisProcessor.process(jedis -> {
+            System.out.println("Adding " + player + " to " + leaderboard + " with score " + score);
+            //TODO: always null
+            System.out.println("Old score: " + jedis.zscore(LobbyAPI.REDIS_KEY + RANKINGS_REDIS_KEY + leaderboard.toLowerCase(), player));
             jedis.zadd(LobbyAPI.REDIS_KEY + RANKINGS_REDIS_KEY + leaderboard.toLowerCase(), score, player, ZAddParams.zAddParams().lt());
             if (!silent) {
                 this.pm.get().sendPacket(new LeaderboardUpdatedPacket(leaderboard, LeaderboardUpdatedPacket.Reason.SCORE_UPDATED));
@@ -79,8 +83,8 @@ public class LobbyLeaderboardManager implements ILobbyDataManager<LobbyLeaderboa
      * @param leaderboard The leaderboard to remove the player from.
      * @param player The player to remove.
      */
-    public void removeFromLeaderboard(String leaderboard, String player) {
-        this.redisProcessor.process(jedis -> jedis.zrem(LobbyAPI.REDIS_KEY + RANKINGS_REDIS_KEY + leaderboard.toLowerCase(), player));
+    public void removeFromLeaderboard(String leaderboard, LobbyPlayer player) {
+        this.redisProcessor.process(jedis -> jedis.zrem(LobbyAPI.REDIS_KEY + RANKINGS_REDIS_KEY + leaderboard.toLowerCase(), player.getName()));
     }
 
     /**
@@ -91,7 +95,7 @@ public class LobbyLeaderboardManager implements ILobbyDataManager<LobbyLeaderboa
     public Map<Integer, String> getTopLeaderboard(LobbyLeaderboard leaderboard) {
         try (final Jedis jedis = HyriAPI.get().getRedisResource()) {
             final Map<Integer, String> topPlayers = new HashMap<>();
-            jedis.zrevrangeWithScores(LobbyAPI.REDIS_KEY + RANKINGS_REDIS_KEY + leaderboard.getName().toLowerCase(), 0, leaderboard.getTopRange() - 1)
+            jedis.zrangeWithScores(LobbyAPI.REDIS_KEY + RANKINGS_REDIS_KEY + leaderboard.getName().toLowerCase(), 0, leaderboard.getTopRange() - 1)
                     .forEach(tuple -> topPlayers.put((int) tuple.getScore(), tuple.getElement()));
             return topPlayers;
         }

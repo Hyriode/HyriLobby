@@ -19,6 +19,10 @@ public class LobbyPlayer implements ILobbyData {
      */
     private final UUID uuid;
     /**
+     * The player's name.
+     */
+    private final String name;
+    /**
      * <code>true</code> if the player is using a custom mini-games chooser menu, <code>false</code> otherwise.
      */
     private boolean usingCustomMenu;
@@ -41,8 +45,9 @@ public class LobbyPlayer implements ILobbyData {
      * The constructor of the player.
      * @param uuid The player's UUID.
      */
-    public LobbyPlayer(UUID uuid) {
+    public LobbyPlayer(UUID uuid, String name) {
         this.uuid = uuid;
+        this.name = name;
         this.usingCustomMenu = false;
 
         this.startedJump = null;
@@ -56,6 +61,14 @@ public class LobbyPlayer implements ILobbyData {
      */
     public UUID getUniqueId() {
         return this.uuid;
+    }
+
+    /**
+     * Gets the player's name.
+     * @return The player's name.
+     */
+    public String getName() {
+        return this.name;
     }
 
     /**

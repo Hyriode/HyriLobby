@@ -37,5 +37,5 @@ publishing {
 }
 
 dependencies {
-    api 'fr.hyriode:hyriapi:+'
+    api 'fr.hyriode:hyriapi:1.1.0'
 }

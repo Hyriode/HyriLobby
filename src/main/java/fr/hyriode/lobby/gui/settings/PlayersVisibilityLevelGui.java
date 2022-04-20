@@ -1,18 +1,13 @@
 package fr.hyriode.lobby.gui.settings;
 
-import fr.hyriode.api.HyriAPI;
-import fr.hyriode.hyrame.item.ItemBuilder;
-import fr.hyriode.api.player.IHyriPlayer;
-import fr.hyriode.api.player.IHyriPlayerManager;
 import fr.hyriode.api.settings.HyriPlayersVisibilityLevel;
 import fr.hyriode.api.settings.IHyriPlayerSettings;
+import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.SettingsGui;
 import fr.hyriode.lobby.gui.utils.LobbyInventory;
-import fr.hyriode.lobby.utils.UsefulHeads;
+import fr.hyriode.lobby.utils.UsefulHead;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
@@ -20,27 +15,18 @@ import org.bukkit.material.Wool;
 
 public class PlayersVisibilityLevelGui extends LobbyInventory {
 
-    private final HyriLobby plugin;
-
-    private final IHyriPlayer player;
-    private final IHyriPlayerManager pm;
     private final IHyriPlayerSettings settings;
     private HyriPlayersVisibilityLevel level;
 
     private final ItemStack currentItem;
 
     public PlayersVisibilityLevelGui(HyriLobby plugin, Player owner) {
-        super(owner, plugin.getHyrame(), "item.visibility.", "title.visibility.gui", 27);
+        super(owner, plugin, "visibility", 27);
 
-        this.plugin = plugin;
-
-        this.pm = HyriAPI.get().getPlayerManager();
-        this.player = this.pm.getPlayer(this.owner.getUniqueId());
-
-        this.settings = this.player.getSettings();
+        this.settings = this.account.getSettings();
         this.level = this.settings.getPlayersVisibilityLevel();
 
-        this.currentItem = new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3).withCustomHead(UsefulHeads.ARROW_DOWN.getTexture()).build();
+        this.currentItem = HEAD_ITEM.apply(UsefulHead.ARROW_DOWN).build();
 
         this.init();
     }
@@ -49,25 +35,14 @@ public class PlayersVisibilityLevelGui extends LobbyInventory {
     protected void init() {
         this.inventory.clear();
 
-        //Items with Consumer part
-        this.setItem(10, new ItemBuilder(new Wool(DyeColor.LIME).toItemStack(1)).withName(this.getKey("allItem")).build(),
-                e -> this.onLevelClick(HyriPlayersVisibilityLevel.ALL)
-        );
-        this.setItem(12, new ItemBuilder(new Wool(DyeColor.YELLOW).toItemStack(1)).withName(this.getKey("friendsItem")).build(),
-                e -> this.onLevelClick(HyriPlayersVisibilityLevel.FRIENDS)
-        );
-        this.setItem(14, new ItemBuilder(new Wool(DyeColor.ORANGE).toItemStack(1)).withName(this.getKey("partyItem")).build(),
-                e -> this.onLevelClick(HyriPlayersVisibilityLevel.PARTY)
-        );
-        this.setItem(16, new ItemBuilder(new Wool(DyeColor.RED).toItemStack(1)).withName(this.getKey("noneItem")).build(),
-                e -> this.onLevelClick(HyriPlayersVisibilityLevel.NONE)
-        );
-        this.setItem(22, new ItemBuilder(Material.BARRIER).withName(this.getKey("quit")).build(),
-                e -> this.owner.closeInventory()
-        );
-
-        //Fill part
         this.setFill(FILL_ITEM);
+        this.placeQuitButton(e -> this.owner.closeInventory());
+
+        //Items with Consumer part
+        this.setItem(10, new ItemBuilder(new Wool(DyeColor.LIME).toItemStack(1)).withName(this.getMessage("name")).build(), e -> this.onLevelClick(HyriPlayersVisibilityLevel.ALL));
+        this.setItem(12, new ItemBuilder(new Wool(DyeColor.YELLOW).toItemStack(1)).withName(this.getMessage("name")).build(), e -> this.onLevelClick(HyriPlayersVisibilityLevel.FRIENDS));
+        this.setItem(14, new ItemBuilder(new Wool(DyeColor.ORANGE).toItemStack(1)).withName(this.getMessage("name")).build(), e -> this.onLevelClick(HyriPlayersVisibilityLevel.PARTY));
+        this.setItem(16, new ItemBuilder(new Wool(DyeColor.RED).toItemStack(1)).withName(this.getMessage("name")).build(), e -> this.onLevelClick(HyriPlayersVisibilityLevel.NONE));
 
         this.updateCurrent();
     }
@@ -82,17 +57,7 @@ public class PlayersVisibilityLevelGui extends LobbyInventory {
 
     private void updateCurrent() {
         this.inventory.remove(this.currentItem);
-        this.setItem(this.getSlot(), new ItemBuilder(this.currentItem).withName(this.getKey("current") + this.getIndicatorName()).build());
-    }
-
-    private String getIndicatorName() {
-        switch (this.level) {
-            case ALL: return this.getKey("allLevel");
-            case FRIENDS: return this.getKey("friendsLevel");
-            case PARTY: return this.getKey("partyLevel");
-            case NONE: return this.getKey("noneLevel");
-            default: return "";
-        }
+        this.setItem(this.getSlot(), new ItemBuilder(this.currentItem).withName(this.getMessage("current")).build());
     }
 
     private int getSlot() {
@@ -107,7 +72,7 @@ public class PlayersVisibilityLevelGui extends LobbyInventory {
 
     @Override
     public void onClose(InventoryCloseEvent event) {
-        this.pm.sendPlayer(this.player);
+        this.playerManager.sendPlayer(this.account);
         Bukkit.getScheduler().runTaskLater(this.plugin, () -> new SettingsGui(this.plugin, this.owner).open(), 1L);
     }
 }

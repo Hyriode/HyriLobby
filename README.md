@@ -34,3 +34,6 @@ final Supplier<LobbyLeaderboardManager> leaderboard = api.getLeaderboardManager(
 ## 🔨 TODO
 
 - [LeaderboardHandler](https://github.com/Hyriode/HyriLobby/blob/develop/src/main/java/fr/hyriode/lobby/leaderboard/LeaderboardHandler.java#L96)
+- Flying island around lobby
+- Finish custom gui, auto switch to classic gui when new game added on the network
+- Games npc position handler with command, like jump

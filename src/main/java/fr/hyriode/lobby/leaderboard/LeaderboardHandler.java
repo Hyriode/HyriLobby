@@ -88,14 +88,12 @@ public class LeaderboardHandler implements IHyriPacketReceiver {
 
         builder.withLine(0, lb::getName);
 
-        //TODO Required a way to get the line number. The update being async, a for i loop is not possible if used to get dynamically content, which depends on the line number
         for (int i = 1; i <= lb.getTopRange(); i++) {
             final int[] top = {i - 1};
 
-            //Auto update every minute
             builder.withLine(i, new Hologram.Line(() -> this.getValueWithRank(this.lm.get().getTopLeaderboard(lb), top[0])).withUpdate(1200, line -> {
-                line.withValueFromString(() -> this.getValueWithRank(this.lm.get().getTopLeaderboard(lb), top[0]));
-                System.out.println("[Leaderboard] Updated line " + top[0] + " to " + this.getValueWithRank(this.lm.get().getTopLeaderboard(lb), top[0]));
+                line.withValueFromString(() -> this.getValueWithRank(this.lm.get().getTopLeaderboard(lb), line.getPosition()));
+                System.out.println("[Leaderboard] Updated line " + top[0] + " to " + this.getValueWithRank(this.lm.get().getTopLeaderboard(lb), line.getPosition()));
             }));
         }
 

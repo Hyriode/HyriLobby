@@ -34,18 +34,20 @@ allprojects {
         maven {
             name = 'Hyrame_maven'
             url 'https://maven.pkg.github.com/Hyriode/Hyrame/'
+
             credentials {
-                username System.getenv("GITHUB_USERNAME")
-                password System.getenv("GITHUB_TOKEN")
+                username System.getenv("USERNAME")
+                password System.getenv("TOKEN")
             }
         }
 
         maven {
             name = 'HyriAPI_maven'
             url 'https://maven.pkg.github.com/Hyriode/HyriAPI/'
+
             credentials {
-                username System.getenv("GITHUB_USERNAME")
-                password System.getenv("GITHUB_TOKEN")
+                username System.getenv("USERNAME")
+                password System.getenv("TOKEN")
             }
         }
     }
@@ -59,17 +61,10 @@ archivesBaseName = 'HyriLobby'
 shadowJar {
     configurations = [project.configurations.shadow]
     minimize()
-
-    doLast {
-        copy {
-            from "build/libs/HyriLobby-1.0.0-all.jar"
-            into "Server/plugins"
-        }
-    }
 }
 
 dependencies {
     implementation 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
-    implementation fileTree(dir: 'libs')
+    implementation 'fr.hyriode:hyrame:1.1.8'
     shadow project(':API')
 }

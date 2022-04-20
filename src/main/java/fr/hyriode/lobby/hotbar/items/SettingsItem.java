@@ -2,7 +2,7 @@ package fr.hyriode.lobby.hotbar.items;
 
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.SettingsGui;
+import fr.hyriode.lobby.gui.settings.SettingsGui;
 import fr.hyriode.lobby.hotbar.utils.LobbyItem;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;

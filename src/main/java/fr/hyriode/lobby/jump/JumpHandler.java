@@ -2,6 +2,7 @@ package fr.hyriode.lobby.jump;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.hyrame.listener.HyriListener;
+import fr.hyriode.hyrame.utils.DurationConverter;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.jump.LobbyCheckpoint;
@@ -20,6 +21,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
+import java.time.Duration;
 import java.util.function.Supplier;
 
 public class JumpHandler extends HyriListener<HyriLobby> {
@@ -111,7 +113,7 @@ public class JumpHandler extends HyriListener<HyriLobby> {
                 return;
             }
 
-            final RandomTools.HyriDuration duration = new RandomTools.HyriDuration(this.jm.get().getTimers().get(player.getUniqueId()));
+            final DurationConverter duration = new DurationConverter(Duration.ofSeconds(this.jm.get().getTimers().get(player.getUniqueId())));
 
             event.getPlayer().sendMessage(RandomTools.getPrefix(false) + "Congrats ! Checkpoint reached in "
                     + RandomTools.getDurationMessage(duration, player.getUniqueId()) + " !");
@@ -132,7 +134,7 @@ public class JumpHandler extends HyriListener<HyriLobby> {
                 return;
             }
 
-            final RandomTools.HyriDuration duration = new RandomTools.HyriDuration(this.jm.get().getTimers().getOrDefault(player.getUniqueId(), 0));
+            final DurationConverter duration = new DurationConverter(Duration.ofSeconds(this.jm.get().getTimers().getOrDefault(player.getUniqueId(), 0)));
 
             event.getPlayer().sendMessage(RandomTools.getPrefix(false) + "Congrats ! Jump " + end.getName() + " ended in "
                     + RandomTools.getDurationMessage(duration, player.getUniqueId()) + " !");
@@ -141,8 +143,8 @@ public class JumpHandler extends HyriListener<HyriLobby> {
                 Bukkit.getScheduler().cancelTask(this.jm.get().getTaskIds().get(player.getUniqueId()));
             }
 
-            this.lm.get().removeFromLeaderboard(end.getName(), player.getUniqueId().toString());
-            this.lm.get().addToLeaderboard(end.getName(), player.getUniqueId().toString(), duration.toSeconds());
+            this.lm.get().removeFromLeaderboard(end.getName(), player);
+            this.lm.get().addToLeaderboard(end.getName(), player, duration.toSeconds());
 
             this.jm.get().getTaskIds().remove(player.getUniqueId());
             this.jm.get().getTimers().remove(player.getUniqueId());

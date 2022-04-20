@@ -36,5 +36,5 @@ public abstract class LobbyItem extends HyriItem<HyriLobby> {
         this.onClick(hyrame, event);
     }
 
-    public void onClick(IHyrame hyrame, PlayerInteractEvent event) {}
+    public abstract void onClick(IHyrame hyrame, PlayerInteractEvent event);
 }
