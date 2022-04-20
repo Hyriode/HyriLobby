@@ -34,5 +34,5 @@ jobs:
       - name: Publish shade jar
         run: ./gradlew publish
         env:
-          GITHUB_USERNAME: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          USERNAME: ${{ github.actor }}
+          TOKEN: ${{ secrets.TOKEN }}

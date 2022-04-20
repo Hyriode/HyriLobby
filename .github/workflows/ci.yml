@@ -25,5 +25,5 @@ jobs:
       - name: Build shade jar with Gradle
         run: ./gradlew shadowJar
         env:
-          GITHUB_USERNAME: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          USERNAME: ${{ github.actor }}
+          TOKEN: ${{ secrets.TOKEN }}
