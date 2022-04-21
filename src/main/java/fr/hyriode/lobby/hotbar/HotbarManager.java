@@ -19,9 +19,11 @@ public class HotbarManager {
         player.getInventory().clear();
 
         this.item.get().giveItem(player, 0, GameChooserItem.class);
-        this.item.get().giveItem(player, 1, PlayerInfosItem.class);
+        this.item.get().giveItem(player, 1, PlayerProfileItem.class);
         this.item.get().giveItem(player, 4, ShopItem.class);
         this.item.get().giveItem(player, 7, SettingsItem.class);
         this.item.get().giveItem(player, 8, LobbySelectorItem.class);
+
+        player.getInventory().setHeldItemSlot(0);
     }
 }

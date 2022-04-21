@@ -6,10 +6,9 @@ import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.utils.LobbyInventory;
 import fr.hyriode.lobby.utils.UsefulHead;
-import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Wool;
 
@@ -18,15 +17,11 @@ public class PrivateMessagesLevelGui extends LobbyInventory {
     private final IHyriPlayerSettings settings;
     private HyriPrivateMessagesLevel level;
 
-    private final ItemStack currentItem;
-
     public PrivateMessagesLevelGui(HyriLobby plugin, Player owner) {
-        super(owner, plugin, "private_msg", 27);
+        super(owner, plugin, "settings", "settings.messages_level", 36);
 
         this.settings = this.account.getSettings();
         this.level = this.settings.getPrivateMessagesLevel();
-
-        this.currentItem = HEAD_ITEM.apply(UsefulHead.ARROW_DOWN).build();
 
         this.init();
     }
@@ -35,42 +30,38 @@ public class PrivateMessagesLevelGui extends LobbyInventory {
     protected void init() {
         this.inventory.clear();
 
-        this.setFill(FILL_ITEM);
-        this.placeQuitButton(e -> this.owner.closeInventory());
+        this.fillOutline(FILL_ITEM);
 
-        //Items with Consumer part
-        this.setItem(11, new ItemBuilder(new Wool(DyeColor.LIME).toItemStack(1)).withName(this.getMessage("name")).build(), e -> this.onLevelClick(HyriPrivateMessagesLevel.ALL));
-        this.setItem(13, new ItemBuilder(new Wool(DyeColor.ORANGE).toItemStack(1)).withName(this.getMessage("name")).build(), e -> this.onLevelClick(HyriPrivateMessagesLevel.FRIENDS));
-        this.setItem(15, new ItemBuilder(new Wool(DyeColor.RED).toItemStack(1)).withName(this.getMessage("name")).build(), e -> this.onLevelClick(HyriPrivateMessagesLevel.NONE));
+        this.setItem(20, this.getItem(DyeColor.LIME, HyriPrivateMessagesLevel.ALL), e -> this.onLevelClick(e, HyriPrivateMessagesLevel.ALL));
+        this.setItem(22, this.getItem(DyeColor.ORANGE, HyriPrivateMessagesLevel.FRIENDS), e -> this.onLevelClick(e, HyriPrivateMessagesLevel.FRIENDS));
+        this.setItem(24, this.getItem(DyeColor.RED, HyriPrivateMessagesLevel.NONE), e -> this.onLevelClick(e, HyriPrivateMessagesLevel.NONE));
 
-        this.updateCurrent();
+        this.setupCurrentButton(HEAD_ITEM.apply(UsefulHead.ARROW_DOWN).build(), this.getSlot(), slot -> this.getMessage("current") + this.getLangMessage(this.level), null);
+        this.setupReturnButton(new SettingsGui(this.plugin, this.owner), null);
     }
 
-    private void onLevelClick(HyriPrivateMessagesLevel level) {
+    private void onLevelClick(InventoryClickEvent event, HyriPrivateMessagesLevel level) {
         this.level = level;
         this.settings.setPrivateMessagesLevel(this.level);
 
-        this.updateCurrent();
-        this.setFill(FILL_ITEM);
-    }
-
-    private void updateCurrent() {
-        this.inventory.remove(this.currentItem);
-        this.setItem(this.getSlot(), new ItemBuilder(this.currentItem).withName(this.getMessage("current")).build());
+        this.updateCurrentButton(this.getSlot(), event);
+        this.fillOutline(FILL_ITEM);
     }
 
     private int getSlot() {
         switch (this.level) {
-            case ALL: return 2;
-            case FRIENDS: return 4;
-            case NONE: return 6;
+            case ALL: return 20 - 9;
+            case FRIENDS: return 22 - 9;
+            case NONE: return 24 - 9;
             default: return 0;
         }
     }
 
-    @Override
-    public void onClose(InventoryCloseEvent event) {
-        this.playerManager.sendPlayer(this.account);
-        Bukkit.getScheduler().runTaskLater(this.plugin, () -> new SettingsGui(this.plugin, this.owner).open(), 1L);
+    private String getLangMessage(HyriPrivateMessagesLevel level) {
+        return this.getMessage("placeholder", "settings.level." + level.name().toLowerCase());
+    }
+
+    private ItemStack getItem(DyeColor color, HyriPrivateMessagesLevel level) {
+        return new ItemBuilder(new Wool(color).toItemStack(1)).withName(this.getMessage("button") + this.getLangMessage(level)).build();
     }
 }

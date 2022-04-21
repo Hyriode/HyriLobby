@@ -12,7 +12,7 @@ public class GameChooserItem extends LobbyItem {
     private final HyriLobby plugin;
 
     public GameChooserItem(HyriLobby plugin) {
-        super(plugin, "games_selector", "item.games_selector.name", "item.games_selector.lore", Material.COMPASS);
+        super(plugin, "games_selector", "item.games_selector.name", "item.games_selector.lore", Material.COMPASS, 0);
 
         this.plugin = plugin;
     }

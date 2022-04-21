@@ -8,7 +8,7 @@ import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.player.LobbyPlayer;
 import fr.hyriode.lobby.api.player.LobbyPlayerManager;
-import fr.hyriode.lobby.gui.chooser.utils.GameItem;
+import fr.hyriode.lobby.gui.utils.GameItem;
 import fr.hyriode.lobby.gui.utils.LobbyInventory;
 import fr.hyriode.lobby.utils.UsefulHead;
 import org.bukkit.Material;

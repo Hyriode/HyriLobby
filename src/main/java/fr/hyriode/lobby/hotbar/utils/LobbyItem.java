@@ -3,6 +3,7 @@ package fr.hyriode.lobby.hotbar.utils;
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.item.HyriItem;
 import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.utils.Language;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -11,7 +12,7 @@ import java.util.Collections;
 public abstract class LobbyItem extends HyriItem<HyriLobby> {
 
     public LobbyItem(HyriLobby plugin, String name, String displayName, String description, Material material, int data) {
-        super(plugin, name, () -> plugin.getHyrame().getLanguageManager().getMessage(displayName), () -> Collections.singletonList(plugin.getHyrame().getLanguageManager().getMessage(description)), material, (byte) data);
+        super(plugin, name, () -> Language.getMessage(displayName), () -> Collections.singletonList(Language.getMessage(description)), material, (byte) data);
     }
 
     @Override

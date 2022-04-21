@@ -7,7 +7,6 @@ import fr.hyriode.lobby.gui.utils.LobbyInventory;
 import fr.hyriode.lobby.utils.UsefulHead;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public class SettingsGui extends LobbyInventory {
 
@@ -26,7 +25,6 @@ public class SettingsGui extends LobbyInventory {
         this.inventory.clear();
 
         this.fillOutline(FILL_ITEM);
-        this.placeQuitButton(e -> this.owner.closeInventory());
 
         //Items part
         this.setItem(10, HEAD_ITEM.apply(UsefulHead.NOTEBLOCK).withName(this.getMessage("sound_tag")).build());
@@ -67,10 +65,5 @@ public class SettingsGui extends LobbyInventory {
             this.settings.setFriendRequestsEnabled(!this.settings.isFriendRequestsEnabled());
             e.getInventory().setItem(25, this.updateSwitch(this.settings.isFriendRequestsEnabled(), e.getCurrentItem()));
         });
-    }
-
-    @Override
-    public void onClose(InventoryCloseEvent event) {
-        this.playerManager.sendPlayer(this.account);
     }
 }

@@ -22,12 +22,11 @@ public class LobbyPlaceholder extends PlaceholderPrefixHandler {
         final IHyriPlayerSettings settings = HyriAPI.get().getPlayerSettingsManager().getPlayerSettings(player.getUniqueId());
 
         switch (placeholder) {
-            case "hotbar_click": return this.lang.getValue(player, "item.global.hotbar.click");
-            case "settings_click": return this.lang.getValue(player, "item.global.settings.click");
-            case "settings_current": return this.lang.getValue(player, "item.global.settings.current");
-            case "settings_lang": return this.lang.getValue(player, this.lang.getValue(player, "item.global.settings.lang." + settings.getLanguage().getCode()));
-            case "settings_visibility": return this.lang.getValue(player, "item.global.settings.level." + settings.getPlayersVisibilityLevel().name().toLowerCase());
-            case "settings_mp": return this.lang.getValue(player, "item.global.settings.level." + settings.getPrivateMessagesLevel().name().toLowerCase());
+            case "settings_click": return this.lang.getValue(player, "item.placeholder.click.set");
+            case "settings_current": return this.lang.getValue(player, "item.placeholder.current");
+            case "settings_lang": return this.lang.getValue(player, "item.placeholder.settings.lang." + settings.getLanguage().getCode());
+            case "settings_visibility": return this.lang.getValue(player, "item.placeholder.settings.level." + settings.getPlayersVisibilityLevel().name().toLowerCase());
+            case "settings_mp": return this.lang.getValue(player, "item.placeholder.settings.level." + settings.getPrivateMessagesLevel().name().toLowerCase());
         }
         return null;
     }

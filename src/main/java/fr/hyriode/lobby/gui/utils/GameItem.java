@@ -1,4 +1,4 @@
-package fr.hyriode.lobby.gui.chooser.utils;
+package fr.hyriode.lobby.gui.utils;
 
 import fr.hyriode.hyrame.item.ItemBuilder;
 import org.bukkit.Material;

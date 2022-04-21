@@ -2,12 +2,12 @@ package fr.hyriode.lobby.player;
 
 import fr.hyriode.api.HyriConstants;
 import fr.hyriode.hyrame.actionbar.ActionBar;
-import fr.hyriode.hyrame.language.IHyriLanguageManager;
 import fr.hyriode.hyrame.title.Title;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.player.LobbyPlayer;
 import fr.hyriode.lobby.api.player.LobbyPlayerManager;
+import fr.hyriode.lobby.utils.Language;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -23,12 +23,10 @@ public class PlayerManager {
 
     private final HyriLobby plugin;
     private final Supplier<LobbyPlayerManager> pm;
-    private final Supplier<IHyriLanguageManager> lang;
 
     public PlayerManager(HyriLobby plugin) {
         this.plugin = plugin;
         this.pm = () -> LobbyAPI.get().getPlayerManager();
-        this.lang = () -> plugin.getHyrame().getLanguageManager();
     }
 
     public void onLogin(Player player) {
@@ -39,8 +37,7 @@ public class PlayerManager {
         this.addMessages(player);
 
         Title.sendTitle(player, ChatColor.AQUA + "»" + ChatColor.DARK_AQUA + " " + HyriConstants.SERVER_NAME + " " + ChatColor.AQUA + "«",
-                ChatColor.GRAY + this.lang.get().getValue(player, "title.welcome.welcome") + " " + ChatColor.AQUA + HyriConstants.SERVER_IP + ChatColor.GRAY + " !",
-                12, 30, 12);
+                Language.getMessage(player, "title.welcome.welcome"), 12, 30, 12);
         this.sendActionBar(this.plugin, player);
 
         player.playSound(player.getLocation(), Sound.LEVEL_UP, 5f, 5f);
@@ -55,9 +52,9 @@ public class PlayerManager {
 
     private void addMessages(Player player) {
         MESSAGES.clear();
-        MESSAGES.add(ChatColor.GRAY +  this.lang.get().getValue(player, "title.welcome.website") + ": " + ChatColor.AQUA + HyriConstants.WEBSITE_URL);
-        MESSAGES.add(ChatColor.GRAY + this.lang.get().getValue(player, "title.welcome.shop") + ": " + ChatColor.GOLD + HyriConstants.STORE_WEBSITE_URL);
-        MESSAGES.add(ChatColor.GRAY + this.lang.get().getValue(player, "title.welcome.discord") + ": " + ChatColor.BLUE + HyriConstants.DISCORD_URL);
+        MESSAGES.add(Language.getMessage(player, "title.welcome.website"));
+        MESSAGES.add(Language.getMessage(player, "title.welcome.shop"));
+        MESSAGES.add(Language.getMessage(player, "title.welcome.discord"));
     }
 
     private void sendActionBar(HyriLobby plugin, Player player) {

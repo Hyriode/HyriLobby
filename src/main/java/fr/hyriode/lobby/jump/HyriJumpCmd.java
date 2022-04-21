@@ -309,7 +309,7 @@ public class HyriJumpCmd extends HyriCommand<HyriLobby> {
     }
 
     private void sendMsg(CommandSender sender, String msg, boolean error) {
-        sender.sendMessage(RandomTools.getPrefix(error) + msg);
+        sender.sendMessage(RandomTools.getPrefix("HyriJump", error) + msg);
     }
 
     private void resetJumpValues() {

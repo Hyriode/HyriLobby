@@ -12,7 +12,7 @@ public class SettingsItem extends LobbyItem {
     private final HyriLobby plugin;
 
     public SettingsItem(HyriLobby plugin) {
-        super(plugin, "settings", "item.settings.name", "item.settings.lore", Material.REDSTONE_COMPARATOR);
+        super(plugin, "settings", "item.settings.name", "item.settings.lore", Material.REDSTONE_COMPARATOR, 0);
         this.plugin = plugin;
     }
 

@@ -6,10 +6,9 @@ import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.utils.LobbyInventory;
 import fr.hyriode.lobby.utils.UsefulHead;
-import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Wool;
 
@@ -18,15 +17,11 @@ public class PlayersVisibilityLevelGui extends LobbyInventory {
     private final IHyriPlayerSettings settings;
     private HyriPlayersVisibilityLevel level;
 
-    private final ItemStack currentItem;
-
     public PlayersVisibilityLevelGui(HyriLobby plugin, Player owner) {
-        super(owner, plugin, "visibility", 27);
+        super(owner, plugin, "settings", "settings.visibility_level", 36);
 
         this.settings = this.account.getSettings();
         this.level = this.settings.getPlayersVisibilityLevel();
-
-        this.currentItem = HEAD_ITEM.apply(UsefulHead.ARROW_DOWN).build();
 
         this.init();
     }
@@ -35,44 +30,40 @@ public class PlayersVisibilityLevelGui extends LobbyInventory {
     protected void init() {
         this.inventory.clear();
 
-        this.setFill(FILL_ITEM);
-        this.placeQuitButton(e -> this.owner.closeInventory());
+        this.fillOutline(FILL_ITEM);
 
-        //Items with Consumer part
-        this.setItem(10, new ItemBuilder(new Wool(DyeColor.LIME).toItemStack(1)).withName(this.getMessage("name")).build(), e -> this.onLevelClick(HyriPlayersVisibilityLevel.ALL));
-        this.setItem(12, new ItemBuilder(new Wool(DyeColor.YELLOW).toItemStack(1)).withName(this.getMessage("name")).build(), e -> this.onLevelClick(HyriPlayersVisibilityLevel.FRIENDS));
-        this.setItem(14, new ItemBuilder(new Wool(DyeColor.ORANGE).toItemStack(1)).withName(this.getMessage("name")).build(), e -> this.onLevelClick(HyriPlayersVisibilityLevel.PARTY));
-        this.setItem(16, new ItemBuilder(new Wool(DyeColor.RED).toItemStack(1)).withName(this.getMessage("name")).build(), e -> this.onLevelClick(HyriPlayersVisibilityLevel.NONE));
+        this.setItem(19, this.getItem(DyeColor.LIME, HyriPlayersVisibilityLevel.ALL), e -> this.onLevelClick(e, HyriPlayersVisibilityLevel.ALL));
+        this.setItem(21, this.getItem(DyeColor.YELLOW, HyriPlayersVisibilityLevel.FRIENDS), e -> this.onLevelClick(e, HyriPlayersVisibilityLevel.FRIENDS));
+        this.setItem(23, this.getItem(DyeColor.ORANGE, HyriPlayersVisibilityLevel.PARTY), e -> this.onLevelClick(e, HyriPlayersVisibilityLevel.PARTY));
+        this.setItem(25, this.getItem(DyeColor.RED, HyriPlayersVisibilityLevel.NONE), e -> this.onLevelClick(e, HyriPlayersVisibilityLevel.NONE));
 
-        this.updateCurrent();
+        this.setupCurrentButton(HEAD_ITEM.apply(UsefulHead.ARROW_DOWN).build(), this.getSlot(), slot -> this.getMessage("current") + this.getLangMessage(this.level), null);
+        this.setupReturnButton(new SettingsGui(this.plugin, this.owner), null);
     }
 
-    private void onLevelClick(HyriPlayersVisibilityLevel level) {
+    private void onLevelClick(InventoryClickEvent event, HyriPlayersVisibilityLevel level) {
         this.level = level;
         this.settings.setPlayersVisibilityLevel(this.level);
 
-        this.updateCurrent();
-        this.setFill(FILL_ITEM);
-    }
-
-    private void updateCurrent() {
-        this.inventory.remove(this.currentItem);
-        this.setItem(this.getSlot(), new ItemBuilder(this.currentItem).withName(this.getMessage("current")).build());
+        this.updateCurrentButton(this.getSlot(), event);
+        this.fillOutline(FILL_ITEM);
     }
 
     private int getSlot() {
         switch (this.level) {
-            case ALL: return 1;
-            case FRIENDS: return 3;
-            case PARTY: return 5;
-            case NONE: return 7;
+            case ALL: return 19 - 9;
+            case FRIENDS: return 21 - 9;
+            case PARTY: return 23 - 9;
+            case NONE: return 25 - 9;
             default: return 0;
         }
     }
 
-    @Override
-    public void onClose(InventoryCloseEvent event) {
-        this.playerManager.sendPlayer(this.account);
-        Bukkit.getScheduler().runTaskLater(this.plugin, () -> new SettingsGui(this.plugin, this.owner).open(), 1L);
+    private String getLangMessage(HyriPlayersVisibilityLevel level) {
+        return this.getMessage("placeholder", "settings.level." + level.name().toLowerCase());
+    }
+
+    private ItemStack getItem(DyeColor color, HyriPlayersVisibilityLevel level) {
+        return new ItemBuilder(new Wool(color).toItemStack(1)).withName(this.getMessage("button") + this.getLangMessage(level)).build();
     }
 }

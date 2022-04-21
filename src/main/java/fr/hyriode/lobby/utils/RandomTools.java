@@ -1,26 +1,28 @@
 package fr.hyriode.lobby.utils;
 
-import fr.hyriode.api.HyriAPI;
-import fr.hyriode.api.settings.HyriLanguage;
 import fr.hyriode.hyrame.utils.DurationConverter;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
 public class RandomTools {
 
-    public static String getPrefix(boolean error) {
-        return ChatColor.RESET + "[" + ChatColor.AQUA + "HyriJump" + ChatColor.RESET + "] " + (error ? ChatColor.RED : ChatColor.RESET);
+    public static String getPrefix(String name, boolean error) {
+        return ChatColor.RESET + "[" + ChatColor.AQUA + name + ChatColor.RESET + "] " + (error ? ChatColor.RED : ChatColor.RESET);
     }
 
     public static String getDurationMessage(DurationConverter duration, UUID uuid) {
-        final HyriLanguage lang = HyriAPI.get().getPlayerSettingsManager().getPlayerSettings(uuid).getLanguage();
-        return(lang == HyriLanguage.EN ?
-                ((duration.toHoursPart() != 0 ? duration.toHoursPart() + " hours " : "") + (duration.toMinutesPart() != 0 ? duration.toMinutesPart() + " minutes and " : "")
-                        + duration.toSecondsPart() + " seconds")
-                : (lang == HyriLanguage.FR ?
-                ((duration.toHoursPart() != 0 ? duration.toHoursPart() + " heures " : "") + (duration.toMinutesPart() != 0 ? duration.toMinutesPart() + " minutes et " : "")
-                        + duration.toSecondsPart() + " secondes")
-                : ""));
+        return RandomTools.getDurationMessage(duration, Bukkit.getPlayer(uuid));
+    }
+
+    public static String getDurationMessage(DurationConverter duration, Player player) {
+        final String base = "item.units.";
+
+        return (duration.toDaysPart() != 0 ? duration.toDaysPart() + " " + Language.getMessage(player, base + "days"): "") + " " +
+                (duration.toHoursPart() != 0 ? duration.toHoursPart() + " " + Language.getMessage(player, base + "hours") : "") + " " +
+                (duration.toMinutesPart() != 0 ? duration.toMinutesPart() + " " + Language.getMessage(player, base + "minutes"): "") + " " +
+                (duration.toSecondsPart() != 0 ? duration.toSecondsPart() + " " + Language.getMessage(player, base + "seconds") : "");
     }
 }

@@ -84,7 +84,7 @@ public class JumpHandler extends HyriListener<HyriLobby> {
                 return;
             }
 
-            event.getPlayer().sendMessage(RandomTools.getPrefix(false) + "You started the jump " + start.getName() + " !");
+            event.getPlayer().sendMessage(RandomTools.getPrefix("HyriJump", false) + "You started the jump " + start.getName() + " !");
 
             player.setStartedJump(start.getName());
             //Checkpoint 0 is always the start
@@ -115,7 +115,7 @@ public class JumpHandler extends HyriListener<HyriLobby> {
 
             final DurationConverter duration = new DurationConverter(Duration.ofSeconds(this.jm.get().getTimers().get(player.getUniqueId())));
 
-            event.getPlayer().sendMessage(RandomTools.getPrefix(false) + "Congrats ! Checkpoint reached in "
+            event.getPlayer().sendMessage(RandomTools.getPrefix("HyriJump", false) + "Congrats ! Checkpoint reached in "
                     + RandomTools.getDurationMessage(duration, player.getUniqueId()) + " !");
 
             player.setLastCheckpoint(checkpoint.getId());
@@ -136,7 +136,7 @@ public class JumpHandler extends HyriListener<HyriLobby> {
 
             final DurationConverter duration = new DurationConverter(Duration.ofSeconds(this.jm.get().getTimers().getOrDefault(player.getUniqueId(), 0)));
 
-            event.getPlayer().sendMessage(RandomTools.getPrefix(false) + "Congrats ! Jump " + end.getName() + " ended in "
+            event.getPlayer().sendMessage(RandomTools.getPrefix("HyriJump", false) + "Congrats ! Jump " + end.getName() + " ended in "
                     + RandomTools.getDurationMessage(duration, player.getUniqueId()) + " !");
 
             if (this.jm.get().getTaskIds().get(player.getUniqueId()) != null) {
