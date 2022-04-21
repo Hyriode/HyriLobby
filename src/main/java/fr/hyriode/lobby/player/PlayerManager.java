@@ -30,8 +30,8 @@ public class PlayerManager {
     }
 
     public void onLogin(Player player) {
-        if (this.pm.get().get(player.getUniqueId()) == null) {
-            this.pm.get().save(new LobbyPlayer(player.getUniqueId(), player.getName()));
+        if (this.pm.get().get(player.getUniqueId().toString()) == null) {
+            this.pm.get().save(new LobbyPlayer(player.getUniqueId(), player.getName()), player.getUniqueId().toString());
         }
 
         this.addMessages(player);
@@ -44,10 +44,10 @@ public class PlayerManager {
     }
 
     public void onLogout(Player player) {
-        final LobbyPlayer lp = this.pm.get().get(player.getUniqueId());
+        final LobbyPlayer lp = this.pm.get().get(player.getUniqueId().toString());
 
         lp.setLastCheckpoint(-1);
-        this.pm.get().save(lp);
+        this.pm.get().save(lp, lp.getUniqueId().toString());
     }
 
     private void addMessages(Player player) {

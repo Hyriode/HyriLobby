@@ -18,7 +18,7 @@ public class PrivateMessagesLevelGui extends LobbyInventory {
     private HyriPrivateMessagesLevel level;
 
     public PrivateMessagesLevelGui(HyriLobby plugin, Player owner) {
-        super(owner, plugin, "settings", "settings.messages_level", 36);
+        super(owner, plugin, "settings", "settings.messages_level", 45);
 
         this.settings = this.account.getSettings();
         this.level = this.settings.getPrivateMessagesLevel();

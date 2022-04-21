@@ -1,4 +1,4 @@
-package fr.hyriode.lobby.gui.hotbar.profile;
+package fr.hyriode.lobby.gui.profile;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.friend.IHyriFriend;
@@ -93,6 +93,8 @@ public class FriendsGui extends LobbyInventory {
                     player.sendMessage(this.getMessage("add.success") + lines[1]);
                 }).withLines("", "^^^^^^^^^^^^^^^^", this.getMessage("add.name"), " ").open(this.owner)
         );
+
+        this.setupReturnButton(new ProfileGui(this.plugin, this.owner), null);
 
         this.setupPagination(friends.size(), e -> this.init());
         this.tryToFill(10, this.getIndexFromPage(), items);

@@ -68,3 +68,9 @@ dependencies {
     implementation 'fr.hyriode:hyrame:1.1.8'
     shadow project(':API')
 }
+
+processResources {
+    filter {
+        it.replace('@version@', project.version)
+    }
+}

@@ -15,7 +15,7 @@ public class LanguageGui extends LobbyInventory {
     private final IHyriPlayerSettings settings;
 
     public LanguageGui(HyriLobby plugin, Player owner) {
-        super(owner, plugin, "settings", "settings.language", 36);
+        super(owner, plugin, "settings", "settings.language", 45);
 
         this.settings = this.account.getSettings();
         this.language = this.settings.getLanguage();

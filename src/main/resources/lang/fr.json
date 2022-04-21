@@ -4,7 +4,7 @@
   "title.welcome.shop": "&7Boutique: &6%url_store%",
   "title.welcome.discord": "&7Notre Discord: &9%url_discord%",
   
-  "item.global.quit": "&cQuitter",
+  "item.global.return": "&cRetour",
   "item.global.page.next": "&fPage suivante",
   "item.global.page.previous": "&fPage précédente",
   "item.global.switch": "&bCliquez pour",
@@ -56,6 +56,28 @@
 
   "item.shop.name": "&3Boutique",
   "item.shop.lore": "&bCliquez pour ouvrir la boutique",
+  "item.shop.ranks.website": "&bRendez-vous sur le site pour en savoir plus\n&b➡ %url_website%",
+  "item.shop.ranks.lore": "&bCliquez pour accéder à la boutique des grades",
+  "item.shop.hyriplus": "&3Abonnement Hyri+",
+  "item.shop.money": "&3Vous avez &6",
+  "item.cosmetics_shop.name": "&3Cosmétiques",
+  "item.cosmetics_shop.lore": "&bCliquez pour accéder à la boutique de cosmétiques",
+  "item.cosmetics_shop.owned.name": "&3Vos cosmétiques",
+  "item.cosmetics_shop.owned.lore": "&bCliquez pour accéder à vos cosmétiques",
+  "item.cosmetics_shop.category.gadget.name": "&3Gadgets",
+  "item.cosmetics_shop.category.gadget.lore": "&bCliquez pour accéder à la boutique de gadgets",
+  "item.cosmetics_shop.category.pet.name": "&3Animaux",
+  "item.cosmetics_shop.category.pet.lore": "&bCliquez pour accéder à la boutique d'animaux",
+  "item.cosmetics_shop.category.mount.name": "&3Montures",
+  "item.cosmetics_shop.category.mount.lore": "&bCliquez pour accéder à la boutique de montures",
+  "item.cosmetics_shop.category.particle.name": "&3Particules",
+  "item.cosmetics_shop.category.particle.lore": "&bCliquez pour accéder à la boutique de particules",
+  "item.games_shop.name": "&3Boutique des cosmétiques de jeu",
+  "item.games_shop.lore": "&bCliquez pour accéder à la boutique des cosmétiques de jeu",
+  "item.ranks_shop.name": "&3Grades",
+  "item.ranks_shop.vip": "&3Grade &eVIP",
+  "item.ranks_shop.vip+": "&3Grade &&VIP+",
+  "item.ranks_shop.epic": "&3Grade &bEpic",
 
   "item.settings.name": "&3Paramètres",
   "item.settings.lore": "&bCliquez pour ouvrir les paramètres",
@@ -75,6 +97,7 @@
   "item.lobby_selector.connected": "&fJoueurs: ",
   "item.lobby_selector.friends": "&fAmis: ",
   "item.lobby_selector.click": "&bCliquez pour rejoindre",
-  "item.lobby_selector.full": "&cCe lobby est complet",
-  "item.lobby_selector.already_connected": "&cVous êtes déjà connecté à ce lobby"
+  "item.lobby_selector.full": "&cCe lobby est plein",
+  "item.lobby_selector.already_connected": "&cVous êtes déjà connecté à ce lobby",
+  "item.lobby_selector.connecting": "&bConnexion au lobby "
 }

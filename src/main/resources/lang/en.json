@@ -4,7 +4,7 @@
   "title.welcome.shop": "&7Shop: &6%url_store%",
   "title.welcome.discord": "&7Our Discord: &9%url_discord%",
 
-  "item.global.quit": "&cQuit",
+  "item.global.return": "&cReturn",
   "item.global.page.next": "&fNext page",
   "item.global.page.previous": "&fPrevious page",
   "item.global.switch": "&fClick to",
@@ -56,6 +56,28 @@
 
   "item.shop.name": "&3Shop",
   "item.shop.lore": "&bClick to open the shop",
+  "item.shop.ranks.website": "&bGo on website to learn more\n&b➡ %url_website%",
+  "item.shop.ranks.lore": "&bClick to view the ranks",
+  "item.shop.hyriplus": "&3Hyri+ subscription",
+  "item.shop.money": "&3You have &6",
+  "item.cosmetics_shop.name": "&3Cosmetics",
+  "item.cosmetics_shop.lore": "&bClick to open the cosmetics shop",
+  "item.cosmetics_shop.owned.name": "&3Your cosmetics",
+  "item.cosmetics_shop.owned.lore": "&bClick to open your cosmetics",
+  "item.cosmetics_shop.category.gadget.name": "&3Gadgets",
+  "item.cosmetics_shop.category.gadget.lore": "&bClick to open the gadgets shop",
+  "item.cosmetics_shop.category.pet.name": "&3Pets",
+  "item.cosmetics_shop.category.pet.lore": "&bClick to open the pets shop",
+  "item.cosmetics_shop.category.mount.name": "&3Mounts",
+  "item.cosmetics_shop.category.mount.lore": "&bClick to open the mounts shop",
+  "item.cosmetics_shop.category.particle.name": "&3Particles",
+  "item.cosmetics_shop.category.particle.lore": "&bClick to open the particles shop",
+  "item.games_shop.name": "&3In-game cosmetics shop",
+  "item.games_shop.lore": "&bClick to open the in-game cosmetics shop",
+  "item.ranks_shop.name": "&3Ranks shop",
+  "item.ranks_shop.vip": "&eVIP &3Rank",
+  "item.ranks_shop.vip+": "&aVIP+ &3Rank",
+  "item.ranks_shop.epic": "&bEpic &3Rank",
 
   "item.settings.name": "&3Settings",
   "item.settings.lore": "&bClick to open settings",
@@ -76,5 +98,6 @@
   "item.lobby_selector.friends": "&fFriends: ",
   "item.lobby_selector.click": "&bClick to join",
   "item.lobby_selector.full": "&cThis lobby is full",
-  "item.lobby_selector.already_connected": "&cYou are already connected to this lobby"
+  "item.lobby_selector.already_connected": "&cYou are already connected to this lobby",
+  "item.lobby_selector.connecting": "&bConnecting to lobby "
 }

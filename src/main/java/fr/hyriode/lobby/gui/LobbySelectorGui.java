@@ -1,4 +1,4 @@
-package fr.hyriode.lobby.gui.hotbar;
+package fr.hyriode.lobby.gui;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.friend.IHyriFriend;
@@ -51,11 +51,17 @@ public class LobbySelectorGui extends LobbyInventory {
             final ItemStack item = this.getLobbyItem(server);
 
             items.put(item, e -> {
+                if (server.getPlayers() == 50) {
+                    this.owner.sendMessage(this.getMessage("full"));
+                    return;
+                }
+
                 if (this.account.getCurrentServer().equals(server.getName())) {
                     this.owner.sendMessage(this.getMessage("already_connected"));
                     return;
                 }
 
+                this.owner.sendMessage(this.getMessage("connecting") + server.getName().split("-")[1] + "...");
                 this.serverManager.sendPlayerToServer(this.owner.getUniqueId(), server.getName());
             });
         }

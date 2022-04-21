@@ -43,7 +43,7 @@ public class JumpHandler extends HyriListener<HyriLobby> {
         event.setDeathMessage("");
         event.getEntity().spigot().respawn();
 
-        final LobbyPlayer player = this.pm.get().get(event.getEntity().getUniqueId());
+        final LobbyPlayer player = this.pm.get().get(event.getEntity().getUniqueId().toString());
 
         if (player.getStartedJump() == null || player.getLastCheckpoint() == -1) {
             return;
@@ -71,7 +71,7 @@ public class JumpHandler extends HyriListener<HyriLobby> {
         final LobbyJump end = this.jm.get().getJumpByEnd(loc);
         final LobbyCheckpoint checkpoint = this.jm.get().getCheckpointByLocation(loc);
 
-        final LobbyPlayer player = this.pm.get().get(event.getPlayer().getUniqueId());
+        final LobbyPlayer player = this.pm.get().get(event.getPlayer().getUniqueId().toString());
 
         //Check if jump start/end or checkpoint exists at this location
         if (start == null && end == null && checkpoint == null) {
@@ -90,7 +90,7 @@ public class JumpHandler extends HyriListener<HyriLobby> {
             //Checkpoint 0 is always the start
             player.setLastCheckpoint(0);
 
-            this.pm.get().save(player);
+            this.pm.get().save(player, player.getUniqueId().toString());
 
             this.jm.get().addTimer(player.getUniqueId(), 0);
 
@@ -120,7 +120,7 @@ public class JumpHandler extends HyriListener<HyriLobby> {
 
             player.setLastCheckpoint(checkpoint.getId());
 
-            this.pm.get().save(player);
+            this.pm.get().save(player, player.getUniqueId().toString());
             return;
         }
 
@@ -157,7 +157,7 @@ public class JumpHandler extends HyriListener<HyriLobby> {
                 HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId()).getHyris().add(500);
             }
 
-            this.pm.get().save(player);
+            this.pm.get().save(player, player.getUniqueId().toString());
         }
     }
 
@@ -165,12 +165,12 @@ public class JumpHandler extends HyriListener<HyriLobby> {
         this.jm.get().getTaskIds().values().forEach(id -> Bukkit.getScheduler().cancelTask(id));
 
         this.jm.get().getTimers().keySet().forEach(uuid -> {
-            final LobbyPlayer player = this.pm.get().get(uuid);
+            final LobbyPlayer player = this.pm.get().get(uuid.toString());
 
             player.setStartedJump(null);
             player.setLastCheckpoint(-1);
 
-            this.pm.get().save(player);
+            this.pm.get().save(player, player.getUniqueId().toString());
         });
     }
 }

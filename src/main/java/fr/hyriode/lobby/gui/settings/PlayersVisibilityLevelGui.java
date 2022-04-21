@@ -18,7 +18,7 @@ public class PlayersVisibilityLevelGui extends LobbyInventory {
     private HyriPlayersVisibilityLevel level;
 
     public PlayersVisibilityLevelGui(HyriLobby plugin, Player owner) {
-        super(owner, plugin, "settings", "settings.visibility_level", 36);
+        super(owner, plugin, "settings", "settings.visibility_level", 45);
 
         this.settings = this.account.getSettings();
         this.level = this.settings.getPlayersVisibilityLevel();

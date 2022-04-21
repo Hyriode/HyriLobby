@@ -1,4 +1,4 @@
-package fr.hyriode.lobby.gui.hotbar.profile;
+package fr.hyriode.lobby.gui.profile;
 
 import fr.hyriode.api.rank.EHyriRank;
 import fr.hyriode.hyrame.item.ItemBuilder;

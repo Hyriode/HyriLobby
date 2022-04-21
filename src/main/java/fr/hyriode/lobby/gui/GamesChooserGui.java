@@ -1,4 +1,4 @@
-package fr.hyriode.lobby.gui.chooser;
+package fr.hyriode.lobby.gui;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.server.IHyriServerManager;
@@ -41,7 +41,7 @@ public class GamesChooserGui extends LobbyInventory {
         this.sm = HyriAPI.get().getServerManager();
 
         this.pm = () -> LobbyAPI.get().getPlayerManager();
-        this.lp = this.pm.get().get(owner.getUniqueId());
+        this.lp = this.pm.get().get(owner.getUniqueId().toString());
 
         this.currentItem = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (short) 3).withName(" ").build();
 
@@ -101,6 +101,6 @@ public class GamesChooserGui extends LobbyInventory {
 
     @Override
     public void onClose(InventoryCloseEvent event) {
-        this.pm.get().save(this.lp);
+        this.pm.get().save(this.lp, this.lp.getUniqueId().toString());
     }
 }

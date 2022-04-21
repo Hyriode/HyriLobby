@@ -1,13 +1,12 @@
 package fr.hyriode.lobby.api.leaderboard;
 
 import fr.hyriode.lobby.api.LobbyAPI;
-import fr.hyriode.lobby.api.redis.ILobbyData;
 import fr.hyriode.lobby.api.utils.LobbyLocation;
 
 /**
  * Represents a leaderboard in the lobby.
  */
-public class LobbyLeaderboard implements ILobbyData {
+public class LobbyLeaderboard {
 
     /**
      * The name of the leaderboard.

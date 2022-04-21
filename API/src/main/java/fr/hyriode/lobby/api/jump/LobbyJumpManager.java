@@ -1,23 +1,16 @@
 package fr.hyriode.lobby.api.jump;
 
-import fr.hyriode.api.HyriAPI;
-import fr.hyriode.api.redis.IHyriRedisProcessor;
-import fr.hyriode.lobby.api.LobbyAPI;
-import fr.hyriode.lobby.api.redis.ILobbyDataManager;
+import fr.hyriode.lobby.api.redis.LobbyDataManager;
+import fr.hyriode.lobby.api.redis.RedisKey;
 import fr.hyriode.lobby.api.utils.LobbyLocation;
-import redis.clients.jedis.Jedis;
 
 import java.util.*;
 
 /**
  * Represents the manager of the jump system.
  */
-public class LobbyJumpManager implements ILobbyDataManager<LobbyJump, String> {
+public class LobbyJumpManager extends LobbyDataManager<LobbyJump> {
 
-    /**
-     * The base key for storing data in Redis.
-     */
-    private static final String REDIS_KEY = "jump:";
     /**
      * A map containing timer tasks ids, where {@link UUID} is the player's UUID and {@link Integer} is the task id.
      */
@@ -26,18 +19,15 @@ public class LobbyJumpManager implements ILobbyDataManager<LobbyJump, String> {
      * A map containing the jump timers, where {@link UUID} is the player's UUID and {@link Integer} is the jump timer.
      */
     private final Map<UUID, Integer> timers;
-    /**
-     * The {@link IHyriRedisProcessor} instance.
-     */
-    private final IHyriRedisProcessor redisProcessor;
 
     /**
      * The constructor of the jump manager.
      */
     public LobbyJumpManager() {
+        super(RedisKey.JUMP, LobbyJump.class);
+
         this.taskIds = new HashMap<>();
         this.timers = new HashMap<>();
-        this.redisProcessor = HyriAPI.get().getRedisProcessor();
     }
 
     /**
@@ -46,7 +36,7 @@ public class LobbyJumpManager implements ILobbyDataManager<LobbyJump, String> {
      * @return The jump with the given start location, or null if not found.
      */
     public LobbyJump getJumpByStart(LobbyLocation start) {
-        for (final LobbyJump jump : this.getAllKeysAsValues()) {
+        for (final LobbyJump jump : this.getValues()) {
             if (LobbyLocation.isEquals(jump.getStart(), start)) {
                 return jump;
             }
@@ -60,7 +50,7 @@ public class LobbyJumpManager implements ILobbyDataManager<LobbyJump, String> {
      * @return The jump with the given end location, or null if not found.
      */
     public LobbyJump getJumpByEnd(LobbyLocation end) {
-        for (final LobbyJump jump : this.getAllKeysAsValues()) {
+        for (final LobbyJump jump : this.getValues()) {
             if (LobbyLocation.isEquals(jump.getEnd(), end)) {
                 return jump;
             }
@@ -74,7 +64,7 @@ public class LobbyJumpManager implements ILobbyDataManager<LobbyJump, String> {
      * @return The checkpoint with the given location, or null if not found.
      */
     public LobbyCheckpoint getCheckpointByLocation(LobbyLocation location) {
-        for (final LobbyJump jump : this.getAllKeysAsValues()) {
+        for (final LobbyJump jump : this.getValues()) {
             for (final LobbyCheckpoint checkpoint : jump.getCheckpoints()) {
                 if (LobbyLocation.isEquals(checkpoint.getLocation(), location)) {
                     return checkpoint;
@@ -85,54 +75,12 @@ public class LobbyJumpManager implements ILobbyDataManager<LobbyJump, String> {
     }
 
     /**
-     * Get the jump with the given name.
-     * @param key The jump name.
-     * @return The jump with the given name.
-     */
-    @Override
-    public LobbyJump get(String key) {
-        try (final Jedis jedis = HyriAPI.get().getRedisResource()) {
-            return LobbyAPI.GSON.fromJson(jedis.get(LobbyAPI.REDIS_KEY + REDIS_KEY + key.toLowerCase()), LobbyJump.class);
-        }
-    }
-
-    /**
-     * Save the given jump in the database.
-     * @param data The jump to save.
-     */
-    @Override
-    public void save(LobbyJump data) {
-        this.redisProcessor.process(jedis -> jedis.set(LobbyAPI.REDIS_KEY + REDIS_KEY + data.getName().toLowerCase(), LobbyAPI.GSON.toJson(data)));
-    }
-
-    /**
-     * Delete the given jump from the database.
-     * @param data The jump to delete.
-     */
-    @Override
-    public void delete(LobbyJump data) {
-        this.redisProcessor.process(jedis -> jedis.del(LobbyAPI.REDIS_KEY + REDIS_KEY + data.getName().toLowerCase()));
-    }
-
-    /**
-     * Get all the jumps stored in the database as keys.
-     * @return The jumps as keys.
-     */
-    @Override
-    public Set<String> getAllKeys() {
-        try (final Jedis jedis = HyriAPI.get().getRedisResource()) {
-            return jedis.keys(LobbyAPI.REDIS_KEY + REDIS_KEY + "*");
-        }
-    }
-
-    /**
      * Get all the jumps stored in the database as values.
      * @return The jumps as values.
      */
-    @Override
-    public Set<LobbyJump> getAllKeysAsValues() {
+    public Set<LobbyJump> getValues() {
         final Set<LobbyJump> jumps = new HashSet<>();
-        this.getAllKeys().forEach(key -> jumps.add(this.get(key.split(":")[key.split(":").length - 1])));
+        this.getKeys().forEach(key -> jumps.add(this.get(key.split(":")[key.split(":").length - 1])));
         return jumps;
     }
 

@@ -19,10 +19,7 @@ public class LobbyAPI {
      * Its very important to serialize null values.
      */
     public static final Gson GSON = new GsonBuilder().serializeNulls().create();
-    /**
-     * The base key for storing data in Redis.
-     */
-    public static final String REDIS_KEY = "lobby:";
+
     /**
      * The instance of the API.
      */

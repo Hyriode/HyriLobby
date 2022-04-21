@@ -99,8 +99,8 @@ public class HyriJumpCmd extends HyriCommand<HyriLobby> {
                 checkpoints.add(new LobbyCheckpoint(entry.getKey(), this.name, entry.getValue()));
             }
 
-            this.jm.get().save(new LobbyJump(this.name, this.start, this.end, checkpoints));
-            this.lm.get().save(new LobbyLeaderboard(this.name, 10, end));
+            this.jm.get().save(new LobbyJump(this.name, this.start, this.end, checkpoints), this.name);
+            this.lm.get().save(new LobbyLeaderboard(this.name, 10, end), this.name);
 
             this.sendMsg(player, "Jump created !", false);
 
@@ -197,9 +197,9 @@ public class HyriJumpCmd extends HyriCommand<HyriLobby> {
                 return;
             }
 
-            Bukkit.getOnlinePlayers().forEach(p -> this.lpm.get().get(p.getUniqueId()).getFinishedJumps().remove(jump.getName()));
+            Bukkit.getOnlinePlayers().forEach(p -> this.lpm.get().get(p.getUniqueId().toString()).getFinishedJumps().remove(jump.getName()));
 
-            this.jm.get().delete(jump);
+            this.jm.get().delete(jump.getName());
             this.pm.get().sendPacket(new JumpDeletedPacket(jump.getName()));
             this.sendMsg(player, "Jump deleted !", false);
         });
@@ -243,7 +243,7 @@ public class HyriJumpCmd extends HyriCommand<HyriLobby> {
 
             jump.getCheckpoints().set(0, new LobbyCheckpoint(0, jump.getName(), loc));
             jump.setStart(loc);
-            this.jm.get().save(jump);
+            this.jm.get().save(jump, jump.getName());
 
             this.sendMsg(player, "Start updated !", false);
             this.pm.get().sendPacket(new JumpUpdatedPacket(jump.getName(), JumpUpdatedPacket.Reason.START_MOVED));
@@ -260,7 +260,7 @@ public class HyriJumpCmd extends HyriCommand<HyriLobby> {
             final LobbyLocation loc = LocationConverter.toLobbyLocation(player.getLocation());
 
             jump.setEnd(loc);
-            this.jm.get().save(jump);
+            this.jm.get().save(jump, jump.getName());
 
             this.sendMsg(player, "End set for the jump " + jump.getName() + " !", false);
             this.pm.get().sendPacket(new JumpUpdatedPacket(jump.getName(), JumpUpdatedPacket.Reason.END_MOVED));
@@ -288,14 +288,14 @@ public class HyriJumpCmd extends HyriCommand<HyriLobby> {
         });
 
         this.handleArgument(ctx, "list", output -> {
-            if (this.jm.get().getAllKeys().isEmpty()) {
+            if (this.jm.get().getKeys().isEmpty()) {
                 this.sendMsg(player, "There is no jump !", true);
                 return;
             }
 
            this.sendMsg(player, "==Jumps==", false);
 
-           for (LobbyJump jump : this.jm.get().getAllKeysAsValues()) {
+           for (LobbyJump jump : this.jm.get().getValues()) {
                player.spigot().sendMessage(new ComponentBuilder("- ").color(ChatColor.WHITE)
                        .append("Name: " + jump.getName() + ", Start: " + LobbyLocation.toStringFormat(jump.getStart()) + ", End: "
                        + LobbyLocation.toStringFormat(jump.getEnd()) + ", Checkpoints: " + jump.getCheckpoints().size())

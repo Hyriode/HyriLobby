@@ -2,6 +2,7 @@ package fr.hyriode.lobby.hotbar.items;
 
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.gui.shop.ShopGui;
 import fr.hyriode.lobby.hotbar.utils.LobbyItem;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -14,6 +15,6 @@ public class ShopItem extends LobbyItem {
 
     @Override
     public void onClick(IHyrame hyrame, PlayerInteractEvent e) {
-        e.getPlayer().sendMessage("Triggered " + this.name);
+        new ShopGui(this.plugin, e.getPlayer()).open();
     }
 }

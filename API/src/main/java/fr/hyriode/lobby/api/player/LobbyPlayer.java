@@ -3,7 +3,6 @@ package fr.hyriode.lobby.api.player;
 import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.jump.LobbyCheckpoint;
 import fr.hyriode.lobby.api.jump.LobbyJump;
-import fr.hyriode.lobby.api.redis.ILobbyData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.UUID;
 /**
  * Represents a player in the lobby.
  */
-public class LobbyPlayer implements ILobbyData {
+public class LobbyPlayer {
 
     /**
      * The player's UUID.
@@ -22,10 +21,6 @@ public class LobbyPlayer implements ILobbyData {
      * The player's name.
      */
     private final String name;
-    /**
-     * <code>true</code> if the player is using a custom mini-games chooser menu, <code>false</code> otherwise.
-     */
-    private boolean usingCustomMenu;
 
     /**
      * The name of the {@link LobbyJump} started, if any.
@@ -48,7 +43,6 @@ public class LobbyPlayer implements ILobbyData {
     public LobbyPlayer(UUID uuid, String name) {
         this.uuid = uuid;
         this.name = name;
-        this.usingCustomMenu = false;
 
         this.startedJump = null;
         this.lastCheckpoint = -1;
@@ -69,22 +63,6 @@ public class LobbyPlayer implements ILobbyData {
      */
     public String getName() {
         return this.name;
-    }
-
-    /**
-     * Checks if the player is using a custom mini-games chooser menu.
-     * @return <code>true</code> if the player is using a custom mini-games chooser menu, <code>false</code> otherwise.
-     */
-    public boolean isUsingCustomMenu() {
-        return this.usingCustomMenu;
-    }
-
-    /**
-     * Sets if the player is using a custom mini-games chooser menu.
-     * @param usingCustomMenu <code>true</code> if the player is using a custom mini-games chooser menu, <code>false</code> otherwise.
-     */
-    public void setUsingCustomMenu(boolean usingCustomMenu) {
-        this.usingCustomMenu = usingCustomMenu;
     }
 
     /**
