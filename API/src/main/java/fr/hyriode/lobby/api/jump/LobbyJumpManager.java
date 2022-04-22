@@ -24,7 +24,7 @@ public class LobbyJumpManager extends LobbyDataManager<LobbyJump> {
      * The constructor of the jump manager.
      */
     public LobbyJumpManager() {
-        super(RedisKey.JUMP, LobbyJump.class);
+        super(RedisKey.JUMP.getKey(), LobbyJump.class);
 
         this.taskIds = new HashMap<>();
         this.timers = new HashMap<>();

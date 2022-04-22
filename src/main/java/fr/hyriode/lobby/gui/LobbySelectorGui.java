@@ -5,8 +5,6 @@ import fr.hyriode.api.friend.IHyriFriend;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.server.IHyriServerManager;
 import fr.hyriode.hyggdrasil.api.server.HyggServer;
-import fr.hyriode.hyggdrasil.api.server.HyggServerOptions;
-import fr.hyriode.hyggdrasil.api.server.HyggServerState;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.utils.LobbyInventory;
 import fr.hyriode.lobby.utils.UsefulHead;
@@ -15,7 +13,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -38,20 +39,13 @@ public class LobbySelectorGui extends LobbyInventory {
         this.fillOutline(FILL_ITEM);
 
         final List<HyggServer> servers = this.serverManager.getLobbies();
-
-        if (HyriAPI.get().getConfiguration().isDevEnvironment()) {
-            for (int i = 0; i < 30; i++) {
-                servers.add(new HyggServer("lobby-" + (i + 1), HyggServerState.READY, new Random().nextInt(50) + 1, System.currentTimeMillis(), new HyggServerOptions()));
-            }
-        }
-
         final Map<ItemStack, Consumer<InventoryClickEvent>> items = new HashMap<>();
 
         for (HyggServer server : servers) {
             final ItemStack item = this.getLobbyItem(server);
 
             items.put(item, e -> {
-                if (server.getPlayers() == 50) {
+                if (server.getPlayers().size() == server.getSlots()) {
                     this.owner.sendMessage(this.getMessage("full"));
                     return;
                 }
@@ -72,7 +66,7 @@ public class LobbySelectorGui extends LobbyInventory {
 
     private ItemStack getLobbyItem(HyggServer server) {
         final int friends = this.getFriendsOnServer(server);
-        final UsefulHead texture = server.getPlayers() == 50 ? UsefulHead.RED_CUBE : (friends > 0 ? UsefulHead.CYAN_CUBE : UsefulHead.GREEN_CUBE);
+        final UsefulHead texture = server.getPlayers().size() == server.getSlots() ? UsefulHead.RED_CUBE : (friends > 0 ? UsefulHead.CYAN_CUBE : UsefulHead.GREEN_CUBE);
 
         return HEAD_ITEM.apply(texture).withName(ChatColor.WHITE + "Lobby ID: " + ChatColor.AQUA + server.getName().split("-")[1]).withLore(this.getServerLore(server, friends)).build();
     }
@@ -85,7 +79,7 @@ public class LobbySelectorGui extends LobbyInventory {
     }
 
     private List<String> getServerLore(HyggServer server, int friends) {
-        final boolean isFull = server.getPlayers() == 50;
+        final boolean isFull = server.getPlayers().size() == server.getSlots();
         final List<String> lore = new ArrayList<>();
 
         lore.add(this.getMessage("connected") + (isFull ? ChatColor.RED : ChatColor.AQUA) + server.getPlayers() + "/50");

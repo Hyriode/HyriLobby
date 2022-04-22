@@ -36,6 +36,8 @@ public class PlayerManager {
 
         this.addMessages(player);
 
+        this.teleportToSpawn(player);
+
         Title.sendTitle(player, ChatColor.AQUA + "»" + ChatColor.DARK_AQUA + " " + HyriConstants.SERVER_NAME + " " + ChatColor.AQUA + "«",
                 Language.getMessage(player, "title.welcome.welcome"), 12, 30, 12);
         this.sendActionBar(this.plugin, player);
@@ -48,6 +50,11 @@ public class PlayerManager {
 
         lp.setLastCheckpoint(-1);
         this.pm.get().save(lp, lp.getUniqueId().toString());
+    }
+
+    public void teleportToSpawn(Player player) {
+        //TODO Add location with config
+        //player.teleport();
     }
 
     private void addMessages(Player player) {

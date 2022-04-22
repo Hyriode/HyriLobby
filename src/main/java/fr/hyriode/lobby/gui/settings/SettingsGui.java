@@ -27,11 +27,10 @@ public class SettingsGui extends LobbyInventory {
         this.fillOutline(FILL_ITEM);
 
         //Items part
-        this.setItem(10, HEAD_ITEM.apply(UsefulHead.NOTEBLOCK).withName(this.getMessage("sound_tag")).build());
-        this.setItem(11, HEAD_ITEM.apply(UsefulHead.NOTEBLOCK).withName(this.getMessage("messages_sound")).build());
-        this.setItem(13, new ItemBuilder(Material.BOOK).withName(this.getMessage("global_chat")).build());
-        this.setItem(15, new ItemBuilder(Material.PAPER).withName(this.getMessage("party_request")).build());
-        this.setItem(16, new ItemBuilder(Material.PAPER).withName(this.getMessage("friend_request")).build());
+        this.setItem(10, HEAD_ITEM.apply(UsefulHead.NOTEBLOCK).withName(this.getMessage("messages_sound")).build());
+        this.setItem(12, new ItemBuilder(Material.BOOK).withName(this.getMessage("global_chat")).build());
+        this.setItem(13, new ItemBuilder(Material.PAPER).withName(this.getMessage("party_request")).build());
+        this.setItem(15, new ItemBuilder(Material.PAPER).withName(this.getMessage("friend_request")).build());
 
         //Items with Consumer part
         this.setItem(38, HEAD_ITEM.apply(UsefulHead.EARTH).withName(this.getMessage("language")).build(),
@@ -45,19 +44,15 @@ public class SettingsGui extends LobbyInventory {
         );
 
         //Switch part
-        this.setItem(19, new ItemBuilder(this.createSwitch(this.settings.isTagSoundEnabled())).build(), e -> {
-            this.settings.setTagSoundEnabled(!this.settings.isTagSoundEnabled());
-            e.getInventory().setItem(19, this.updateSwitch(this.settings.isTagSoundEnabled(), e.getCurrentItem()));
-        });
-        this.setItem(20, new ItemBuilder(this.createSwitch(this.settings.isPrivateMessagesSoundEnabled())).build(), e -> {
+        this.setItem(19, new ItemBuilder(this.createSwitch(this.settings.isPrivateMessagesSoundEnabled())).build(), e -> {
             this.settings.setPrivateMessagesSoundEnabled(!this.settings.isPrivateMessagesSoundEnabled());
             e.getInventory().setItem(20, this.updateSwitch(this.settings.isPrivateMessagesSoundEnabled(), e.getCurrentItem()));
         });
-        this.setItem(22, new ItemBuilder(this.createSwitch(this.settings.isGlobalChatMessagesEnabled())).build(), e -> {
+        this.setItem(21, new ItemBuilder(this.createSwitch(this.settings.isGlobalChatMessagesEnabled())).build(), e -> {
             this.settings.setGlobalChatMessagesEnabled(!this.settings.isGlobalChatMessagesEnabled());
             e.getInventory().setItem(22, this.updateSwitch(this.settings.isGlobalChatMessagesEnabled(), e.getCurrentItem()));
         });
-        this.setItem(24, new ItemBuilder(this.createSwitch(this.settings.isPartyRequestsEnabled())).build(), e -> {
+        this.setItem(23, new ItemBuilder(this.createSwitch(this.settings.isPartyRequestsEnabled())).build(), e -> {
             this.settings.setPartyRequestsEnabled(!this.settings.isPartyRequestsEnabled());
             e.getInventory().setItem(24, this.updateSwitch(this.settings.isPartyRequestsEnabled(), e.getCurrentItem()));
         });

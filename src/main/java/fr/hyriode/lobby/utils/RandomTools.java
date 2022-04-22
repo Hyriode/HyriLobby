@@ -20,7 +20,8 @@ public class RandomTools {
     public static String getDurationMessage(DurationConverter duration, Player player) {
         final String base = "item.units.";
 
-        return (duration.toDaysPart() != 0 ? duration.toDaysPart() + " " + Language.getMessage(player, base + "days"): "") + " " +
+        return (duration.toMonthsPart() != 0 ? duration.toMonthsPart() + " " + Language.getMessage(player, base + "months"): "") + " " +
+                (duration.toDaysPart() != 0 ? duration.toDaysPart() + " " + Language.getMessage(player, base + "days"): "") + " " +
                 (duration.toHoursPart() != 0 ? duration.toHoursPart() + " " + Language.getMessage(player, base + "hours") : "") + " " +
                 (duration.toMinutesPart() != 0 ? duration.toMinutesPart() + " " + Language.getMessage(player, base + "minutes"): "") + " " +
                 (duration.toSecondsPart() != 0 ? duration.toSecondsPart() + " " + Language.getMessage(player, base + "seconds") : "");

@@ -1,5 +1,5 @@
 name: HyriLobby
 main: fr.hyriode.lobby.HyriLobby
 version: @version@
-depend: [HyriAPI, Hyrame]
+depend: [Hyrame]
 prefix: HyriLobby

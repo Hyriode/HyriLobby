@@ -1,12 +1,13 @@
 package fr.hyriode.lobby.gui.profile;
 
-import fr.hyriode.api.rank.EHyriRank;
+import fr.hyriode.api.rank.HyriPlus;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.DurationConverter;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.settings.LanguageGui;
 import fr.hyriode.lobby.gui.settings.SettingsGui;
 import fr.hyriode.lobby.gui.utils.LobbyInventory;
+import fr.hyriode.lobby.utils.RandomTools;
 import fr.hyriode.lobby.utils.UsefulHead;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
@@ -52,7 +53,7 @@ public class ProfileGui extends LobbyInventory {
 
         lore.add(this.getMessage("rank") + this.account.getRank().getPrefix());
         //TODO Check if player has Hyri+
-        lore.add(ChatColor.WHITE + "Hyri+: " + (this.account.getRank().getType() == EHyriRank.ADMINISTRATOR ? ChatColor.GREEN + "✔" : ChatColor.RED + "✘"));
+        lore.add(ChatColor.WHITE + "Hyri+: " + (this.account.hasHyriPlus() ? ChatColor.GREEN + "✔" : ChatColor.RED + "✘"));
         //TODO Get player level
         lore.add(this.getMessage("level") + this.account.getCurrentServer());
         lore.add(ChatColor.WHITE + "Hyris: " + ChatColor.AQUA + this.account.getHyris().getAmount());
@@ -69,15 +70,17 @@ public class ProfileGui extends LobbyInventory {
     private List<String> getHyriPlusLore() {
         final List<String> lore = new ArrayList<>();
 
-        //TODO Check if player doesn't have Hyri+
-        if (this.account.getRank().getType() != EHyriRank.ADMINISTRATOR) {
+        if (!this.account.hasHyriPlus()) {
             lore.add(this.getMessage("hyriplus.dont_have"));
             return lore;
         }
-        //TODO Hyri+ buy date
-        lore.add(this.getMessage("hyriplus.buy_date") + DATE_FORMAT.format(this.account.getFirstLoginDate()));
-        lore.add(this.getMessage("hyriplus.expire_date") + DATE_FORMAT.format(this.account.getFirstLoginDate()));
-        lore.add(this.getMessage("hyriplus.remaining") + DATE_FORMAT.format(this.account.getFirstLoginDate()));
+
+        final HyriPlus hyriPlus = this.account.getHyriPlus();
+        final DurationConverter converter = new DurationConverter(Duration.between(hyriPlus.getPurchaseDate().toInstant(), hyriPlus.getExpirationDate().toInstant()));
+
+        lore.add(this.getMessage("hyriplus.buy_date") + DATE_FORMAT.format(hyriPlus.getPurchaseDate()));
+        lore.add(this.getMessage("hyriplus.expire_date") + DATE_FORMAT.format(hyriPlus.getExpirationDate()));
+        lore.add(this.getMessage("hyriplus.remaining") + RandomTools.getDurationMessage(converter, this.owner));
 
         return lore;
     }

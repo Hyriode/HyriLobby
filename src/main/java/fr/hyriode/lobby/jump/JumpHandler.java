@@ -1,6 +1,7 @@
 package fr.hyriode.lobby.jump;
 
 import fr.hyriode.api.HyriAPI;
+import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.hyrame.utils.DurationConverter;
 import fr.hyriode.lobby.HyriLobby;
@@ -154,7 +155,9 @@ public class JumpHandler extends HyriListener<HyriLobby> {
 
             if (!player.getFinishedJumps().contains(end.getName())) {
                 player.getFinishedJumps().add(end.getName());
-                HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId()).getHyris().add(500);
+                final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId());
+                account.getHyris().add(500);
+                account.update();
             }
 
             this.pm.get().save(player, player.getUniqueId().toString());

@@ -1,53 +1,28 @@
 package fr.hyriode.lobby.gui;
 
 import fr.hyriode.api.HyriAPI;
-import fr.hyriode.api.server.IHyriServerManager;
-import fr.hyriode.hyrame.game.IHyriGameManager;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.api.LobbyAPI;
-import fr.hyriode.lobby.api.player.LobbyPlayer;
-import fr.hyriode.lobby.api.player.LobbyPlayerManager;
+import fr.hyriode.lobby.api.games.LobbyGame;
 import fr.hyriode.lobby.gui.utils.GameItem;
 import fr.hyriode.lobby.gui.utils.LobbyInventory;
 import fr.hyriode.lobby.utils.UsefulHead;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.Supplier;
+import java.util.*;
+import java.util.function.Consumer;
 
 public class GamesChooserGui extends LobbyInventory {
 
     private static final List<Integer> DONT_FILL = Arrays.asList(28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43);
 
-    private final IHyriGameManager gm;
-    private final IHyriServerManager sm;
-
-    private final LobbyPlayer lp;
-    private final Supplier<LobbyPlayerManager> pm;
-
-    private final ItemStack currentItem;
-    private final HashMap<Integer, ItemStack> gameItems;
-
     public GamesChooserGui(HyriLobby plugin, Player owner) {
         super(owner, plugin, "games_selector", 54);
-
-        this.gm = plugin.getHyrame().getGameManager();
-        this.sm = HyriAPI.get().getServerManager();
-
-        this.pm = () -> LobbyAPI.get().getPlayerManager();
-        this.lp = this.pm.get().get(owner.getUniqueId().toString());
-
-        this.currentItem = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (short) 3).withName(" ").build();
-
-        this.gameItems = new HashMap<>();
-        final int[] slots = {10};
-        GameItem.getRequiredItems().forEach(item -> this.gameItems.put(slots[0]++, item.build()));
 
         this.init();
     }
@@ -55,52 +30,44 @@ public class GamesChooserGui extends LobbyInventory {
     protected void init() {
         this.inventory.clear();
 
-        //Items part
-        this.setItem(4, new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3).withCustomHead(UsefulHead.EARTH.getTexture()).withName(this.getMessage("name")).build());
+        this.fillOutline(FILL_ITEM);
 
-        this.gameItems.forEach((slot, item) -> {
-            final String name = item.getItemMeta().getDisplayName();
-            this.setItem(slot, item, e -> this.onGameClick(slot, item.getType(), name, GameItem.getByName(name).getModes()));
-        });
+        final Set<LobbyGame> games = LobbyAPI.get().getGameRegistry().getValues();
+        final Map<ItemStack, Consumer<InventoryClickEvent>> items = new HashMap<>();
 
-        //Fill part
-        this.setCustomFill(false);
+        for (LobbyGame game : games) {
+            final GameItem item = GameItem.getByName(game.getName());
+            final ItemBuilder builder = item.getItem();
+
+            builder.withName(ChatColor.DARK_AQUA + game.getDisplayName());
+
+            items.put(builder.build(), e -> this.onGameClick(e.getSlot(), builder, game));
+        }
+
+        this.tryToFill(10, 0, items);
+        this.setHorizontalLine(18, 26, FILL_ITEM);
+        this.setHorizontalLine(27, 35, FILL_ITEM);
+        this.setHorizontalLine(36, 44, FILL_ITEM);
     }
 
-    private void onGameClick(int itemSlot, Material material, String gameName, List<String> modes) {
+    private void onGameClick(int itemSlot, ItemBuilder item, LobbyGame game) {
         DONT_FILL.forEach(slot -> this.setItem(slot, new ItemStack(Material.AIR)));
 
         final int[] slot = {27};
-        modes.forEach(type -> {
+        game.getTypes().forEach(type -> {
             if (slot[0] != 26 && slot[0] != 35 && slot[0] != 34 && slot[0] != 43) {
-                this.setItem(slot[0] += 1, new ItemBuilder(material).withName("§f" + gameName + " " + type).build(), e -> {
-                    this.sm.sendPlayerToServer(this.owner.getUniqueId(), this.gm.getGames(gameName.toLowerCase(), type).get(0));
+                this.setItem(slot[0] += 1, item.withName(ChatColor.AQUA + game.getDisplayName() + " " + type).build(), e -> {
+                    this.owner.sendMessage(this.getMessage("connecting"));
+                    HyriAPI.get().getQueueManager().addPlayerInQueueWithPartyCheck(this.owner.getUniqueId(), game.getName(), type);
                 });
             }
         });
 
-        this.inventory.remove(this.currentItem);
-        this.setItem(itemSlot + 9, this.currentItem);
+        this.inventory.remove(this.currentButton);
 
-        this.setCustomFill(true);
-    }
+        this.fillOutline(FILL_ITEM);
+        this.setHorizontalLine(18, 26, FILL_ITEM);
 
-    private void setCustomFill(boolean selected) {
-        for (int i = 0; i < this.inventory.getSize(); i++) {
-            if (this.inventory.getItem(i) == null) {
-                if (selected) {
-                    if (!DONT_FILL.contains(i)) {
-                        this.setItem(i, FILL_ITEM);
-                    }
-                } else {
-                    this.setItem(i, FILL_ITEM);
-                }
-            }
-        }
-    }
-
-    @Override
-    public void onClose(InventoryCloseEvent event) {
-        this.pm.get().save(this.lp, this.lp.getUniqueId().toString());
+        this.setupCurrentButton(HEAD_ITEM.apply(UsefulHead.ARROW_DOWN).build(), itemSlot + 9, name -> " ", null);
     }
 }

@@ -52,4 +52,16 @@ public class PlayerHandler extends HyriListener<HyriLobby> {
         this.scoreboard.onLogout(player);
         this.leaderboard.get().onLogout(player);
     }
+
+    public PlayerManager getPlayerManager() {
+        return this.pm;
+    }
+
+    public HotbarManager getHotbarManager() {
+        return this.hotbar;
+    }
+
+    public ScoreboardManager getScoreboardManager() {
+        return this.scoreboard;
+    }
 }

@@ -6,6 +6,7 @@ import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.game.scoreboard.HyriScoreboardIpConsumer;
 import fr.hyriode.hyrame.scoreboard.HyriScoreboard;
 import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.utils.Language;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -19,78 +20,61 @@ import java.util.Date;
  */
 public class LobbyScoreboard extends HyriScoreboard {
 
-    private static final String ARROW = ChatColor.WHITE + "\u27A4";
-
     private static final String DASH = ChatColor.WHITE + " ⁃ ";
+
+    private final IHyriPlayer account;
 
     public LobbyScoreboard(HyriLobby plugin, Player player) {
         super(plugin, player, "lobby", ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Hyriode");
+
+        this.account = HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId());
 
         this.addLines();
     }
 
     private void addLines() {
-        this.addDateLine();
+        this.setLine(0, this.getCurrentDate(), line -> line.setValue(this.getCurrentDate()), 20);
         this.setLine(1, " ");
-        this.addProfileLines();
-        this.setLine(6, "  ");
-        this.addServerLines();
-        this.setLine(10, "   ");
-        this.addServerIpLine();
-    }
-
-    private void addDateLine() {
-        this.setLine(0, this.getCurrentDate(), scoreboardLine -> scoreboardLine.setValue(this.getCurrentDate()), 20);
-    }
-
-    private void addProfileLines() {
-        final IHyriPlayer player = this.getHyriPlayer();
-
-        this.setLine(2, this.getPlayerNameLine(player), scoreboardLine -> scoreboardLine.setValue(this.getPlayerNameLine(this.getHyriPlayer())), 60);
-        this.setLine(3, this.getRankLine(player), scoreboardLine -> scoreboardLine.setValue(this.getRankLine(this.getHyriPlayer())), 60);
-        this.setLine(4, this.getHyrisLine(player), scoreboardLine -> scoreboardLine.setValue(this.getHyrisLine(this.getHyriPlayer())), 60);
-    }
-
-    private IHyriPlayer getHyriPlayer() {
-        return HyriAPI.get().getPlayerManager().getPlayer(this.player.getUniqueId());
-    }
-
-    private void addServerLines() {
-        this.setLine(7, this.getNetworkLine());
-        this.setLine(8, this.getServerId());
-        this.setLine(9, this.getConnectedPlayers(), scoreboardLine -> scoreboardLine.setValue(this.getConnectedPlayers()), 80);
-    }
-
-    private void addServerIpLine() {
-        this.setLine(11, ChatColor.DARK_AQUA + HyriConstants.SERVER_IP, new HyriScoreboardIpConsumer(HyriConstants.SERVER_IP), 2);
+        this.setLine(2, this.getPlayers(), line -> line.setValue(this.getPlayers()), 20);
+        this.setLine(3, this.getServer(), line -> line.setValue(this.getServer()), 20);
+        this.setLine(4, "  ");
+        this.setLine(5, this.getProfile(), line -> line.setValue(this.getProfile()), 20);
+        this.setLine(6, this.getRank(), line -> line.setValue(this.getRank()), 20);
+        this.setLine(7, this.getHyris(), line -> line.setValue(this.getHyris()), 20);
+        this.setLine(8, this.getLevel(), line -> line.setValue(this.getLevel()), 20);
+        this.setLine(9, "   ");
+        this.setLine(10, this.getServerIp(), new HyriScoreboardIpConsumer(HyriConstants.SERVER_IP), 2);
     }
 
     private String getCurrentDate() {
         return ChatColor.GRAY + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date());
     }
 
-    private String getPlayerNameLine(IHyriPlayer player) {
-        return ARROW + " " + (player.hasCustomName() ? ChatColor.RED + "" + ChatColor.BOLD + "Nick: " + ChatColor.RESET + ChatColor.GRAY + player.getCustomName() : ChatColor.DARK_AQUA + "" + ChatColor.BOLD + player.getName());
+    private String getPlayers() {
+        return Language.getMessage(this.player, "scoreboard.line.players");
     }
 
-    private String getRankLine(IHyriPlayer player) {
-        return DASH + ChatColor.AQUA + "Grade: " + player.getRank().getName();
+    private String getServer() {
+        return Language.getMessage(this.player, "scoreboard.line.server") + this.account.getCurrentServer();
     }
 
-    private String getHyrisLine(IHyriPlayer player) {
-        return DASH + ChatColor.BLUE + "Hyris: " + ChatColor.WHITE + player.getHyris().getAmount();
+    private String getProfile() {
+        return Language.getMessage(this.player, "scoreboard.line.profile");
     }
 
-    private String getNetworkLine() {
-        return ARROW + ChatColor.DARK_AQUA + "" + ChatColor.BOLD + " Serveur";
+    private String getRank() {
+        return DASH + Language.getMessage(this.player, "scoreboard.line.rank") + this.account.getRank().getPrefix();
     }
 
-    private String getServerId() {
-        return DASH + ChatColor.GRAY + "Actuel: " + ChatColor.WHITE + HyriAPI.get().getServer().getName();
+    private String getHyris() {
+        return DASH + "Hyris: " + ChatColor.LIGHT_PURPLE + this.account.getHyris().getAmount();
     }
 
-    private String getConnectedPlayers() {
-        return DASH + ChatColor.GRAY + "Joueurs: " + ChatColor.WHITE + HyriAPI.get().getNetwork().getPlayers();
+    private String getLevel() {
+        return DASH + Language.getMessage(this.player, "scoreboard.line.level") + this.account.getNetworkLeveling().getLevel();
     }
 
+    private String getServerIp() {
+        return ChatColor.DARK_AQUA + HyriConstants.SERVER_IP;
+    }
 }

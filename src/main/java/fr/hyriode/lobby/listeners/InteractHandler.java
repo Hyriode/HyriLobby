@@ -2,9 +2,9 @@ package fr.hyriode.lobby.listeners;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.player.IHyriPlayerManager;
+import fr.hyriode.api.rank.type.HyriStaffRankType;
 import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.utils.LobbyPermission;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -13,6 +13,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -24,7 +25,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 public class InteractHandler extends HyriListener<HyriLobby> {
 
-    private static final String METADATA = "hyriode.interact";
+    private static final String METADATA = "hyriode-interact";
 
     private final IHyriPlayerManager pm;
 
@@ -36,7 +37,7 @@ public class InteractHandler extends HyriListener<HyriLobby> {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onDrop(PlayerDropItemEvent event) {
-        if (this.pm.hasPermission(event.getPlayer().getUniqueId(), LobbyPermission.DROP)) {
+        if (this.pm.getPlayer(event.getPlayer().getUniqueId()).getRank().isSuperior(HyriStaffRankType.BUILDER)) {
             return;
         }
 
@@ -45,7 +46,7 @@ public class InteractHandler extends HyriListener<HyriLobby> {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPickup(PlayerPickupItemEvent event) {
-        if (this.pm.hasPermission(event.getPlayer().getUniqueId(), LobbyPermission.DROP)) {
+        if (this.pm.getPlayer(event.getPlayer().getUniqueId()).getRank().isSuperior(HyriStaffRankType.BUILDER)) {
             return;
         }
 
@@ -54,7 +55,7 @@ public class InteractHandler extends HyriListener<HyriLobby> {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onBreak(BlockBreakEvent event) {
-        if (this.pm.hasPermission(event.getPlayer().getUniqueId(), LobbyPermission.BUILD)) {
+        if (this.pm.getPlayer(event.getPlayer().getUniqueId()).getRank().isSuperior(HyriStaffRankType.BUILDER)) {
             return;
         }
 
@@ -63,7 +64,16 @@ public class InteractHandler extends HyriListener<HyriLobby> {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlace(BlockPlaceEvent event) {
-        if (this.pm.hasPermission(event.getPlayer().getUniqueId(), LobbyPermission.BUILD)) {
+        if (this.pm.getPlayer(event.getPlayer().getUniqueId()).getRank().isSuperior(HyriStaffRankType.BUILDER)) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (this.pm.getPlayer(event.getWhoClicked().getUniqueId()).getRank().isSuperior(HyriStaffRankType.BUILDER)) {
             return;
         }
 
@@ -72,7 +82,7 @@ public class InteractHandler extends HyriListener<HyriLobby> {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onInteract(PlayerInteractEvent event) {
-        if (this.pm.hasPermission(event.getPlayer().getUniqueId(), LobbyPermission.BUILD)) {
+        if (this.pm.getPlayer(event.getPlayer().getUniqueId()).getRank().isSuperior(HyriStaffRankType.BUILDER)) {
             return;
         }
 

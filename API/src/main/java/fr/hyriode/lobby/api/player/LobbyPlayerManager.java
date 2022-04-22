@@ -12,6 +12,6 @@ public class LobbyPlayerManager extends LobbyDataManager<LobbyPlayer> {
      * The constructor of the player manager.
      */
     public LobbyPlayerManager() {
-        super(RedisKey.PLAYERS, LobbyPlayer.class);
+        super(RedisKey.PLAYERS.getKey(), LobbyPlayer.class);
     }
 }

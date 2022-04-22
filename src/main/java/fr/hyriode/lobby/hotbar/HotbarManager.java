@@ -2,7 +2,7 @@ package fr.hyriode.lobby.hotbar;
 
 import fr.hyriode.hyrame.item.IHyriItemManager;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.hotbar.items.*;
+import fr.hyriode.lobby.items.hotbar.*;
 import org.bukkit.entity.Player;
 
 import java.util.function.Supplier;

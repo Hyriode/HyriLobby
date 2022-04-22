@@ -33,7 +33,7 @@ public class LobbyLeaderboardManager extends LobbyDataManager<LobbyLeaderboard> 
      * The constructor of the leaderboard manager.
      */
     public LobbyLeaderboardManager() {
-        super(RedisKey.LEADERBOARDS, LobbyLeaderboard.class);
+        super(RedisKey.LEADERBOARDS.getKey(), LobbyLeaderboard.class);
         this.pm = () -> LobbyAPI.get().getPacketManager();
         this.redisProcessor = HyriAPI.get().getRedisProcessor();
     }

@@ -38,7 +38,7 @@ public class CosmeticsShopGui extends LobbyInventory {
         this.setItem(30, HEAD_ITEM.apply(UsefulHead.HORSE).withName(this.getMessage("category.mount.name")).withLore(this.getMessage("category.mount.lore")).build(),
                 e -> new CosmeticsTypeShopGui(this.plugin, this.owner, /*Type enum from HyriCosmetics*/"mount").open()
         );
-        this.setItem(33, HEAD_ITEM.apply(UsefulHead.MONEY).withName(this.getMessage("shop", "money") + this.account.getHyris().getAmount() + ChatColor.DARK_AQUA + " Hyris").build());
+        this.setItem(33, HEAD_ITEM.apply(UsefulHead.MONEY).withName(this.getMessage("shop", "money") + this.account.getHyris().getAmount() + ChatColor.LIGHT_PURPLE + " Hyris").build());
 
         this.setupReturnButton(new ShopGui(this.plugin, this.owner), null);
     }

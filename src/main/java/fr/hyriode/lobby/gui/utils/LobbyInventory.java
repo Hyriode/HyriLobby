@@ -31,8 +31,8 @@ import java.util.function.Function;
 public abstract class LobbyInventory extends HyriInventory {
 
     public static final ItemStack FILL_ITEM = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, (short) 9).withName(" ").build();
-    public static final Function<UsefulHead, ItemBuilder> HEAD_ITEM = texture -> new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3).withCustomHead(texture.getTexture());
-    public static final Function<UUID, ItemBuilder> PLAYER_HEAD_ITEM = player -> new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3).withSkullOwner(player);
+    public static final Function<UsefulHead, ItemBuilder> HEAD_ITEM = texture -> new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3).withHeadTexture(texture.getTexture());
+    public static final Function<UUID, ItemBuilder> PLAYER_HEAD_ITEM = player -> new ItemBuilder(Material.SKULL_ITEM, 1, (short) 3).withPlayerHead(player);
     public static final Function<Player, ItemStack> RETURN_ITEM = player -> HEAD_ITEM.apply(UsefulHead.LEFT_ARROW).withName(ChatColor.RED + Language.getMessage(player, "item.global.return")).build();
     public static final TriFunction<Player, String, UsefulHead, ItemStack> PAGE_ITEM = (player, page, head) -> {
         final String name = ChatColor.WHITE + Language.getMessage(player, "item.global.page." + (head == UsefulHead.RIGHT_ARROW ? "next" : "previous")) + ChatColor.AQUA + " (" + page + ")";

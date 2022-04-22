@@ -29,7 +29,7 @@ public class FriendsGui extends LobbyInventory {
         super(owner, plugin, "friends", 54);
 
         this.friendManager = HyriAPI.get().getFriendManager();
-        this.friendHandler = this.friendManager.loadFriends(this.owner.getUniqueId());
+        this.friendHandler = this.friendManager.createHandler(this.owner.getUniqueId());
 
         this.init();
     }
