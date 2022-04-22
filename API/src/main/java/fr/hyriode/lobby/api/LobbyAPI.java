@@ -6,7 +6,6 @@ import fr.hyriode.lobby.api.games.LobbyGameRegistry;
 import fr.hyriode.lobby.api.jump.LobbyJumpManager;
 import fr.hyriode.lobby.api.leaderboard.LobbyLeaderboardManager;
 import fr.hyriode.lobby.api.packet.LobbyPacketManager;
-import fr.hyriode.lobby.api.player.LobbyPlayerManager;
 
 import java.util.function.Consumer;
 
@@ -35,10 +34,6 @@ public class LobbyAPI {
      */
     private final LobbyPacketManager packet;
     /**
-     * The {@link LobbyPlayerManager} instance.
-     */
-    private final LobbyPlayerManager player;
-    /**
      * The {@link LobbyLeaderboardManager} instance.
      */
     private final LobbyLeaderboardManager leaderboard;
@@ -53,7 +48,6 @@ public class LobbyAPI {
     LobbyAPI() {
         this.jump = new LobbyJumpManager();
         this.packet = new LobbyPacketManager();
-        this.player = new LobbyPlayerManager();
         this.leaderboard = new LobbyLeaderboardManager();
         this.gameRegistry = new LobbyGameRegistry();
     }
@@ -93,14 +87,6 @@ public class LobbyAPI {
      */
     public LobbyPacketManager getPacketManager() {
         return this.packet;
-    }
-
-    /**
-     * Get the {@link LobbyPlayerManager} instance.
-     * @return The {@link LobbyPlayerManager} instance.
-     */
-    public LobbyPlayerManager getPlayerManager() {
-        return this.player;
     }
 
     /**

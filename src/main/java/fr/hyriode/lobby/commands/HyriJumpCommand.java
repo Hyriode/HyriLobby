@@ -1,6 +1,7 @@
 package fr.hyriode.lobby.commands;
 
 import fr.hyriode.api.HyriAPI;
+import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.command.HyriCommand;
 import fr.hyriode.hyrame.command.HyriCommandContext;
 import fr.hyriode.hyrame.command.HyriCommandInfo;
@@ -17,7 +18,7 @@ import fr.hyriode.lobby.api.packet.model.jump.JumpCreatedPacket;
 import fr.hyriode.lobby.api.packet.model.jump.JumpDeletedPacket;
 import fr.hyriode.lobby.api.packet.model.jump.JumpUpdatedPacket;
 import fr.hyriode.lobby.api.packet.model.leaderboard.LeaderboardCreatedPacket;
-import fr.hyriode.lobby.api.player.LobbyPlayerManager;
+import fr.hyriode.lobby.api.player.LobbyPlayer;
 import fr.hyriode.lobby.api.utils.LobbyLocation;
 import fr.hyriode.lobby.utils.LocationConverter;
 import fr.hyriode.lobby.utils.RandomTools;
@@ -47,7 +48,6 @@ public class HyriJumpCommand extends HyriCommand<HyriLobby> {
 
     private final Supplier<LobbyJumpManager> jm;
     private final Supplier<LobbyPacketManager> pm;
-    private final Supplier<LobbyPlayerManager> lpm;
     private final Supplier<LobbyLeaderboardManager> lm;
 
     public HyriJumpCommand(HyriLobby plugin) {
@@ -61,13 +61,13 @@ public class HyriJumpCommand extends HyriCommand<HyriLobby> {
 
         this.jm = () -> LobbyAPI.get().getJumpManager();
         this.pm = () -> LobbyAPI.get().getPacketManager();
-        this.lpm = () -> LobbyAPI.get().getPlayerManager();
         this.lm = () -> LobbyAPI.get().getLeaderboardManager();
     }
 
     @Override
     public void handle(HyriCommandContext ctx) {
         final Player player = (Player) ctx.getSender();
+        final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId());
 
         this.handleArgument(ctx, "create", "/hyrijump create", output -> {
             if (!this.creating) {
@@ -188,8 +188,6 @@ public class HyriJumpCommand extends HyriCommand<HyriLobby> {
                 this.sendMsg(player, "There is no jump with this name !", true);
                 return;
             }
-
-            Bukkit.getOnlinePlayers().forEach(p -> this.lpm.get().get(p.getUniqueId().toString()).getFinishedJumps().remove(jump.getName()));
 
             this.jm.get().delete(jump.getName());
             this.pm.get().sendPacket(new JumpDeletedPacket(jump.getName()));

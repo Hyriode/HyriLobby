@@ -44,17 +44,6 @@ public class LobbyLeaderboardManager extends LobbyDataManager<LobbyLeaderboard> 
      * @param leaderboard The leaderboard to add the player to.
      * @param player The player to add.
      * @param score The score of the player.
-     */
-    public void addToLeaderboard(String leaderboard, LobbyPlayer player, int score) {
-        this.addToLeaderboard(leaderboard, player.getName(), score, false);
-    }
-
-    /**
-     * Add a player and his score to the leaderboard. <br>
-     * If the player is already in the leaderboard, we add only if the new score is better (lower) than the old one.
-     * @param leaderboard The leaderboard to add the player to.
-     * @param player The player to add.
-     * @param score The score of the player.
      * @param silent <code>false</code> if the packet should be sent, <code>true</code> otherwise.
      */
     public void addToLeaderboard(String leaderboard, String player, int score, boolean silent) {
@@ -73,8 +62,8 @@ public class LobbyLeaderboardManager extends LobbyDataManager<LobbyLeaderboard> 
      * @param leaderboard The leaderboard to remove the player from.
      * @param player The player to remove.
      */
-    public void removeFromLeaderboard(String leaderboard, LobbyPlayer player) {
-        this.redisProcessor.process(jedis -> jedis.zrem(RedisKey.LEADERBOARDS_RANKS.getKey() + leaderboard.toLowerCase(), player.getName()));
+    public void removeFromLeaderboard(String leaderboard, String player) {
+        this.redisProcessor.process(jedis -> jedis.zrem(RedisKey.LEADERBOARDS_RANKS.getKey() + leaderboard.toLowerCase(), player));
     }
 
     /**

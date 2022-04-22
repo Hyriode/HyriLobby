@@ -1,18 +1,20 @@
 package fr.hyriode.lobby.player;
 
+import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.HyriConstants;
+import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.actionbar.ActionBar;
 import fr.hyriode.hyrame.title.Title;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.player.LobbyPlayer;
-import fr.hyriode.lobby.api.player.LobbyPlayerManager;
 import fr.hyriode.lobby.utils.Language;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import javax.persistence.Lob;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -22,18 +24,12 @@ public class PlayerManager {
     private static final List<String> MESSAGES = new ArrayList<>();
 
     private final HyriLobby plugin;
-    private final Supplier<LobbyPlayerManager> pm;
 
     public PlayerManager(HyriLobby plugin) {
         this.plugin = plugin;
-        this.pm = () -> LobbyAPI.get().getPlayerManager();
     }
 
     public void onLogin(Player player) {
-        if (this.pm.get().get(player.getUniqueId().toString()) == null) {
-            this.pm.get().save(new LobbyPlayer(player.getUniqueId(), player.getName()), player.getUniqueId().toString());
-        }
-
         this.addMessages(player);
 
         this.teleportToSpawn(player);
@@ -46,10 +42,12 @@ public class PlayerManager {
     }
 
     public void onLogout(Player player) {
-        final LobbyPlayer lp = this.pm.get().get(player.getUniqueId().toString());
+        final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId());
+        final LobbyPlayer lp = LobbyPlayer.get(account);
 
         lp.setLastCheckpoint(-1);
-        this.pm.get().save(lp, lp.getUniqueId().toString());
+        lp.update(account);
+        account.update();
     }
 
     public void teleportToSpawn(Player player) {

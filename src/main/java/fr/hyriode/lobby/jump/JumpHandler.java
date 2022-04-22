@@ -11,12 +11,12 @@ import fr.hyriode.lobby.api.jump.LobbyJump;
 import fr.hyriode.lobby.api.jump.LobbyJumpManager;
 import fr.hyriode.lobby.api.leaderboard.LobbyLeaderboardManager;
 import fr.hyriode.lobby.api.player.LobbyPlayer;
-import fr.hyriode.lobby.api.player.LobbyPlayerManager;
 import fr.hyriode.lobby.api.utils.LobbyLocation;
 import fr.hyriode.lobby.utils.LocationConverter;
 import fr.hyriode.lobby.utils.RandomTools;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -28,14 +28,12 @@ import java.util.function.Supplier;
 public class JumpHandler extends HyriListener<HyriLobby> {
 
     private final Supplier<LobbyJumpManager> jm;
-    private final Supplier<LobbyPlayerManager> pm;
     private final Supplier<LobbyLeaderboardManager> lm;
 
     public JumpHandler(HyriLobby plugin) {
         super(plugin);
 
         this.jm = () -> LobbyAPI.get().getJumpManager();
-        this.pm = () -> LobbyAPI.get().getPlayerManager();
         this.lm = () -> LobbyAPI.get().getLeaderboardManager();
     }
 
@@ -44,7 +42,7 @@ public class JumpHandler extends HyriListener<HyriLobby> {
         event.setDeathMessage("");
         event.getEntity().spigot().respawn();
 
-        final LobbyPlayer player = this.pm.get().get(event.getEntity().getUniqueId().toString());
+        final LobbyPlayer player = LobbyPlayer.get(HyriAPI.get().getPlayerManager().getPlayer(event.getEntity().getUniqueId()));
 
         if (player.getStartedJump() == null || player.getLastCheckpoint() == -1) {
             return;
@@ -67,12 +65,12 @@ public class JumpHandler extends HyriListener<HyriLobby> {
     public void onMove(PlayerMoveEvent event) {
         final Location bukkitLoc = event.getTo();
         final LobbyLocation loc = LocationConverter.toLobbyLocation(bukkitLoc);
-
         final LobbyJump start = this.jm.get().getJumpByStart(loc);
         final LobbyJump end = this.jm.get().getJumpByEnd(loc);
         final LobbyCheckpoint checkpoint = this.jm.get().getCheckpointByLocation(loc);
-
-        final LobbyPlayer player = this.pm.get().get(event.getPlayer().getUniqueId().toString());
+        final Player player = event.getPlayer();
+        final IHyriPlayer account  = HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId());
+        final LobbyPlayer lobbyPlayer = LobbyPlayer.get(account);
 
         //Check if jump start/end or checkpoint exists at this location
         if (start == null && end == null && checkpoint == null) {
@@ -81,17 +79,18 @@ public class JumpHandler extends HyriListener<HyriLobby> {
 
         //Starting the jump
         if (start != null && checkpoint != null && end == null) {
-            if (player.getStartedJump() != null || player.getLastCheckpoint() != -1) {
+            if (lobbyPlayer.getStartedJump() != null || lobbyPlayer.getLastCheckpoint() != -1) {
                 return;
             }
 
             event.getPlayer().sendMessage(RandomTools.getPrefix("HyriJump", false) + "You started the jump " + start.getName() + " !");
 
-            player.setStartedJump(start.getName());
+            lobbyPlayer.setStartedJump(start.getName());
             //Checkpoint 0 is always the start
-            player.setLastCheckpoint(0);
+            lobbyPlayer.setLastCheckpoint(0);
 
-            this.pm.get().save(player, player.getUniqueId().toString());
+            lobbyPlayer.update(account);
+            account.update();
 
             this.jm.get().addTimer(player.getUniqueId(), 0);
 
@@ -102,15 +101,15 @@ public class JumpHandler extends HyriListener<HyriLobby> {
 
         //Checkpoint reached
         if (checkpoint != null && start == null && end == null) {
-            if (player.getStartedJump() == null || player.getLastCheckpoint() == -1) {
+            if (lobbyPlayer.getStartedJump() == null || lobbyPlayer.getLastCheckpoint() == -1) {
                 return;
             }
 
-            if (!player.getStartedJump().equalsIgnoreCase(checkpoint.getJumpName())) {
+            if (!lobbyPlayer.getStartedJump().equalsIgnoreCase(checkpoint.getJumpName())) {
                 return;
             }
 
-            if (player.getLastCheckpoint() >= checkpoint.getId()) {
+            if (lobbyPlayer.getLastCheckpoint() >= checkpoint.getId()) {
                 return;
             }
 
@@ -119,19 +118,20 @@ public class JumpHandler extends HyriListener<HyriLobby> {
             event.getPlayer().sendMessage(RandomTools.getPrefix("HyriJump", false) + "Congrats ! Checkpoint reached in "
                     + RandomTools.getDurationMessage(duration, player.getUniqueId()) + " !");
 
-            player.setLastCheckpoint(checkpoint.getId());
+            lobbyPlayer.setLastCheckpoint(checkpoint.getId());
 
-            this.pm.get().save(player, player.getUniqueId().toString());
+            lobbyPlayer.update(account);
+            account.update();
             return;
         }
 
         //End of jump reached
         if (end != null && start == null && checkpoint == null) {
-            if (player.getStartedJump() == null || player.getLastCheckpoint() == -1) {
+            if (lobbyPlayer.getStartedJump() == null || lobbyPlayer.getLastCheckpoint() == -1) {
                 return;
             }
 
-            if (!player.getStartedJump().equalsIgnoreCase(end.getName())) {
+            if (!lobbyPlayer.getStartedJump().equalsIgnoreCase(end.getName())) {
                 return;
             }
 
@@ -144,23 +144,23 @@ public class JumpHandler extends HyriListener<HyriLobby> {
                 Bukkit.getScheduler().cancelTask(this.jm.get().getTaskIds().get(player.getUniqueId()));
             }
 
-            this.lm.get().removeFromLeaderboard(end.getName(), player);
-            this.lm.get().addToLeaderboard(end.getName(), player, duration.toSeconds());
+            this.lm.get().removeFromLeaderboard(end.getName(), player.getName());
+            this.lm.get().addToLeaderboard(end.getName(), player.getName(), duration.toSeconds(), false);
 
             this.jm.get().getTaskIds().remove(player.getUniqueId());
             this.jm.get().getTimers().remove(player.getUniqueId());
 
-            player.setStartedJump(null);
-            player.setLastCheckpoint(-1);
+            lobbyPlayer.setStartedJump(null);
+            lobbyPlayer.setLastCheckpoint(-1);
 
-            if (!player.getFinishedJumps().contains(end.getName())) {
-                player.getFinishedJumps().add(end.getName());
-                final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId());
+            if (!lobbyPlayer.getFinishedJumps().contains(end.getName())) {
+                lobbyPlayer.getFinishedJumps().add(end.getName());
                 account.getHyris().add(500);
                 account.update();
             }
 
-            this.pm.get().save(player, player.getUniqueId().toString());
+            lobbyPlayer.update(account);
+            account.update();
         }
     }
 
@@ -168,12 +168,14 @@ public class JumpHandler extends HyriListener<HyriLobby> {
         this.jm.get().getTaskIds().values().forEach(id -> Bukkit.getScheduler().cancelTask(id));
 
         this.jm.get().getTimers().keySet().forEach(uuid -> {
-            final LobbyPlayer player = this.pm.get().get(uuid.toString());
+            final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(uuid);
+            final LobbyPlayer player = LobbyPlayer.get(account);
 
             player.setStartedJump(null);
             player.setLastCheckpoint(-1);
 
-            this.pm.get().save(player, player.getUniqueId().toString());
+            player.update(account);
+            account.update();
         });
     }
 }

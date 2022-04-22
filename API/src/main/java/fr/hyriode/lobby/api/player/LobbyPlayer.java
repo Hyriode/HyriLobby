@@ -1,5 +1,7 @@
 package fr.hyriode.lobby.api.player;
 
+import fr.hyriode.api.player.HyriPlayerData;
+import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.jump.LobbyCheckpoint;
 import fr.hyriode.lobby.api.jump.LobbyJump;
@@ -11,16 +13,9 @@ import java.util.UUID;
 /**
  * Represents a player in the lobby.
  */
-public class LobbyPlayer {
+public class LobbyPlayer extends HyriPlayerData {
 
-    /**
-     * The player's UUID.
-     */
-    private final UUID uuid;
-    /**
-     * The player's name.
-     */
-    private final String name;
+    public static final String DATA_KEY = "lobby";
 
     /**
      * The name of the {@link LobbyJump} started, if any.
@@ -38,31 +33,11 @@ public class LobbyPlayer {
 
     /**
      * The constructor of the player.
-     * @param uuid The player's UUID.
      */
-    public LobbyPlayer(UUID uuid, String name) {
-        this.uuid = uuid;
-        this.name = name;
-
+    public LobbyPlayer() {
         this.startedJump = null;
         this.lastCheckpoint = -1;
         this.finishedJumps = new ArrayList<>();
-    }
-
-    /**
-     * Gets the player's UUID.
-     * @return The player's UUID.
-     */
-    public UUID getUniqueId() {
-        return this.uuid;
-    }
-
-    /**
-     * Gets the player's name.
-     * @return The player's name.
-     */
-    public String getName() {
-        return this.name;
     }
 
     /**
@@ -109,4 +84,20 @@ public class LobbyPlayer {
     public String toString() {
         return LobbyAPI.GSON.toJson(this);
     }
+
+    public void update(IHyriPlayer account) {
+        account.addData(DATA_KEY, this);
+    }
+
+    public static LobbyPlayer get(IHyriPlayer account) {
+        LobbyPlayer player = account.getData(DATA_KEY, LobbyPlayer.class);
+
+        if (player == null) {
+            player = new LobbyPlayer();
+
+            account.addData(DATA_KEY, player);
+        }
+        return player;
+    }
+
 }
