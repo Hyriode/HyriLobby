@@ -98,7 +98,7 @@
   "item.games_shop.lore": "&bCliquez pour accéder à la boutique des cosmétiques de jeu",
   "item.ranks_shop.name": "&3Grades",
   "item.ranks_shop.vip": "&3Grade &eVIP",
-  "item.ranks_shop.vip+": "&3Grade &&VIP+",
+  "item.ranks_shop.vip+": "&3Grade &aVIP+",
   "item.ranks_shop.epic": "&3Grade &bEpic",
 
   "item.settings.name": "&3Paramètres",
@@ -129,5 +129,7 @@
   "item.lobby_selector.click": "&bCliquez pour rejoindre",
   "item.lobby_selector.full": "&cCe lobby est plein",
   "item.lobby_selector.already_connected": "&cVous êtes déjà connecté à ce lobby",
-  "item.lobby_selector.connecting": "&bConnexion au lobby "
+  "item.lobby_selector.connecting": "&bConnexion au lobby ",
+
+  "message.click-to-play": "Cliquer pour jouer"
 }

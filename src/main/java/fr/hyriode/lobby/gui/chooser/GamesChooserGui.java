@@ -1,25 +1,26 @@
 package fr.hyriode.lobby.gui.chooser;
 
 import fr.hyriode.api.HyriAPI;
+import fr.hyriode.api.game.IHyriGameInfo;
+import fr.hyriode.api.network.HyriNetworkCount;
+import fr.hyriode.api.network.HyriPlayerCount;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.api.LobbyAPI;
-import fr.hyriode.lobby.api.games.LobbyGame;
-import fr.hyriode.lobby.gui.utils.GameItem;
+import fr.hyriode.lobby.games.LobbyGame;
 import fr.hyriode.lobby.gui.utils.LobbyInventory;
+import fr.hyriode.lobby.utils.Language;
 import fr.hyriode.lobby.utils.UsefulHead;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.*;
-import java.util.function.Consumer;
+import javax.persistence.Lob;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class GamesChooserGui extends LobbyInventory {
-
-    private static final List<Integer> DONT_FILL = Arrays.asList(28, 29, 30, 31, 32, 33, 34, 37, 38, 39, 40, 41, 42, 43);
 
     public GamesChooserGui(HyriLobby plugin, Player owner) {
         super(owner, plugin, "games_selector", 54);
@@ -32,42 +33,54 @@ public class GamesChooserGui extends LobbyInventory {
 
         this.fillOutline(FILL_ITEM);
 
-        final Set<LobbyGame> games = LobbyAPI.get().getGameRegistry().getValues();
-        final Map<ItemStack, Consumer<InventoryClickEvent>> items = new HashMap<>();
+        final ItemStack fill = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, 9).withName("").build();
 
-        for (LobbyGame game : games) {
-            final GameItem item = GameItem.getByName(game.getName());
-            final ItemBuilder builder = item.getItem();
+        this.setHorizontalLine(0, 8, fill);
+        this.setHorizontalLine(45, 53, fill);
+        this.setVerticalLine(9, 36, fill);
+        this.setVerticalLine(17, 45, fill);
 
-            builder.withName(ChatColor.DARK_AQUA + game.getDisplayName());
+        this.setItem(4, ItemBuilder.asHead()
+                .withHeadTexture(UsefulHead.EARTH.getTexture())
+                .withName(ChatColor.DARK_AQUA + Language.getMessage(owner, "item.games_selector.name"))
+                .build());
 
-            items.put(builder.build(), e -> this.onGameClick(e.getSlot(), builder, game));
+        this.addGameItem(21, LobbyGame.BEDWARS);
+        this.addGameItem(22, LobbyGame.LASER_GAME);
+        this.addGameItem(23, LobbyGame.RUSH_THE_FLAG);
+        this.addGameItem(30, LobbyGame.BRIDGER, true);
+        this.addGameItem(31, LobbyGame.THE_RUNNER);
+        this.addGameItem(32, LobbyGame.PEARL_CONTROL);
+    }
+
+    private void addGameItem(int slot, LobbyGame game, boolean maintenance) {
+        final IHyriGameInfo gameInfo = game.getGame();
+        final List<String> lore = new ArrayList<>();
+        final HyriNetworkCount playerCount = HyriAPI.get().getNetworkManager().getNetwork().getPlayerCount();
+
+        if (playerCount != null && playerCount.getCategory(gameInfo.getName()) != null) {
+            lore.add(this.getMessage("lobby_selector", "connected") + ChatColor.AQUA + playerCount.getCategory(gameInfo.getName()).getPlayers());
+        } else {
+            lore.add(this.getMessage("lobby_selector", "connected") + ChatColor.AQUA + "0");
         }
 
-        this.tryToFill(10, 0, items);
-        this.setHorizontalLine(18, 26, FILL_ITEM);
-        this.setHorizontalLine(27, 35, FILL_ITEM);
-        this.setHorizontalLine(36, 44, FILL_ITEM);
-    }
+        if (maintenance) {
+            lore.add("");
+            lore.add(ChatColor.RED + "Maintenance");
+        }
 
-    private void onGameClick(int itemSlot, ItemBuilder item, LobbyGame game) {
-        DONT_FILL.forEach(slot -> this.setItem(slot, new ItemStack(Material.AIR)));
-
-        final int[] slot = {27};
-        game.getTypes().forEach(type -> {
-            if (slot[0] != 26 && slot[0] != 35 && slot[0] != 34 && slot[0] != 43) {
-                this.setItem(slot[0] += 1, item.withName(ChatColor.AQUA + game.getDisplayName() + " " + type).build(), e -> {
-                    this.owner.sendMessage(this.getMessage("connecting"));
-                    HyriAPI.get().getQueueManager().addPlayerInQueueWithPartyCheck(this.owner.getUniqueId(), game.getName(), type);
-                });
+        this.setItem(slot, new ItemBuilder(game.getIcon())
+                .withName(ChatColor.DARK_AQUA + gameInfo.getDisplayName())
+                .withLore(lore)
+                .build(), event -> {
+            if (!maintenance) {
+                new GameTypeChooser(this.plugin, this.owner, game).open();
             }
         });
-
-        this.inventory.remove(this.currentButton);
-
-        this.fillOutline(FILL_ITEM);
-        this.setHorizontalLine(18, 26, FILL_ITEM);
-
-        this.setupCurrentButton(HEAD_ITEM.apply(UsefulHead.ARROW_DOWN).build(), itemSlot + 9, name -> " ", null);
     }
+
+    private void addGameItem(int slot, LobbyGame game) {
+        this.addGameItem(slot, game, false);
+    }
+
 }

@@ -56,6 +56,7 @@ public class LobbySelectorGui extends LobbyInventory {
                 }
 
                 this.owner.sendMessage(this.getMessage("connecting") + server.getName().split("-")[1] + "...");
+
                 this.serverManager.sendPlayerToServer(this.owner.getUniqueId(), server.getName());
             });
         }
@@ -82,7 +83,7 @@ public class LobbySelectorGui extends LobbyInventory {
         final boolean isFull = server.getPlayers().size() == server.getSlots();
         final List<String> lore = new ArrayList<>();
 
-        lore.add(this.getMessage("connected") + (isFull ? ChatColor.RED : ChatColor.AQUA) + server.getPlayers() + "/50");
+        lore.add(this.getMessage("connected") + (isFull ? ChatColor.RED : ChatColor.AQUA) + server.getPlayers().size() + "/50");
 
         if (friends > 0) {
             lore.add(this.getMessage("friends") + ChatColor.AQUA + friends);

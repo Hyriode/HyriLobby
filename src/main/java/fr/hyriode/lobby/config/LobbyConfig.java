@@ -14,4 +14,5 @@ public class LobbyConfig implements IConfig {
     public LobbyLocation getLocation() {
         return this.location;
     }
+
 }

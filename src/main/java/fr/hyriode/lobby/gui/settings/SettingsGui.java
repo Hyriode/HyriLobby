@@ -29,8 +29,8 @@ public class SettingsGui extends LobbyInventory {
         //Items part
         this.setItem(10, HEAD_ITEM.apply(UsefulHead.NOTEBLOCK).withName(this.getMessage("messages_sound")).build());
         this.setItem(12, new ItemBuilder(Material.BOOK).withName(this.getMessage("global_chat")).build());
-        this.setItem(13, new ItemBuilder(Material.PAPER).withName(this.getMessage("party_request")).build());
-        this.setItem(15, new ItemBuilder(Material.PAPER).withName(this.getMessage("friend_request")).build());
+        this.setItem(14, new ItemBuilder(Material.PAPER).withName(this.getMessage("party_request")).build());
+        this.setItem(16, new ItemBuilder(Material.PAPER).withName(this.getMessage("friend_request")).build());
 
         //Items with Consumer part
         this.setItem(38, HEAD_ITEM.apply(UsefulHead.EARTH).withName(this.getMessage("language")).build(),
@@ -52,11 +52,11 @@ public class SettingsGui extends LobbyInventory {
             this.settings.setGlobalChatMessagesEnabled(!this.settings.isGlobalChatMessagesEnabled());
             e.getInventory().setItem(21, this.updateSwitch(this.settings.isGlobalChatMessagesEnabled(), e.getCurrentItem()));
         });
-        this.setItem(23, new ItemBuilder(this.createSwitch(this.settings.isPartyRequestsEnabled())).build(), e -> {
+        this.setItem(24, new ItemBuilder(this.createSwitch(this.settings.isPartyRequestsEnabled())).build(), e -> {
             this.settings.setPartyRequestsEnabled(!this.settings.isPartyRequestsEnabled());
             e.getInventory().setItem(23, this.updateSwitch(this.settings.isPartyRequestsEnabled(), e.getCurrentItem()));
         });
-        this.setItem(25, new ItemBuilder(this.createSwitch(this.settings.isFriendRequestsEnabled())).build(), e -> {
+        this.setItem(26, new ItemBuilder(this.createSwitch(this.settings.isFriendRequestsEnabled())).build(), e -> {
             this.settings.setFriendRequestsEnabled(!this.settings.isFriendRequestsEnabled());
             e.getInventory().setItem(25, this.updateSwitch(this.settings.isFriendRequestsEnabled(), e.getCurrentItem()));
         });

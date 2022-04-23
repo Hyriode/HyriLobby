@@ -17,4 +17,5 @@ public class LobbySelectorItem extends LobbyItem {
     public void onClick(IHyrame hyrame, PlayerInteractEvent e) {
         new LobbySelectorGui(this.plugin, e.getPlayer()).open();
     }
+
 }

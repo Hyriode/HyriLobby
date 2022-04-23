@@ -2,7 +2,6 @@ package fr.hyriode.lobby.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import fr.hyriode.lobby.api.games.LobbyGameRegistry;
 import fr.hyriode.lobby.api.jump.LobbyJumpManager;
 import fr.hyriode.lobby.api.leaderboard.LobbyLeaderboardManager;
 import fr.hyriode.lobby.api.packet.LobbyPacketManager;
@@ -37,10 +36,6 @@ public class LobbyAPI {
      * The {@link LobbyLeaderboardManager} instance.
      */
     private final LobbyLeaderboardManager leaderboard;
-    /**
-     * The {@link LobbyGameRegistry} instance.
-     */
-    private final LobbyGameRegistry gameRegistry;
 
     /**
      * The constructor of the API.
@@ -49,7 +44,6 @@ public class LobbyAPI {
         this.jump = new LobbyJumpManager();
         this.packet = new LobbyPacketManager();
         this.leaderboard = new LobbyLeaderboardManager();
-        this.gameRegistry = new LobbyGameRegistry();
     }
 
     public void start(Consumer<String[]> consumer) {
@@ -97,11 +91,4 @@ public class LobbyAPI {
         return this.leaderboard;
     }
 
-    /**
-     * Get the {@link LobbyGameRegistry} instance.
-     * @return The {@link LobbyGameRegistry} instance.
-     */
-    public LobbyGameRegistry getGameRegistry() {
-        return this.gameRegistry;
-    }
 }

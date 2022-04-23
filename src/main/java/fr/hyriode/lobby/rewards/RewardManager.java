@@ -13,4 +13,5 @@ public class RewardManager {
     public HyrisRewardManager getHyrisRewardManager() {
         return this.hyris;
     }
+
 }

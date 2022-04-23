@@ -129,5 +129,7 @@
   "item.lobby_selector.click": "&bClick to join",
   "item.lobby_selector.full": "&cThis lobby is full",
   "item.lobby_selector.already_connected": "&cYou are already connected to this lobby",
-  "item.lobby_selector.connecting": "&bConnecting to lobby "
+  "item.lobby_selector.connecting": "&bConnecting to lobby ",
+
+  "message.click-to-play": "Click to play"
 }

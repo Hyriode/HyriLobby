@@ -3,21 +3,21 @@ package fr.hyriode.lobby.player;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.HyriConstants;
 import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.api.rank.type.HyriPlayerRankType;
+import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.actionbar.ActionBar;
 import fr.hyriode.hyrame.title.Title;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.player.LobbyPlayer;
 import fr.hyriode.lobby.utils.Language;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import javax.persistence.Lob;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 public class PlayerManager {
 
@@ -35,16 +35,16 @@ public class PlayerManager {
 
         this.teleportToSpawn(player);
 
-        Title.sendTitle(player, ChatColor.AQUA + "»" + ChatColor.DARK_AQUA + " " + HyriConstants.SERVER_NAME + " " + ChatColor.AQUA + "«",
-                Language.getMessage(player, "title.welcome.welcome"), 12, 30, 12);
+        Title.sendTitle(player, ChatColor.AQUA + "»" + ChatColor.DARK_AQUA + " " + HyriConstants.SERVER_NAME + " " + ChatColor.AQUA + "«", Language.getMessage(player, "title.welcome.welcome"), 12, 30, 12);
+
         this.sendActionBar(this.plugin, player);
 
-        //TODO Remove this, its for testing purpose
-        account.getNetworkLeveling().addExperience(500);
-
-        //TODO Network level in xp bar, with experience to fill the bar following the player's experience
         player.setLevel(account.getNetworkLeveling().getLevel());
         player.playSound(player.getLocation(), Sound.LEVEL_UP, 5f, 5f);
+
+        if (account.getRank().isStaff() || account.getRank().isSuperior(HyriPlayerRankType.VIP_PLUS)) {
+            player.setAllowFlight(true);
+        }
     }
 
     public void onLogout(Player player) {
@@ -57,8 +57,7 @@ public class PlayerManager {
     }
 
     public void teleportToSpawn(Player player) {
-        //TODO Add location with config
-        //player.teleport();
+        player.teleport(new Location(IHyrame.WORLD.get(), 0.5, 190, 0.5, 90, 0));
     }
 
     private void addMessages(Player player) {
