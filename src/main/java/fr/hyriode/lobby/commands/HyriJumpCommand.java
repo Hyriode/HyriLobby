@@ -6,6 +6,7 @@ import fr.hyriode.hyrame.command.HyriCommand;
 import fr.hyriode.hyrame.command.HyriCommandContext;
 import fr.hyriode.hyrame.command.HyriCommandInfo;
 import fr.hyriode.hyrame.command.HyriCommandType;
+import fr.hyriode.hyrame.language.HyriLanguageMessage;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.api.LobbyAPI;
 import fr.hyriode.lobby.api.jump.LobbyCheckpoint;
@@ -20,6 +21,7 @@ import fr.hyriode.lobby.api.packet.model.jump.JumpUpdatedPacket;
 import fr.hyriode.lobby.api.packet.model.leaderboard.LeaderboardCreatedPacket;
 import fr.hyriode.lobby.api.player.LobbyPlayer;
 import fr.hyriode.lobby.api.utils.LobbyLocation;
+import fr.hyriode.lobby.utils.Language;
 import fr.hyriode.lobby.utils.LocationConverter;
 import fr.hyriode.lobby.utils.RandomTools;
 import net.md_5.bungee.api.ChatColor;
@@ -69,7 +71,7 @@ public class HyriJumpCommand extends HyriCommand<HyriLobby> {
         final Player player = (Player) ctx.getSender();
         final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId());
 
-        this.handleArgument(ctx, "create", "/hyrijump create", output -> {
+        this.handleArgument(ctx, "create", Language.getMessage("cmd.jump.usage.create"), output -> {
             if (!this.creating) {
                 this.sendMsg(player, "You must start a jump creation ! Run \"/hyrijump create <name>\" before !", true);
                 return;
@@ -102,7 +104,7 @@ public class HyriJumpCommand extends HyriCommand<HyriLobby> {
             this.resetJumpValues();
         });
 
-        this.handleArgument(ctx, "create %input%", "/hyrijump create <name>", output -> {
+        this.handleArgument(ctx, "create %input%", Language.getMessage("cmd.jump.usage.create-start"), output -> {
             if (this.creating) {
                 this.sendMsg(player, "You can't create a jump while you're creating another one !", true);
                 return;
@@ -140,7 +142,7 @@ public class HyriJumpCommand extends HyriCommand<HyriLobby> {
             this.sendMsg(player, "Checkpoint added for the jump " + this.name + " !", false);
         });
 
-        this.handleArgument(ctx, "checkpoint remove %integer%", "/hyrijump checkpoint remove <id>", output -> {
+        this.handleArgument(ctx, "checkpoint remove %integer%", Language.getMessage("cmd.jump.usage.checkpoint.remove"), output -> {
             if (!this.creating) {
                 this.sendMsg(player, "You can't remove checkpoints while you're not creating a jump !", true);
                 return;
@@ -181,7 +183,7 @@ public class HyriJumpCommand extends HyriCommand<HyriLobby> {
             }
         });
 
-        this.handleArgument(ctx, "delete %input%", "/hyrijump delete <name>", output -> {
+        this.handleArgument(ctx, "delete %input%", Language.getMessage("cmd.jump.usage.delete"), output -> {
             final LobbyJump jump = this.jm.get().get(output.get(String.class));
 
             if (jump == null) {
@@ -194,7 +196,7 @@ public class HyriJumpCommand extends HyriCommand<HyriLobby> {
             this.sendMsg(player, "Jump deleted !", false);
         });
 
-        this.handleArgument(ctx, "edit %input%", "/hyrijump edit <name>", output -> {
+        this.handleArgument(ctx, "edit %input%", Language.getMessage("cmd.jump.usage.edit"), output -> {
             final LobbyJump jump = this.jm.get().get(output.get(String.class));
 
             if (jump == null) {
@@ -221,7 +223,7 @@ public class HyriJumpCommand extends HyriCommand<HyriLobby> {
                     .create());
         });
 
-        this.handleArgument(ctx, "setstart %input%", "/hyrijump setstart <name>", output -> {
+        this.handleArgument(ctx, "setstart %input%", Language.getMessage("cmd.jump.usage.setstart"), output -> {
             final LobbyJump jump = this.jm.get().get(output.get(String.class));
 
             if (jump == null) {
@@ -239,7 +241,7 @@ public class HyriJumpCommand extends HyriCommand<HyriLobby> {
             this.pm.get().sendPacket(new JumpUpdatedPacket(jump.getName(), JumpUpdatedPacket.Reason.START_MOVED));
         });
 
-        this.handleArgument(ctx, "setend %input%", "/hyrijump setend <name>", output -> {
+        this.handleArgument(ctx, "setend %input%", Language.getMessage("cmd.jump.usage.setend"), output -> {
             final LobbyJump jump = this.jm.get().get(output.get(String.class));
 
             if (jump == null) {
@@ -256,7 +258,7 @@ public class HyriJumpCommand extends HyriCommand<HyriLobby> {
             this.pm.get().sendPacket(new JumpUpdatedPacket(jump.getName(), JumpUpdatedPacket.Reason.END_MOVED));
         });
 
-        this.handleArgument(ctx, "rename %input% %input%", "/hyrijump rename <name> <new name>", output -> {
+        this.handleArgument(ctx, "rename %input% %input%", Language.getMessage("cmd.jump.usage.rename"), output -> {
             final LobbyJump jump = this.jm.get().get(output.get(0, String.class));
 
             if (jump == null) {

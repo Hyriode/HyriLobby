@@ -27,7 +27,7 @@ public class ShopGui extends LobbyInventory {
         this.setItem(20, HEAD_ITEM.apply(UsefulHead.DIAMOND_BLOCK).withName(this.getMessage("ranks_shop", "name")).withLore(this.getMessage("ranks.lore")).build(),
                 e -> new RanksShopGui(this.plugin, this.owner).open()
         );
-        //TODO Add ranks with design and advantages
+        //TODO Add Hyri+ lore with design and advantages
         this.setItem(23, new ItemBuilder(new Potion(PotionType.WATER)).withName(ChatColor.DARK_AQUA + "Boosters").withLore(this.getMessage("global", "not_implemented")).build());
         this.setItem(24, HEAD_ITEM.apply(UsefulHead.ENDERCHEST).withName(ChatColor.DARK_AQUA + "Box").withLore(this.getMessage("global", "not_implemented")).build());
         this.setItem(29, HEAD_ITEM.apply(UsefulHead.GOLD_BLOCK).withName(this.getMessage("hyriplus")).withLore(this.getMessage("ranks.website").split("\n")).build());

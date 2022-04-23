@@ -2,7 +2,7 @@ package fr.hyriode.lobby.items.hotbar;
 
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.GamesChooserGui;
+import fr.hyriode.lobby.gui.chooser.GamesChooserGui;
 import fr.hyriode.lobby.items.utils.LobbyItem;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;

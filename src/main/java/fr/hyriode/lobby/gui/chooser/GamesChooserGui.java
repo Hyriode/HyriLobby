@@ -1,4 +1,4 @@
-package fr.hyriode.lobby.gui;
+package fr.hyriode.lobby.gui.chooser;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.hyrame.item.ItemBuilder;

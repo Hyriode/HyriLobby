@@ -5,6 +5,14 @@
   "title.welcome.discord": "&7Our Discord: &9%url_discord%",
 
   "cmd.spawn.teleport": "&7Teleporting to spawn...",
+  "cmd.jump.usage.create": "/hyrijump create",
+  "cmd.jump.usage.create-start": "/hyrijump create <name>",
+  "cmd.jump.usage.checkpoint.remove": "/hyrijump checkpoint remove <id>",
+  "cmd.jump.usage.delete": "/hyrijump delete <name>",
+  "cmd.jump.usage.edit": "/hyrijump edit <name>",
+  "cmd.jump.usage.setstart": "/hyrijump setstart <name>",
+  "cmd.jump.usage.setend": "/hyrijump setend <name>",
+  "cmd.jump.usage.rename": "/hyrijump rename <name> <new name>",
 
   "scoreboard.line.players": "&fPlayers: &b%network_player_count%",
   "scoreboard.line.server": "&fServer: &b",
@@ -40,6 +48,8 @@
   "item.games_selector.name": "&3Mini-games selection",
   "item.games_selector.lore": "&bClick to select a mini-game",
   "item.games_selector.connecting": "&bConnecting to server...",
+  "item.game_type_selector.name": "&3Select a mini-game type",
+  "item.game_type_selector.back": "&3Go back to the mini-game selection",
 
   "item.profile.name": "&3Profile",
   "item.profile.lore": "&bClick to view profile",

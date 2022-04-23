@@ -40,6 +40,9 @@ public class HyriLobby extends JavaPlugin {
         sender.sendMessage(ChatColor.GREEN + "          __/ |                                __/ |");
         sender.sendMessage(ChatColor.GREEN + "         |___/                                |___/ ");
 
+        //TODO Save config
+        //HyriAPI.get().getHystiaAPI().getConfigManager().
+
         this.hyrame = HyrameLoader.load(new HyriLobbyProvider(this));
 
         LobbyAPI.get().start(str -> Arrays.asList(str).forEach(s -> sender.sendMessage(ChatColor.DARK_GREEN + s)));
@@ -55,7 +58,6 @@ public class HyriLobby extends JavaPlugin {
         HyriAPI.get().getServer().setSlots(HyggLobbyAPI.MAX_PLAYERS);
         HyriAPI.get().getServer().setState(IHyriServer.State.READY);
 
-        //TODO Add level in xp bar
         //TODO Give jump items, pressure plate to go back to checkpoint, red dye to go back to start, follow JumpHandler #63
         //TODO Create language messages in JumpHandler
         if (HyriAPI.get().getConfiguration().isDevEnvironment()) {

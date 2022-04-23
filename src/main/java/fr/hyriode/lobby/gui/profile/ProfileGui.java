@@ -52,9 +52,7 @@ public class ProfileGui extends LobbyInventory {
         final List<String> lore = new ArrayList<>();
 
         lore.add(this.getMessage("rank") + this.account.getRank().getPrefix());
-        //TODO Check if player has Hyri+
         lore.add(ChatColor.WHITE + "Hyri+: " + (this.account.hasHyriPlus() ? ChatColor.GREEN + "✔" : ChatColor.RED + "✘"));
-        //TODO Get player level
         lore.add(this.getMessage("level") + this.account.getNetworkLeveling().getLevel());
         lore.add(ChatColor.WHITE + "Hyris: " + ChatColor.AQUA + this.account.getHyris().getAmount());
         lore.add(this.getMessage("first_join") + DATE_FORMAT.format(this.account.getFirstLoginDate()));

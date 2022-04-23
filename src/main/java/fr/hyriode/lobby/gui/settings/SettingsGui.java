@@ -46,15 +46,15 @@ public class SettingsGui extends LobbyInventory {
         //Switch part
         this.setItem(19, new ItemBuilder(this.createSwitch(this.settings.isPrivateMessagesSoundEnabled())).build(), e -> {
             this.settings.setPrivateMessagesSoundEnabled(!this.settings.isPrivateMessagesSoundEnabled());
-            e.getInventory().setItem(20, this.updateSwitch(this.settings.isPrivateMessagesSoundEnabled(), e.getCurrentItem()));
+            e.getInventory().setItem(19, this.updateSwitch(this.settings.isPrivateMessagesSoundEnabled(), e.getCurrentItem()));
         });
         this.setItem(21, new ItemBuilder(this.createSwitch(this.settings.isGlobalChatMessagesEnabled())).build(), e -> {
             this.settings.setGlobalChatMessagesEnabled(!this.settings.isGlobalChatMessagesEnabled());
-            e.getInventory().setItem(22, this.updateSwitch(this.settings.isGlobalChatMessagesEnabled(), e.getCurrentItem()));
+            e.getInventory().setItem(21, this.updateSwitch(this.settings.isGlobalChatMessagesEnabled(), e.getCurrentItem()));
         });
         this.setItem(23, new ItemBuilder(this.createSwitch(this.settings.isPartyRequestsEnabled())).build(), e -> {
             this.settings.setPartyRequestsEnabled(!this.settings.isPartyRequestsEnabled());
-            e.getInventory().setItem(24, this.updateSwitch(this.settings.isPartyRequestsEnabled(), e.getCurrentItem()));
+            e.getInventory().setItem(23, this.updateSwitch(this.settings.isPartyRequestsEnabled(), e.getCurrentItem()));
         });
         this.setItem(25, new ItemBuilder(this.createSwitch(this.settings.isFriendRequestsEnabled())).build(), e -> {
             this.settings.setFriendRequestsEnabled(!this.settings.isFriendRequestsEnabled());

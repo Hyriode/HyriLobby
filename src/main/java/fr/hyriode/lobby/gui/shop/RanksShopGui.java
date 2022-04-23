@@ -18,7 +18,7 @@ public class RanksShopGui extends LobbyInventory {
         this.inventory.clear();
 
         this.fillOutline(FILL_ITEM);
-        //TODO Add ranks with design and advantages
+        //TODO Add ranks lore with design and advantages
         this.setItem(20, HEAD_ITEM.apply(UsefulHead.YELLOW_CUBE).withName(this.getMessage("vip")).withLore(this.getMessage("shop", "ranks.website").split("\n")).build());
         this.setItem(22, HEAD_ITEM.apply(UsefulHead.GREEN_CUBE).withName(this.getMessage("vip+")).withLore(this.getMessage("shop", "ranks.website").split("\n")).build());
         this.setItem(24, HEAD_ITEM.apply(UsefulHead.BLUE_CUBE).withName(this.getMessage("epic")).withLore(this.getMessage("shop", "ranks.website").split("\n")).build());

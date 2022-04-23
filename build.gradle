@@ -66,7 +66,7 @@ shadowJar {
 dependencies {
     implementation 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'fr.hyriode:hyrame:1.1.9'
+    implementation 'fr.hyriode:hyrame:1.2.0'
     shadow project(':API')
 }
 

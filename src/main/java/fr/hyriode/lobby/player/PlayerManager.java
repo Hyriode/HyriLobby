@@ -30,6 +30,7 @@ public class PlayerManager {
     }
 
     public void onLogin(Player player) {
+        final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId());
         this.addMessages(player);
 
         this.teleportToSpawn(player);
@@ -38,6 +39,11 @@ public class PlayerManager {
                 Language.getMessage(player, "title.welcome.welcome"), 12, 30, 12);
         this.sendActionBar(this.plugin, player);
 
+        //TODO Remove this, its for testing purpose
+        account.getNetworkLeveling().addExperience(500);
+
+        //TODO Network level in xp bar, with experience to fill the bar following the player's experience
+        player.setLevel(account.getNetworkLeveling().getLevel());
         player.playSound(player.getLocation(), Sound.LEVEL_UP, 5f, 5f);
     }
 
