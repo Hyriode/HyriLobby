@@ -25,6 +25,7 @@ public enum LobbyGame {
 
     LobbyGame(String name, Material icon) {
         this.game = HyriAPI.get().getGameManager().getGameInfo(name);
+        System.out.println(this.getGame().getName());
         this.icon = icon;
     }
 

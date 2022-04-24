@@ -48,12 +48,8 @@ public class GameTypeChooser extends LobbyInventory {
         for (Map.Entry<String, HyriGameType> entry : this.game.getGame().getTypes().entrySet()) {
             this.setItem(i, this.builder.clone()
                     .withName(ChatColor.DARK_AQUA + entry.getValue().getDisplayName())
-                    .withLore(this.getMessage("lobby_selector", "connected") + this.getPlayersCount(), "", ChatColor.DARK_AQUA + HyriLanguageMessage.get("message.click-to-play").getForPlayer(this.owner))
-                    .build(), event -> {
-                HyriAPI.get().getQueueManager().addPlayerInQueueWithPartyCheck(this.owner.getUniqueId(), this.game.getGame().getName(), entry.getKey());
-
-                this.owner.sendMessage(ChatColor.AQUA + "Vous avez été ajouté dans la queue pour " + this.game.getGame().getDisplayName() + " " + entry.getValue().getDisplayName());
-            });
+                    .withLore(this.getMessage("lobby_selector", "connected") + ChatColor.AQUA + this.getPlayersCount(), "", ChatColor.DARK_AQUA + HyriLanguageMessage.get("message.click-to-play").getForPlayer(this.owner))
+                    .build(), event -> HyriAPI.get().getQueueManager().addPlayerInQueueWithPartyCheck(this.owner.getUniqueId(), this.game.getGame().getName(), entry.getKey()));
 
             if (i == 24) {
                 i = 29;

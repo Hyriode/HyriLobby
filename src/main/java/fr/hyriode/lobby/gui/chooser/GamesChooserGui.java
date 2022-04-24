@@ -48,12 +48,12 @@ public class GamesChooserGui extends LobbyInventory {
         this.addGameItem(21, LobbyGame.BEDWARS);
         this.addGameItem(22, LobbyGame.LASER_GAME);
         this.addGameItem(23, LobbyGame.RUSH_THE_FLAG);
-        this.addGameItem(30, LobbyGame.BRIDGER, true);
+        this.addGameItem(30, LobbyGame.BRIDGER);
         this.addGameItem(31, LobbyGame.THE_RUNNER);
         this.addGameItem(32, LobbyGame.PEARL_CONTROL);
     }
 
-    private void addGameItem(int slot, LobbyGame game, boolean maintenance) {
+    private void addGameItem(int slot, LobbyGame game) {
         final IHyriGameInfo gameInfo = game.getGame();
         final List<String> lore = new ArrayList<>();
         final HyriNetworkCount playerCount = HyriAPI.get().getNetworkManager().getNetwork().getPlayerCount();
@@ -64,23 +64,10 @@ public class GamesChooserGui extends LobbyInventory {
             lore.add(this.getMessage("lobby_selector", "connected") + ChatColor.AQUA + "0");
         }
 
-        if (maintenance) {
-            lore.add("");
-            lore.add(ChatColor.RED + "Maintenance");
-        }
-
         this.setItem(slot, new ItemBuilder(game.getIcon())
                 .withName(ChatColor.DARK_AQUA + gameInfo.getDisplayName())
                 .withLore(lore)
-                .build(), event -> {
-            if (!maintenance) {
-                new GameTypeChooser(this.plugin, this.owner, game).open();
-            }
-        });
-    }
-
-    private void addGameItem(int slot, LobbyGame game) {
-        this.addGameItem(slot, game, false);
+                .build(), event -> new GameTypeChooser(this.plugin, this.owner, game).open());
     }
 
 }

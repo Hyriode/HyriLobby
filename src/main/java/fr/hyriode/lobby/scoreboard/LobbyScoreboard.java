@@ -55,7 +55,7 @@ public class LobbyScoreboard extends HyriScoreboard {
     }
 
     private String getServer() {
-        return Language.getMessage(this.player, "scoreboard.line.server") + this.account.getCurrentServer();
+        return Language.getMessage(this.player, "scoreboard.line.server") + HyriAPI.get().getServer().getName();
     }
 
     private String getProfile() {
