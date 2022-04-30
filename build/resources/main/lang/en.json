@@ -1,0 +1,81 @@
+{
+  "scoreboard.players.display": "&fPlayers: &b%value%",
+  "scoreboard.server.display": "&fServer: &b%value%",
+  "scoreboard.profile.display": "&3Profil",
+  "scoreboard.rank.display": "&fRank: &b%value%",
+  "scoreboard.level.display": "&fLevel: &b%value%✯",
+  "scoreboard.hyris.display": "&fHyris: &d%value% ⛃",
+  "scoreboard.no-rank.value": "&7Player",
+
+  "message.join.display": "%player%&6 joined the lobby!",
+  "message.error-staff.display": "&cYou can't do this in moderation mode or vanish.",
+  "message.queue.display": "&bYou joined the queue for &3%game%",
+
+  "gui.lobby-selector.name": "&8Change lobby",
+  "gui.lobby-selector.item.name": "&fLobby ID: ",
+  "gui.lobby-selector.item.basic.friends": "&fFriends: ",
+
+  "gui.game-type-selector.name": "&8Choix du mode",
+
+  "gui.game-selector.name": "&8Main Menu",
+  "gui.game-selector.item.host.name": "&bHosts",
+  "gui.game-selector.item.vip.name": "&eVIP Area",
+  "gui.game-selector.item.jump.name": "&aJump",
+
+  "gui.settings.name": "&8Settings",
+  "gui.settings.item.msg-sound.name": "&bPrivate messages notifications",
+  "gui.settings.item.global-chat.name": "&bGlobal Chat",
+  "gui.settings.item.party-request.name": "&bParty requests",
+  "gui.settings.item.friend-request.name": "&bFriend requests",
+  "gui.settings.item.lang.name": "&bLanguage chooser",
+  "gui.settings.item.msg-levels.name": "&bPrivate messages settings",
+  "gui.settings.item.visibility-levels.name": "&bVisibility settings",
+
+  "settings.level.all": "&aAll",
+  "settings.level.party": "&bParty",
+  "settings.level.friends": "&dFriends",
+  "settings.level.none": "&7None",
+  "settings.lang.fr": "&9French",
+  "settings.lang.en": "&9English",
+
+  "gui.settings.messages-level.name": "&8Private messages settings",
+  "gui.settings.visibility-level.name": "&8Visibility settings",
+  "gui.settings-language.name": "&8Language",
+
+  "item.games_selector.name": "&3Main Menu",
+  "item.lobby_selector.name": "&aLobby Selector",
+  "item.settings.name": "&cSettings",
+  "item.shop.name": "&6Shop",
+  "item.profile.name": "&bProfile",
+
+  "basic.connected": "&cAlready connected",
+  "lobby.connect": "&3Click to join",
+  "basic.connect": "&eClick to connect",
+  "basic.players": "&fPlayers: ",
+  "basic.friends": "&fFriends: ",
+  "basic.soon": "&cSoon",
+  "basic.item.back": "&cBack",
+  "basic.item.current": "&6Current ",
+  "basic.type": "&3Type: ",
+
+  "gui.item.switch-on.name": "&aActive",
+  "gui.item.switch-off.name": "&cInactive",
+
+  "game.pearlcontrol.type": "&bPvP, Area control",
+  "game.pearlcontrol.description": "Control the area or\npush all your opponents\nto win the game.\nUse your pearls to\ncatch up and not die.",
+
+  "game.rushtheflag.type": "&PvP, Flag capture",
+  "game.rushtheflag.description": "Capture the opponent's flag and\nbring it back to your base.\nUse your ability to\nsurprise your opponents\nand defeat them more easily.\nPlay in single, double\nor squad mode for more fun!",
+
+  "game.therunner.type": "&bRace, PvP",
+  "game.therunner.description": "Run to the center\nof the map without making mistakes.\nArrive first to\ngain an advantage and beat\nyour opponents! Choose a challenge\nto earn better rewards\nand become the best!",
+
+  "game.bridger.type": "&bTraining, Bridge",
+  "game.bridger.description": "Practice bridge\nand achieve the best time.\nWin the medals to\nmove up in the ranking\nand earn rewards!",
+
+  "game.bedwars.type": "&bPvP, Strategy",
+  "game.bedwars.description": "Protect your bed and\ndestroy the opponent's beds.\nKill all the players\nto win the game.\nPlay in single, double, \ntrio or squad mode for more fun!",
+
+  "game.lasergame.type": "&bShooter, Arcade",
+  "game.lasergame.description": "Shoot your opponents\nto gain a maximum of\npoints. Collect the bonuses\ndispersed on the map to\nobtain useful abilities.\nPlay as a team to win\nthe game more easily."
+}

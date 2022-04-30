@@ -1,0 +1,89 @@
+{
+  "scoreboard.players.display": "&fJoueurs : &b%value%",
+  "scoreboard.server.display": "&fServeur : &b%value%",
+  "scoreboard.profile.display": "&3Profil",
+  "scoreboard.rank.display": "&fGrade : &b%value%",
+  "scoreboard.level.display": "&fNiveau : &b%value%✯",
+  "scoreboard.hyris.display": "&fHyris : &d%value% ⛃",
+  "scoreboard.no-rank.value": "&7Joueur",
+
+  "subtitle.basic.display": "&7Bon retour parmi nous !",
+  "subtitle.first.display": "&7Bienvenue sur le serveur !",
+  "subtitle.buy.display": "&7Merci de soutenir le serveur !",
+
+  "message.join.display": "%player%&6 a rejoint le lobby !",
+  "message.error-staff.display": "&cVous ne pouvez pas faire ceci en mode modération ou en vanish.",
+  "message.queue.display": "&bVous avez rejoint la queue pour &3%game%",
+
+  "command.fly.result": "§bVotre fly a été %value%§b.",
+  "command.fly.value.on": "§3activé",
+  "command.fly.value.off": "§3désactivé",
+
+  "gui.lobby-selector.name": "&8Changer de lobby",
+  "gui.lobby-selector.item.basic.name": "&fLobby ID : ",
+  "gui.lobby-selector.item.basic.friends": "&fAmis : ",
+
+  "gui.game-type-selector.name": "&8Choix du mode",
+
+  "gui.game-selector.name": "&8Menu Principal",
+  "gui.game-selector.item.host.name": "&bHosts",
+  "gui.game-selector.item.vip.name": "&eZone VIP",
+  "gui.game-selector.item.jump.name": "&aParcours",
+
+  "gui.settings.name": "&8Paramètres",
+  "gui.settings.item.msg-sound.name": "&bNotification des messages privés",
+  "gui.settings.item.global-chat.name": "&bChat global",
+  "gui.settings.item.party-request.name": "&bDemandes de partie",
+  "gui.settings.item.friend-request.name": "&bDemandes d'amis",
+  "gui.settings.item.lang.name": "&bChoix de la langue",
+  "gui.settings.item.msg-levels.name": "&bParamètres des messages privés",
+  "gui.settings.item.visibility-levels.name": "&bPréférences de visibilité",
+
+  "settings.level.all": "&aTout le monde",
+  "settings.level.party": "&bGroupe",
+  "settings.level.friends": "&dAmis",
+  "settings.level.none": "&7Personne",
+  "settings.lang.fr": "&9Français",
+  "settings.lang.en": "&9Anglais",
+
+  "gui.settings.messages-level.name": "&8Paramètres des messages privés",
+  "gui.settings.visibility-level.name": "&8Préférences de visibilité",
+  "gui.settings-language": "&8Langue",
+
+  "item.games_selector.name": "&3Menu Principal",
+  "item.lobby_selector.name": "&aSélecteur de lobby",
+  "item.settings.name": "&cParamètres",
+  "item.shop.name": "&6Boutique",
+  "item.profile.name": "&bProfil",
+
+  "basic.connected": "&cDéjà connecté",
+  "lobby.connect" : "&3Cliquez pour rejoindre",
+  "basic.connect": "&eCliquer pour rejoindre",
+  "basic.players": "&fJoueurs : ",
+  "basic.friends": "&fAmis: ",
+  "basic.soon": "&cProchainement",
+  "basic.item.back": "&cRetour",
+  "basic.item.current": "&6Actuel ",
+  "basic.type": "&3Type : ",
+
+  "gui.item.switch-on.name": "&aActivé",
+  "gui.item.switch-off.name": "&cDésactivé",
+
+  "game.pearlcontrol.type": "&bPearlControl",
+  "game.pearlcontrol.description": "Contrôlez la zone ou\npoussez tous vos adversaires\npour gagner la partie.\nUtilisez vos perles pour\nvous rattraper et ne pas mourir.",
+
+  "game.rushtheflag.type": "&bPvP, Capture de drapeau",
+  "game.rushtheflag.description": "Capturez le drapeau adverse et\nramenez le à votre base.\nUtilisez votre capacité pour\nsurprendre vos adversaires\net les battre plus facilement.\nJouez en mode solo, doubles\nou squad pour plus de fun !",
+
+  "game.therunner.type": "&bCourse, PvP",
+  "game.therunner.description": "Courez vers le centre\nde la carte sans faire d'erreurs.\nArrivez en premier pour\nobtenir un avantage et battre\nvos adversaires! Choisissez un défi\npour gagner de meilleures récompenses\net devenir le meilleur !",
+
+  "game.bridger.type": "&bEntrainement, Bridge",
+  "game.bridger.description": "Entrainez vous au bridge\net réalisez le meilleur temps.\nRemportez les médailles pour\nmonter dans le classement\net reporter des récompenses !",
+
+  "game.bedwars.type": "&bPvP, Stratégie",
+  "game.bedwars.description": "Protégez votre lit et\ndétruisez les lits adverses.\nTuez tous les joueurs\npour remporter la partie.\nJouez en mode solo, doubles\ntrio ou squad pour plus de fun !",
+
+  "game.lasergame.type": "&bJeu de tir, Arcade",
+  "game.lasergame.description": "Tirez sur vos adversaires\npour gagner un maximum de\npoints. Récupérez les bonus\ndispersés sur la carte pour\nobtenir des capacités utiles.\nJouez en équipe pour remporter\nla partie plus facilement."
+}

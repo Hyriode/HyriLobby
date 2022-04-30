@@ -1,0 +1,41 @@
+apply plugin: 'maven-publish'
+
+version = '1.0.0'
+archivesBaseName = 'HyriLobby-API'
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            pom {
+                groupId = project.group
+                artifactId = 'lobby-api'
+                version = project.version
+                name = 'HyriLobby-API'
+                description = 'The API to interact with HyriLobby'
+                url = 'https://github.com/Hyriode/HyriLobby'
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            credentials {
+                username System.getenv('USERNAME')
+                password System.getenv('TOKEN')
+            }
+            name = "HyriAPI_maven"
+            url = "https://maven.pkg.github.com/Hyriode/HyriLobby"
+        }
+    }
+}
+
+dependencies {
+    api 'fr.hyriode:hyriapi:1.1.3'
+}
