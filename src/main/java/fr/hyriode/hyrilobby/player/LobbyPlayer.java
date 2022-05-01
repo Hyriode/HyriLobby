@@ -67,29 +67,31 @@ public class LobbyPlayer {
         this.inJump = false;
     }
 
-    public void setInPvP() {
-        final Player player = this.asPlayer();
+    public void setInPvP(boolean inPvp) {
+        if (inPvp) {
+            final Player player = this.asPlayer();
 
-        final ItemStack sword = new ItemBuilder(Material.STONE_SWORD).unbreakable().build();
-        final ItemStack apple = new ItemBuilder(Material.GOLDEN_APPLE, 3).build();
-        final ItemStack chestplate = new ItemBuilder(Material.IRON_CHESTPLATE).unbreakable().build();
-        final ItemStack leggings = new ItemBuilder(Material.IRON_LEGGINGS).unbreakable().build();
-        final ItemStack boots = new ItemBuilder(Material.IRON_BOOTS).unbreakable().build();
+            final ItemStack sword = new ItemBuilder(Material.STONE_SWORD).unbreakable().build();
+            final ItemStack apple = new ItemBuilder(Material.GOLDEN_APPLE, 3).build();
+            final ItemStack chestplate = new ItemBuilder(Material.IRON_CHESTPLATE).unbreakable().build();
+            final ItemStack leggings = new ItemBuilder(Material.IRON_LEGGINGS).unbreakable().build();
+            final ItemStack boots = new ItemBuilder(Material.IRON_BOOTS).unbreakable().build();
 
-        player.getInventory().clear();
-        player.setAllowFlight(false);
+            player.getInventory().clear();
+            player.setAllowFlight(false);
 
-        player.getInventory().setChestplate(chestplate);
-        player.getInventory().setLeggings(leggings);
-        player.getInventory().setBoots(boots);
+            player.getInventory().setChestplate(chestplate);
+            player.getInventory().setLeggings(leggings);
+            player.getInventory().setBoots(boots);
 
-        player.getInventory().addItem(sword, apple);
-        player.getInventory().setHeldItemSlot(0);
+            player.getInventory().addItem(sword, apple);
+            player.getInventory().setHeldItemSlot(0);
+        }
 
-        this.inPvp = true;
+        this.inPvp = inPvp;
     }
 
-    private void giveItems() {
+    public void giveItems() {
         final Player player = this.asPlayer();
         final IHyriItemManager item = this.plugin.getHyrame().getItemManager();
 
@@ -175,4 +177,9 @@ public class LobbyPlayer {
     public void setInJump(boolean inJump) {
         this.inJump = inJump;
     }
+
+    public boolean isInPvp() {
+        return this.inPvp;
+    }
+
 }

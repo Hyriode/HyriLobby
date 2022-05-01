@@ -72,16 +72,14 @@ public class LobbySelectorGui extends LobbyInventory {
 
     private ItemStack getLobbyItem(HyggServer server) {
         final String id = server.getName().split("-")[1];
-        final String name = LobbyMessage.SELECTOR_GUI_LOBBY_NAME.getGuiItem(this.guiName).getForPlayer(this.account) + id;
+        final String name = LobbyMessage.SELECTOR_GUI_LOBBY_NAME.getGuiItem(this.guiName).getForPlayer(this.account) + ChatColor.AQUA + id;
 
         ItemBuilder item = ItemBuilder.asHead()
                 .withName(name)
-                .withLore(this.getLobbyLore(server, this.getFriendsOnServer(server)));
+                .withLore(this.getLobbyLore(server));
 
         if (server.getSlots() == server.getPlayers().size()) {
             item.withHeadTexture(UsefulHead.RED_CUBE.getTexture());
-        } else if (this.getFriendsOnServer(server) > 0) {
-            item.withHeadTexture(UsefulHead.CYAN_CUBE.getTexture());
         } else {
             item.withHeadTexture(UsefulHead.GREEN_CUBE.getTexture());
         }
@@ -89,26 +87,19 @@ public class LobbySelectorGui extends LobbyInventory {
         return item.build();
     }
 
-    private int getFriendsOnServer(HyggServer server) {
-        final List<IHyriFriend> friends = HyriAPI.get().getFriendManager().getFriends(this.owner.getUniqueId());
-        final List<IHyriPlayer> accounts = friends.stream().map(friend -> HyriAPI.get().getPlayerManager().getPlayer(friend.getUniqueId())).collect(Collectors.toList());
 
-        return (int) accounts.stream().filter(account -> server.getName().equals(account.getCurrentServer())).count();
-    }
-
-    private List<String> getLobbyLore(HyggServer server, int friendsCount) {
+    private List<String> getLobbyLore(HyggServer server) {
         final List<String> list = new ArrayList<>();
-        final IHyriPlayer hyriPlayer = HyriAPI.get().getPlayerManager().getPlayer(this.owner.getUniqueId());
+        final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(this.owner.getUniqueId());
 
         list.add(LobbyMessage.LOBBY_PLAYERS_LINE.get().getForPlayer(this.owner) + ChatColor.AQUA + server.getPlayers().size() + "/" + HyggLobbyAPI.MAX_PLAYERS);
 
-        if (friendsCount > 0) {
-            list.add(LobbyMessage.SELECTOR_GUI_LOBBY_FRIENDS_LINE.get().getForPlayer(this.owner) + ChatColor.AQUA + friendsCount);
-        }
-
-        if (!hyriPlayer.getCurrentServer().equalsIgnoreCase(server.getName())) {
+        if (account.getCurrentServer() != null && !account.getCurrentServer().equalsIgnoreCase(server.getName())) {
             list.add(" ");
-            list.add(LobbyMessage.LOBBY_CONNECT.get().getForPlayer(hyriPlayer));
+            list.add(LobbyMessage.LOBBY_CONNECT.get().getForPlayer(account));
+        } else {
+            list.add(" ");
+            list.add(LobbyMessage.CONNECTED_LINE.get().getForPlayer(account));
         }
 
         return list;

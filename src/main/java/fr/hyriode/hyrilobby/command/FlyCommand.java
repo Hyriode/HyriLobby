@@ -31,7 +31,7 @@ public class FlyCommand extends HyriCommand<HyriLobby> {
         final Player player = lobbyPlayer.asPlayer();
         final String result = LobbyMessage.FLY_COMMAND_RESULT.getCommand().getForPlayer(player);
 
-        if (!lobbyPlayer.isInJump()) {
+        if (!lobbyPlayer.isInJump() && !lobbyPlayer.isInPvp()) {
             if (player.getAllowFlight()) {
                 player.setAllowFlight(false);
                 player.sendMessage(result.replace("%value%", HyriLobby.getLanguageManager().getValue(player, "command.fly.value.off")));

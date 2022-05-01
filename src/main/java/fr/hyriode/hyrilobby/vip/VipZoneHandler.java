@@ -32,8 +32,10 @@ public class VipZoneHandler extends HyriListener<HyriLobby> {
             }
         }
 
-        if(pvp.isInArea(player.getLocation())) {
-            lobbyPlayer.setInPvP();
+        if (!lobbyPlayer.isInPvp()) {
+            if (pvp.isInArea(player.getLocation())) {
+                lobbyPlayer.setInPvP(true);
+            }
         }
     }
 

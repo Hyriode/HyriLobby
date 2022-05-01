@@ -2,6 +2,7 @@ package fr.hyriode.hyrilobby.gui.chooser;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.game.HyriGameType;
+import fr.hyriode.api.network.HyriNetworkCount;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.language.HyriLanguageMessage;
@@ -43,13 +44,15 @@ public class GameTypeChooser extends LobbyInventory {
                 .withLore(this.getLore())
                 .build());
 
-        AtomicInteger i = new AtomicInteger(20);
         Stream<Map.Entry<String, HyriGameType>> entries = this.game.getGame().getTypes().entrySet().stream().sorted(Comparator.comparingInt(o -> o.getValue().getId()));
+        AtomicInteger i = new AtomicInteger(20);
+
+        final HyriNetworkCount playerCount = HyriAPI.get().getNetworkManager().getNetwork().getPlayerCount();
 
         entries.forEachOrdered(entry -> {
             this.setItem(i.get(), this.builder.clone()
                     .withName(ChatColor.DARK_AQUA + entry.getValue().getDisplayName())
-                    .withLore("§8", LobbyMessage.CONNECT_LINE.get().getForPlayer(this.owner))
+                    .withLore(LobbyMessage.LOBBY_PLAYERS_LINE.get().getForPlayer(this.owner) + ChatColor.AQUA + "0", "", LobbyMessage.CONNECT_LINE.get().getForPlayer(this.owner))
                     .build(), event -> this.sendPlayerToGame(this.owner, this.game, entry.getKey(), entry.getValue().getDisplayName()));
 
             if (i.get() == 24) {
@@ -64,9 +67,9 @@ public class GameTypeChooser extends LobbyInventory {
         final List<String> lore = new ArrayList<>();
 
         lore.add(game.getGameTypeLine(this.owner));
-        lore.add("§8");
+        lore.add("");
         lore.addAll(game.getDescription(this.owner));
-        lore.add("§8");
+        lore.add("");
         lore.add(LobbyMessage.LOBBY_PLAYERS_LINE.get().getForPlayer(this.owner) + ChatColor.AQUA + this.getPlayersCount());
 
         return lore;

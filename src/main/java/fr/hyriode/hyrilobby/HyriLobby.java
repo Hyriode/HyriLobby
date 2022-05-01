@@ -43,7 +43,7 @@ public class HyriLobby extends JavaPlugin {
         this.hyrame = HyrameLoader.load(new HyriLobbyProvider(this));
 
         this.config = new LobbyConfig(
-                new LocationWrapper(IHyrame.WORLD.get().getUID(), 0.5, 190, 0.5, 90, 0),
+                new LocationWrapper(IHyrame.WORLD.get().getUID(), 0.5, 190.5, 0.5, 90, 0),
                 new LocationWrapper(new Location(IHyrame.WORLD.get(), -277, 150, -39, 90, 0)),
                 new LocationWrapper(IHyrame.WORLD.get().getUID(), 0.5, 188.0, -23.5, -180, 0),
                 new LobbyConfig.Zone(

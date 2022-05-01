@@ -2,6 +2,8 @@ package fr.hyriode.hyrilobby.listener;
 
 import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.hyrilobby.HyriLobby;
+import fr.hyriode.hyrilobby.player.LobbyPlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -31,6 +33,16 @@ public class LobbyCancelsHandler extends HyriListener<HyriLobby> {
     @EventHandler
     public void onEntityDamage(final EntityDamageEvent event) {
         event.setCancelled(true);
+
+        if (event.getEntity() instanceof Player) {
+            final Player player = (Player) event.getEntity();
+
+            final LobbyPlayer lp = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
+
+            if (lp.isInPvp()) {
+                event.setCancelled(false);
+            }
+        }
     }
 
     @EventHandler
