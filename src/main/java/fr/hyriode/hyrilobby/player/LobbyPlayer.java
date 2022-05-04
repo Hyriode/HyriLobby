@@ -10,6 +10,7 @@ import fr.hyriode.hyrame.title.Title;
 import fr.hyriode.hyrame.utils.PlayerUtil;
 import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.item.hotbar.*;
+import fr.hyriode.hyrilobby.jump.Jump;
 import fr.hyriode.hyrilobby.language.LobbyMessage;
 import fr.hyriode.hyrilobby.scoreboard.LobbyScoreboard;
 import org.bukkit.Bukkit;
@@ -34,6 +35,8 @@ public class LobbyPlayer {
     private boolean inJump;
     private boolean inPvp;
 
+    private Jump jump;
+
     private LobbyScoreboard lobbyScoreboard;
 
     public LobbyPlayer(UUID uuid, HyriLobby plugin) {
@@ -46,6 +49,7 @@ public class LobbyPlayer {
     public void handleLogin(boolean login) {
 
         PlayerUtil.resetPlayer(this.asPlayer(), true);
+        this.asPlayer().getInventory().setArmorContents(null);
         this.asPlayer().setGameMode(GameMode.ADVENTURE);
 
         if (this.asHyriPlayer().getRank().isSuperior(HyriPlayerRankType.VIP_PLUS) || this.asHyriPlayer().getRank().isStaff()) {
@@ -67,29 +71,49 @@ public class LobbyPlayer {
         this.inJump = false;
     }
 
-    public void setInPvP() {
-        final Player player = this.asPlayer();
+    public void setInPvP(boolean inPvp) {
+        if (inPvp) {
+            final Player player = this.asPlayer();
 
-        final ItemStack sword = new ItemBuilder(Material.STONE_SWORD).unbreakable().build();
-        final ItemStack apple = new ItemBuilder(Material.GOLDEN_APPLE, 3).build();
-        final ItemStack chestplate = new ItemBuilder(Material.IRON_CHESTPLATE).unbreakable().build();
-        final ItemStack leggings = new ItemBuilder(Material.IRON_LEGGINGS).unbreakable().build();
-        final ItemStack boots = new ItemBuilder(Material.IRON_BOOTS).unbreakable().build();
+            final ItemStack sword = new ItemBuilder(Material.STONE_SWORD).unbreakable().build();
+            final ItemStack apple = new ItemBuilder(Material.GOLDEN_APPLE, 3).build();
+            final ItemStack chestplate = new ItemBuilder(Material.IRON_CHESTPLATE).unbreakable().build();
+            final ItemStack leggings = new ItemBuilder(Material.IRON_LEGGINGS).unbreakable().build();
+            final ItemStack boots = new ItemBuilder(Material.IRON_BOOTS).unbreakable().build();
 
-        player.getInventory().clear();
-        player.setAllowFlight(false);
+            player.getInventory().clear();
+            player.setAllowFlight(false);
 
-        player.getInventory().setChestplate(chestplate);
-        player.getInventory().setLeggings(leggings);
-        player.getInventory().setBoots(boots);
+            player.getInventory().setChestplate(chestplate);
+            player.getInventory().setLeggings(leggings);
+            player.getInventory().setBoots(boots);
 
-        player.getInventory().addItem(sword, apple);
-        player.getInventory().setHeldItemSlot(0);
+            player.getInventory().addItem(sword, apple);
+            player.getInventory().setHeldItemSlot(0);
+        }
 
-        this.inPvp = true;
+        this.inPvp = inPvp;
     }
 
-    private void giveItems() {
+
+    public void setInJump(boolean inJump) {
+        if(inJump) {
+            this.asPlayer().setAllowFlight(false);
+
+
+        } else {
+            this.giveItems();
+            this.asPlayer().teleport(this.plugin.getConfiguration().getJumpLocation().asBukkit());
+            if (this.asHyriPlayer().getRank().isSuperior(HyriPlayerRankType.VIP_PLUS) || this.asHyriPlayer().getRank().isStaff()) {
+                this.asPlayer().setAllowFlight(true);
+            }
+            this.jump = null;
+        }
+
+        this.inJump = inJump;
+    }
+
+    public void giveItems() {
         final Player player = this.asPlayer();
         final IHyriItemManager item = this.plugin.getHyrame().getItemManager();
 
@@ -172,7 +196,15 @@ public class LobbyPlayer {
         return inJump;
     }
 
-    public void setInJump(boolean inJump) {
-        this.inJump = inJump;
+    public boolean isInPvp() {
+        return this.inPvp;
+    }
+
+    public Jump getJump() {
+        return jump;
+    }
+
+    public void setJump(Jump jump) {
+        this.jump = jump;
     }
 }

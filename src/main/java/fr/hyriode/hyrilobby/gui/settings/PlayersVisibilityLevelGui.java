@@ -32,10 +32,10 @@ public class PlayersVisibilityLevelGui extends LobbyInventory {
         this.inventory.clear();
         this.fill();
 
-        this.setItem(19, this.getItem(DyeColor.LIME, HyriPlayersVisibilityLevel.ALL), e -> this.onLevelClick(e, HyriPlayersVisibilityLevel.ALL));
-        this.setItem(21, this.getItem(DyeColor.YELLOW, HyriPlayersVisibilityLevel.FRIENDS), e -> this.onLevelClick(e, HyriPlayersVisibilityLevel.FRIENDS));
-        this.setItem(23, this.getItem(DyeColor.ORANGE, HyriPlayersVisibilityLevel.PARTY), e -> this.onLevelClick(e, HyriPlayersVisibilityLevel.PARTY));
-        this.setItem(25, this.getItem(DyeColor.RED, HyriPlayersVisibilityLevel.NONE), e -> this.onLevelClick(e, HyriPlayersVisibilityLevel.NONE));
+        this.setItem(28, this.getItem(DyeColor.LIME, HyriPlayersVisibilityLevel.ALL), e -> this.onLevelClick(e, HyriPlayersVisibilityLevel.ALL));
+        this.setItem(30, this.getItem(DyeColor.YELLOW, HyriPlayersVisibilityLevel.FRIENDS), e -> this.onLevelClick(e, HyriPlayersVisibilityLevel.FRIENDS));
+        this.setItem(32, this.getItem(DyeColor.ORANGE, HyriPlayersVisibilityLevel.PARTY), e -> this.onLevelClick(e, HyriPlayersVisibilityLevel.PARTY));
+        this.setItem(34, this.getItem(DyeColor.RED, HyriPlayersVisibilityLevel.NONE), e -> this.onLevelClick(e, HyriPlayersVisibilityLevel.NONE));
 
         this.setupCurrentButton(HEAD_ITEM.apply(UsefulHead.ARROW_DOWN).build(), this.getSlot(), slot -> LobbyMessage.CURRENT_ITEM.get().getForPlayer(this.owner) + this.getLangMessage(this.level), null);
     }

@@ -30,8 +30,8 @@ public class LanguageGui extends LobbyInventory {
 
         this.fill();
 
-        this.setItem(20, this.getItem(UsefulHead.FRANCE, HyriLanguage.FR), e -> this.onLangClick(e, HyriLanguage.FR));
-        this.setItem(24, this.getItem(UsefulHead.ENGLAND, HyriLanguage.EN), e -> this.onLangClick(e, HyriLanguage.EN));
+        this.setItem(29, this.getItem(UsefulHead.FRANCE, HyriLanguage.FR), e -> this.onLangClick(e, HyriLanguage.FR));
+        this.setItem(33, this.getItem(UsefulHead.ENGLAND, HyriLanguage.EN), e -> this.onLangClick(e, HyriLanguage.EN));
 
         this.setupCurrentButton(HEAD_ITEM.apply(UsefulHead.ARROW_DOWN).build(), this.getSlot(), slot -> LobbyMessage.CURRENT_ITEM.get().getForPlayer(this.owner) + this.getLangMessage(this.language), null);
     }

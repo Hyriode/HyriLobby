@@ -10,6 +10,7 @@ import fr.hyriode.hyrilobby.player.LobbyPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public class VipZoneHandler extends HyriListener<HyriLobby> {
@@ -32,8 +33,35 @@ public class VipZoneHandler extends HyriListener<HyriLobby> {
             }
         }
 
-        if(pvp.isInArea(player.getLocation())) {
-            lobbyPlayer.setInPvP();
+        if (!lobbyPlayer.isInPvp()) {
+            if (pvp.isInArea(player.getLocation())) {
+                lobbyPlayer.setInPvP(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onEntityDamage(final EntityDamageEvent event) {
+        event.setCancelled(true);
+
+        if (event.getEntity() instanceof Player) {
+            final Player player = (Player) event.getEntity();
+
+            final LobbyPlayer lp = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
+
+            if (lp.isInPvp()) {
+                if(event.getCause() != EntityDamageEvent.DamageCause.FALL) {
+
+                    event.setCancelled(false);
+
+                    if (player.getHealth() - event.getFinalDamage() <= 0.0D) {
+                        event.setDamage(0.0D);
+                        event.setCancelled(true);
+
+                        lp.handleLogin(false);
+                    }
+                }
+            }
         }
     }
 
@@ -43,11 +71,13 @@ public class VipZoneHandler extends HyriListener<HyriLobby> {
             final Player player = (Player) event.getEntity();
             final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
 
-            if (player.getHealth() - event.getFinalDamage() <= 0.0D) {
-                event.setDamage(0.0D);
-                event.setCancelled(true);
+            if(lobbyPlayer.isInPvp()) {
+                if (player.getHealth() - event.getFinalDamage() <= 0.0D) {
+                    event.setDamage(0.0D);
+                    event.setCancelled(true);
 
-                lobbyPlayer.handleLogin(false);
+                    lobbyPlayer.handleLogin(false);
+                }
             }
         }
     }

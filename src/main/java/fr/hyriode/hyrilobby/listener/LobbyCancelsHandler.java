@@ -2,6 +2,8 @@ package fr.hyriode.hyrilobby.listener;
 
 import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.hyrilobby.HyriLobby;
+import fr.hyriode.hyrilobby.player.LobbyPlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -10,6 +12,7 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 
 /**
@@ -25,11 +28,6 @@ public class LobbyCancelsHandler extends HyriListener<HyriLobby> {
 
     @EventHandler
     public void onFoodLevelChanges(final FoodLevelChangeEvent event) {
-        event.setCancelled(true);
-    }
-
-    @EventHandler
-    public void onEntityDamage(final EntityDamageEvent event) {
         event.setCancelled(true);
     }
 
@@ -56,5 +54,15 @@ public class LobbyCancelsHandler extends HyriListener<HyriLobby> {
     @EventHandler
     public void onPickupItem(final PlayerPickupItemEvent event) {
         event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onVoid(final PlayerMoveEvent event) {
+        final Player player = event.getPlayer();
+        final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
+
+        if(player.getLocation().getY() <= 90) {
+            lobbyPlayer.teleportToSpawn();
+        }
     }
 }

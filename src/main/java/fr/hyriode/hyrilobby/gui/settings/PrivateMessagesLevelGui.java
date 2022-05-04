@@ -33,9 +33,9 @@ public class PrivateMessagesLevelGui extends LobbyInventory {
 
         this.fill();
 
-        this.setItem(20, this.getItem(DyeColor.LIME, HyriPrivateMessagesLevel.ALL), e -> this.onLevelClick(e, HyriPrivateMessagesLevel.ALL));
-        this.setItem(22, this.getItem(DyeColor.ORANGE, HyriPrivateMessagesLevel.FRIENDS), e -> this.onLevelClick(e, HyriPrivateMessagesLevel.FRIENDS));
-        this.setItem(24, this.getItem(DyeColor.RED, HyriPrivateMessagesLevel.NONE), e -> this.onLevelClick(e, HyriPrivateMessagesLevel.NONE));
+        this.setItem(29, this.getItem(DyeColor.LIME, HyriPrivateMessagesLevel.ALL), e -> this.onLevelClick(e, HyriPrivateMessagesLevel.ALL));
+        this.setItem(31, this.getItem(DyeColor.ORANGE, HyriPrivateMessagesLevel.FRIENDS), e -> this.onLevelClick(e, HyriPrivateMessagesLevel.FRIENDS));
+        this.setItem(33, this.getItem(DyeColor.RED, HyriPrivateMessagesLevel.NONE), e -> this.onLevelClick(e, HyriPrivateMessagesLevel.NONE));
 
         this.setupCurrentButton(HEAD_ITEM.apply(UsefulHead.ARROW_DOWN).build(), this.getSlot(), slot -> LobbyMessage.CURRENT_ITEM.get().getForPlayer(this.owner) + this.getLangMessage(this.level), null);
     }

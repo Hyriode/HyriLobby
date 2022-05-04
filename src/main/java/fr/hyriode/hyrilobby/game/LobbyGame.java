@@ -33,7 +33,6 @@ public enum LobbyGame {
     private final String gameType;
 
     LobbyGame(String name, Material icon) {
-        System.out.println("Called lobby game");
         this.game = HyriAPI.get().getGameManager().getGameInfo(name);
         this.icon = icon;
         this.description = "game." + name + ".description";

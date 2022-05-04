@@ -67,19 +67,19 @@ public class GamesChooserGui extends LobbyInventory {
 
         if (playerCount != null && playerCount.getCategory(gameInfo.getName()) != null) {
             lore.add(game.getGameTypeLine(this.owner));
-            lore.add("§8");
+            lore.add("");
             lore.addAll(game.getDescription(this.owner));
-            lore.add("§8");
-            lore.add(LobbyMessage.LOBBY_PLAYERS_LINE.get().getForPlayer(this.owner) + ChatColor.AQUA + playerCount.getCategory(gameInfo.getName()).getPlayers());
-            lore.add("§8");
+            lore.add("");
+            lore.add(LobbyMessage.LOBBY_PLAYERS_LINE.get().getForPlayer(this.owner) + ChatColor.AQUA + "0");
+            lore.add("");
             lore.add(LobbyMessage.CONNECT_LINE.get().getForPlayer(this.owner));
         } else {
             lore.add(game.getGameTypeLine(this.owner));
-            lore.add("§8");
+            lore.add("");
             lore.addAll(game.getDescription(this.owner));
-            lore.add("§8");
+            lore.add("");
             lore.add(LobbyMessage.LOBBY_PLAYERS_LINE.get().getForPlayer(this.owner) + ChatColor.AQUA + "0");
-            lore.add("§8");
+            lore.add("");
             lore.add(LobbyMessage.CONNECT_LINE.get().getForPlayer(this.owner));
         }
 
