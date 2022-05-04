@@ -14,13 +14,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 public class GameTypeChooser extends LobbyInventory {
-
-    private static final List<Integer> DONT_FILL = Arrays.asList(19, 19 + 9, 25, 25 + 9);
 
     private final LobbyGame game;
     private final ItemBuilder builder;
@@ -44,21 +45,25 @@ public class GameTypeChooser extends LobbyInventory {
                 .withLore(this.getLore())
                 .build());
 
-        Stream<Map.Entry<String, HyriGameType>> entries = this.game.getGame().getTypes().entrySet().stream().sorted(Comparator.comparingInt(o -> o.getValue().getId()));
-        AtomicInteger i = new AtomicInteger(20);
+        final Stream<Map.Entry<String, HyriGameType>> entries = this.game.getGame().getTypes().entrySet().stream().sorted(Comparator.comparingInt(o -> o.getValue().getId()));
+        final AtomicInteger slot = new AtomicInteger(20);
 
         final HyriNetworkCount playerCount = HyriAPI.get().getNetworkManager().getNetwork().getPlayerCount();
 
         entries.forEachOrdered(entry -> {
-            this.setItem(i.get(), this.builder.clone()
-                    .withName(ChatColor.DARK_AQUA + entry.getValue().getDisplayName())
-                    .withLore(LobbyMessage.LOBBY_PLAYERS_LINE.get().getForPlayer(this.owner) + ChatColor.AQUA + "0", "", LobbyMessage.CONNECT_LINE.get().getForPlayer(this.owner))
-                    .build(), event -> this.sendPlayerToGame(this.owner, this.game, entry.getKey(), entry.getValue().getDisplayName()));
+            final String gameTypeName = entry.getKey();
+            final int players = playerCount.getCategory(this.game.getGame().getName()).getType(gameTypeName);
+            final HyriGameType gameType = entry.getValue();
 
-            if (i.get() == 24) {
-                i.set(29);
+            this.setItem(slot.get(), this.builder.clone()
+                    .withName(ChatColor.DARK_AQUA + entry.getValue().getDisplayName())
+                    .withLore(LobbyMessage.LOBBY_PLAYERS_LINE.get().getForPlayer(this.owner) + ChatColor.AQUA + players, "", LobbyMessage.CONNECT_LINE.get().getForPlayer(this.owner))
+                    .build(), event -> this.sendPlayerToGame(this.owner, this.game, gameTypeName, gameType.getDisplayName()));
+
+            if (slot.get() == 24) {
+                slot.set(29);
             } else {
-                i.getAndIncrement();
+                slot.getAndIncrement();
             }
         });
     }

@@ -5,29 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1fc0cbbc-1d0f-4b0b-82ad-3577f4a173c0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/API/build/libs/HyriLobby-API-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/API/build/libs/HyriLobby-API-1.0.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/API/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/HyriLobby.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/HyriLobby.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/command/FlyCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/command/FlyCommand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/command/SpawnCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/command/SpawnCommand.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/gui/chooser/GameTypeChooser.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/gui/chooser/GameTypeChooser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/gui/chooser/GamesChooserGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/gui/chooser/GamesChooserGui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/gui/selector/LobbySelectorGui.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/gui/selector/LobbySelectorGui.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/listener/LobbyCancelsHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/listener/LobbyCancelsHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/player/LobbyPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/player/LobbyPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/vip/VipZoneHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/vip/VipZoneHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/scoreboard/LobbyScoreboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/fr/hyriode/hyrilobby/scoreboard/LobbyScoreboard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/libs/HyriLobby-1.0.1-all.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/HyriLobby-1.0.1-all.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/shadowJar/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/shadowJar/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/HyriLobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/HyriLobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/command/FlyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/command/FlyCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/command/SpawnCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/command/SpawnCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/game/LobbyGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/game/LobbyGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/gui/LobbyInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/gui/LobbyInventory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/gui/chooser/GameTypeChooser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/gui/chooser/GameTypeChooser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/gui/chooser/GamesChooserGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/gui/chooser/GamesChooserGui.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/gui/selector/LobbySelectorGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/gui/selector/LobbySelectorGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/item/LobbyItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/item/LobbyItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/item/hotbar/PlayerProfileItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/item/hotbar/PlayerProfileItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/listener/LobbyCancelsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/listener/LobbyCancelsHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/player/LobbyPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/player/LobbyPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/vip/VipZoneHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/vip/VipZoneHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/scoreboard/LobbyScoreboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/scoreboard/LobbyScoreboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/util/InventoryUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/hyriode/hyrilobby/util/InventoryUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +47,7 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager">
     <configuration name="HyriLobby [shadowJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -95,6 +86,10 @@
       <option name="presentableId" value="Default" />
       <updated>1651410581558</updated>
       <workItem from="1651410583956" duration="5442000" />
+      <workItem from="1651427305495" duration="34000" />
+      <workItem from="1651431292333" duration="777000" />
+      <workItem from="1651439457377" duration="21000" />
+      <workItem from="1651606976747" duration="5426000" />
     </task>
     <servers />
   </component>

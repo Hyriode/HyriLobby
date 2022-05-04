@@ -5,12 +5,10 @@ import fr.hyriode.api.HyriConstants;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.game.scoreboard.HyriScoreboardIpConsumer;
 import fr.hyriode.hyrame.scoreboard.HyriScoreboard;
+import fr.hyriode.hyrame.utils.TimeUtil;
 import fr.hyriode.hyrilobby.HyriLobby;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Project: HyriLobby
@@ -32,6 +30,7 @@ public class LobbyScoreboard extends HyriScoreboard {
     }
 
     private void addLines() {
+
         this.setLine(0, this.getCurrentDate(), line -> line.setValue(this.getCurrentDate()), 20);
         this.addBlankLine(1);
         this.setLine(2, this.getPlayers(), line -> line.setValue(this.getPlayers()), 20);
@@ -46,7 +45,7 @@ public class LobbyScoreboard extends HyriScoreboard {
     }
 
     private String getCurrentDate() {
-        return ChatColor.GRAY + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date());
+        return ChatColor.GRAY + TimeUtil.getCurrentFormattedDate();
     }
 
     private String getPlayers() {
