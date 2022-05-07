@@ -3,7 +3,6 @@ package fr.hyriode.hyrilobby.game;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.game.IHyriGameInfo;
 import fr.hyriode.hyrame.language.HyriLanguageMessage;
-import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.language.LobbyMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

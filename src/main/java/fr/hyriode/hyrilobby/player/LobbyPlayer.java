@@ -1,9 +1,10 @@
 package fr.hyriode.hyrilobby.player;
 
+
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.HyriConstants;
-import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.rank.type.HyriPlayerRankType;
+import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.item.IHyriItemManager;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.title.Title;
@@ -36,6 +37,7 @@ public class LobbyPlayer {
     private boolean inPvp;
 
     private Jump jump;
+    private Jump.CheckPoint lastCheckpoint;
 
     private LobbyScoreboard lobbyScoreboard;
 
@@ -108,6 +110,7 @@ public class LobbyPlayer {
                 this.asPlayer().setAllowFlight(true);
             }
             this.jump = null;
+            this.lastCheckpoint = null;
         }
 
         this.inJump = inJump;
@@ -138,10 +141,19 @@ public class LobbyPlayer {
     }
 
     private void sendJoinMessage() {
-        if (this.asHyriPlayer().getRank().isSuperior(HyriPlayerRankType.VIP_PLUS) || this.asHyriPlayer().getRank().isStaff()) {
-            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                onlinePlayer.sendMessage(LobbyMessage.JOIN_MESSAGE.getMessage().getForPlayer(onlinePlayer)
-                        .replace("%player%", this.asHyriPlayer().getNameWithRank()));
+        if(!this.asHyriPlayer().hasNickname()) {
+            if (this.asHyriPlayer().getRank().isSuperior(HyriPlayerRankType.VIP_PLUS) || this.asHyriPlayer().getRank().isStaff()) {
+                for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                    onlinePlayer.sendMessage(LobbyMessage.JOIN_MESSAGE.getMessage().getForPlayer(onlinePlayer)
+                            .replace("%player%", this.asHyriPlayer().getNameWithRank()));
+                }
+            }
+        } else {
+            if(this.asHyriPlayer().getNickname().getRank().getId() >= HyriPlayerRankType.VIP_PLUS.getId()) {
+                for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                    onlinePlayer.sendMessage(LobbyMessage.JOIN_MESSAGE.getMessage().getForPlayer(onlinePlayer)
+                            .replace("%player%", this.asHyriPlayer().getNameWithRank(true)));
+                }
             }
         }
     }
@@ -206,5 +218,13 @@ public class LobbyPlayer {
 
     public void setJump(Jump jump) {
         this.jump = jump;
+    }
+
+    public Jump.CheckPoint getLastCheckpoint() {
+        return lastCheckpoint;
+    }
+
+    public void setLastCheckpoint(Jump.CheckPoint lastCheckpoint) {
+        this.lastCheckpoint = lastCheckpoint;
     }
 }

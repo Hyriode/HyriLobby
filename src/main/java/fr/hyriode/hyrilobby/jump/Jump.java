@@ -1,11 +1,10 @@
 package fr.hyriode.hyrilobby.jump;
 
+
 import fr.hyriode.hyrame.utils.LocationWrapper;
 import fr.hyriode.hyrilobby.HyriLobby;
-import org.bukkit.Location;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**

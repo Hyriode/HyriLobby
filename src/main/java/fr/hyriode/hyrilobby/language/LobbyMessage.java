@@ -25,7 +25,6 @@ public enum LobbyMessage {
     BUY_TITLE("buy"),
 
     SELECTOR_GUI_LOBBY_NAME("basic"),
-    SELECTOR_GUI_LOBBY_FRIENDS_LINE("basic.friends"),
 
     SETTINGS_MSG_SOUND("msg-sound"),
     SETTINGS_GLOBAL_CHAT("global-chat"),
@@ -35,10 +34,13 @@ public enum LobbyMessage {
     SETTINGS_MSG_LEVELS("msg-levels"),
     SETTINGS_VISIBILITY_LEVELS("visibility-levels"),
 
+
+
     HOST_ITEM("host"),
     VIP_ITEM("vip"),
     JUMP_ITEM("jump"),
 
+    SELECTOR_GUI_LOBBY_FRIENDS_LINE("basic.friends"),
     CONNECTED_LINE("basic.connected"),
     CONNECT_LINE("basic.connect"),
     LOBBY_CONNECT("lobby.connect"),

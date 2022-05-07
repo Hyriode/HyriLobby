@@ -3,13 +3,12 @@ package fr.hyriode.hyrilobby.gui.chooser;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.game.IHyriGameInfo;
 import fr.hyriode.api.network.HyriNetworkCount;
+import fr.hyriode.api.network.HyriPlayerCount;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.game.LobbyGame;
 import fr.hyriode.hyrilobby.gui.LobbyInventory;
 import fr.hyriode.hyrilobby.language.LobbyMessage;
-import fr.hyriode.hyrilobby.util.InventoryUtil;
-import fr.hyriode.hyrilobby.util.UsefulHead;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -66,13 +65,17 @@ public class GamesChooserGui extends LobbyInventory {
         final HyriNetworkCount playerCount = HyriAPI.get().getNetworkManager().getNetwork().getPlayerCount();
 
         if (playerCount != null && playerCount.getCategory(gameInfo.getName()) != null) {
-            lore.add(game.getGameTypeLine(this.owner));
-            lore.add("");
-            lore.addAll(game.getDescription(this.owner));
-            lore.add("");
-            lore.add(LobbyMessage.LOBBY_PLAYERS_LINE.get().getForPlayer(this.owner) + ChatColor.AQUA + "0");
-            lore.add("");
-            lore.add(LobbyMessage.CONNECT_LINE.get().getForPlayer(this.owner));
+            final HyriPlayerCount count = playerCount.getCategory(gameInfo.getName());
+
+            if (count != null) {
+                lore.add(game.getGameTypeLine(this.owner));
+                lore.add("");
+                lore.addAll(game.getDescription(this.owner));
+                lore.add("");
+                lore.add(LobbyMessage.LOBBY_PLAYERS_LINE.get().getForPlayer(this.owner) + ChatColor.AQUA + count.getPlayers());
+                lore.add("");
+                lore.add(LobbyMessage.CONNECT_LINE.get().getForPlayer(this.owner));
+            }
         } else {
             lore.add(game.getGameTypeLine(this.owner));
             lore.add("");

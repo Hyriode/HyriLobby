@@ -6,10 +6,8 @@ import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.inventory.HyriInventory;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrilobby.HyriLobby;
-import fr.hyriode.hyrilobby.language.LobbyMessage;
 import fr.hyriode.hyrilobby.util.InventoryUtil;
 import fr.hyriode.hyrilobby.util.UsefulHead;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Dye;
 
 import java.text.SimpleDateFormat;
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -26,6 +25,7 @@ public abstract class LobbyInventory extends HyriInventory {
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
     public static final Function<UsefulHead, ItemBuilder> HEAD_ITEM = texture -> ItemBuilder.asHead().withHeadTexture(texture.getTexture());
+    public static final Function<UUID, ItemBuilder> PLAYER_HEAD_ITEM = uuid -> ItemBuilder.asHead().withPlayerHead(uuid);
 
     protected final String name;
     protected final IHyrame hyrame;

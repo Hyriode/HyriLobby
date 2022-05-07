@@ -4,6 +4,7 @@ import fr.hyriode.hyrame.command.HyriCommand;
 import fr.hyriode.hyrame.command.HyriCommandContext;
 import fr.hyriode.hyrame.command.HyriCommandInfo;
 import fr.hyriode.hyrame.command.HyriCommandType;
+import fr.hyriode.hyrame.utils.PlayerUtil;
 import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.player.LobbyPlayer;
 import org.bukkit.entity.Player;
@@ -21,6 +22,8 @@ public class SpawnCommand extends HyriCommand<HyriLobby> {
     public void handle(HyriCommandContext ctx) {
         final LobbyPlayer lp = this.plugin.getPlayerManager().getLobbyPlayer(((Player) ctx.getSender()).getUniqueId());
 
+        PlayerUtil.resetPlayer(lp.asPlayer(), true);
+        lp.asPlayer().getInventory().setArmorContents(null);
         lp.setInJump(false);
         lp.setInPvP(false);
         lp.giveItems();

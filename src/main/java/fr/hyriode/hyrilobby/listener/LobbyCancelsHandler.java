@@ -3,17 +3,15 @@ package fr.hyriode.hyrilobby.listener;
 import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.player.LobbyPlayer;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.*;
 
 /**
  * Project: HyriLobby
@@ -35,6 +33,11 @@ public class LobbyCancelsHandler extends HyriListener<HyriLobby> {
     public void onBlockPlace(final BlockPlaceEvent event) {
         event.setCancelled(true);
     }
+    
+    @EventHandler
+    public void onInventoryClick(final InventoryClickEvent event) {
+        event.setCancelled(true);
+    }
 
     @EventHandler
     public void onBlockBreak(final BlockBreakEvent event) {
@@ -43,7 +46,9 @@ public class LobbyCancelsHandler extends HyriListener<HyriLobby> {
 
     @EventHandler
     public void onInteract(final PlayerInteractEvent event) {
-        event.setCancelled(true);
+        if(event.getItem().getType() != Material.GOLDEN_APPLE) {
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler

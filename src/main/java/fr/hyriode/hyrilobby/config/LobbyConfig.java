@@ -1,5 +1,6 @@
 package fr.hyriode.hyrilobby.config;
 
+
 import fr.hyriode.hyrame.utils.Area;
 import fr.hyriode.hyrame.utils.LocationWrapper;
 import fr.hyriode.hystia.api.config.IConfig;

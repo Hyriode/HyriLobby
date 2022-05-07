@@ -12,8 +12,6 @@ public class JumpManager {
 
     private final HyriLobby plugin;
 
-    private Jump.CheckPoint lastCheckpoint;
-
     public JumpManager(HyriLobby plugin) {
         this.plugin = plugin;
     }
@@ -21,16 +19,12 @@ public class JumpManager {
     public void handleStart(LobbyPlayer lobbyPlayer) {
         Jump jump = new Jump(this.plugin);
 
-        this.setLastCheckpoint(jump.getCheckPoints().get(0));
+        lobbyPlayer.setLastCheckpoint(jump.getCheckPoints().get(0));
         lobbyPlayer.setInJump(true);
         lobbyPlayer.setJump(jump);
     }
 
-    public Jump.CheckPoint getLastCheckpoint() {
-        return lastCheckpoint;
-    }
-
-    public void setLastCheckpoint(Jump.CheckPoint lastCheckpoint) {
-        this.lastCheckpoint = lastCheckpoint;
+    public void endJump(LobbyPlayer lobbyPlayer) {
+        lobbyPlayer.handleLogin(false);
     }
 }

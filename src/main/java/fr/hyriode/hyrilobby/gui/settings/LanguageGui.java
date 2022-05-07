@@ -47,8 +47,8 @@ public class LanguageGui extends LobbyInventory {
 
     private int getSlot() {
         switch (this.language) {
-            case FR: return 20 - 9;
-            case EN: return 24 - 9;
+            case FR: return 29 - 9;
+            case EN: return 33 - 9;
             default: return 0;
         }
     }
