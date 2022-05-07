@@ -11,6 +11,9 @@ import fr.hyriode.hyrame.utils.DurationConverter;
 import fr.hyriode.hyrame.utils.ThreadUtil;
 import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.gui.LobbyInventory;
+import fr.hyriode.hyrilobby.language.LobbyMessage;
+import fr.hyriode.hyrilobby.util.InventoryUtil;
+import fr.hyriode.hyrilobby.util.RandomTools;
 import fr.hyriode.hyrilobby.util.UsefulHead;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -55,12 +58,12 @@ public class FriendsGui extends LobbyInventory {
             });
         }
 
-        this.setItem(50, HEAD_ITEM.apply(UsefulHead.PLUS_BUTTON).withName(this.getMessage("add")).build(),
+        this.setItem(50, HEAD_ITEM.apply(UsefulHead.PLUS_BUTTON).withName(LobbyMessage.FRIENDS_ADD.getGuiItem(this.guiName).getForPlayer(this.owner)).build(),
                 e -> new SignGUI((player, lines) -> {
                     final boolean isName = lines[1] != null && !lines[1].isEmpty();
 
                     if (!isName) {
-                        player.sendMessage(this.getMessage("add.not_null"));
+                        player.sendMessage(LobbyMessage.FRIENDS_ADD_NOT_NULL.getGuiItem(this.guiName).getForPlayer(player));
                         ThreadUtil.backOnMainThread(this.plugin, () -> {
                             player.closeInventory();
                             this.open();
@@ -71,7 +74,7 @@ public class FriendsGui extends LobbyInventory {
                     final UUID uuid = HyriAPI.get().getPlayerManager().getPlayerId(lines[1]);
 
                     if (uuid == null) {
-                        player.sendMessage(this.getMessage("add.cant_found") + lines[1]);
+                        player.sendMessage(LobbyMessage.FRIENDS_ADD_CANT_FOUND.getGuiItem(this.guiName).getForPlayer(player) + lines[1]);
                         ThreadUtil.backOnMainThread(this.plugin, () -> {
                             player.closeInventory();
                             this.open();
@@ -80,7 +83,7 @@ public class FriendsGui extends LobbyInventory {
                     }
 
                     if (this.friendHandler.areFriends(uuid)) {
-                        player.sendMessage(this.getMessage("add.already_friend") + lines[1]);
+                        player.sendMessage(LobbyMessage.FRIENDS_ADD_ALREADY_FRIEND.getGuiItem(this.guiName).getForPlayer(player) + lines[1]);
                         ThreadUtil.backOnMainThread(this.plugin, () -> {
                             player.closeInventory();
                             this.open();
@@ -90,26 +93,36 @@ public class FriendsGui extends LobbyInventory {
 
                     this.friendHandler.addFriend(uuid);
                     this.friendManager.updateFriends(this.friendHandler);
-                    player.sendMessage(this.getMessage("add.success") + lines[1]);
-                }).withLines("", "^^^^^^^^^^^^^^^^", this.getMessage("add.name"), " ").open(this.owner)
+                    player.sendMessage(LobbyMessage.FRIENDS_ADD_SUCCESS.getGuiItem(this.guiName).getForPlayer(player) + lines[1]);
+                }).withLines("", "^^^^^^^^^^^^^^^^", LobbyMessage.FRIENDS_ADD_ENTER_NAME.getGuiItem(this.guiName).getForPlayer(this.owner), " ").open(this.owner)
         );
 
-        this.setupReturnButton(new ProfileGui(this.plugin, this.owner), null);
+        final List<Map.Entry<ItemStack, Consumer<InventoryClickEvent>>> entry = new ArrayList<>(items.entrySet());
 
-        this.setupPagination(friends.size(), e -> this.init());
-        this.tryToFill(10, this.getIndexFromPage(), items);
+        int index = 0;
+        for (int i : InventoryUtil.getAvailableSlots()) {
+            if (index >= items.size()) {
+                break;
+            }
+
+            if (this.inventory.getItem(i) == null) {
+                final Map.Entry<ItemStack, Consumer<InventoryClickEvent>> itemEntry = entry.get(index);
+                this.setItem(i, itemEntry.getKey(), event -> itemEntry.getValue().accept(event));
+            }
+            index++;
+        }
     }
 
     private List<String> getFriendLore(IHyriPlayer player) {
         final List<String> lore = new ArrayList<>();
 
-        lore.add(this.getMessage("level") + player.getHyris().getAmount());
+        lore.add(LobbyMessage.FRIENDS_LEVEL.getGuiItem(this.guiName).getForPlayer(player) + player.getHyris().getAmount());
 
         final DurationConverter duration = new DurationConverter(Duration.ofMillis(System.currentTimeMillis() - player.getLastLoginDate().getTime()));
-        lore.add(this.getMessage("last_seen") + RandomTools.getDurationMessage(duration, this.owner));
+        lore.add(LobbyMessage.FRIENDS_LAST_SEEN.getGuiItem(this.guiName).getForPlayer(player) + RandomTools.getDurationMessage(duration, this.owner));
 
         lore.add("");
-        lore.add(this.getMessage("remove"));
+        lore.add(LobbyMessage.FRIENDS_REMOVE.getGuiItem(this.guiName).getForPlayer(player));
 
         return lore;
     }

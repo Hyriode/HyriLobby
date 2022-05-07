@@ -7,6 +7,12 @@
   "scoreboard.hyris.display": "&fHyris : &d%value% ⛃",
   "scoreboard.no-rank.value": "&7Joueur",
 
+  "item.units.months": "mois",
+  "item.units.days": "jours",
+  "item.units.hours": "heures",
+  "item.units.minutes": "minutes",
+  "item.units.seconds": "secondes",
+
   "subtitle.basic.display": "&7Bon retour parmi nous !",
   "subtitle.first.display": "&7Bienvenue sur le serveur !",
   "subtitle.buy.display": "&7Merci de soutenir le serveur !",
@@ -70,7 +76,7 @@
   "gui.friends.item.remove.name": "&cClick droit pour retirer l'ami",
   "gui.friends.item.add.name": "&bAjouter un ami",
   "gui.friends.item.add.enter-name.name": "Entrez un nom: ",
-  "gui.friends.item.add.not_null.name": "&cVous devez entrer un nom",
+  "gui.friends.item.add.not-null.name": "&cVous devez entrer un nom",
   "gui.friends.item.add.cant-found.name": "&cImpossible de trouver le joueur ",
   "gui.friends.item.add.already-friend.name": "&cVous êtes déjà ami avec ",
   "gui.friends.item.add.success.name": "&bVous avez ajouté en ami ",
