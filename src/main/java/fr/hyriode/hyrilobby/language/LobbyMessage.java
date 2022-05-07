@@ -34,8 +34,6 @@ public enum LobbyMessage {
     SETTINGS_MSG_LEVELS("msg-levels"),
     SETTINGS_VISIBILITY_LEVELS("visibility-levels"),
 
-
-
     HOST_ITEM("host"),
     VIP_ITEM("vip"),
     JUMP_ITEM("jump"),
