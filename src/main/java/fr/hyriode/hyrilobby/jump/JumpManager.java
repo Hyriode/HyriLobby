@@ -25,6 +25,6 @@ public class JumpManager {
     }
 
     public void endJump(LobbyPlayer lobbyPlayer) {
-        lobbyPlayer.handleLogin(false);
+        lobbyPlayer.handleLogin(false, false);
     }
 }

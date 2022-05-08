@@ -51,6 +51,7 @@ public class HyriLobby extends JavaPlugin {
                 new LocationWrapper(IHyrame.WORLD.get().getUID(), 0.5, 190.5, 0.5, 90, 0),
                 new LocationWrapper(new Location(IHyrame.WORLD.get(), -277, 150, -39, 90, 0)),
                 new LocationWrapper(IHyrame.WORLD.get().getUID(), 0.5, 188.0, -23.5, -180, 0),
+                new LocationWrapper(IHyrame.WORLD.get().getUID(),-347.5, 163, -53.5, 135, 0),
                 new LocationWrapper(IHyrame.WORLD.get().getUID(), 0.5, 188.0, -26.5, 180, 0),
                 Arrays.asList(
                         new LocationWrapper(IHyrame.WORLD.get().getUID(), 68.5, 197, -116.5, 90, 0),

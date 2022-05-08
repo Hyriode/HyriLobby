@@ -58,7 +58,8 @@ public class VipZoneHandler extends HyriListener<HyriLobby> {
                         event.setDamage(0.0D);
                         event.setCancelled(true);
 
-                        lp.handleLogin(false);
+                        lp.handleLogin(false, false);
+                        this.teleport(player);
                     }
                 }
             }
@@ -76,9 +77,14 @@ public class VipZoneHandler extends HyriListener<HyriLobby> {
                     event.setDamage(0.0D);
                     event.setCancelled(true);
 
-                    lobbyPlayer.handleLogin(false);
+                    lobbyPlayer.handleLogin(false, false);
+                    this.teleport(player);
                 }
             }
         }
+    }
+
+    private void teleport(final Player player) {
+        player.teleport(this.plugin.getConfiguration().getPvpLocation().asBukkit());
     }
 }

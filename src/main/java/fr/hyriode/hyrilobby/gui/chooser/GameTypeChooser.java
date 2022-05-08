@@ -38,7 +38,6 @@ public class GameTypeChooser extends LobbyInventory {
     @Override
     protected void init() {
         this.inventory.clear();
-        this.fill();
 
         this.setItem(0, new ItemBuilder(Material.COMPASS).withName(LobbyMessage.BACK_ITEM.get().getForPlayer(this.owner)).build(), e -> new GamesChooserGui(this.plugin, this.owner).open());
         this.setItem(4, this.builder.clone()
@@ -90,6 +89,9 @@ public class GameTypeChooser extends LobbyInventory {
 
         if (hyriPlayer.isInModerationMode() || hyriPlayer.isInVanishMode()) {
             player.sendMessage(HyriLanguageMessage.get("message.error-staff.display").getForPlayer(player));
+        } else if(hyriPlayer.hasParty()) {
+            //TODO translate message
+            player.sendMessage(ChatColor.RED + "Vous êtes dans una partie!");
         } else {
             player.sendMessage(LobbyMessage.JOIN_QUEUE_MESSAGE.getMessage()
                     .getForPlayer(player)

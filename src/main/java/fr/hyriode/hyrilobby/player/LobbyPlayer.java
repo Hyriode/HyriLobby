@@ -48,9 +48,12 @@ public class LobbyPlayer {
         this.inPvp = false;
     }
 
-    public void handleLogin(boolean login) {
+    public void handleLogin(boolean login, boolean teleport) {
 
         PlayerUtil.resetPlayer(this.asPlayer(), true);
+
+        this.asPlayer().setLevel(this.asHyriPlayer().getNetworkLeveling().getLevel());
+
         this.asPlayer().getInventory().setArmorContents(null);
         this.asPlayer().setGameMode(GameMode.ADVENTURE);
 
@@ -58,7 +61,9 @@ public class LobbyPlayer {
             this.asPlayer().setAllowFlight(true);
         }
 
-        this.teleportToSpawn();
+        if (teleport) {
+            this.teleportToSpawn();
+        }
 
         if (login) {
             this.setupScoreboard();
@@ -92,6 +97,8 @@ public class LobbyPlayer {
 
             player.getInventory().addItem(sword, apple);
             player.getInventory().setHeldItemSlot(0);
+
+            player.closeInventory();
         }
 
         this.inPvp = inPvp;

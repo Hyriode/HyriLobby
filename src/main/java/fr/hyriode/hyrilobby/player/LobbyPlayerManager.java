@@ -31,7 +31,7 @@ public class LobbyPlayerManager {
 
         this.players.add(lobbyPlayer);
 
-        lobbyPlayer.handleLogin(true);
+        lobbyPlayer.handleLogin(true, true);
     }
 
     public void handleLogout(UUID uuid) {

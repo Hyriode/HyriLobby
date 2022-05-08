@@ -27,8 +27,6 @@ allprojects {
         mavenCentral()
         mavenLocal()
 
-        maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-
         maven { url = 'https://oss.sonatype.org/content/groups/public/' }
 
         maven {
@@ -66,7 +64,8 @@ shadowJar {
 dependencies {
     implementation 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation 'fr.hyriode:hyrame:1.2.1'
+    implementation 'fr.hyriode:hyrame:1.2.3'
+    implementation 'fr.hyriode:hyriapi:1.1.7'
     shadow project(':API')
 }
 
