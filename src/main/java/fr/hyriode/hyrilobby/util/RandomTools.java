@@ -15,13 +15,31 @@ public class RandomTools {
     }
 
     public static String getDurationMessage(DurationConverter duration, Player player) {
-        final String base = "item.units.";
+        final String base = "unit.";
+        final StringBuilder builder = new StringBuilder();
 
-        return (duration.toMonthsPart() != 0 ? duration.toMonthsPart() + " " + getMessage(player, base + "months"): "") + " " +
-                (duration.toDaysPart() != 0 ? duration.toDaysPart() + " " + getMessage(player, base + "days"): "") + " " +
-                (duration.toHoursPart() != 0 ? duration.toHoursPart() + " " + getMessage(player, base + "hours") : "") + " " +
-                (duration.toMinutesPart() != 0 ? duration.toMinutesPart() + " " + getMessage(player, base + "minutes"): "") + " " +
-                (duration.toSecondsPart() != 0 ? duration.toSecondsPart() + " " + getMessage(player, base + "seconds") : "");
+        if(duration.toMonthsPart() != 0) {
+            builder.append(duration.toMonthsPart())
+                    .append(getMessage(player, base + "months"));
+        }
+        if(duration.toDaysPart() != 0) {
+            builder.append(duration.toDaysPart())
+                    .append(getMessage(player, base + "days"));
+        }
+        if(duration.toHoursPart() != 0) {
+            builder.append(duration.toHoursPart())
+                    .append(getMessage(player, base + "hours"));
+        }
+        if(duration.toMinutesPart() != 0) {
+            builder.append(duration.toMinutesPart())
+                    .append(getMessage(player, base + "minutes"));
+        }
+        if(duration.toSecondsPart() != 0) {
+            builder.append(duration.toSecondsPart())
+                    .append(getMessage(player, base + "seconds"));
+        }
+
+        return builder.toString();
     }
 
     private static String getMessage(Player player, String key) {

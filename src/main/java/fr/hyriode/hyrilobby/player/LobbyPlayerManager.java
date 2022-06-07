@@ -1,6 +1,7 @@
 package fr.hyriode.hyrilobby.player;
 
 import fr.hyriode.hyrilobby.HyriLobby;
+import fr.hyriode.hyrilobby.player.LobbyPlayer;
 
 import java.util.HashSet;
 import java.util.Set;

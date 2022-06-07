@@ -15,6 +15,6 @@ public class ShopItem extends LobbyItem {
 
     @Override
     public void onClick(IHyrame hyrame, PlayerInteractEvent e) {
-      //  new ShopGui(this.plugin, e.getPlayer()).open();
+       // new ShopGui(this.plugin, e.getPlayer()).open();
     }
 }

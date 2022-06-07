@@ -29,16 +29,18 @@ public class FlyCommand extends HyriCommand<HyriLobby> {
     public void handle(HyriCommandContext ctx) {
         final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(((Player) ctx.getSender()).getUniqueId());
         final Player player = lobbyPlayer.asPlayer();
-        final String result = LobbyMessage.FLY_COMMAND_RESULT.getCommand().getForPlayer(player);
+        final String result = LobbyMessage.FLY_COMMAND_RESULT.get().getForPlayer(player);
 
-        if (!lobbyPlayer.isInJump() && !lobbyPlayer.isInPvp()) {
+        if ((!lobbyPlayer.isInPvp()) || (!lobbyPlayer.hasJump())) {
             if (player.getAllowFlight()) {
                 player.setAllowFlight(false);
-                player.sendMessage(result.replace("%value%", HyriLobby.getLanguageManager().getValue(player, "command.fly.value.off")));
+                player.sendMessage(result.replace("%value%", LobbyMessage.FLY_COMMAND_OFF.get().getForPlayer(player)));
             } else {
                 player.setAllowFlight(true);
-                player.sendMessage(result.replace("%value%", HyriLobby.getLanguageManager().getValue(player, "command.fly.value.on")));
+                player.sendMessage(result.replace("%value%", LobbyMessage.FLY_COMMAND_ON.get().getForPlayer(player)));
             }
+        } else {
+            player.sendMessage(LobbyMessage.FLY_COMMAND_ERROR.get().getForPlayer(player));
         }
     }
 }

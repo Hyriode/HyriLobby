@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class LobbySelectorItem extends LobbyItem {
 
     public LobbySelectorItem(HyriLobby plugin) {
-        super(plugin, "lobby_selector", "item.lobby_selector.name", Material.NETHER_STAR, (byte) 0);
+        super(plugin, "lobby_selector", "item.lobby-selector.name", Material.NETHER_STAR, (byte) 0);
     }
 
     @Override

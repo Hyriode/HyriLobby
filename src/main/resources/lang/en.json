@@ -7,15 +7,32 @@
   "scoreboard.hyris.display": "&fHyris: &d%value% ⛃",
   "scoreboard.no-rank.value": "&7Player",
 
-  "item.units.months": "months",
-  "item.units.days": "days",
-  "item.units.hours": "hours",
-  "item.units.minutes": "minutes",
-  "item.units.seconds": "seconds",
+  "unit.months": "months",
+  "unit.days": "days",
+  "unit.hours": "hours",
+  "unit.minutes": "minutes",
+  "unit.seconds": "seconds",
 
   "message.join.display": "%player%&6 joined the lobby!",
-  "message.error-staff.display": "&cYou can't do this in moderation mode or vanish.",
   "message.queue.display": "&bYou joined the queue for &3%game%",
+
+  "prefix.jump": "&3Parkour",
+  "message.jump-join.display": "&fYou joined the&b parkour&f!",
+  "message.jump-leave.display": "&fYou have&c abandoned&f the&b parkour&f!",
+  "bar.jump-respawn.display": "&cYou fell off the parkour.",
+  "message.checkpoint-success.display": "&fYou reached the&b checkpoint #%value%&f!",
+  "message.jump-success.display": "&fYou finished the&b parkour&f in&b %time%&f!",
+
+  "message.error-staff.display": "&cYou can't do this in moderation mode or vanish.",
+  "message.queue-party-error.display": "&cYou're not the party leader!",
+
+  "command.fly.result": "§bYour fly mode is %value%§b.",
+  "command.fly.value.on": "§3enabled",
+  "command.fly.value.off": "§3disabled",
+  "command.fly.error": "&cYou can't fly here.",
+
+  "subtitle.basic.display": "&7Bon retour parmi nous !",
+  "subtitle.first.display": "&7Bienvenue sur le serveur !",
 
   "gui.lobby-selector.name": "&8Change lobby",
   "gui.lobby-selector.item.name": "&fLobby ID: ",
@@ -48,12 +65,10 @@
   "gui.settings.visibility-level.name": "&8Visibility settings",
   "gui.settings-language.name": "&8Language",
 
-  "__todo":  "Change to english",
-
   "gui.profile.name": "&8Profil",
-  "gui.profile.item.friends.name": "&3Vos Amis",
-  "gui.profile.item.friends.lore": "&7Cliquez pour accéder à la liste de vos amis",
-  "gui.profile.item.language.lore": "&7Cliquez pour changer la langue",
+  "gui.profile.item.friends.name": "&3Your friends",
+  "gui.profile.item.friends.lore": "&7Click to show your friends list",
+  "gui.profile.item.language.lore": "&7Click to choose your language",
   "gui.profile.item.account.name": "&3Compte",
   "gui.profile.item.rank.name": "&fGrade: ",
   "gui.profile.item.level.name": "&fNiveau: &b",
@@ -75,11 +90,14 @@
   "gui.friends.item.add.already-friend.name": "&cVous êtes déjà ami avec ",
   "gui.friends.item.add.success.name": "&bVous avez ajouté en ami ",
 
-  "item.games_selector.name": "&3Main Menu",
-  "item.lobby_selector.name": "&aLobby Selector",
+  "item.lobby-selector.name": "&aLobby Selector",
+  "item.main-menu.name": "&3Main Menu",
   "item.settings.name": "&cSettings",
   "item.shop.name": "&6Shop",
   "item.profile.name": "&bProfile",
+
+  "item.jump-leave.name": "&cLeave the jump",
+  "item.jump-checkpoint.name": "&aBack to last checkpoint",
 
   "basic.connected": "&cAlready connected",
   "lobby.connect": "&3Click to join",
@@ -88,7 +106,7 @@
   "basic.friends": "&fFriends: ",
   "basic.soon": "&cSoon",
   "basic.item.back": "&cBack",
-  "basic.item.current": "&6Current ",
+  "basic.item.current": "&6Current: ",
   "basic.type": "&3Type: ",
 
   "gui.item.switch-on.name": "&aActive",
@@ -97,8 +115,8 @@
   "game.pearlcontrol.type": "&bPvP, Area control",
   "game.pearlcontrol.description": "Control the area or\npush all your opponents\nto win the game.\nUse your pearls to\ncatch up and not die.",
 
-  "game.rushtheflag.type": "&PvP, Flag capture",
-  "game.rushtheflag.description": "Capture the opponent's flag and\nbring it back to your base.\nUse your ability to\nsurprise your opponents\nand defeat them more easily.\nPlay in single, double\nor squad mode for more fun!",
+  "game.rushtheflag.type": "&bPvP, Flag capture",
+  "game.rushtheflag.description": "Capture the opponent's flag and\nbring it back to your base.\nUse your Power to\nsurprise your opponents\nand defeat them more easily.\nPlay in single, double\nor squad mode for more fun!",
 
   "game.therunner.type": "&bRace, PvP",
   "game.therunner.description": "Run to the center\nof the map without making mistakes.\nArrive first to\ngain an advantage and beat\nyour opponents! Choose a challenge\nto earn better rewards\nand become the best!",

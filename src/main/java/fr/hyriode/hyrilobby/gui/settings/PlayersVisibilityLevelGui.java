@@ -52,10 +52,10 @@ public class PlayersVisibilityLevelGui extends LobbyInventory {
 
     private int getSlot() {
         switch (this.level) {
-            case ALL: return 20;
-            case FRIENDS: return 30 - 9;
-            case PARTY: return 32 - 9;
-            case NONE: return 34 - 9;
+            case ALL: return 19;
+            case FRIENDS: return 21;
+            case PARTY: return 23;
+            case NONE: return 25;
             default: return 0;
         }
     }

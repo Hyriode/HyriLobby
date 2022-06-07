@@ -6,12 +6,16 @@ import fr.hyriode.hyrilobby.player.LobbyPlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 
 /**
  * Project: HyriLobby
@@ -33,7 +37,7 @@ public class LobbyCancelsHandler extends HyriListener<HyriLobby> {
     public void onBlockPlace(final BlockPlaceEvent event) {
         event.setCancelled(true);
     }
-    
+
     @EventHandler
     public void onInventoryClick(final InventoryClickEvent event) {
         event.setCancelled(true);
@@ -46,7 +50,11 @@ public class LobbyCancelsHandler extends HyriListener<HyriLobby> {
 
     @EventHandler
     public void onInteract(final PlayerInteractEvent event) {
-        if(event.getItem().getType() != Material.GOLDEN_APPLE) {
+        final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayer().getUniqueId());
+
+        if(event.getAction() == Action.PHYSICAL) return;
+        
+        if(!lobbyPlayer.isInPvp()) {
             event.setCancelled(true);
         }
     }
@@ -66,8 +74,8 @@ public class LobbyCancelsHandler extends HyriListener<HyriLobby> {
         final Player player = event.getPlayer();
         final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
 
-        if(player.getLocation().getY() <= 90) {
-            lobbyPlayer.teleportToSpawn();
+        if (player.getLocation().getY() <= 90) {
+            lobbyPlayer.handleLogin(false, true);
         }
     }
 }

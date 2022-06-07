@@ -70,7 +70,7 @@ public class LobbySelectorGui extends LobbyInventory {
 
     private ItemStack getLobbyItem(HyggServer server) {
         final String id = server.getName().split("-")[1];
-        final String name = LobbyMessage.SELECTOR_GUI_LOBBY_NAME.getGuiItem(this.guiName).getForPlayer(this.account) + ChatColor.AQUA + id;
+        final String name = LobbyMessage.SELECTOR_LOBBY_ID.get().getForPlayer(this.account) + ChatColor.AQUA + id;
 
         ItemBuilder item = ItemBuilder.asHead()
                 .withName(name)

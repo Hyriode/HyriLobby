@@ -2,11 +2,13 @@ package fr.hyriode.hyrilobby.game;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.game.IHyriGameInfo;
+import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.language.HyriLanguageMessage;
 import fr.hyriode.hyrilobby.language.LobbyMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,31 +20,37 @@ import java.util.List;
  */
 public enum LobbyGame {
 
-    PEARL_CONTROL("pearlcontrol", Material.ENDER_PEARL),
-    RUSH_THE_FLAG("rushtheflag", Material.BANNER),
-    THE_RUNNER("therunner", Material.DIAMOND_BOOTS),
-    BRIDGER("bridger", Material.SANDSTONE),
-    BEDWARS("bedwars", Material.BED),
-    LASER_GAME("lasergame", Material.IRON_HOE),
+    PEARL_CONTROL("pearlcontrol", new ItemStack(Material.ENDER_PEARL)),
+    RUSH_THE_FLAG("rushtheflag", new ItemBuilder(Material.BANNER, 1, 15).build()),
+    THE_RUNNER("therunner", new ItemStack(Material.DIAMOND_BOOTS)),
+    BRIDGER("bridger", new ItemStack(Material.SANDSTONE)),
+    BEDWARS("bedwars", new ItemStack(Material.BED)),
+    LASER_GAME("lasergame", new ItemStack(Material.IRON_HOE)),
     ;
 
     private final IHyriGameInfo game;
-    private final Material icon;
+    private final String name;
+    private final ItemStack icon;
     private final String description;
     private final String gameType;
 
-    LobbyGame(String name, Material icon) {
+    LobbyGame(String name, ItemStack icon) {
         this.game = HyriAPI.get().getGameManager().getGameInfo(name);
+        this.name = name;
         this.icon = icon;
         this.description = "game." + name + ".description";
         this.gameType = "game." + name + ".type";
+    }
+
+    public String getName() {
+        return name;
     }
 
     public IHyriGameInfo getGame() {
         return this.game;
     }
 
-    public Material getIcon() {
+    public ItemStack getIcon() {
         return this.icon;
     }
 

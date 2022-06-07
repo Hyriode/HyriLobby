@@ -74,6 +74,8 @@ public class VipZoneHandler extends HyriListener<HyriLobby> {
 
             if(lobbyPlayer.isInPvp()) {
                 if (player.getHealth() - event.getFinalDamage() <= 0.0D) {
+                    ((Player) event.getDamager()).setHealth(((Player) event.getDamager()).getHealth() + 5);
+
                     event.setDamage(0.0D);
                     event.setCancelled(true);
 
@@ -86,5 +88,6 @@ public class VipZoneHandler extends HyriListener<HyriLobby> {
 
     private void teleport(final Player player) {
         player.teleport(this.plugin.getConfiguration().getPvpLocation().asBukkit());
+        player.getInventory().setHeldItemSlot(2);
     }
 }

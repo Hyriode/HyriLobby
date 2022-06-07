@@ -28,19 +28,19 @@ public class SettingsGui extends LobbyInventory {
         this.fill();
 
         //Items part
-        this.setItem(10, HEAD_ITEM.apply(UsefulHead.NOTEBLOCK).withName(LobbyMessage.SETTINGS_MSG_SOUND.getGuiItem(this.guiName).getForPlayer(this.owner)).build());
-        this.setItem(12, new ItemBuilder(Material.BOOK).withName(LobbyMessage.SETTINGS_GLOBAL_CHAT.getGuiItem(this.guiName).getForPlayer(this.owner)).build());
-        this.setItem(14, new ItemBuilder(Material.PAPER).withName(LobbyMessage.SETTINGS_PARTY_REQUEST.getGuiItem(this.guiName).getForPlayer(this.owner)).build());
-        this.setItem(16, new ItemBuilder(Material.PAPER).withName(LobbyMessage.SETTINGS_FRIEND_REQUEST.getGuiItem(this.guiName).getForPlayer(this.owner)).build());
+        this.setItem(10, HEAD_ITEM.apply(UsefulHead.NOTE_BLOCK).withName(LobbyMessage.SETTINGS_MSG_SOUND.get().getForPlayer(this.owner)).build());
+        this.setItem(12, new ItemBuilder(Material.BOOK).withName(LobbyMessage.SETTINGS_GLOBAL_CHAT.get().getForPlayer(this.owner)).build());
+        this.setItem(14, new ItemBuilder(Material.PAPER).withName(LobbyMessage.SETTINGS_PARTY_REQUEST.get().getForPlayer(this.owner)).build());
+        this.setItem(16, new ItemBuilder(Material.PAPER).withName(LobbyMessage.SETTINGS_FRIEND_REQUEST.get().getForPlayer(this.owner)).build());
 
         //Items with Consumer part
-        this.setItem(38, HEAD_ITEM.apply(UsefulHead.EARTH).withName(LobbyMessage.SETTINGS_LANG.getGuiItem(this.guiName).getForPlayer(this.owner)).build(),
+        this.setItem(38, HEAD_ITEM.apply(UsefulHead.EARTH).withName(LobbyMessage.SETTINGS_LANG.get().getForPlayer(this.owner)).build(),
                 e -> new LanguageGui(this.plugin, this.owner).open()
         );
-        this.setItem(40, new ItemBuilder(Material.REDSTONE_COMPARATOR).withName(LobbyMessage.SETTINGS_MSG_LEVELS.getGuiItem(this.guiName).getForPlayer(this.owner)).build(),
+        this.setItem(40, new ItemBuilder(Material.REDSTONE_COMPARATOR).withName(LobbyMessage.SETTINGS_MSG_LEVELS.get().getForPlayer(this.owner)).build(),
                 e -> new PrivateMessagesLevelGui(this.plugin, this.owner).open()
         );
-        this.setItem(42, new ItemBuilder(Material.EYE_OF_ENDER).withName(LobbyMessage.SETTINGS_VISIBILITY_LEVELS.getGuiItem(this.guiName).getForPlayer(this.owner)).build(),
+        this.setItem(42, new ItemBuilder(Material.EYE_OF_ENDER).withName(LobbyMessage.SETTINGS_VISIBILITY_LEVELS.get().getForPlayer(this.owner)).build(),
                 e-> new PlayersVisibilityLevelGui(this.plugin, this.owner).open()
         );
 

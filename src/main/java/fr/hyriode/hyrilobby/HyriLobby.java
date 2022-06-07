@@ -2,12 +2,12 @@ package fr.hyriode.hyrilobby;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.server.IHyriServer;
+import fr.hyriode.hyggdrasil.api.lobby.HyggLobbyAPI;
 import fr.hyriode.hyrame.HyrameLoader;
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.language.IHyriLanguageManager;
 import fr.hyriode.hyrame.utils.LocationWrapper;
 import fr.hyriode.hyrilobby.config.LobbyConfig;
-import fr.hyriode.hyrilobby.jump.JumpManager;
 import fr.hyriode.hyrilobby.player.LobbyPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,7 +15,6 @@ import org.bukkit.Location;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -31,7 +30,6 @@ public class HyriLobby extends JavaPlugin {
     private LobbyConfig config;
 
     private LobbyPlayerManager playerManager;
-    private JumpManager jumpManager;
 
     @Override
     public void onEnable() {
@@ -51,31 +49,31 @@ public class HyriLobby extends JavaPlugin {
                 new LocationWrapper(IHyrame.WORLD.get().getUID(), 0.5, 190.5, 0.5, 90, 0),
                 new LocationWrapper(new Location(IHyrame.WORLD.get(), -277, 150, -39, 90, 0)),
                 new LocationWrapper(IHyrame.WORLD.get().getUID(), 0.5, 188.0, -23.5, -180, 0),
-                new LocationWrapper(IHyrame.WORLD.get().getUID(),-347.5, 163, -53.5, 135, 0),
-                new LocationWrapper(IHyrame.WORLD.get().getUID(), 0.5, 188.0, -26.5, 180, 0),
+                new LocationWrapper(IHyrame.WORLD.get().getUID(),-348.5, 163, -53.5, 135, 0),
+                new LocationWrapper(IHyrame.WORLD.get().getUID(), 0.5, 188, -26.5, -180, 0),
                 Arrays.asList(
-                        new LocationWrapper(IHyrame.WORLD.get().getUID(), 68.5, 197, -116.5, 90, 0),
-                        new LocationWrapper(IHyrame.WORLD.get().getUID(), 165.5, 203, -129.5, 90, 0),
-                        new LocationWrapper(IHyrame.WORLD.get().getUID(), -268.5, 220, -68.5, 0, 0),
+                        new LocationWrapper(IHyrame.WORLD.get().getUID(),-68.5, 197, -116.5, 90, 0),
+                        new LocationWrapper(IHyrame.WORLD.get().getUID(), -165.5, 203, -129.5, 90, 0),
+                        new LocationWrapper(IHyrame.WORLD.get().getUID(), -268.5, 220, -146.5, 90, 0),
                         new LocationWrapper(IHyrame.WORLD.get().getUID(), -301.5, 236, -67.5, 0, 0),
                         new LocationWrapper(IHyrame.WORLD.get().getUID(), -284.5, 244, 13.5, 0, 0),
                         new LocationWrapper(IHyrame.WORLD.get().getUID(), -195.5, 228, 84.5, 0, 0),
-                        new LocationWrapper(IHyrame.WORLD.get().getUID(), -213.5, 232.0, 116.5, -90, 0)
+                        new LocationWrapper(IHyrame.WORLD.get().getUID(), -213.5, 232, 116.5, -90, 0)
                 ),
-                new LocationWrapper(IHyrame.WORLD.get().getUID(), 153, 237, -107),
+                new LocationWrapper(IHyrame.WORLD.get().getUID(), -153.5, 237, 107.5),
                 new LobbyConfig.Zone(
                         new LocationWrapper(IHyrame.WORLD.get().getUID(), -283, 150, -32),
                         new LocationWrapper(IHyrame.WORLD.get().getUID(), -289, 182, -48)),
                 new LobbyConfig.Zone(
-                        new LocationWrapper(IHyrame.WORLD.get().getUID(), -369, 160, -49),
+                        new LocationWrapper(IHyrame.WORLD.get().getUID(), -369, 156, -49),
                         new LocationWrapper(IHyrame.WORLD.get().getUID(), -343, 149, -78)));
 
         languageManager = this.hyrame.getLanguageManager();
 
         this.playerManager = new LobbyPlayerManager(this);
-        this.jumpManager = new JumpManager(this);
 
         HyriAPI.get().getServer().setState(IHyriServer.State.READY);
+        HyriAPI.get().getServer().setSlots(HyggLobbyAPI.MAX_PLAYERS);
     }
 
     @Override
@@ -93,10 +91,6 @@ public class HyriLobby extends JavaPlugin {
 
     public LobbyPlayerManager getPlayerManager() {
         return playerManager;
-    }
-
-    public JumpManager getJumpManager() {
-        return jumpManager;
     }
 
     public static IHyriLanguageManager getLanguageManager() {

@@ -9,6 +9,7 @@ import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.game.LobbyGame;
 import fr.hyriode.hyrilobby.gui.LobbyInventory;
 import fr.hyriode.hyrilobby.language.LobbyMessage;
+import fr.hyriode.hyrilobby.util.UsefulHead;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -30,28 +31,31 @@ public class GamesChooserGui extends LobbyInventory {
 
         this.fill();
 
+        this.addGameItems();
+        this.addOtherItems();
+    }
+
+    private void addGameItems() {
         this.addGameItem(21, LobbyGame.LASER_GAME);
         this.addGameItem(22, LobbyGame.BEDWARS);
         this.addGameItem(23, LobbyGame.THE_RUNNER);
         this.addGameItem(30, LobbyGame.BRIDGER);
         this.addGameItem(31, LobbyGame.PEARL_CONTROL);
         this.addGameItem(32, LobbyGame.RUSH_THE_FLAG);
-
-        this.addOtherItems();
     }
 
     private void addOtherItems()  {
         ItemStack hostItem = new ItemBuilder(Material.COMMAND_MINECART)
-                .withName(LobbyMessage.HOST_ITEM.getGuiItem(this.guiName).getForPlayer(this.owner))
+                .withName(LobbyMessage.HOST_ITEM.get().getForPlayer(this.owner))
                 .withLore(LobbyMessage.SOON_LINE.get().getForPlayer(this.owner))
                 .build();
 
         ItemStack vipItem = new ItemBuilder(Material.GOLD_INGOT)
-                .withName(LobbyMessage.VIP_ITEM.getGuiItem(this.guiName).getForPlayer(this.owner))
+                .withName(LobbyMessage.VIP_ITEM.get().getForPlayer(this.owner))
                 .build();
 
         ItemStack jumpItem = new ItemBuilder(Material.FEATHER)
-                .withName(LobbyMessage.JUMP_ITEM.getGuiItem(this.guiName).getForPlayer(this.owner))
+                .withName(LobbyMessage.JUMP_ITEM.get().getForPlayer(this.owner))
                 .build();
 
         this.setItem(4, hostItem);

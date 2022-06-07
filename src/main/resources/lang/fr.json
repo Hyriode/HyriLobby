@@ -1,42 +1,61 @@
 {
-  "scoreboard.players.display": "&fJoueurs : &b%value%",
-  "scoreboard.server.display": "&fServeur : &b%value%",
+  "scoreboard.players.display": "&fJoueurs: &b%value%",
+  "scoreboard.server.display": "&fServeur: &b%value%",
   "scoreboard.profile.display": "&3Profil",
-  "scoreboard.rank.display": "&fGrade : &b%value%",
-  "scoreboard.level.display": "&fNiveau : &b%value%✯",
-  "scoreboard.hyris.display": "&fHyris : &d%value% ⛃",
+  "scoreboard.rank.display": "&fGrade: &b%value%",
+  "scoreboard.level.display": "&fNiveau: &b%value%✯",
+  "scoreboard.hyris.display": "&fHyris: &d%value% ⛃",
   "scoreboard.no-rank.value": "&7Joueur",
 
-  "item.units.months": "mois",
-  "item.units.days": "jours",
-  "item.units.hours": "heures",
-  "item.units.minutes": "minutes",
-  "item.units.seconds": "secondes",
-
-  "subtitle.basic.display": "&7Bon retour parmi nous !",
-  "subtitle.first.display": "&7Bienvenue sur le serveur !",
-  "subtitle.buy.display": "&7Merci de soutenir le serveur !",
+  "unit.months": "mois",
+  "unit.days": "jours",
+  "unit.hours": "heures",
+  "unit.minutes": "minutes",
+  "unit.seconds": "secondes",
 
   "message.join.display": "%player%&6 a rejoint le lobby !",
-  "message.error-staff.display": "&cVous ne pouvez pas faire ceci en mode modération ou en vanish.",
   "message.queue.display": "&bVous avez rejoint la queue pour &3%game%",
+
+  "prefix.jump": "&3Parcours",
+  "message.jump-join.display": "&fVous avez rejoint le&b parcours &f!",
+  "message.jump-leave.display": "&fVous avez&c abandonné&f le&b parcours&f !",
+  "bar.jump-respawn.display": "&cVous êtes tombé du parcours.",
+  "message.checkpoint-success.display": "&fVous avez atteint le&b checkpoint #%value% &f!",
+  "message.jump-success.display": "&fVous avez réussi le&b parcours&f en&b %time%&f !",
+
+  "message.error-staff.display": "&cVous ne pouvez pas faire ceci en mode modération ou en vanish.",
+  "message.queue-party-error.display": "&cVous n'êtes pas le chef du groupe !",
 
   "command.fly.result": "§bVotre fly a été %value%§b.",
   "command.fly.value.on": "§3activé",
   "command.fly.value.off": "§3désactivé",
+  "command.fly.error": "&cVous ne pouvez pas fly ici.",
+
+  "subtitle.basic.display": "&7Bon retour parmi nous !",
+  "subtitle.first.display": "&7Bienvenue sur le serveur !",
+
+  "item.lobby-selector.name": "&aSélecteur de lobby",
+  "item.main-menu.name": "&3Menu Principal",
+  "item.settings.name": "&cParamètres",
+  "item.shop.name": "&6Boutique",
+  "item.profile.name": "&bProfil",
+
+  "item.jump-leave.name": "&cQuitter le parcours",
+  "item.jump-checkpoint.name": "&aRetour au dernier checkpoint",
 
   "gui.lobby-selector.name": "&8Changer de lobby",
-  "gui.lobby-selector.item.basic.name": "&fLobby ID : ",
-  "gui.lobby-selector.item.basic.friends": "&fAmis : ",
+  "gui.main-menu.name": "&8Menu Principal",
+  "gui.game-type-menu.name": "&8Choix du mode",
+  "gui.settings.name": "&8Paramètres",
+  "gui.profile.name": "&8Profil",
+  "gui.friends.name": "&8Vos amis",
 
-  "gui.game-type-selector.name": "&8Choix du mode",
+  "gui.lobby-selector.item.name": "&fLobby ID : ",
 
-  "gui.game-selector.name": "&8Menu Principal",
   "gui.game-selector.item.host.name": "&bHosts",
   "gui.game-selector.item.vip.name": "&eZone VIP",
   "gui.game-selector.item.jump.name": "&aParcours",
 
-  "gui.settings.name": "&8Paramètres",
   "gui.settings.item.msg-sound.name": "&bNotification des messages privés",
   "gui.settings.item.global-chat.name": "&bChat global",
   "gui.settings.item.party-request.name": "&bDemandes de partie",
@@ -56,10 +75,12 @@
   "gui.settings.visibility-level.name": "&8Préférences de visibilité",
   "gui.settings-language": "&8Langue",
 
-  "gui.profile.name": "&8Profil",
   "gui.profile.item.friends.name": "&3Vos Amis",
   "gui.profile.item.friends.lore": "&7Cliquez pour accéder à la liste de vos amis",
+
+  "gui.profile.item.language.name": "&3Langue",
   "gui.profile.item.language.lore": "&7Cliquez pour changer la langue",
+
   "gui.profile.item.account.name": "&3Compte",
   "gui.profile.item.rank.name": "&fGrade: ",
   "gui.profile.item.level.name": "&fNiveau: &b",
@@ -70,10 +91,9 @@
   "gui.profile.item.hyriplus-remaining.name": "&fTemps restant: &b",
   "gui.profile.item.hyriplus-dont-have.name": "&cVous ne possédez pas d'abonnement Hyri+",
 
-  "gui.friends.name": "&8Vos amis",
   "gui.friends.item.level.name": "&fNiveau: &b",
   "gui.friends.item.last-seen.name": "&fDernière connexion: &b",
-  "gui.friends.item.remove.name": "&cClick droit pour retirer l'ami",
+  "gui.friends.item.remove.name": "&cClic-droit pour retirer l'ami",
   "gui.friends.item.add.name": "&bAjouter un ami",
   "gui.friends.item.add.enter-name.name": "Entrez un nom: ",
   "gui.friends.item.add.not-null.name": "&cVous devez entrer un nom",
@@ -81,40 +101,30 @@
   "gui.friends.item.add.already-friend.name": "&cVous êtes déjà ami avec ",
   "gui.friends.item.add.success.name": "&bVous avez ajouté en ami ",
 
-  "item.games_selector.name": "&3Menu Principal",
-  "item.lobby_selector.name": "&aSélecteur de lobby",
-  "item.settings.name": "&cParamètres",
-  "item.shop.name": "&6Boutique",
-  "item.profile.name": "&bProfil",
-
   "basic.connected": "&cDéjà connecté",
-  "lobby.connect" : "&3Cliquez pour rejoindre",
   "basic.connect": "&eCliquer pour rejoindre",
+  "lobby.connect" : "&3Cliquez pour rejoindre",
   "basic.players": "&fJoueurs : ",
-  "basic.friends": "&fAmis: ",
   "basic.soon": "&cProchainement",
+  "basic.friends": "&fAmis: ",
+
   "basic.item.back": "&cRetour",
-  "basic.item.current": "&6Actuel ",
-  "basic.type": "&3Type : ",
+  "basic.item.current": "&6Actuel: ",
+  "basic.game.type": "&3Type : ",
 
   "gui.item.switch-on.name": "&aActivé",
   "gui.item.switch-off.name": "&cDésactivé",
 
-  "game.pearlcontrol.type": "&bPearlControl",
+  "game.pearlcontrol.type": "&bPvP, Capture de zone",
   "game.pearlcontrol.description": "Contrôlez la zone ou\npoussez tous vos adversaires\npour gagner la partie.\nUtilisez vos perles pour\nvous rattraper et ne pas mourir.",
-
   "game.rushtheflag.type": "&bPvP, Capture de drapeau",
   "game.rushtheflag.description": "Capturez le drapeau adverse et\nramenez le à votre base.\nUtilisez votre capacité pour\nsurprendre vos adversaires\net les battre plus facilement.\nJouez en mode solo, doubles\nou squad pour plus de fun !",
-
   "game.therunner.type": "&bCourse, PvP",
   "game.therunner.description": "Courez vers le centre\nde la carte sans faire d'erreurs.\nArrivez en premier pour\nobtenir un avantage et battre\nvos adversaires! Choisissez un défi\npour gagner de meilleures récompenses\net devenir le meilleur !",
-
   "game.bridger.type": "&bEntrainement, Bridge",
-  "game.bridger.description": "Entrainez vous au bridge\net réalisez le meilleur temps.\nRemportez les médailles pour\nmonter dans le classement\net reporter des récompenses !",
-
+  "game.bridger.description": "Entrainez vous au bridge\net réalisez le meilleur temps.\nRemportez les médailles pour\nmonter dans le classement\net remporter des récompenses !",
   "game.bedwars.type": "&bPvP, Stratégie",
   "game.bedwars.description": "Protégez votre lit et\ndétruisez les lits adverses.\nTuez tous les joueurs\npour remporter la partie.\nJouez en mode solo, doubles\ntrio ou squad pour plus de fun !",
-
   "game.lasergame.type": "&bJeu de tir, Arcade",
   "game.lasergame.description": "Tirez sur vos adversaires\npour gagner un maximum de\npoints. Récupérez les bonus\ndispersés sur la carte pour\nobtenir des capacités utiles.\nJouez en équipe pour remporter\nla partie plus facilement."
 }

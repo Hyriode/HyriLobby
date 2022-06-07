@@ -23,7 +23,7 @@ public class PlayerProfileItem extends LobbyItem {
 
     @Override
     public void onClick(IHyrame hyrame, PlayerInteractEvent e) {
-     //   new ProfileGui(this.plugin, e.getPlayer()).open();
+        new ProfileGui(this.plugin, e.getPlayer()).open();
     }
 
 

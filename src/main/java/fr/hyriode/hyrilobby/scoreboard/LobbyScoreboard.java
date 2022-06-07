@@ -10,6 +10,9 @@ import fr.hyriode.hyrilobby.HyriLobby;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+
 /**
  * Project: HyriLobby
  * Created by Akkashi
@@ -38,7 +41,7 @@ public class LobbyScoreboard extends HyriScoreboard {
         this.addBlankLine(4);
         this.setLine(5, this.getProfile(), line -> line.setValue(this.getProfile()), 20);
         this.setLine(6, this.getRank(), line -> line.setValue(this.getRank()), 20);
-        this.setLine(7, this.getHyris(), line -> line.setValue(this.getHyris()), 20);
+        this.setLine(7, this.getHyris(), line -> line.setValue(this.getHyrisLine()), 20);
         this.setLine(8, this.getLevel(), line -> line.setValue(this.getLevel()), 20);
         this.addBlankLine(9);
         this.setLine(10, this.getServerIp(), new HyriScoreboardIpConsumer(HyriConstants.SERVER_IP), 2);
@@ -68,12 +71,18 @@ public class LobbyScoreboard extends HyriScoreboard {
         if (this.account.getRank().isDefault()) {
             return line.replace("%value%", HyriLobby.getLanguageManager().getMessage("scoreboard.no-rank.value").getForPlayer(this.player));
         }
-        return line.replace("%value%", this.account.getRank().getPrefix());
+        return line.replace("%value%", this.account.getPrefix());
+    }
+
+    private String getHyrisLine() {
+        return DASH + this.getLinePrefix("hyris")
+                .replace("%value%", this.getHyris());
     }
 
     private String getHyris() {
-        return DASH + this.getLinePrefix("hyris")
-                .replace("%value%", String.valueOf(this.account.getHyris().getAmount()));
+        final long hyris = this.account.getHyris().getAmount();
+
+        return NumberFormat.getInstance().format(hyris).replace(",", ".");
     }
 
     private String getLevel() {

@@ -58,12 +58,12 @@ public class FriendsGui extends LobbyInventory {
             });
         }
 
-        this.setItem(50, HEAD_ITEM.apply(UsefulHead.PLUS_BUTTON).withName(LobbyMessage.FRIENDS_ADD.getGuiItem(this.guiName).getForPlayer(this.owner)).build(),
+        this.setItem(50, HEAD_ITEM.apply(UsefulHead.PLUS_BUTTON).withName(LobbyMessage.FRIENDS_ADD.get().getForPlayer(this.owner)).build(),
                 e -> new SignGUI((player, lines) -> {
                     final boolean isName = lines[1] != null && !lines[1].isEmpty();
 
                     if (!isName) {
-                        player.sendMessage(LobbyMessage.FRIENDS_ADD_NOT_NULL.getGuiItem(this.guiName).getForPlayer(player));
+                        player.sendMessage(LobbyMessage.FRIENDS_ADD_NOT_NULL.get().getForPlayer(player));
                         ThreadUtil.backOnMainThread(this.plugin, () -> {
                             player.closeInventory();
                             this.open();
@@ -74,7 +74,7 @@ public class FriendsGui extends LobbyInventory {
                     final UUID uuid = HyriAPI.get().getPlayerManager().getPlayerId(lines[1]);
 
                     if (uuid == null) {
-                        player.sendMessage(LobbyMessage.FRIENDS_ADD_CANT_FOUND.getGuiItem(this.guiName).getForPlayer(player) + lines[1]);
+                        player.sendMessage(LobbyMessage.FRIENDS_ADD_CANT_FOUND.get().getForPlayer(player) + lines[1]);
                         ThreadUtil.backOnMainThread(this.plugin, () -> {
                             player.closeInventory();
                             this.open();
@@ -83,7 +83,7 @@ public class FriendsGui extends LobbyInventory {
                     }
 
                     if (this.friendHandler.areFriends(uuid)) {
-                        player.sendMessage(LobbyMessage.FRIENDS_ADD_ALREADY_FRIEND.getGuiItem(this.guiName).getForPlayer(player) + lines[1]);
+                        player.sendMessage(LobbyMessage.FRIENDS_ADD_ALREADY_FRIEND.get().getForPlayer(player) + lines[1]);
                         ThreadUtil.backOnMainThread(this.plugin, () -> {
                             player.closeInventory();
                             this.open();
@@ -93,8 +93,8 @@ public class FriendsGui extends LobbyInventory {
 
                     this.friendHandler.addFriend(uuid);
                     this.friendManager.updateFriends(this.friendHandler);
-                    player.sendMessage(LobbyMessage.FRIENDS_ADD_SUCCESS.getGuiItem(this.guiName).getForPlayer(player) + lines[1]);
-                }).withLines("", "^^^^^^^^^^^^^^^^", LobbyMessage.FRIENDS_ADD_ENTER_NAME.getGuiItem(this.guiName).getForPlayer(this.owner), " ").open(this.owner)
+                    player.sendMessage(LobbyMessage.FRIENDS_ADD_SUCCESS.get().getForPlayer(player) + lines[1]);
+                }).withLines("", "^^^^^^^^^^^^^^^^", LobbyMessage.FRIENDS_ADD_ENTER_NAME.get().getForPlayer(this.owner), " ").open(this.owner)
         );
 
         final List<Map.Entry<ItemStack, Consumer<InventoryClickEvent>>> entry = new ArrayList<>(items.entrySet());
@@ -116,13 +116,13 @@ public class FriendsGui extends LobbyInventory {
     private List<String> getFriendLore(IHyriPlayer player) {
         final List<String> lore = new ArrayList<>();
 
-        lore.add(LobbyMessage.FRIENDS_LEVEL.getGuiItem(this.guiName).getForPlayer(player) + player.getHyris().getAmount());
+        lore.add(LobbyMessage.FRIENDS_LEVEL.get().getForPlayer(player) + player.getHyris().getAmount());
 
         final DurationConverter duration = new DurationConverter(Duration.ofMillis(System.currentTimeMillis() - player.getLastLoginDate().getTime()));
-        lore.add(LobbyMessage.FRIENDS_LAST_SEEN.getGuiItem(this.guiName).getForPlayer(player) + RandomTools.getDurationMessage(duration, this.owner));
+        lore.add(LobbyMessage.FRIENDS_LAST_SEEN.get().getForPlayer(player) + RandomTools.getDurationMessage(duration, this.owner));
 
         lore.add("");
-        lore.add(LobbyMessage.FRIENDS_REMOVE.getGuiItem(this.guiName).getForPlayer(player));
+        lore.add(LobbyMessage.FRIENDS_REMOVE.get().getForPlayer(player));
 
         return lore;
     }

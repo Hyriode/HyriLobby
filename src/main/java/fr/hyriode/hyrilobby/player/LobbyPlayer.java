@@ -3,15 +3,20 @@ package fr.hyriode.hyrilobby.player;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.HyriConstants;
-import fr.hyriode.api.rank.type.HyriPlayerRankType;
+import fr.hyriode.api.leveling.IHyriLeveling;
 import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.api.rank.type.HyriPlayerRankType;
+import fr.hyriode.hyrame.actionbar.ActionBar;
 import fr.hyriode.hyrame.item.IHyriItemManager;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.title.Title;
 import fr.hyriode.hyrame.utils.PlayerUtil;
 import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.item.hotbar.*;
-import fr.hyriode.hyrilobby.jump.Jump;
+import fr.hyriode.hyrilobby.jump.LobbyJump;
+import fr.hyriode.hyrilobby.jump.LobbyJumpCheckPoint;
+import fr.hyriode.hyrilobby.jump.item.LobbyJumpCheckPointItem;
+import fr.hyriode.hyrilobby.jump.item.LobbyJumpLeaveItem;
 import fr.hyriode.hyrilobby.language.LobbyMessage;
 import fr.hyriode.hyrilobby.scoreboard.LobbyScoreboard;
 import org.bukkit.Bukkit;
@@ -20,7 +25,12 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Set;
+import java.util.TimeZone;
 import java.util.UUID;
 
 /**
@@ -33,19 +43,15 @@ public class LobbyPlayer {
     private final UUID uuid;
     private final HyriLobby plugin;
 
-    private boolean inJump;
     private boolean inPvp;
 
-    private Jump jump;
-    private Jump.CheckPoint lastCheckpoint;
+    private LobbyJump jump;
 
     private LobbyScoreboard lobbyScoreboard;
 
     public LobbyPlayer(UUID uuid, HyriLobby plugin) {
         this.uuid = uuid;
         this.plugin = plugin;
-        this.inJump = false;
-        this.inPvp = false;
     }
 
     public void handleLogin(boolean login, boolean teleport) {
@@ -53,6 +59,7 @@ public class LobbyPlayer {
         PlayerUtil.resetPlayer(this.asPlayer(), true);
 
         this.asPlayer().setLevel(this.asHyriPlayer().getNetworkLeveling().getLevel());
+        this.asPlayer().setExp(this.getExp());
 
         this.asPlayer().getInventory().setArmorContents(null);
         this.asPlayer().setGameMode(GameMode.ADVENTURE);
@@ -75,7 +82,71 @@ public class LobbyPlayer {
         this.giveItems();
 
         this.inPvp = false;
-        this.inJump = false;
+        this.jump = null;
+    }
+
+    private float getExp() {
+        final IHyriLeveling leveling = this.asHyriPlayer().getNetworkLeveling();
+        final IHyriLeveling.Algorithm algorithm = leveling.getAlgorithm();
+
+        final double totalExperience = algorithm.levelToExperience(leveling.getLevel() + 1);
+        final double neededExperience = algorithm.levelToExperience(leveling.getLevel() + 1) - algorithm.levelToExperience(leveling.getLevel());
+
+        return (float) (neededExperience / totalExperience);
+    }
+
+    public void startJump() {
+        final LobbyJump jump = new LobbyJump(this.plugin);
+        final IHyriItemManager itemManager = this.plugin.getHyrame().getItemManager();
+
+        this.setJump(jump);
+        this.getJump().setActualCheckPoint(this.getJump().getStart());
+
+        this.asPlayer().getInventory().setItem(4, null);
+        this.asPlayer().setAllowFlight(false);
+        this.asPlayer().setFlying(false);
+
+        itemManager.giveItem(this.asPlayer(), 3, LobbyJumpCheckPointItem.class);
+        itemManager.giveItem(this.asPlayer(), 5, LobbyJumpLeaveItem.class);
+
+        this.asPlayer().sendMessage(jump.getPrefix(this.asPlayer()) + LobbyMessage.JUMP_JOIN_MESSAGE.get().getForPlayer(this.asPlayer()));
+        this.getJump().getTimer().setOnTimeChanged(aLong -> {
+            final SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+            format.setTimeZone(TimeZone.getTimeZone("GMT"));
+            final String line = format.format(aLong * 1000);
+
+            new ActionBar(jump.getPrefix(this.asPlayer()) + ChatColor.AQUA + line).send(asPlayer());
+        });
+    }
+
+    public void endJump() {
+        final double time = this.getJump().getTimer().getCurrentTime();
+        final SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+
+        this.asPlayer().sendMessage(jump.getPrefix(this.asPlayer()) + LobbyMessage.JUMP_SUCCESS_ALL.get().getForPlayer(this.asPlayer())
+                .replace("%time%", format.format(time * 1000))
+        );
+
+        this.getJump().getTimer().cancel();
+        this.getJump().setActualCheckPoint(null);
+        this.setJump(null);
+
+        this.handleLogin(false, false);
+    }
+
+    public void resetTimer() {
+        this.getJump().getTimer().setCurrentTime(0);
+    }
+
+    public void leaveJump() {
+        this.asPlayer().sendMessage(jump.getPrefix(this.asPlayer()) + LobbyMessage.JUMP_LEAVE_MESSAGE.get().getForPlayer(this.asPlayer()));
+
+        this.getJump().getTimer().cancel();
+        this.getJump().setActualCheckPoint(null);
+        this.setJump(null);
+
+        this.handleLogin(false, false);
+        this.asPlayer().teleport(this.plugin.getConfiguration().getJumpLocation().asBukkit());
     }
 
     public void setInPvP(boolean inPvp) {
@@ -102,25 +173,6 @@ public class LobbyPlayer {
         }
 
         this.inPvp = inPvp;
-    }
-
-
-    public void setInJump(boolean inJump) {
-        if(inJump) {
-            this.asPlayer().setAllowFlight(false);
-
-
-        } else {
-            this.giveItems();
-            this.asPlayer().teleport(this.plugin.getConfiguration().getJumpLocation().asBukkit());
-            if (this.asHyriPlayer().getRank().isSuperior(HyriPlayerRankType.VIP_PLUS) || this.asHyriPlayer().getRank().isStaff()) {
-                this.asPlayer().setAllowFlight(true);
-            }
-            this.jump = null;
-            this.lastCheckpoint = null;
-        }
-
-        this.inJump = inJump;
     }
 
     public void giveItems() {
@@ -151,14 +203,14 @@ public class LobbyPlayer {
         if(!this.asHyriPlayer().hasNickname()) {
             if (this.asHyriPlayer().getRank().isSuperior(HyriPlayerRankType.VIP_PLUS) || this.asHyriPlayer().getRank().isStaff()) {
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                    onlinePlayer.sendMessage(LobbyMessage.JOIN_MESSAGE.getMessage().getForPlayer(onlinePlayer)
+                    onlinePlayer.sendMessage(LobbyMessage.JOIN_MESSAGE.get().getForPlayer(onlinePlayer)
                             .replace("%player%", this.asHyriPlayer().getNameWithRank()));
                 }
             }
         } else {
             if(this.asHyriPlayer().getNickname().getRank().getId() >= HyriPlayerRankType.VIP_PLUS.getId()) {
                 for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
-                    onlinePlayer.sendMessage(LobbyMessage.JOIN_MESSAGE.getMessage().getForPlayer(onlinePlayer)
+                    onlinePlayer.sendMessage(LobbyMessage.JOIN_MESSAGE.get().getForPlayer(onlinePlayer)
                             .replace("%player%", this.asHyriPlayer().getNameWithRank(true)));
                 }
             }
@@ -166,26 +218,20 @@ public class LobbyPlayer {
     }
 
     private void sendJoinTitle() {
-        //  final Date today = Date.from(Instant.now());
         final String basicTitle = ChatColor.AQUA + "»" + ChatColor.DARK_AQUA + " " + HyriConstants.SERVER_NAME + " " + ChatColor.AQUA + "«";
 
         if (this.asHyriPlayer().getLastServer() == null) {
             Title title = new Title(
                     basicTitle,
-                    LobbyMessage.BASIC_SUBTITLE.getSubTitle().getForPlayer(this.asHyriPlayer()),
+                    LobbyMessage.BASIC_JOIN_SUBTITLE.get().getForPlayer(this.asHyriPlayer()),
                     20,
                     3 * 20,
                     20);
 
             if (this.asHyriPlayer().getPlayTime() == 0) {
-                title.setSubTitle(LobbyMessage.FIRST_SUBTITLE.getSubTitle().getForPlayer(this.asHyriPlayer()));
+                title.setSubTitle(LobbyMessage.FIRST_JOIN_SUBTITLE.get().getForPlayer(this.asHyriPlayer()));
             }
 
-        /*
-        if (this.asHyriPlayer().getHyriPlus().getPurchaseDate().equals(today)) {
-            title.setSubTitle(LobbyMessage.BUY_TITLE.getSubTitle().getForPlayer(this.asHyriPlayer()));
-        }
-         */
 
             Title.sendTitle(this.asPlayer(), title);
         }
@@ -211,27 +257,19 @@ public class LobbyPlayer {
         return HyriAPI.get().getPlayerManager().getPlayer(this.uuid);
     }
 
-    public boolean isInJump() {
-        return inJump;
-    }
-
     public boolean isInPvp() {
         return this.inPvp;
     }
 
-    public Jump getJump() {
+    public boolean hasJump() {
+        return this.jump != null;
+    }
+
+    public LobbyJump getJump() {
         return jump;
     }
 
-    public void setJump(Jump jump) {
+    public void setJump(LobbyJump jump) {
         this.jump = jump;
-    }
-
-    public Jump.CheckPoint getLastCheckpoint() {
-        return lastCheckpoint;
-    }
-
-    public void setLastCheckpoint(Jump.CheckPoint lastCheckpoint) {
-        this.lastCheckpoint = lastCheckpoint;
     }
 }

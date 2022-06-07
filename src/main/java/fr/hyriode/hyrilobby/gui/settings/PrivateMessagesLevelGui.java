@@ -52,7 +52,7 @@ public class PrivateMessagesLevelGui extends LobbyInventory {
 
     private int getSlot() {
         switch (this.level) {
-            case ALL: return 39 - 9;
+            case ALL: return 29 - 9;
             case FRIENDS: return 31 - 9;
             case NONE: return 33 - 9;
             default: return 0;
