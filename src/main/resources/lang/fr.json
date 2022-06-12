@@ -21,6 +21,8 @@
   "message.jump-leave.display": "&fVous avez&c abandonné&f le&b parcours&f !",
   "bar.jump-respawn.display": "&cVous êtes tombé du parcours.",
   "message.checkpoint-success.display": "&fVous avez atteint le&b checkpoint #%value% &f!",
+  "message.reset.display": "&fVotre&b temps&f a été remis à&c zéro&f !",
+  "message.back-checkpoint.display": "&bRetour au checkpoint précédent.",
   "message.jump-success.display": "&fVous avez réussi le&b parcours&f en&b %time%&f !",
 
   "message.error-staff.display": "&cVous ne pouvez pas faire ceci en mode modération ou en vanish.",
@@ -42,6 +44,7 @@
 
   "item.jump-leave.name": "&cQuitter le parcours",
   "item.jump-checkpoint.name": "&aRetour au dernier checkpoint",
+  "item.jump-reset.name": "&6Réinitialiser le temps",
 
   "gui.lobby-selector.name": "&8Changer de lobby",
   "gui.main-menu.name": "&8Menu Principal",
@@ -50,7 +53,7 @@
   "gui.profile.name": "&8Profil",
   "gui.friends.name": "&8Vos amis",
 
-  "gui.lobby-selector.item.name": "&fLobby ID : ",
+  "gui.lobby-selector.item.name": "&fLobby ID: ",
 
   "gui.game-selector.item.host.name": "&bHosts",
   "gui.game-selector.item.vip.name": "&eZone VIP",
@@ -104,13 +107,13 @@
   "basic.connected": "&cDéjà connecté",
   "basic.connect": "&eCliquer pour rejoindre",
   "lobby.connect" : "&3Cliquez pour rejoindre",
-  "basic.players": "&fJoueurs : ",
+  "basic.players": "&fJoueurs: ",
   "basic.soon": "&cProchainement",
   "basic.friends": "&fAmis: ",
 
   "basic.item.back": "&cRetour",
   "basic.item.current": "&6Actuel: ",
-  "basic.game.type": "&3Type : ",
+  "basic.game.type": "&3Type: ",
 
   "gui.item.switch-on.name": "&aActivé",
   "gui.item.switch-off.name": "&cDésactivé",

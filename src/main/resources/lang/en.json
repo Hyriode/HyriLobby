@@ -17,10 +17,12 @@
   "message.queue.display": "&bYou joined the queue for &3%game%",
 
   "prefix.jump": "&3Parkour",
-  "message.jump-join.display": "&fYou joined the&b parkour&f!",
+  "message.jump-join.display": "&fYou started the&b parkour&f!",
   "message.jump-leave.display": "&fYou have&c abandoned&f the&b parkour&f!",
   "bar.jump-respawn.display": "&cYou fell off the parkour.",
   "message.checkpoint-success.display": "&fYou reached the&b checkpoint #%value%&f!",
+  "message.reset.display": "&fYour&b time&f has been reset to&c zero&f !",
+  "message.back-checkpoint.display": "&bBack to the previous checkpoint.",
   "message.jump-success.display": "&fYou finished the&b parkour&f in&b %time%&f!",
 
   "message.error-staff.display": "&cYou can't do this in moderation mode or vanish.",
@@ -98,6 +100,7 @@
 
   "item.jump-leave.name": "&cLeave the jump",
   "item.jump-checkpoint.name": "&aBack to last checkpoint",
+  "item.jump-reset.name": "&6Reset the timer",
 
   "basic.connected": "&cAlready connected",
   "lobby.connect": "&3Click to join",

@@ -17,6 +17,7 @@ import fr.hyriode.hyrilobby.jump.LobbyJump;
 import fr.hyriode.hyrilobby.jump.LobbyJumpCheckPoint;
 import fr.hyriode.hyrilobby.jump.item.LobbyJumpCheckPointItem;
 import fr.hyriode.hyrilobby.jump.item.LobbyJumpLeaveItem;
+import fr.hyriode.hyrilobby.jump.item.LobbyJumpResetItem;
 import fr.hyriode.hyrilobby.language.LobbyMessage;
 import fr.hyriode.hyrilobby.scoreboard.LobbyScoreboard;
 import org.bukkit.Bukkit;
@@ -28,6 +29,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Set;
 import java.util.TimeZone;
@@ -102,12 +104,13 @@ public class LobbyPlayer {
         this.setJump(jump);
         this.getJump().setActualCheckPoint(this.getJump().getStart());
 
-        this.asPlayer().getInventory().setItem(4, null);
+        this.asPlayer().getInventory().clear();
         this.asPlayer().setAllowFlight(false);
         this.asPlayer().setFlying(false);
 
-        itemManager.giveItem(this.asPlayer(), 3, LobbyJumpCheckPointItem.class);
-        itemManager.giveItem(this.asPlayer(), 5, LobbyJumpLeaveItem.class);
+        itemManager.giveItem(this.asPlayer(), 2, LobbyJumpCheckPointItem.class);
+        itemManager.giveItem(this.asPlayer(), 4, LobbyJumpResetItem.class);
+        itemManager.giveItem(this.asPlayer(), 6, LobbyJumpLeaveItem.class);
 
         this.asPlayer().sendMessage(jump.getPrefix(this.asPlayer()) + LobbyMessage.JUMP_JOIN_MESSAGE.get().getForPlayer(this.asPlayer()));
         this.getJump().getTimer().setOnTimeChanged(aLong -> {
@@ -117,14 +120,25 @@ public class LobbyPlayer {
 
             new ActionBar(jump.getPrefix(this.asPlayer()) + ChatColor.AQUA + line).send(asPlayer());
         });
+        this.asPlayer().getInventory().setHeldItemSlot(2);
+    }
+
+    public void resetJump() {
+        final LobbyJump jump = this.jump;
+        final Player player = this.asPlayer();
+
+        jump.setActualCheckPoint(jump.getStart());
+        player.teleport(jump.getStart().getLocation());
+        this.resetTimer();
     }
 
     public void endJump() {
-        final double time = this.getJump().getTimer().getCurrentTime();
+        final double time = System.currentTimeMillis() - jump.getStartTime();
         final SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        final DecimalFormat decimal = new DecimalFormat("000");
 
         this.asPlayer().sendMessage(jump.getPrefix(this.asPlayer()) + LobbyMessage.JUMP_SUCCESS_ALL.get().getForPlayer(this.asPlayer())
-                .replace("%time%", format.format(time * 1000))
+                .replace("%time%", format.format(time) + "." + decimal.format(time % 1000))
         );
 
         this.getJump().getTimer().cancel();
@@ -132,13 +146,15 @@ public class LobbyPlayer {
         this.setJump(null);
 
         this.handleLogin(false, false);
+        this.asPlayer().getInventory().setHeldItemSlot(2);
     }
 
     public void resetTimer() {
         this.getJump().getTimer().setCurrentTime(0);
+        this.asPlayer().sendMessage(LobbyMessage.JUMP_RESET.get().getForPlayer(this.asPlayer()));
     }
 
-    public void leaveJump() {
+    public void leaveJump(boolean teleport) {
         this.asPlayer().sendMessage(jump.getPrefix(this.asPlayer()) + LobbyMessage.JUMP_LEAVE_MESSAGE.get().getForPlayer(this.asPlayer()));
 
         this.getJump().getTimer().cancel();
@@ -146,7 +162,11 @@ public class LobbyPlayer {
         this.setJump(null);
 
         this.handleLogin(false, false);
-        this.asPlayer().teleport(this.plugin.getConfiguration().getJumpLocation().asBukkit());
+        this.asPlayer().getInventory().setHeldItemSlot(2);
+
+        if(teleport) {
+            this.asPlayer().teleport(this.plugin.getConfiguration().getJumpLocation().asBukkit());
+        }
     }
 
     public void setInPvP(boolean inPvp) {
@@ -238,7 +258,7 @@ public class LobbyPlayer {
     }
 
     public void handleLogout() {
-
+        this.leaveJump(false);
     }
 
     public LobbyScoreboard getLobbyScoreboard() {

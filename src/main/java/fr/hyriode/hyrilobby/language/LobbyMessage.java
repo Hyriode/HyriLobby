@@ -22,6 +22,8 @@ public enum LobbyMessage {
     JUMP_LEAVE_MESSAGE("message.jump-leave.display"),
     JUMP_RESPAWN_BAR("bar.jump-respawn.display"),
     JUMP_SUCCESS_CHECKPOINT("message.checkpoint-success.display"),
+    JUMP_RESET("message.reset.display"),
+    JUMP_GO_BACK_CHECKPOINT("message.back-checkpoint.display"),
     JUMP_SUCCESS_ALL("message.jump-success.display"),
 
     STAFF_ERROR("message.error-staff.display"),

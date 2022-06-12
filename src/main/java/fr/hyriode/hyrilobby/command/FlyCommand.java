@@ -19,7 +19,7 @@ public class FlyCommand extends HyriCommand<HyriLobby> {
 
     public FlyCommand(HyriLobby plugin) {
         super(plugin, new HyriCommandInfo("fly")
-                .withDescription("Teleport the player to the spawn of the lobby")
+                .withDescription("Permits to fly in the lobby")
                 .withType(HyriCommandType.PLAYER)
                 .withPermission(iHyriPlayer -> iHyriPlayer.getRank().isStaff() || iHyriPlayer.getRank().isSuperior(HyriPlayerRankType.VIP_PLUS))
                 .withUsage("/fly"));
@@ -31,16 +31,17 @@ public class FlyCommand extends HyriCommand<HyriLobby> {
         final Player player = lobbyPlayer.asPlayer();
         final String result = LobbyMessage.FLY_COMMAND_RESULT.get().getForPlayer(player);
 
-        if ((!lobbyPlayer.isInPvp()) || (!lobbyPlayer.hasJump())) {
-            if (player.getAllowFlight()) {
-                player.setAllowFlight(false);
-                player.sendMessage(result.replace("%value%", LobbyMessage.FLY_COMMAND_OFF.get().getForPlayer(player)));
-            } else {
-                player.setAllowFlight(true);
-                player.sendMessage(result.replace("%value%", LobbyMessage.FLY_COMMAND_ON.get().getForPlayer(player)));
-            }
-        } else {
+        if (lobbyPlayer.isInPvp() || lobbyPlayer.hasJump()) {
             player.sendMessage(LobbyMessage.FLY_COMMAND_ERROR.get().getForPlayer(player));
+            return;
+        }
+
+        if (player.getAllowFlight()) {
+            player.setAllowFlight(false);
+            player.sendMessage(result.replace("%value%", LobbyMessage.FLY_COMMAND_OFF.get().getForPlayer(player)));
+        } else {
+            player.setAllowFlight(true);
+            player.sendMessage(result.replace("%value%", LobbyMessage.FLY_COMMAND_ON.get().getForPlayer(player)));
         }
     }
 }

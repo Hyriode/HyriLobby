@@ -30,6 +30,7 @@ public class LobbyJumpCheckPointItem extends HyriItem<HyriLobby> {
         if(lobbyPlayer.hasJump()) {
             if(lobbyPlayer.getJump().getActualCheckPoint() != null) {
                 lobbyPlayer.asPlayer().teleport(lobbyPlayer.getJump().getActualCheckPoint().getLocation());
+                lobbyPlayer.asPlayer().sendMessage(LobbyMessage.JUMP_GO_BACK_CHECKPOINT.get().getForPlayer(lobbyPlayer.asPlayer()));
             }
         }
     }

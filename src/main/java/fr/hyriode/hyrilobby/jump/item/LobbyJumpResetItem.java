@@ -7,19 +7,19 @@ import fr.hyriode.hyrilobby.HyriLobby;
 import fr.hyriode.hyrilobby.player.LobbyPlayer;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Project: HyriLobby
+ * Project: Hyriode-Development
  * Created by Akkashi
- * on 03/05/2022 at 20:16
+ * on 09/06/2022 at 18:06
  */
-public class LobbyJumpLeaveItem extends HyriItem<HyriLobby> {
+public class LobbyJumpResetItem extends HyriItem<HyriLobby> {
 
-    public LobbyJumpLeaveItem(HyriLobby plugin) {
-        super(plugin, "jump_leave", () -> HyriLanguageMessage.get("item.jump-leave.name"), Material.BED);
+    public LobbyJumpResetItem(HyriLobby plugin) {
+        super(plugin, "jump_reset", () -> HyriLanguageMessage.get("item.jump-reset.name"), Material.LEASH);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class LobbyJumpLeaveItem extends HyriItem<HyriLobby> {
         final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayer().getUniqueId());
 
         if(lobbyPlayer.hasJump()) {
-            lobbyPlayer.leaveJump(false);
+            lobbyPlayer.resetJump();
         }
     }
 }

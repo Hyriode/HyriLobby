@@ -20,6 +20,7 @@ public class LobbyJump {
     private final LobbyJumpCheckPoint end;
     private final List<LobbyJumpCheckPoint> checkPoints;
 
+    private final long startTime;
     private LobbyJumpCheckPoint actualCheckPoint;
     private final LobbyJumpTimer timer;
     
@@ -33,6 +34,8 @@ public class LobbyJump {
         this.actualCheckPoint = null;
         this.timer = new LobbyJumpTimer();
         this.timer.runTaskTimerAsynchronously(plugin, 0, 20);
+
+        this.startTime = System.currentTimeMillis();
     }
 
     private void setupCheckpoints(HyriLobby plugin) {
@@ -68,6 +71,10 @@ public class LobbyJump {
 
     public LobbyJumpTimer getTimer() {
         return timer;
+    }
+
+    public long getStartTime() {
+        return startTime;
     }
 
     public String getPrefix(Player player) {

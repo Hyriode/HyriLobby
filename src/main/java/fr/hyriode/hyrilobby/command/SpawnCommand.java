@@ -23,7 +23,7 @@ public class SpawnCommand extends HyriCommand<HyriLobby> {
         final LobbyPlayer lp = this.plugin.getPlayerManager().getLobbyPlayer(((Player) ctx.getSender()).getUniqueId());
 
         if(lp.hasJump()) {
-            lp.leaveJump();
+            lp.leaveJump(false);
         }
         lp.handleLogin(false, true);
     }

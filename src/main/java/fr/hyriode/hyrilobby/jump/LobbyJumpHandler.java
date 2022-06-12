@@ -34,7 +34,7 @@ public class LobbyJumpHandler extends HyriListener<HyriLobby> {
                 lobbyPlayer.startJump();
                 this.playStartSound(lobbyPlayer.asPlayer());
             } else {
-                if (lobbyPlayer.getJump().getTimer().getCurrentTime() >= 5) {
+                if (lobbyPlayer.getJump().getTimer().getCurrentTime() >= 3) {
                     lobbyPlayer.resetTimer();
                     this.playCheckPointSound(lobbyPlayer.asPlayer());
                 }
