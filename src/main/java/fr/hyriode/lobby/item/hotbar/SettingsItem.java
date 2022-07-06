@@ -2,7 +2,7 @@ package fr.hyriode.lobby.item.hotbar;
 
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.settings.SettingsGui;
+import fr.hyriode.lobby.gui.settings.SettingsGUI;
 import fr.hyriode.lobby.item.LobbyItem;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -18,6 +18,6 @@ public class SettingsItem extends LobbyItem {
 
     @Override
     public void onClick(IHyrame hyrame, PlayerInteractEvent e) {
-        new SettingsGui(this.plugin, e.getPlayer()).open();
+        new SettingsGUI(this.plugin, e.getPlayer(), true).open();
     }
 }

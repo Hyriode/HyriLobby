@@ -2,16 +2,16 @@ package fr.hyriode.lobby.item.hotbar;
 
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.chooser.GamesChooserGui;
+import fr.hyriode.lobby.gui.selector.game.GameSelectorGUI;
 import fr.hyriode.lobby.item.LobbyItem;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class GameChooserItem extends LobbyItem {
+public class GameSelectorItem extends LobbyItem {
 
     private final HyriLobby plugin;
 
-    public GameChooserItem(HyriLobby plugin) {
+    public GameSelectorItem(HyriLobby plugin) {
         super(plugin, "main_menu", "item.main-menu.name", Material.COMPASS, (byte) 0);
 
         this.plugin = plugin;
@@ -19,6 +19,6 @@ public class GameChooserItem extends LobbyItem {
 
     @Override
     public void onClick(IHyrame hyrame, PlayerInteractEvent e) {
-        new GamesChooserGui(this.plugin, e.getPlayer()).open();
+        new GameSelectorGUI(this.plugin, e.getPlayer()).open();
     }
 }

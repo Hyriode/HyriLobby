@@ -24,7 +24,7 @@ public class LobbyJumpLeaveItem extends HyriItem<HyriLobby> {
         final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayer().getUniqueId());
 
         if(lobbyPlayer.hasJump()) {
-            lobbyPlayer.leaveJump(false);
+            lobbyPlayer.leaveJump(true);
         }
     }
 }

@@ -13,23 +13,23 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-public class VipZoneHandler extends HyriListener<HyriLobby> {
+public class VIPZoneHandler extends HyriListener<HyriLobby> {
 
-    public VipZoneHandler(HyriLobby plugin) {
+    public VIPZoneHandler(HyriLobby plugin) {
         super(plugin);
     }
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
-        final Area vip = this.plugin.getConfiguration().getVipEntry().asArea();
-        final Area pvp = this.plugin.getConfiguration().getPvpZone().asArea();
+        final Area vip = this.plugin.config().getVIPEntry().asArea();
+        final Area pvp = this.plugin.config().getPvpZone().asArea();
         final Player player = e.getPlayer();
         final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
         final IHyriPlayer hyriPlayer = HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId());
 
         if(vip.isInArea(player.getLocation())) {
             if(hyriPlayer.getRank().is(HyriPlayerRankType.PLAYER)) {
-                player.teleport(this.plugin.getConfiguration().getVipLocation().asBukkit());
+                player.teleport(this.plugin.config().getVIPLocation().asBukkit());
             }
         }
 
@@ -87,7 +87,7 @@ public class VipZoneHandler extends HyriListener<HyriLobby> {
     }
 
     private void teleport(final Player player) {
-        player.teleport(this.plugin.getConfiguration().getPvpLocation().asBukkit());
+        player.teleport(this.plugin.config().getPvpLocation().asBukkit());
         player.getInventory().setHeldItemSlot(2);
     }
 }

@@ -7,7 +7,7 @@ package fr.hyriode.lobby.util;
  */
 public class InventoryUtil {
 
-    public static int[] getBarrierSlots() {
+    public static int[] getBorderSlots() {
         return new int[] {
                 0,
                 1,

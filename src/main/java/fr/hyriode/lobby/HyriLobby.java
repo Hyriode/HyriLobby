@@ -8,10 +8,15 @@ import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.plugin.IPluginProvider;
 import fr.hyriode.hyrame.utils.LocationWrapper;
 import fr.hyriode.lobby.config.LobbyConfig;
+import fr.hyriode.lobby.game.LobbyGameManager;
+import fr.hyriode.lobby.leaderboard.LobbyLeaderboardManager;
+import fr.hyriode.lobby.listener.LanguageListener;
+import fr.hyriode.lobby.npc.LobbyNPCManager;
 import fr.hyriode.lobby.player.LobbyPlayerManager;
+import fr.hyriode.lobby.protocol.LobbyProtocol;
+import fr.hyriode.lobby.queue.LobbyQueueHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -29,10 +34,15 @@ public class HyriLobby extends JavaPlugin {
     private LobbyConfig config;
 
     private LobbyPlayerManager playerManager;
+    private LobbyGameManager gameManager;
+    private LobbyNPCManager npcManager;
+    private LobbyLeaderboardManager leaderboardManager;
+    private LobbyProtocol protocol;
 
     @Override
     public void onEnable() {
         final ConsoleCommandSender sender = Bukkit.getConsoleSender();
+
         sender.sendMessage(ChatColor.GREEN + "  _    _            _ _           _     _           ");
         sender.sendMessage(ChatColor.GREEN + " | |  | |          (_) |         | |   | |          ");
         sender.sendMessage(ChatColor.GREEN + " | |__| |_   _ _ __ _| |     ___ | |__ | |__  _   _ ");
@@ -70,6 +80,13 @@ public class HyriLobby extends JavaPlugin {
                         new LocationWrapper(worldId, -343, 149, -78)));
 
         this.playerManager = new LobbyPlayerManager(this);
+        this.gameManager = new LobbyGameManager();
+        this.npcManager = new LobbyNPCManager(this);
+        this.leaderboardManager = new LobbyLeaderboardManager(this);
+        this.protocol = new LobbyProtocol();
+
+        HyriAPI.get().getEventBus().register(new LanguageListener(this));
+        HyriAPI.get().getQueueManager().addHandler(new LobbyQueueHandler(this));
 
         HyriAPI.get().getServer().setState(IHyriServer.State.READY);
         HyriAPI.get().getServer().setSlots(HyggLobbyAPI.MAX_PLAYERS);
@@ -80,18 +97,37 @@ public class HyriLobby extends JavaPlugin {
         this.playerManager.handleStop();
     }
 
-    public IHyrame getHyrame() {
-        return hyrame;
-    }
-
-    public LobbyConfig getConfiguration() {
+    public LobbyConfig config() {
         return this.config;
     }
 
-    public LobbyPlayerManager getPlayerManager() {
-        return playerManager;
+    public IHyrame getHyrame() {
+        return this.hyrame;
     }
 
+    public LobbyPlayerManager getPlayerManager() {
+        return this.playerManager;
+    }
+
+    public LobbyGameManager getGameManager() {
+        return this.gameManager;
+    }
+
+    public LobbyNPCManager getNPCManager() {
+        return this.npcManager;
+    }
+
+    public LobbyLeaderboardManager getLeaderboardManager() {
+        return this.leaderboardManager;
+    }
+
+    public LobbyProtocol getProtocol() {
+        return this.protocol;
+    }
+
+    /**
+     * The provider instance for {@linkplain IHyrame Hyrame}
+     */
     private class Provider implements IPluginProvider {
 
         private static final String PACKAGE = "fr.hyriode.lobby";

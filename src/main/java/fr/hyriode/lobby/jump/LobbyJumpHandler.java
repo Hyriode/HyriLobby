@@ -25,11 +25,12 @@ public class LobbyJumpHandler extends HyriListener<HyriLobby> {
     }
 
     @EventHandler
-    public void onMove(final PlayerMoveEvent event) {
-        final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayer().getUniqueId());
+    public void onMove(PlayerMoveEvent event) {
+        final Player player = event.getPlayer();
+        final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
         final Location location = event.getPlayer().getLocation();
 
-        if (this.checkLocation(location, this.plugin.getConfiguration().getJumpStart().asBukkit())) {
+        if (this.checkLocation(location, this.plugin.config().getJumpStart().asBukkit())) {
             if (!lobbyPlayer.hasJump()) {
                 lobbyPlayer.startJump();
                 this.playStartSound(lobbyPlayer.asPlayer());
@@ -42,13 +43,13 @@ public class LobbyJumpHandler extends HyriListener<HyriLobby> {
         }
 
         if (lobbyPlayer.hasJump()) {
-            for (LocationWrapper checkpoint : this.plugin.getConfiguration().getCheckpoints()) {
+            for (LocationWrapper checkpoint : this.plugin.config().getCheckpoints()) {
                 if (this.checkLocation(location, checkpoint.asBukkit()) &&
                         !this.checkLocation(location, lobbyPlayer.getJump().getActualCheckPoint().getLocation()) &&
                         this.checkLocation(location, lobbyPlayer.getJump().getCheckPoints().get(lobbyPlayer.getJump().getCheckPoints().indexOf(lobbyPlayer.getJump().getActualCheckPoint()) + 1).getLocation())
                 ) {
                     lobbyPlayer.getJump().setActualCheckPoint(lobbyPlayer.getJump().getCheckPoints().get(lobbyPlayer.getJump().getCheckPoints().indexOf(lobbyPlayer.getJump().getActualCheckPoint()) + 1));
-                    lobbyPlayer.asPlayer().sendMessage(lobbyPlayer.getJump().getPrefix(lobbyPlayer.asPlayer()) + LobbyMessage.JUMP_SUCCESS_CHECKPOINT.asLang().getForPlayer(lobbyPlayer.asPlayer())
+                    player.sendMessage(lobbyPlayer.getJump().getPrefix(lobbyPlayer.asPlayer()) + LobbyMessage.JUMP_SUCCESS_CHECKPOINT.asLang().getForPlayer(player)
                             .replace("%value%", String.valueOf(lobbyPlayer.getJump().getCheckPoints().indexOf(lobbyPlayer.getJump().getActualCheckPoint()))));
                     this.playCheckPointSound(lobbyPlayer.asPlayer());
                     break;
@@ -56,15 +57,15 @@ public class LobbyJumpHandler extends HyriListener<HyriLobby> {
             }
         }
 
-        if (this.checkLocation(location, this.plugin.getConfiguration().getJumpEnd().asBukkit()) && lobbyPlayer.hasJump() && lobbyPlayer.getJump().getActualCheckPoint().equals(lobbyPlayer.getJump().getCheckPoints().get(lobbyPlayer.getJump().getCheckPoints().size() - 1))) {
+        if (this.checkLocation(location, this.plugin.config().getJumpEnd().asBukkit()) && lobbyPlayer.hasJump() && lobbyPlayer.getJump().getActualCheckPoint().equals(lobbyPlayer.getJump().getCheckPoints().get(lobbyPlayer.getJump().getCheckPoints().size() - 1))) {
             lobbyPlayer.endJump();
-            this.playEndSound(lobbyPlayer.asPlayer());
+            this.playEndSound(player);
         }
 
         if (lobbyPlayer.hasJump()) {
             if (location.getBlockY() <= lobbyPlayer.getJump().getActualCheckPoint().getYTeleport()) {
-                lobbyPlayer.asPlayer().teleport(lobbyPlayer.getJump().getActualCheckPoint().getLocation());
-                new ActionBar(LobbyMessage.JUMP_RESPAWN_BAR.asLang().getForPlayer(lobbyPlayer.asPlayer())).send(lobbyPlayer.asPlayer());
+                player.teleport(lobbyPlayer.getJump().getActualCheckPoint().getLocation());
+                new ActionBar(LobbyMessage.JUMP_RESPAWN_BAR.asLang().getForPlayer(player)).send(player);
             }
         }
     }
@@ -91,12 +92,7 @@ public class LobbyJumpHandler extends HyriListener<HyriLobby> {
         for (int i = 0; i < 5; i++) {
             float volume = 0.5F + i * 0.2F;
             int ticks = i * 5;
-            Bukkit.getScheduler().runTaskLater(this.plugin, new Runnable() {
-                @Override
-                public void run() {
-                    player.playSound(player.getLocation(), Sound.NOTE_PIANO, 1, volume);
-                }
-            }, ticks);
+            Bukkit.getScheduler().runTaskLater(this.plugin, () -> player.playSound(player.getLocation(), Sound.NOTE_PIANO, 1, volume), ticks);
         }
     }
 }

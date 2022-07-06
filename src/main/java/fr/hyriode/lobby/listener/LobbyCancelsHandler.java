@@ -76,4 +76,5 @@ public class LobbyCancelsHandler extends HyriListener<HyriLobby> {
             lobbyPlayer.handleLogin(false, true);
         }
     }
+
 }

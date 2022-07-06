@@ -1,6 +1,7 @@
 package fr.hyriode.lobby.jump;
 
 import fr.hyriode.hyrame.language.HyriLanguageMessage;
+import fr.hyriode.hyrame.utils.LocationWrapper;
 import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.HyriLobby;
 import org.bukkit.ChatColor;
@@ -24,8 +25,8 @@ public class LobbyJump {
     private final LobbyJumpTimer timer;
     
     public LobbyJump(HyriLobby plugin) {
-        this.start = new LobbyJumpCheckPoint(plugin.getConfiguration().getJumpStart().asBukkit(), 183);
-        this.end = new LobbyJumpCheckPoint(plugin.getConfiguration().getJumpEnd().asBukkit(), 0);
+        this.start = new LobbyJumpCheckPoint(plugin.config().getJumpStart().asBukkit(), 183);
+        this.end = new LobbyJumpCheckPoint(plugin.config().getJumpEnd().asBukkit(), 0);
         this.checkPoints = new ArrayList<>();
 
         this.setupCheckpoints(plugin);
@@ -38,14 +39,16 @@ public class LobbyJump {
     }
 
     private void setupCheckpoints(HyriLobby plugin) {
+        final List<LocationWrapper> locations = plugin.config().getCheckpoints();
+
         this.checkPoints.add(this.start);
-        this.checkPoints.add(new LobbyJumpCheckPoint(plugin.getConfiguration().getCheckpoints().get(0).asBukkit(), 188));
-        this.checkPoints.add(new LobbyJumpCheckPoint(plugin.getConfiguration().getCheckpoints().get(1).asBukkit(), 197));
-        this.checkPoints.add(new LobbyJumpCheckPoint(plugin.getConfiguration().getCheckpoints().get(2).asBukkit(), 217));
-        this.checkPoints.add(new LobbyJumpCheckPoint(plugin.getConfiguration().getCheckpoints().get(3).asBukkit(), 233));
-        this.checkPoints.add(new LobbyJumpCheckPoint(plugin.getConfiguration().getCheckpoints().get(4).asBukkit(), 219));
-        this.checkPoints.add(new LobbyJumpCheckPoint(plugin.getConfiguration().getCheckpoints().get(5).asBukkit(), 225));
-        this.checkPoints.add(new LobbyJumpCheckPoint(plugin.getConfiguration().getCheckpoints().get(6).asBukkit(), 227));
+        this.checkPoints.add(new LobbyJumpCheckPoint(locations.get(0).asBukkit(), 188));
+        this.checkPoints.add(new LobbyJumpCheckPoint(locations.get(1).asBukkit(), 197));
+        this.checkPoints.add(new LobbyJumpCheckPoint(locations.get(2).asBukkit(), 217));
+        this.checkPoints.add(new LobbyJumpCheckPoint(locations.get(3).asBukkit(), 233));
+        this.checkPoints.add(new LobbyJumpCheckPoint(locations.get(4).asBukkit(), 219));
+        this.checkPoints.add(new LobbyJumpCheckPoint(locations.get(5).asBukkit(), 225));
+        this.checkPoints.add(new LobbyJumpCheckPoint(locations.get(6).asBukkit(), 227));
     }
 
     public LobbyJumpCheckPoint getActualCheckPoint() {
@@ -79,4 +82,5 @@ public class LobbyJump {
     public String getPrefix(Player player) {
         return HyriLanguageMessage.get("prefix.jump").getForPlayer(player) + ChatColor.WHITE + " " + Symbols.LINE_VERTICAL_BOLD + " ";
     }
+
 }

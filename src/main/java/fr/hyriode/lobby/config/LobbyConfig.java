@@ -42,7 +42,7 @@ public class LobbyConfig implements IConfig {
         return this.spawnLocation;
     }
 
-    public LocationWrapper getVipLocation() {
+    public LocationWrapper getVIPLocation() {
         return this.vipLocation;
     }
 
@@ -66,7 +66,7 @@ public class LobbyConfig implements IConfig {
         return this.pvpZone;
     }
 
-    public Zone getVipEntry() {
+    public Zone getVIPEntry() {
         return this.vipEntry;
     }
 
@@ -75,6 +75,7 @@ public class LobbyConfig implements IConfig {
     }
 
     public static class Zone {
+
         private final LocationWrapper first;
         private final LocationWrapper second;
 
@@ -94,5 +95,7 @@ public class LobbyConfig implements IConfig {
         public Area asArea() {
             return new Area(first.asBukkit(), second.asBukkit());
         }
+
     }
+
 }

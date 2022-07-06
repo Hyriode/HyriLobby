@@ -22,7 +22,6 @@ public class PlayerConnectionHandler extends HyriListener<HyriLobby> {
     public void onPlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
 
-        event.setJoinMessage(null);
         this.plugin.getPlayerManager().handleLogin(player.getUniqueId());
     }
 
@@ -30,7 +29,6 @@ public class PlayerConnectionHandler extends HyriListener<HyriLobby> {
     public void onPlayerQuit(final PlayerQuitEvent event) {
         final Player player = event.getPlayer();
 
-        event.setQuitMessage(null);
         this.plugin.getPlayerManager().handleLogout(player.getUniqueId());
     }
 }
