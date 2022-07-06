@@ -2,4 +2,4 @@ name: HyriLobby
 main: fr.hyriode.lobby.HyriLobby
 version: @version@
 depend: [Hyrame]
-prefix: HyriLobby
+authors: [Yggdrasil80, Akkashi, AstFaster]

@@ -1,73 +1,44 @@
-plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.0"
-}
+apply plugin: 'idea'
+apply plugin: 'java-library'
 
-allprojects {
-    apply plugin: 'idea'
-    apply plugin: 'java-library'
-
-    group = 'fr.hyriode'
-
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(8)
-        }
-    }
-
-    compileJava {
-        targetCompatibility = sourceCompatibility = JavaVersion.VERSION_1_8
-        options.encoding = 'UTF-8'
-    }
-
-    tasks.withType(Javadoc) {
-        options.encoding = 'UTF-8'
-    }
-
-    repositories {
-        mavenCentral()
-        mavenLocal()
-
-        maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
-
-        maven { url = 'https://oss.sonatype.org/content/groups/public/' }
-
-        maven {
-            name = 'Hyrame_maven'
-            url 'https://maven.pkg.github.com/Hyriode/Hyrame/'
-
-            credentials {
-                username System.getenv("USERNAME")
-                password System.getenv("TOKEN")
-            }
-        }
-
-        maven {
-            name = 'HyriAPI_maven'
-            url 'https://maven.pkg.github.com/Hyriode/HyriAPI/'
-
-            credentials {
-                username System.getenv("USERNAME")
-                password System.getenv("TOKEN")
-            }
-        }
-    }
-
-    dependencies {}
-}
-
-version = '1.0.0'
+group = 'fr.hyriode'
+version = '1.0.1'
 archivesBaseName = 'HyriLobby'
 
-shadowJar {
-    configurations = [project.configurations.shadow]
-    minimize()
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+compileJava {
+    targetCompatibility = sourceCompatibility = JavaVersion.VERSION_1_8
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+
+    maven { url = 'https://oss.sonatype.org/content/groups/public/' }
+
+    maven {
+        name = 'Hyrame_maven'
+        url 'https://maven.pkg.github.com/Hyriode/Hyrame/'
+
+        credentials {
+            username System.getenv("USERNAME")
+            password System.getenv("TOKEN")
+        }
+    }
 }
 
 dependencies {
-    implementation 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'fr.hyriode:hyrame:1.2.0'
-    shadow project(':API')
+    //implementation 'fr.hyriode:hyrame:1.2.8'
 }
 
 processResources {

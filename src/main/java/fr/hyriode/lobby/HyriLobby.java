@@ -5,30 +5,39 @@ import fr.hyriode.api.server.IHyriServer;
 import fr.hyriode.hyggdrasil.api.lobby.HyggLobbyAPI;
 import fr.hyriode.hyrame.HyrameLoader;
 import fr.hyriode.hyrame.IHyrame;
-import fr.hyriode.hyrame.placeholder.PlaceholderAPI;
-import fr.hyriode.lobby.api.LobbyAPI;
-import fr.hyriode.lobby.jump.JumpHandler;
-import fr.hyriode.lobby.leaderboard.LeaderboardHandler;
-import fr.hyriode.lobby.placeholder.LobbyPlaceholder;
-import fr.hyriode.lobby.rewards.RewardManager;
+import fr.hyriode.hyrame.plugin.IPluginProvider;
+import fr.hyriode.hyrame.utils.LocationWrapper;
+import fr.hyriode.lobby.config.LobbyConfig;
+import fr.hyriode.lobby.game.LobbyGameManager;
+import fr.hyriode.lobby.leaderboard.LobbyLeaderboardManager;
+import fr.hyriode.lobby.listener.LanguageListener;
+import fr.hyriode.lobby.npc.LobbyNPCManager;
+import fr.hyriode.lobby.player.LobbyPlayerManager;
+import fr.hyriode.lobby.protocol.LobbyProtocol;
+import fr.hyriode.lobby.queue.LobbyQueueHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 public class HyriLobby extends JavaPlugin {
 
     private IHyrame hyrame;
+    private LobbyConfig config;
 
-    private LeaderboardHandler leaderboard;
-
-    private RewardManager rewardManager;
+    private LobbyPlayerManager playerManager;
+    private LobbyGameManager gameManager;
+    private LobbyNPCManager npcManager;
+    private LobbyLeaderboardManager leaderboardManager;
+    private LobbyProtocol protocol;
 
     @Override
     public void onEnable() {
         final ConsoleCommandSender sender = Bukkit.getConsoleSender();
+
         sender.sendMessage(ChatColor.GREEN + "  _    _            _ _           _     _           ");
         sender.sendMessage(ChatColor.GREEN + " | |  | |          (_) |         | |   | |          ");
         sender.sendMessage(ChatColor.GREEN + " | |__| |_   _ _ __ _| |     ___ | |__ | |__  _   _ ");
@@ -38,37 +47,116 @@ public class HyriLobby extends JavaPlugin {
         sender.sendMessage(ChatColor.GREEN + "          __/ |                                __/ |");
         sender.sendMessage(ChatColor.GREEN + "         |___/                                |___/ ");
 
-        //TODO Save config
-        //HyriAPI.get().getHystiaAPI().getConfigManager().
+        this.hyrame = HyrameLoader.load(new Provider());
 
-        this.hyrame = HyrameLoader.load(new HyriLobbyProvider(this));
+        final UUID worldId = IHyrame.WORLD.get().getUID();
+        
+        this.config = new LobbyConfig(
+                new LocationWrapper(worldId, 0.5, 190.5, 0.5, 90, 0),
+                new LocationWrapper(worldId, -277, 150, -39, 90, 0),
+                new LocationWrapper(worldId, 0.5, 188.0, -23.5, -180, 0),
+                new LocationWrapper(worldId,-348.5, 163, -53.5, 135, 0),
+                new LocationWrapper(worldId, 0.5, 188, -26.5, -180, 0),
+                Arrays.asList(
+                        new LocationWrapper(worldId,-68.5, 197, -116.5, 90, 0),
+                        new LocationWrapper(worldId, -165.5, 203, -129.5, 90, 0),
+                        new LocationWrapper(worldId, -268.5, 220, -146.5, 90, 0),
+                        new LocationWrapper(worldId, -301.5, 236, -67.5, 0, 0),
+                        new LocationWrapper(worldId, -284.5, 244, 13.5, 0, 0),
+                        new LocationWrapper(worldId, -195.5, 228, 84.5, 0, 0),
+                        new LocationWrapper(worldId, -213.5, 232, 116.5, -90, 0)
+                ),
+                new LocationWrapper(worldId, -153.5, 237, 107.5),
+                new LobbyConfig.Zone(
+                        new LocationWrapper(worldId, -283, 150, -32),
+                        new LocationWrapper(worldId, -289, 182, -48)),
+                new LobbyConfig.Zone(
+                        new LocationWrapper(worldId, -369, 156, -49),
+                        new LocationWrapper(worldId, -343, 149, -78)));
 
-        LobbyAPI.get().start(str -> Arrays.asList(str).forEach(s -> sender.sendMessage(ChatColor.DARK_GREEN + s)));
+        this.playerManager = new LobbyPlayerManager(this);
+        this.gameManager = new LobbyGameManager();
+        this.npcManager = new LobbyNPCManager(this);
+        this.leaderboardManager = new LobbyLeaderboardManager(this);
+        this.protocol = new LobbyProtocol();
 
-        this.leaderboard = new LeaderboardHandler(this);
-        this.rewardManager = new RewardManager();
+        HyriAPI.get().getEventBus().register(new LanguageListener(this));
+        HyriAPI.get().getQueueManager().addHandler(new LobbyQueueHandler(this));
 
-        IHyrame.WORLD.get().setGameRuleValue("doFireTick", "false");
-
-        PlaceholderAPI.registerHandler(new LobbyPlaceholder(this.hyrame));
-        HyriAPI.get().getServer().setSlots(HyggLobbyAPI.MAX_PLAYERS);
         HyriAPI.get().getServer().setState(IHyriServer.State.READY);
+        HyriAPI.get().getServer().setSlots(HyggLobbyAPI.MAX_PLAYERS);
     }
 
     @Override
     public void onDisable() {
-        this.hyrame.getListenerManager().getListener(JumpHandler.class).stop();
+        this.playerManager.handleStop();
+    }
+
+    public LobbyConfig config() {
+        return this.config;
     }
 
     public IHyrame getHyrame() {
         return this.hyrame;
     }
 
-    public LeaderboardHandler getLeaderboardHandler() {
-        return this.leaderboard;
+    public LobbyPlayerManager getPlayerManager() {
+        return this.playerManager;
     }
 
-    public RewardManager getRewardManager() {
-        return this.rewardManager;
+    public LobbyGameManager getGameManager() {
+        return this.gameManager;
     }
+
+    public LobbyNPCManager getNPCManager() {
+        return this.npcManager;
+    }
+
+    public LobbyLeaderboardManager getLeaderboardManager() {
+        return this.leaderboardManager;
+    }
+
+    public LobbyProtocol getProtocol() {
+        return this.protocol;
+    }
+
+    /**
+     * The provider instance for {@linkplain IHyrame Hyrame}
+     */
+    private class Provider implements IPluginProvider {
+
+        private static final String PACKAGE = "fr.hyriode.lobby";
+
+        @Override
+        public JavaPlugin getPlugin() {
+            return HyriLobby.this;
+        }
+
+        @Override
+        public String getId() {
+            return "lobby";
+        }
+
+        @Override
+        public String[] getCommandsPackages() {
+            return new String[] {PACKAGE};
+        }
+
+        @Override
+        public String[] getListenersPackages() {
+            return new String[] {PACKAGE};
+        }
+
+        @Override
+        public String[] getItemsPackages() {
+            return new String[] {PACKAGE};
+        }
+
+        @Override
+        public String getLanguagesPath() {
+            return "/lang/";
+        }
+
+    }
+
 }
