@@ -32,7 +32,7 @@ public class LobbyJumpLeaderboard {
 
     public void updatePlayerScore(UUID playerId, long time) {
         final IHyriLeaderboard leaderboard = HyriAPI.get().getLeaderboardProvider().getLeaderboard(TYPE, NAME);
-        final long oldTime = (long) leaderboard.getScore(HyriLeaderboardScope.TOTAL, playerId);
+        final long oldTime = (long) -leaderboard.getScore(HyriLeaderboardScope.TOTAL, playerId);
 
         if (time < oldTime || oldTime <= 0) {
             leaderboard.setScore(playerId, -time);
