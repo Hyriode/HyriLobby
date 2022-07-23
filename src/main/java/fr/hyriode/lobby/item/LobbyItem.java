@@ -2,7 +2,7 @@ package fr.hyriode.lobby.item;
 
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.item.HyriItem;
-import fr.hyriode.hyrame.language.HyriLanguageMessage;
+import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.lobby.HyriLobby;
 import org.bukkit.Material;
 import org.bukkit.event.player.PlayerInteractEvent;

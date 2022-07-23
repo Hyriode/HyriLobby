@@ -1,6 +1,6 @@
 package fr.hyriode.lobby.jump;
 
-import fr.hyriode.hyrame.language.HyriLanguageMessage;
+import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.hyrame.utils.LocationWrapper;
 import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.HyriLobby;
@@ -80,7 +80,7 @@ public class LobbyJump {
     }
 
     public String getPrefix(Player player) {
-        return HyriLanguageMessage.get("prefix.jump").getForPlayer(player) + ChatColor.WHITE + " " + Symbols.LINE_VERTICAL_BOLD + " ";
+        return HyriLanguageMessage.get("prefix.jump").getValue(player) + ChatColor.WHITE + " " + Symbols.LINE_VERTICAL_BOLD + " ";
     }
 
 }

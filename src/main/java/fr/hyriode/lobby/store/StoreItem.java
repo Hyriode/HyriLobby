@@ -3,7 +3,7 @@ package fr.hyriode.lobby.store;
 import fr.hyriode.api.money.IHyriMoney;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.item.ItemBuilder;
-import fr.hyriode.hyrame.language.HyriLanguageMessage;
+import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.store.ConfirmPurchaseGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
@@ -45,7 +45,7 @@ public class StoreItem extends StoreIcon {
     }
 
     public ItemStack createItem(IHyriPlayer account, boolean purchaseLine) {
-        final String description = this.getDescription().getForPlayer(account);
+        final String description = this.getDescription().getValue(account);
         final List<String> lore = new ArrayList<>(Arrays.asList(description.split("\n")));
 
         if (this.price >= 0) {
@@ -59,7 +59,7 @@ public class StoreItem extends StoreIcon {
         }
 
         return new ItemBuilder(this.itemStack.clone())
-                .withName(this.getName().getForPlayer(account))
+                .withName(this.getName().getValue(account))
                 .withLore(lore)
                 .withAllItemFlags()
                 .build();

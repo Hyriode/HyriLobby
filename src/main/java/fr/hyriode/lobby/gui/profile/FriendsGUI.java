@@ -74,7 +74,7 @@ public class FriendsGUI extends LobbyGUI {
     private ItemStack createFriendItem(IHyriFriend friend) {
         final UUID friendId = friend.getUniqueId();
         final Date whenAdded = friend.getWhenAdded();
-        final IHyriPlayer cachedAccount = HyriAPI.get().getPlayerManager().getPlayerFromRedis(friendId);
+        final IHyriPlayer cachedAccount = HyriAPI.get().getPlayerManager().getCachedPlayer(friendId);
         final boolean online = cachedAccount != null && cachedAccount.isOnline();
         final List<String> lore = LobbyMessage.FRIENDS_FRIEND_ITEM_LORE.asList(this.account);
         final BiConsumer<String, String> replacer = (character, value) -> ListUtil.replace(lore, character, value);

@@ -2,7 +2,7 @@ package fr.hyriode.lobby.jump.item;
 
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.item.HyriItem;
-import fr.hyriode.hyrame.language.HyriLanguageMessage;
+import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.jump.LobbyJump;
 import fr.hyriode.lobby.language.LobbyMessage;
@@ -32,7 +32,7 @@ public class LobbyJumpCheckPointItem extends HyriItem<HyriLobby> {
 
             if (jump.getActualCheckPoint() != null) {
                 player.teleport(jump.getActualCheckPoint().getLocation());
-                player.sendMessage(LobbyMessage.JUMP_GO_BACK_CHECKPOINT.asLang().getForPlayer(player));
+                player.sendMessage(LobbyMessage.JUMP_GO_BACK_CHECKPOINT.asLang().getValue(player));
             }
         }
     }

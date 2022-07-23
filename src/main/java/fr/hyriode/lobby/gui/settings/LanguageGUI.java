@@ -1,19 +1,16 @@
 package fr.hyriode.lobby.gui.settings;
 
+import fr.hyriode.api.language.HyriLanguage;
 import fr.hyriode.api.player.IHyriPlayer;
-import fr.hyriode.api.settings.HyriLanguage;
 import fr.hyriode.api.settings.IHyriPlayerSettings;
 import fr.hyriode.hyrame.item.ItemBuilder;
-import fr.hyriode.hyrame.language.IHyriLanguageManager;
 import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.LobbyGUI;
 import fr.hyriode.lobby.language.Language;
 import fr.hyriode.lobby.language.LobbyMessage;
-import fr.hyriode.lobby.util.UsefulHead;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
@@ -56,8 +53,6 @@ public class LanguageGUI extends LobbyGUI {
                     final IHyriPlayer newAccount = IHyriPlayer.get(this.owner.getUniqueId());
 
                     this.owner.sendMessage(LobbyMessage.LANG_UPDATED_MESSAGE.asString(newAccount).replace("%lang%", language.getDisplay(newAccount)));
-
-                    IHyriLanguageManager.Provider.get().updatePlayerLanguage(this.owner);
                 });
 
                 index++;

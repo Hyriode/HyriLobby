@@ -2,7 +2,7 @@ package fr.hyriode.lobby.language;
 
 import fr.hyriode.api.HyriConstants;
 import fr.hyriode.api.player.IHyriPlayer;
-import fr.hyriode.hyrame.language.HyriLanguageMessage;
+import fr.hyriode.api.language.HyriLanguageMessage;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -211,7 +211,7 @@ public enum LobbyMessage {
     }
 
     public String asString(IHyriPlayer account) {
-        return this.formatter.apply(account, this.asLang().getForPlayer(account));
+        return this.formatter.apply(account, this.asLang().getValue(account));
     }
 
     public String asString(Player player) {

@@ -1,13 +1,11 @@
 package fr.hyriode.lobby.language;
 
+import fr.hyriode.api.language.HyriLanguage;
+import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.player.IHyriPlayer;
-import fr.hyriode.api.settings.HyriLanguage;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.item.ItemHead;
-import fr.hyriode.hyrame.language.HyriLanguageMessage;
-import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.util.ListUtil;
-import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
@@ -43,7 +41,7 @@ public enum Language implements ItemHead {
     }
 
     public String getDisplay(IHyriPlayer account) {
-        return this.getDisplay().getForPlayer(account);
+        return this.getDisplay().getValue(account);
     }
 
     @Override

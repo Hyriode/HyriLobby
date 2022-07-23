@@ -128,7 +128,7 @@ public class GameSelectorGUI extends LobbyGUI {
         lore.add(LobbyMessage.PLAY.asString(this.owner));
 
         this.setItem(slot, new ItemBuilder(game.getIcon())
-                .withName(ChatColor.DARK_AQUA + gameInfo.getDisplayName() + (state != State.OPENED ? " " + state.getDisplay().getForPlayer(this.owner) : ""))
+                .withName(ChatColor.DARK_AQUA + gameInfo.getDisplayName() + (state != State.OPENED ? " " + state.getDisplay().getValue(this.owner) : ""))
                 .withLore(lore)
                 .build(), event -> new GameTypeSelectorGUI(this.plugin, this.owner, game, true).open());
     }

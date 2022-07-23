@@ -4,7 +4,7 @@ import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.HyriConstants;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.game.scoreboard.HyriScoreboardIpConsumer;
-import fr.hyriode.hyrame.language.HyriLanguageMessage;
+import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.hyrame.scoreboard.HyriScoreboard;
 import fr.hyriode.hyrame.utils.TimeUtil;
 import fr.hyriode.lobby.HyriLobby;
@@ -53,7 +53,7 @@ public class LobbyScoreboard extends HyriScoreboard {
     }
 
     private String getPlayers() {
-        return this.getLinePrefix("players").replace("%value%", String.valueOf(HyriAPI.get().getNetworkManager().getNetwork().getPlayerCount().getPlayers()));
+        return this.getLinePrefix("players").replace("%value%", String.valueOf(HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter().getPlayers()));
     }
 
     private String getServer() {
@@ -68,7 +68,7 @@ public class LobbyScoreboard extends HyriScoreboard {
         final String line = DASH + this.getLinePrefix("rank");
 
         if (this.account.getRank().isDefault()) {
-            return line.replace("%value%", HyriLanguageMessage.get("scoreboard.no-rank.value").getForPlayer(this.account));
+            return line.replace("%value%", HyriLanguageMessage.get("scoreboard.no-rank.value").getValue(this.account));
         }
         return line.replace("%value%", this.account.getPrefix());
     }
@@ -93,7 +93,7 @@ public class LobbyScoreboard extends HyriScoreboard {
     }
 
     private String getLinePrefix(String prefix) {
-        return HyriLanguageMessage.get("scoreboard." + prefix + ".display").getForPlayer(this.account);
+        return HyriLanguageMessage.get("scoreboard." + prefix + ".display").getValue(this.account);
     }
 
 }

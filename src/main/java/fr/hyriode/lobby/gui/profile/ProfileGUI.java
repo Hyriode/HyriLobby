@@ -1,14 +1,8 @@
 package fr.hyriode.lobby.gui.profile;
 
-import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.leveling.IHyriLeveling;
-import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.rank.HyriPlus;
-import fr.hyriode.hyggdrasil.api.lobby.HyggLobbyAPI;
-import fr.hyriode.hyrame.inventory.HyriInventory;
 import fr.hyriode.hyrame.item.ItemBuilder;
-import fr.hyriode.hyrame.language.HyriLanguageMessage;
-import fr.hyriode.hyrame.utils.DurationConverter;
 import fr.hyriode.hyrame.utils.DurationFormatter;
 import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.hyrame.utils.TimeUtil;
@@ -26,8 +20,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

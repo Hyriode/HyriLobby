@@ -2,10 +2,9 @@ package fr.hyriode.lobby.game;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.game.IHyriGameInfo;
-import fr.hyriode.api.network.HyriPlayerCount;
+import fr.hyriode.api.language.HyriLanguageMessage;
+import fr.hyriode.api.network.counter.IHyriCategoryCounter;
 import fr.hyriode.api.util.Skin;
-import fr.hyriode.hyrame.language.HyriLanguageMessage;
-import fr.hyriode.hyrame.npc.NPC;
 import fr.hyriode.hyrame.reflection.entity.EnumItemSlot;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.store.StoreCategory;
@@ -70,7 +69,7 @@ public class LobbyGame {
 
     public List<String> getDescription(Player player) {
         final List<String> outputLore = new ArrayList<>();
-        final String[] lines = this.description.getForPlayer(player).split("\n");
+        final String[] lines = this.description.getValue(player).split("\n");
 
         for(String line : lines){
             outputLore.add(ChatColor.GRAY + line);
@@ -83,19 +82,19 @@ public class LobbyGame {
     }
 
     public String formatType(Player player) {
-        return LobbyMessage.TYPE_LINE.asString(player) + this.type.getForPlayer(player);
+        return LobbyMessage.TYPE_LINE.asString(player) + this.type.getValue(player);
     }
 
     public IHyriGameInfo getGameInfo() {
         return this.gameInfo;
     }
 
-    public HyriPlayerCount getPlayerCounter() {
-        return HyriAPI.get().getNetworkManager().getNetwork().getPlayerCount().getCategory(this.name);
+    public IHyriCategoryCounter getPlayerCounter() {
+        return HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter().getCategory(this.name);
     }
 
     public int getPlayers() {
-        final HyriPlayerCount counter = this.getPlayerCounter();
+        final IHyriCategoryCounter counter = this.getPlayerCounter();
 
         if (counter == null) {
             return 0;

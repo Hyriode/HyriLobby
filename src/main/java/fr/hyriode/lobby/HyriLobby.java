@@ -2,7 +2,7 @@ package fr.hyriode.lobby;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.server.IHyriServer;
-import fr.hyriode.hyggdrasil.api.lobby.HyggLobbyAPI;
+import fr.hyriode.hylios.api.lobby.LobbyAPI;
 import fr.hyriode.hyrame.HyrameLoader;
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.plugin.IPluginProvider;
@@ -13,7 +13,6 @@ import fr.hyriode.lobby.leaderboard.LobbyLeaderboardManager;
 import fr.hyriode.lobby.listener.LanguageListener;
 import fr.hyriode.lobby.npc.LobbyNPCManager;
 import fr.hyriode.lobby.player.LobbyPlayerManager;
-import fr.hyriode.lobby.protocol.LobbyProtocol;
 import fr.hyriode.lobby.queue.LobbyQueueHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -32,7 +31,6 @@ public class HyriLobby extends JavaPlugin {
     private LobbyGameManager gameManager;
     private LobbyNPCManager npcManager;
     private LobbyLeaderboardManager leaderboardManager;
-    private LobbyProtocol protocol;
 
     @Override
     public void onEnable() {
@@ -78,13 +76,12 @@ public class HyriLobby extends JavaPlugin {
         this.gameManager = new LobbyGameManager();
         this.npcManager = new LobbyNPCManager(this);
         this.leaderboardManager = new LobbyLeaderboardManager(this);
-        this.protocol = new LobbyProtocol();
 
         HyriAPI.get().getEventBus().register(new LanguageListener(this));
         HyriAPI.get().getQueueManager().addHandler(new LobbyQueueHandler(this));
 
         HyriAPI.get().getServer().setState(IHyriServer.State.READY);
-        HyriAPI.get().getServer().setSlots(HyggLobbyAPI.MAX_PLAYERS);
+        HyriAPI.get().getServer().setSlots(LobbyAPI.MAX_PLAYERS);
     }
 
     @Override
@@ -114,10 +111,6 @@ public class HyriLobby extends JavaPlugin {
 
     public LobbyLeaderboardManager getLeaderboardManager() {
         return this.leaderboardManager;
-    }
-
-    public LobbyProtocol getProtocol() {
-        return this.protocol;
     }
 
     /**

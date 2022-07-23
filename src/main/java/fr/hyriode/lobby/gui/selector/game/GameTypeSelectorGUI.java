@@ -3,7 +3,7 @@ package fr.hyriode.lobby.gui.selector.game;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.game.HyriGameType;
 import fr.hyriode.api.game.IHyriGameInfo;
-import fr.hyriode.api.network.HyriNetworkCount;
+import fr.hyriode.api.network.counter.IHyriGlobalCounter;
 import fr.hyriode.api.party.IHyriParty;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.item.ItemBuilder;
@@ -73,17 +73,17 @@ public class GameTypeSelectorGUI extends LobbyGUI {
         final IHyriGameInfo gameInfo = this.game.getGameInfo();
         final Set<Map.Entry<String, HyriGameType>> entries = gameInfo.getTypes().entrySet();
         final Stream<Map.Entry<String, HyriGameType>> entriesStream = entries.stream().sorted(Comparator.comparingInt(o -> o.getValue().getId()));
-        final HyriNetworkCount playerCount = HyriAPI.get().getNetworkManager().getNetwork().getPlayerCount();
+        final IHyriGlobalCounter playerCount = HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter();
 
         for (Map.Entry<String, HyriGameType> entry : entriesStream.collect(Collectors.toList())) {
             final String gameTypeName = entry.getKey();
-            final int players = playerCount.getCategory(gameInfo.getName()).getType(gameTypeName);
+            final int players = playerCount.getCategory(gameInfo.getName()).getPlayers(gameTypeName);
 
             for (int i : SlotConfiguration.getSlots(entries.size())) {
                 if(this.inventory.getItem(i) == null) {
                     this.setItem(i, new ItemBuilder(this.game.getIcon())
                             .withName(ChatColor.DARK_AQUA + entry.getValue().getDisplayName())
-                            .withLore(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.owner) + ChatColor.AQUA + players, "", LobbyMessage.PLAY.asLang().getForPlayer(this.owner))
+                            .withLore(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.owner) + ChatColor.AQUA + players, "", LobbyMessage.PLAY.asLang().getValue(this.owner))
                             .build(), event -> this.sendPlayerToGame(this.owner, gameTypeName));
                     break;
                 }
@@ -98,13 +98,13 @@ public class GameTypeSelectorGUI extends LobbyGUI {
         lore.add("");
         lore.addAll(game.getDescription(this.owner));
         lore.add("");
-        lore.add(LobbyMessage.LOBBY_PLAYERS_LINE.asLang().getForPlayer(this.owner) + ChatColor.AQUA + this.getPlayersCount());
+        lore.add(LobbyMessage.LOBBY_PLAYERS_LINE.asLang().getValue(this.owner) + ChatColor.AQUA + this.getPlayersCount());
 
         return lore;
     }
 
     private int getPlayersCount() {
-        return HyriAPI.get().getNetworkManager().getNetwork().getPlayerCount().getCategory(this.game.getName()).getPlayers();
+        return HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter().getCategory(this.game.getName()).getPlayers();
     }
 
     private void sendPlayerToGame(Player player, String type) {
@@ -116,7 +116,9 @@ public class GameTypeSelectorGUI extends LobbyGUI {
         } else if (party != null && !party.isLeader(player.getUniqueId())) {
             player.sendMessage(LobbyMessage.IN_PARTY_ERROR.asString(player));
         } else {
-            HyriAPI.get().getQueueManager().addPlayerInQueueWithPartyCheck(player.getUniqueId(), this.game.getName(), type);
+            HyriAPI.get().getQueueManager().addPlayerInQueue(player.getUniqueId(), this.game.getName(), type, null, true);
+
+            this.owner.closeInventory();
         }
     }
 

@@ -1,10 +1,11 @@
 package fr.hyriode.lobby.listener;
 
 import fr.hyriode.api.event.HyriEventHandler;
-import fr.hyriode.hyrame.language.HyriLanguageUpdatedEvent;
+import fr.hyriode.api.language.HyriLanguageUpdatedEvent;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.npc.LobbyNPCHandler;
 import fr.hyriode.lobby.player.LobbyPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 
@@ -22,18 +23,25 @@ public class LanguageListener {
 
     @HyriEventHandler
     public void onLanguageUpdated(HyriLanguageUpdatedEvent event) {
-        final Player player = event.getPlayer();
-        final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
+        final Player player = Bukkit.getPlayer(event.getPlayerId());
 
-        for (LobbyNPCHandler handler : this.plugin.getNPCManager().getNPCHandlers()) {
-            handler.onLogout(player);
-            handler.onLogin(player);
+        if (player == null) {
+            return;
         }
+        
+        Bukkit.getScheduler().runTaskLater(this.plugin, () -> {
+            final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
 
-        lobbyPlayer.getLobbyScoreboard().update();
-        lobbyPlayer.giveDefaultItems();
+            for (LobbyNPCHandler handler : this.plugin.getNPCManager().getNPCHandlers()) {
+                handler.onLogout(player);
+                handler.onLogin(player);
+            }
 
-        this.plugin.getLeaderboardManager().refreshLeaderboards(player);
+            lobbyPlayer.getLobbyScoreboard().update();
+            lobbyPlayer.giveDefaultItems();
+
+            this.plugin.getLeaderboardManager().refreshLeaderboards(player);
+        }, 1L);
     }
 
 }
