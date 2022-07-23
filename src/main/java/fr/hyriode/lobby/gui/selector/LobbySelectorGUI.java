@@ -1,6 +1,5 @@
 package fr.hyriode.lobby.gui.selector;
 
-import com.sun.corba.se.spi.ior.IdentifiableFactory;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.friend.IHyriFriend;
 import fr.hyriode.api.player.IHyriPlayer;
