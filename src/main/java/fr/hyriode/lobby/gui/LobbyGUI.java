@@ -52,15 +52,7 @@ public abstract class LobbyGUI extends PaginatedInventory {
     @Override
     public void updatePagination(int page, List<PaginatedItem> items) {
         if (this.pagesItem) {
-            this.addPagesItems(this.previousPageSlot, this.nextPageSlot);
-        }
-    }
-
-    protected void border() {
-        final ItemStack item = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, 9).withName("§8").withAllItemFlags().build();
-
-        for (int barrierSlot : InventoryUtil.getBorderSlots()) {
-            this.setItem(barrierSlot, item);
+            this.addDefaultPagesItems(this.previousPageSlot, this.nextPageSlot);
         }
     }
 
@@ -77,30 +69,7 @@ public abstract class LobbyGUI extends PaginatedInventory {
         this.previousPageSlot = previousSlot;
         this.nextPageSlot = nextSlot;
 
-        final int currentPage = this.paginationManager.currentPage() + 1;
-        final int totalPages = this.paginationManager.getPagination().totalPages();
-
-        this.setItem(previousSlot, ItemBuilder.asHead()
-                .withName(LobbyMessage.PREVIOUS_ITEM_NAME.asString(this.account).replace("%current_page%", String.valueOf(currentPage)).replace("%total_pages%", String.valueOf(totalPages)))
-                .withLore(LobbyMessage.PREVIOUS_ITEM_LORE.asList(this.account))
-                .withHeadTexture(UsefulHead.MONITOR_BACKWARD)
-                .build(), event -> this.paginationManager.previousPage());
-
-        this.setItem(nextSlot, ItemBuilder.asHead()
-                .withName(LobbyMessage.NEXT_ITEM_NAME.asString(this.account).replace("%current_page%", String.valueOf(currentPage)).replace("%total_pages%", String.valueOf(totalPages)))
-                .withLore(LobbyMessage.NEXT_ITEM_LORE.asList(this.account))
-                .withHeadTexture(UsefulHead.MONITOR_FORWARD)
-                .build(), event -> this.paginationManager.nextPage());
-    }
-
-    @Override
-    public void onClick(InventoryClickEvent event) {
-        event.setCancelled(true);
-    }
-
-    @Override
-    public void onClose(InventoryCloseEvent event) {
-        this.account.update();
+        this.addDefaultPagesItems(previousSlot, nextSlot);
     }
 
 }

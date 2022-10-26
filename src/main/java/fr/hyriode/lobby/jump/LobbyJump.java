@@ -79,8 +79,4 @@ public class LobbyJump {
         return startTime;
     }
 
-    public String getPrefix(Player player) {
-        return HyriLanguageMessage.get("prefix.jump").getValue(player) + ChatColor.WHITE + " " + Symbols.LINE_VERTICAL_BOLD + " ";
-    }
-
 }

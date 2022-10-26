@@ -37,4 +37,5 @@ public class LobbyJumpTimer extends BukkitRunnable {
     public void setCurrentTime(long currentTime) {
         this.currentTime = currentTime;
     }
+
 }

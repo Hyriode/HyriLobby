@@ -31,7 +31,7 @@ public class LanguageGUI extends LobbyGUI {
     protected void init() {
         this.inventory.clear();
 
-        this.border();
+        this.applyDesign(Design.BORDER);
 
         final List<Language> languages = Arrays.asList(Language.values());
 

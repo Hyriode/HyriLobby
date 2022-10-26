@@ -82,7 +82,7 @@ public class GameTypeSelectorGUI extends LobbyGUI {
             for (int i : SlotConfiguration.getSlots(entries.size())) {
                 if(this.inventory.getItem(i) == null) {
                     this.setItem(i, new ItemBuilder(this.game.getIcon())
-                            .withName(ChatColor.DARK_AQUA + entry.getValue().getDisplayName())
+                            .withName(ChatColor.AQUA + entry.getValue().getDisplayName())
                             .withLore(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.owner) + ChatColor.AQUA + players, "", LobbyMessage.PLAY.asLang().getValue(this.owner))
                             .build(), event -> this.sendPlayerToGame(this.owner, gameTypeName));
                     break;
@@ -122,7 +122,7 @@ public class GameTypeSelectorGUI extends LobbyGUI {
         }
     }
 
-    private enum SlotConfiguration {
+    public enum SlotConfiguration {
 
         ONE(1, Collections.singletonList(31)),
         TWO(2, Arrays.asList(30, 32)),

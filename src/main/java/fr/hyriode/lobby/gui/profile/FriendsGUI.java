@@ -7,11 +7,14 @@ import fr.hyriode.hyrame.inventory.pagination.PaginatedItem;
 import fr.hyriode.hyrame.inventory.pagination.PaginationArea;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.signgui.SignGUI;
-import fr.hyriode.hyrame.utils.*;
+import fr.hyriode.hyrame.utils.DurationFormatter;
+import fr.hyriode.hyrame.utils.Pagination;
+import fr.hyriode.hyrame.utils.Symbols;
+import fr.hyriode.hyrame.utils.TimeUtil;
+import fr.hyriode.hyrame.utils.list.ListReplacer;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.LobbyGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
-import fr.hyriode.lobby.util.ListUtil;
 import fr.hyriode.lobby.util.UsefulHead;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -19,8 +22,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.*;
-import java.util.function.BiConsumer;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 public class FriendsGUI extends LobbyGUI {
@@ -34,7 +38,7 @@ public class FriendsGUI extends LobbyGUI {
 
     @Override
     protected void init() {
-        this.border();
+        this.applyDesign(Design.BORDER);
 
         this.setItem(4, ItemBuilder.asHead()
                 .withHeadTexture(UsefulHead.MONITOR_PLUS)
@@ -74,23 +78,22 @@ public class FriendsGUI extends LobbyGUI {
     private ItemStack createFriendItem(IHyriFriend friend) {
         final UUID friendId = friend.getUniqueId();
         final Date whenAdded = friend.getWhenAdded();
-        final IHyriPlayer cachedAccount = HyriAPI.get().getPlayerManager().getCachedPlayer(friendId);
-        final boolean online = cachedAccount != null && cachedAccount.isOnline();
-        final List<String> lore = LobbyMessage.FRIENDS_FRIEND_ITEM_LORE.asList(this.account);
-        final BiConsumer<String, String> replacer = (character, value) -> ListUtil.replace(lore, character, value);
+        final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(friendId);
         final long friendsFor = System.currentTimeMillis() - whenAdded.getTime();
         final String formattedFriendsFor = new DurationFormatter()
                 .withDays(true)
                 .withSeconds(friendsFor < 60 * 1000L)
                 .format(this.account.getSettings().getLanguage(), friendsFor);
-
-        replacer.accept("%online%", online ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD);
-        replacer.accept("%friends_for%", formattedFriendsFor);
-        replacer.accept("%date%", TimeUtil.formatDate(whenAdded, "dd/MM/yyyy"));
+        final List<String> lore = ListReplacer.replace(LobbyMessage.FRIENDS_FRIEND_ITEM_LORE.asList(this.account), "%online%", account.isOnline() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
+                .replace("%friends_for%", formattedFriendsFor)
+                .replace("%date%", TimeUtil.formatDate(whenAdded, "dd/MM/yyyy"))
+                .replace("%premium%", account.isPremium() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
+                .replace("%level%", String.valueOf(account.getNetworkLeveling().getLevel()))
+                .list();
 
         return ItemBuilder.asHead()
                 .withPlayerHead(friendId)
-                .withName(HyriAPI.get().getPlayerManager().getPrefix(friendId))
+                .withName(account.getNameWithRank())
                 .withLore(lore)
                 .build();
     }

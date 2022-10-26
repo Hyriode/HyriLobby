@@ -9,18 +9,19 @@ import fr.hyriode.hyrame.plugin.IPluginProvider;
 import fr.hyriode.hyrame.utils.LocationWrapper;
 import fr.hyriode.lobby.config.LobbyConfig;
 import fr.hyriode.lobby.game.LobbyGameManager;
+import fr.hyriode.lobby.host.HostHandler;
 import fr.hyriode.lobby.leaderboard.LobbyLeaderboardManager;
 import fr.hyriode.lobby.listener.LanguageListener;
 import fr.hyriode.lobby.npc.LobbyNPCManager;
 import fr.hyriode.lobby.player.LobbyPlayerManager;
-import fr.hyriode.lobby.queue.LobbyQueueHandler;
+import fr.hyriode.lobby.queue.HostQueueHandler;
+import fr.hyriode.lobby.queue.NormalQueueHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
-import java.util.UUID;
 
 public class HyriLobby extends JavaPlugin {
 
@@ -31,6 +32,7 @@ public class HyriLobby extends JavaPlugin {
     private LobbyGameManager gameManager;
     private LobbyNPCManager npcManager;
     private LobbyLeaderboardManager leaderboardManager;
+    private HostHandler hostHandler;
 
     @Override
     public void onEnable() {
@@ -46,39 +48,39 @@ public class HyriLobby extends JavaPlugin {
         sender.sendMessage(ChatColor.GREEN + "         |___/                                |___/ ");
 
         this.hyrame = HyrameLoader.load(new Provider());
-
-        final UUID worldId = IHyrame.WORLD.get().getUID();
         
         this.config = new LobbyConfig(
-                new LocationWrapper(worldId, 0.5, 190.5, 0.5, 90, 0),
-                new LocationWrapper(worldId, -277, 150, -39, 90, 0),
-                new LocationWrapper(worldId, 0.5, 188.0, -23.5, -180, 0),
-                new LocationWrapper(worldId,-348.5, 163, -53.5, 135, 0),
-                new LocationWrapper(worldId, 0.5, 188, -26.5, -180, 0),
+                new LocationWrapper(0.5, 190.5, 0.5, 90, 0),
+                new LocationWrapper(-277, 150, -39, 90, 0),
+                new LocationWrapper(0.5, 188.0, -23.5, -180, 0),
+                new LocationWrapper(-348.5, 163, -53.5, 135, 0),
+                new LocationWrapper(0.5, 188, -26.5, -180, 0),
                 Arrays.asList(
-                        new LocationWrapper(worldId,-68.5, 197, -116.5, 90, 0),
-                        new LocationWrapper(worldId, -165.5, 203, -129.5, 90, 0),
-                        new LocationWrapper(worldId, -268.5, 220, -146.5, 90, 0),
-                        new LocationWrapper(worldId, -301.5, 236, -67.5, 0, 0),
-                        new LocationWrapper(worldId, -284.5, 244, 13.5, 0, 0),
-                        new LocationWrapper(worldId, -195.5, 228, 84.5, 0, 0),
-                        new LocationWrapper(worldId, -213.5, 232, 116.5, -90, 0)
+                        new LocationWrapper(-68.5, 197, -116.5, 90, 0),
+                        new LocationWrapper(-165.5, 203, -129.5, 90, 0),
+                        new LocationWrapper(-268.5, 220, -146.5, 90, 0),
+                        new LocationWrapper(-301.5, 236, -67.5, 0, 0),
+                        new LocationWrapper(-284.5, 244, 13.5, 0, 0),
+                        new LocationWrapper(-195.5, 228, 84.5, 0, 0),
+                        new LocationWrapper(-213.5, 232, 116.5, -90, 0)
                 ),
-                new LocationWrapper(worldId, -153.5, 237, 107.5),
+                new LocationWrapper(-153.5, 237, 107.5),
                 new LobbyConfig.Zone(
-                        new LocationWrapper(worldId, -283, 150, -32),
-                        new LocationWrapper(worldId, -289, 182, -48)),
+                        new LocationWrapper(-283, 150, -32),
+                        new LocationWrapper(-289, 182, -48)),
                 new LobbyConfig.Zone(
-                        new LocationWrapper(worldId, -369, 156, -49),
-                        new LocationWrapper(worldId, -343, 149, -78)));
+                        new LocationWrapper(-369, 156, -49),
+                        new LocationWrapper(-343, 149, -78)));
 
         this.playerManager = new LobbyPlayerManager(this);
         this.gameManager = new LobbyGameManager();
         this.npcManager = new LobbyNPCManager(this);
         this.leaderboardManager = new LobbyLeaderboardManager(this);
+        this.hostHandler = new HostHandler(this);
 
         HyriAPI.get().getEventBus().register(new LanguageListener(this));
-        HyriAPI.get().getQueueManager().addHandler(new LobbyQueueHandler(this));
+        HyriAPI.get().getQueueManager().addHandler(new NormalQueueHandler(this));
+        HyriAPI.get().getQueueManager().addHandler(new HostQueueHandler(this));
 
         HyriAPI.get().getServer().setState(IHyriServer.State.READY);
         HyriAPI.get().getServer().setSlots(LobbyAPI.MAX_PLAYERS);
@@ -111,6 +113,10 @@ public class HyriLobby extends JavaPlugin {
 
     public LobbyLeaderboardManager getLeaderboardManager() {
         return this.leaderboardManager;
+    }
+
+    public HostHandler getHostHandler() {
+        return this.hostHandler;
     }
 
     /**

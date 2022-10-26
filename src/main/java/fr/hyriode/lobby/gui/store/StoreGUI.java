@@ -22,7 +22,7 @@ public class StoreGUI extends LobbyGUI {
 
     @Override
     protected void init() {
-        this.border();
+        this.applyDesign(Design.BORDER);
 
         // Lootboxes
         this.setItem(21, ItemBuilder.asHead()
@@ -33,6 +33,7 @@ public class StoreGUI extends LobbyGUI {
 
         // Boosters
         this.setItem(22, new ItemBuilder(Material.POTION)
+                .withAllItemFlags()
                 .withName(LobbyMessage.STORE_BOOSTERS_NAME.asString(this.account))
                 .withLore(LobbyMessage.STORE_BOOSTERS_LORE.asList(this.account))
                 .build(), event -> this.openWithGoBack(49, new BoostersGUI(this.owner, this.plugin)));
@@ -43,16 +44,9 @@ public class StoreGUI extends LobbyGUI {
                 .withLore(LobbyMessage.STORE_RANKS_LORE.asList(this.account))
                 .withHeadTexture(UsefulHead.DIAMOND_BLOCK)
                 .build(), event -> this.openWithGoBack(49, new RanksGUI(this.owner, this.plugin)));
-
-        // Games
-        this.setItem(30, ItemBuilder.asHead()
-                .withHeadTexture(UsefulHead.CRATE)
-                .withName(LobbyMessage.STORE_GAMES_NAME.asString(this.account))
-                .withLore(LobbyMessage.STORE_GAMES_LORE.asList(this.account))
-                .build(), event -> this.openWithGoBack(49, new GamesGUI(this.owner, this.plugin)));
-
+        
         // Cosmetics
-        this.setItem(32, ItemBuilder.asHead()
+        this.setItem(31, ItemBuilder.asHead()
                 .withHeadTexture(UsefulHead.COSMETICS_CHEST)
                 .withName(LobbyMessage.STORE_COSMETICS_NAME.asString(this.account))
                 .withLore(LobbyMessage.STORE_COSMETICS_LORE.asList(this.account))

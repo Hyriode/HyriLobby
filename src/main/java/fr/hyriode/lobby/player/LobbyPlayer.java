@@ -60,9 +60,15 @@ public class LobbyPlayer {
         final Player player = this.asPlayer();
         final IHyriPlayer account = this.asHyriPlayer();
 
-        if (!account.isInModerationMode()) {
-            HyriAPI.get().getServer().addPlayerPlaying(player.getUniqueId());
+        if (teleport) {
+            this.teleportToSpawn();
         }
+
+        if (account.isInModerationMode()) {
+            return;
+        }
+
+        HyriAPI.get().getServer().addPlayerPlaying(player.getUniqueId());
 
         PlayerUtil.resetPlayer(player, true);
 
@@ -73,10 +79,6 @@ public class LobbyPlayer {
 
         if (account.getRank().isSuperior(HyriPlayerRankType.VIP_PLUS) || account.getRank().isStaff()) {
             player.setAllowFlight(true);
-        }
-
-        if (teleport) {
-            this.teleportToSpawn();
         }
 
         if (login) {
@@ -100,6 +102,10 @@ public class LobbyPlayer {
     }
 
     public void startJump() {
+        if (this.asHyriPlayer().isInModerationMode()) {
+            return;
+        }
+
         final Player player = this.asPlayer();
         final LobbyJump jump = new LobbyJump(this.plugin);
         final IHyriItemManager itemManager = this.plugin.getHyrame().getItemManager();
@@ -115,26 +121,30 @@ public class LobbyPlayer {
         itemManager.giveItem(player, 3, LobbyJumpCheckPointItem.class);
         itemManager.giveItem(player, 5, LobbyJumpLeaveItem.class);
 
-        player.sendMessage(jump.getPrefix(player) + LobbyMessage.JUMP_JOIN_MESSAGE.asString(player));
+        player.sendMessage(LobbyMessage.JUMP_JOIN_MESSAGE.asString(player));
 
         jump.getTimer().setOnTimeChanged(aLong -> {
             final SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
             format.setTimeZone(TimeZone.getTimeZone("GMT"));
             final String line = format.format(aLong * 1000);
 
-            new ActionBar(jump.getPrefix(player) + ChatColor.AQUA + line).send(player);
+            new ActionBar(ChatColor.AQUA + line).send(player);
         });
 
         player.getInventory().setHeldItemSlot(2);
     }
 
     public void endJump() {
+        if (this.asHyriPlayer().isInModerationMode()) {
+            return;
+        }
+
         final Player player = this.asPlayer();
         final long time = System.currentTimeMillis() - jump.getStartTime();
         final SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         final DecimalFormat decimal = new DecimalFormat("000");
 
-        player.sendMessage(this.jump.getPrefix(player) + LobbyMessage.JUMP_SUCCESS_ALL.asString(player).replace("%time%", format.format(time) + "." + decimal.format(time % 1000)));
+        player.sendMessage(LobbyMessage.JUMP_SUCCESS_ALL.asString(player).replace("%time%", format.format(time) + "." + decimal.format(time % 1000)));
 
         this.jump.getTimer().cancel();
         this.jump.setActualCheckPoint(null);
@@ -153,7 +163,7 @@ public class LobbyPlayer {
 
         this.jump.getTimer().setCurrentTime(0);
 
-        player.sendMessage(this.jump.getPrefix(player) + LobbyMessage.JUMP_RESET.asString(player));
+        player.sendMessage(LobbyMessage.JUMP_RESET.asString(player));
     }
 
     public void leaveJump(boolean teleport) {
@@ -163,7 +173,7 @@ public class LobbyPlayer {
 
         final Player player = this.asPlayer();
 
-        player.sendMessage(this.jump.getPrefix(player) + LobbyMessage.JUMP_LEAVE_MESSAGE.asString(player));
+        player.sendMessage(LobbyMessage.JUMP_LEAVE_MESSAGE.asString(player));
 
         this.jump.getTimer().cancel();
         this.jump.setActualCheckPoint(null);
@@ -179,6 +189,10 @@ public class LobbyPlayer {
     }
 
     public void setInPvP(boolean inPvp) {
+        if (this.asHyriPlayer().isInModerationMode()) {
+            return;
+        }
+
         if (inPvp) {
             final Player player = this.asPlayer();
 
@@ -212,6 +226,10 @@ public class LobbyPlayer {
         final IHyriParty party = account.hasParty() ? HyriAPI.get().getPartyManager().getParty(account.getParty()) : null;
         final IHyriItemManager item = this.plugin.getHyrame().getItemManager();
         final IHyriQueueManager queueManager = HyriAPI.get().getQueueManager();
+
+        if (account.isInModerationMode()) {
+            return;
+        }
 
         player.getInventory().clear();
 

@@ -33,7 +33,7 @@ public class RanksGUI extends LobbyGUI {
         final String categoryId = CATEGORY.getId();
         final StoreItem vip = new StoreItem(itemCreator.apply(UsefulHead.GOLD_CUBE), categoryId, HyriPlayerRankType.VIP.getName(), 85000)
                 .withOwningCheck(owningCheck.apply(HyriPlayerRankType.VIP))
-                .whenBought(account -> {
+                .whenPurchased(account -> {
                     account.addTransaction("ranks", HyriPlayerRankType.VIP.getName(), null);
                     account.setPlayerRank(HyriPlayerRankType.VIP);
                 });
@@ -53,7 +53,7 @@ public class RanksGUI extends LobbyGUI {
 
     @Override
     protected void init() {
-        this.border();
+        this.applyDesign(Design.BORDER);
 
         final Consumer<InventoryClickEvent> onlyOnWebsite = event -> this.owner.sendMessage(LobbyMessage.STORE_ONLY_ON_WEBSITE_MESSAGE.asString(this.account));
         final StoreItem vip = CATEGORY.getItem(HyriPlayerRankType.VIP.getName());

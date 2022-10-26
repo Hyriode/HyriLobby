@@ -57,7 +57,9 @@ public class LobbySelectorGUI extends LobbyGUI {
                     break;
                 }
 
-                builder.withLore(this.getLobbyLore(this.getFriendsServers().get(serverName).size(), server)).build();
+                final List<IHyriPlayer> friends = this.getFriendsServers().get(serverName);
+
+                builder.withLore(this.getLobbyLore(friends == null ? 0 : friends.size(), server)).build();
             }
         }
     }
@@ -66,7 +68,7 @@ public class LobbySelectorGUI extends LobbyGUI {
     protected void init() {
         this.inventory.clear();
 
-        this.border();
+        this.applyDesign(Design.BORDER);
 
         final List<HyggServer> servers = this.serverManager.getLobbies();
         final HashMap<String, ItemStack> items = new HashMap<>();

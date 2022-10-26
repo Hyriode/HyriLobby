@@ -1,11 +1,13 @@
 package fr.hyriode.lobby.npc.model;
 
+import fr.hyriode.api.HyriAPI;
+import fr.hyriode.api.game.rotating.IHyriRotatingGame;
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.hologram.Hologram;
 import fr.hyriode.hyrame.npc.NPC;
 import fr.hyriode.hyrame.npc.NPCManager;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.settings.LanguageGUI;
+import fr.hyriode.lobby.gui.selector.game.RotatingGameTypeSelectorGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.npc.SingleNPCHandler;
 import fr.hyriode.lobby.npc.util.NPCPlayLine;
@@ -32,7 +34,7 @@ public class RotatingGameNPCHandler extends SingleNPCHandler {
 
         this.refreshTask = Bukkit.getScheduler().runTaskTimer(this.plugin, () -> {
             for (NPC npc : this.npcs.values()) {
-                npc.getHologram().updateLine(3);
+                npc.getHologram().updateLines();
             }
         }, 2L, 2L);
     }
@@ -48,15 +50,31 @@ public class RotatingGameNPCHandler extends SingleNPCHandler {
     public NPC createNPC(Player player) {
         final List<String> header = LobbyMessage.NPC_ROTATING_GAME_HEADER.asList(player);
 
-        header.add(" ");
-
         final NPC npc = NPCManager.createNPC(this.npcLocation, UsefulSkin.DICE_SKIN, header)
                 .setTrackingPlayer(false)
                 .setShowingToAll(false)
-                .addPlayer(player)
-                .setInteractCallback((rightClick, target) -> {});
+                .setInteractCallback((rightClick, target) -> {
+                    if (rightClick) {
+                        final IHyriRotatingGame game = HyriAPI.get().getGameManager().getRotatingGameManager().getRotatingGame();
 
-        npc.getHologram().setLine(3, new Hologram.Line(new NPCPlayLine()));
+                        if (game == null || game.getInfo() == null) {
+                            return;
+                        }
+
+                        new RotatingGameTypeSelectorGUI(this.plugin, target, false).open();
+                    }
+                });
+        final Hologram hologram = npc.getHologram();
+
+        for (int i = 0; i < header.size(); i++) {
+            final int index = i;
+
+            hologram.setLine(index, new Hologram.Line(target -> LobbyMessage.NPC_ROTATING_GAME_HEADER.asList(target).get(index)));
+        }
+
+        hologram.setLine(header.size(), new Hologram.Line(new NPCPlayLine()));
+
+        npc.addPlayer(player);
 
         return npc;
     }

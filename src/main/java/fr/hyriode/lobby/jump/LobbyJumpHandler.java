@@ -49,7 +49,7 @@ public class LobbyJumpHandler extends HyriListener<HyriLobby> {
                         this.checkLocation(location, lobbyPlayer.getJump().getCheckPoints().get(lobbyPlayer.getJump().getCheckPoints().indexOf(lobbyPlayer.getJump().getActualCheckPoint()) + 1).getLocation())
                 ) {
                     lobbyPlayer.getJump().setActualCheckPoint(lobbyPlayer.getJump().getCheckPoints().get(lobbyPlayer.getJump().getCheckPoints().indexOf(lobbyPlayer.getJump().getActualCheckPoint()) + 1));
-                    player.sendMessage(lobbyPlayer.getJump().getPrefix(lobbyPlayer.asPlayer()) + LobbyMessage.JUMP_SUCCESS_CHECKPOINT.asLang().getValue(player)
+                    player.sendMessage(LobbyMessage.JUMP_SUCCESS_CHECKPOINT.asLang().getValue(player)
                             .replace("%value%", String.valueOf(lobbyPlayer.getJump().getCheckPoints().indexOf(lobbyPlayer.getJump().getActualCheckPoint()))));
                     this.playCheckPointSound(lobbyPlayer.asPlayer());
                     break;

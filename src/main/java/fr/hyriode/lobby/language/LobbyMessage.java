@@ -1,6 +1,9 @@
 package fr.hyriode.lobby.language;
 
+import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.HyriConstants;
+import fr.hyriode.api.game.IHyriGameInfo;
+import fr.hyriode.api.game.rotating.IHyriRotatingGame;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.language.HyriLanguageMessage;
 import org.bukkit.entity.Player;
@@ -29,15 +32,17 @@ public enum LobbyMessage {
     QUEUE_GROUP_LEFT_MESSAGE("message.queue.group-left", QUEUE_PREFIX),
     QUEUE_PLAYER_NOT_IN_QUEUE_MESSAGE("message.queue.player-not-in-queue", QUEUE_PREFIX),
     QUEUE_GROUP_NOT_IN_QUEUE_MESSAGE("message.queue.group-not-in-queue", QUEUE_PREFIX),
-    QUEUE_DISPLAY_BAR("bar.queue.display", QUEUE_PREFIX),
+    QUEUE_NORMAL_DISPLAY_BAR("bar.normal-queue.display", QUEUE_PREFIX),
+    QUEUE_HOST_DISPLAY_BAR("bar.host-queue.display", QUEUE_PREFIX),
 
-    JUMP_JOIN_MESSAGE("message.jump-join.display"),
-    JUMP_LEAVE_MESSAGE("message.jump-leave.display"),
+    JUMP_PREFIX("prefix.jump"),
+    JUMP_JOIN_MESSAGE("message.jump-join.display", JUMP_PREFIX),
+    JUMP_LEAVE_MESSAGE("message.jump-leave.display", JUMP_PREFIX),
     JUMP_RESPAWN_BAR("bar.jump-respawn.display"),
-    JUMP_SUCCESS_CHECKPOINT("message.checkpoint-success.display"),
-    JUMP_RESET("message.reset.display"),
-    JUMP_GO_BACK_CHECKPOINT("message.back-checkpoint.display"),
-    JUMP_SUCCESS_ALL("message.jump-success.display"),
+    JUMP_SUCCESS_CHECKPOINT("message.checkpoint-success.display", JUMP_PREFIX),
+    JUMP_RESET("message.reset.display", JUMP_PREFIX),
+    JUMP_GO_BACK_CHECKPOINT("message.back-checkpoint.display", JUMP_PREFIX),
+    JUMP_SUCCESS_ALL("message.jump-success.display", JUMP_PREFIX),
 
     STAFF_ERROR("message.error-staff.display"),
     IN_PARTY_ERROR("message.queue-party-error.display"),
@@ -108,6 +113,7 @@ public enum LobbyMessage {
     PROFILE_HYRIPLUS_DONT_HAVE("gui.profile.item.hyriplus-dont-have.name"),
     PROFILE_HYRIPLUS_EXPLANATION("gui.profile.item.hyriplus-explanation.name"),
     PROFILE_HYRIPLUS_STORE_LINK("gui.profile.item.hyriplus-store-link.name"),
+    PROFILE_HYRIPLUS_CHANGE_COLOR("gui.profile.item.hyriplus-change-color.name"),
 
     PROFILE_BOOSTERS_NAME("gui.profile.item.boosters.name"),
     PROFILE_BOOSTERS_LORE("gui.profile.item.boosters.lore"),
@@ -119,6 +125,24 @@ public enum LobbyMessage {
     FRIENDS_ADD_FRIEND_ITEM_NAME("gui.friends.add-friend.item.name"),
     FRIENDS_ADD_FRIEND_ITEM_LORE("gui.friends.add-friend.item.lore"),
     FRIENDS_ADD_FRIEND_SIGN_LINE("gui.friends.add-friend.sign.line"),
+
+    HYRIPLUS_PREFIX("prefix.hyriplus"),
+    HYRIPLUS_COLOR_LORE("hyriplus.color.item.lore"),
+    HYRIPLUS_NOT_UNLOCKED_LINE("hyriplus.not-unlocked.line"),
+    HYRIPLUS_NOT_UNLOCKED_MESSAGE("hyriplus.not-unlocked.message", HYRIPLUS_PREFIX),
+    HYRIPLUS_CHANGED_MESSAGE("hyriplus.changed.message", HYRIPLUS_PREFIX),
+
+    LEVELING_PREFIX("prefix.leveling"),
+    LEVELING_REWARD_NOT_LEVEL("leveling.reward-not-level.message", LEVELING_PREFIX),
+    LEVELING_REWARD_CLAIMED("leveling.reward-claimed.message", LEVELING_PREFIX),
+    LEVELING_REWARD_ALREADY_CLAIMED("leveling.reward-already-claimed.message", LEVELING_PREFIX),
+    LEVELING_REWARD_ALREADY_CLAIMED_LINE("leveling.reward-already-claimed.line"),
+    LEVELING_REWARD_ITEM("leveling.reward.item.name"),
+
+    BOOSTERS_BOOSTER_ITEM_NAME("gui.boosters.booster.item.name"),
+    BOOSTERS_BOOSTER_ITEM_LORE("gui.boosters.booster.item.lore"),
+    BOOSTERS_BOOSTER_GAME("boosters.booster.game"),
+    BOOSTERS_BOOSTER_GLOBAL("boosters.booster.global"),
 
     STORE_PREFIX("prefix.store"),
     STORE_LOOTBOXES_NAME("gui.store.item.lootboxes.name"),
@@ -132,19 +156,22 @@ public enum LobbyMessage {
     STORE_COSMETICS_NAME("gui.store.item.cosmetics.name"),
     STORE_COSMETICS_LORE("gui.store.item.cosmetics.lore"),
 
+    STORE_BOOSTERS_TYPE_NAME("gui.store-boosters.item.type.name"),
+    STORE_BOOSTERS_TYPE_DESCRIPTION("gui.store-boosters.item.type.description"),
+    STORE_BOOSTERS_GLOBAL_NAME("gui.store-boosters.item.global.name"),
+    STORE_BOOSTERS_GLOBAL_DESCRIPTION("gui.store-boosters.item.global.description"),
+
     STORE_PRICE_LINE("gui.store.item.price"),
     STORE_OWN_LINE("gui.store.item.own"),
-
-    STORE_CONFIRM_ITEM_CONFIRM_NAME("gui.store-confirm.item.confirm.name"),
-    STORE_CONFIRM_ITEM_CONFIRM_LORE("gui.store-confirm.item.confirm.lore"),
-    STORE_CONFIRM_ITEM_CANCEL_NAME("gui.store-confirm.item.cancel.name"),
-    STORE_CONFIRM_ITEM_CANCEL_LORE("gui.store-confirm.item.cancel.lore"),
 
     STORE_NOT_ENOUGH_MONEY_MESSAGE("message.store.not-enough-money", STORE_PREFIX),
     STORE_PURCHASE_CONFIRMED_MESSAGE("message.store.purchase-confirmed", STORE_PREFIX),
     STORE_PURCHASE_CANCELLED_MESSAGE("message.store.purchase-cancelled", STORE_PREFIX),
     STORE_ONLY_ON_WEBSITE_MESSAGE("message.store.only-on-website", STORE_PREFIX),
     STORE_ALREADY_OWN_MESSAGE("message.store.already-own", STORE_PREFIX),
+
+    CONFIRM_ITEM_CONFIRM_NAME("gui.confirm.item.confirm.name"),
+    CONFIRM_ITEM_CANCEL_NAME("gui.confirm.item.cancel.name"),
 
     SELECTOR_HOME_ITEM_NAME("gui.game-selector.item.home.name"),
     SELECTOR_HOME_ITEM_DESCRIPTION("gui.game-selector.item.home.description"),
@@ -155,20 +182,63 @@ public enum LobbyMessage {
     SELECTOR_JUMP_ITEM_NAME("gui.game-selector.item.jump.name"),
     SELECTOR_JUMP_ITEM_DESCRIPTION("gui.game-selector.item.jump.description"),
     SELECTOR_ROTATING_GAME_ITEM_NAME("gui.game-selector.item.rotating-game.name"),
-    SELECTOR_ROTATING_GAME_ITEM_DESCRIPTION("gui.game-selector.item.rotating-game.description", (target, input) -> input.replace("%game%", "TODO").replace("%players%", String.valueOf(0))),
+    SELECTOR_ROTATING_GAME_ITEM_DESCRIPTION("gui.game-selector.item.rotating-game.description", (target, input) -> {
+        final IHyriRotatingGame game = HyriAPI.get().getGameManager().getRotatingGameManager().getRotatingGame();
+
+        if (game == null) {
+            return input;
+        }
+
+        final IHyriGameInfo gameInfo = game.getInfo();
+
+        if (gameInfo == null) {
+            return input;
+        }
+        return input.replace("%game%", gameInfo.getDisplayName()).replace("%players%", String.valueOf(HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter().getCategory(gameInfo.getName()).getPlayers()));
+    }),
 
     GAME_NPC_HEADER_PLAYERS("game.npc.header.players"),
     GAME_NPC_HEADER_PLAY("game.npc.header.play"),
 
     NPC_LANGUAGE_HEADER("npc.language.header"),
-    NPC_ROTATING_GAME_HEADER("npc.rotating-game.header", (target, input) -> input.replace("%rotating_game%", "Aucun").replace("%players%", String.valueOf(0))),
+    NPC_ROTATING_GAME_HEADER("npc.rotating-game.header", (target, input) -> {
+        final IHyriRotatingGame game = HyriAPI.get().getGameManager().getRotatingGameManager().getRotatingGame();
+
+        if (game == null) {
+            return input;
+        }
+
+        final IHyriGameInfo gameInfo = game.getInfo();
+
+        if (gameInfo == null) {
+            return input;
+        }
+        return input.replace("%rotating_game%", gameInfo.getDisplayName()).replace("%players%", String.valueOf(HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter().getCategory(gameInfo.getName()).getPlayers()));
+    }),
     NPC_HOST_HEADER("npc.host.header"),
+
+    HOST_ITEM_LORE("host.item.lore"),
+    HOST_CREATE_ITEM_NAME("host.create-item.name"),
+    HOST_CREATE_ITEM_LORE("host.create-item.lore"),
+    HOST_UNLIMITED_WORD("host.unlimited.word"),
+    HOST_CREATE_ERROR("host.create.error.message"),
+    HOST_SPECTATING_ITEM_NAME("host.spectating-item.name"),
+    HOST_SPECTATING_ITEM_LORE("host.spectating-item.lore"),
+    HOST_TYPE_ITEM_NAME("host.type-item.name"),
+    HOST_TYPE_ITEM_LORE("host.type-item.lore"),
+    HOST_CLICK_TO_CREATE("host.click.to-create"),
+    HOST_CREATING_HOST_BAR("host.creating-host.bar"),
 
     LEADERBOARD_LEVELING_HEADER("leaderboard.leveling.header"),
     LEADERBOARD_JUMP_HEADER("leaderboard.jump.header"),
 
     CLICK_TO_CHANGE("click.to-change"),
     CLICK_TO_BUY("click.to-buy"),
+    CLICK_TO_JOIN("click.to-join"),
+    CLICK_TO_SPECTATE("click.to-spectate"),
+    CLICK_TO_SELECT("click.to-select"),
+    CLICK_TO_SHOW("click.to-show"),
+    CLICK_TO_CLAIM("click.to-claim"),
 
     FRIENDS("basic.friends"),
     CONNECTED_LINE("basic.connected"),
@@ -177,7 +247,7 @@ public enum LobbyMessage {
     LOBBY_PLAYERS_LINE("basic.players"),
     SOON_LINE("basic.soon"),
     BACK_ITEM("basic.item.back"),
-    CURRENT_ITEM("basic.item.current"),
+    CURRENT_ITEM("basic.item.current,"),
     TYPE_LINE("basic.game.type"),
 
     PREVIOUS_ITEM_NAME("basic.item.page.previous.name"),

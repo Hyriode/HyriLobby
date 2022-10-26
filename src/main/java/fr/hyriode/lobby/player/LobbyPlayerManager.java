@@ -46,7 +46,10 @@ public class LobbyPlayerManager {
         final LobbyPlayer lobbyPlayer = this.getLobbyPlayer(uuid);
 
         lobbyPlayer.handleLogout();
+
         this.players.remove(lobbyPlayer);
+
+        this.plugin.getHostHandler().removeWaitingPlayer(uuid);
     }
 
     public void handleStop() {

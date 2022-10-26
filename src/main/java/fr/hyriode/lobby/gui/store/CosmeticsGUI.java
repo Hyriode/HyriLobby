@@ -18,7 +18,7 @@ public class CosmeticsGUI extends LobbyGUI {
 
     @Override
     protected void init() {
-        this.border();
+        this.applyDesign(Design.BORDER);
     }
 
 }

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * Created by AstFaster
@@ -34,9 +35,10 @@ public class LobbyGame {
     protected final HyriLanguageMessage description;
     protected final HyriLanguageMessage type;
 
-    protected final IHyriGameInfo gameInfo;
+    protected final Supplier<IHyriGameInfo> gameInfo;
 
     protected boolean usedInSelector = true;
+    protected boolean hostCompatible;
 
     public LobbyGame(String name, ItemStack icon, State state) {
         this.name = name;
@@ -44,7 +46,7 @@ public class LobbyGame {
         this.state = state;
         this.description = HyriLanguageMessage.get("game." + this.name + ".description");
         this.type = HyriLanguageMessage.get("game." + this.name + ".type");
-        this.gameInfo = HyriAPI.get().getGameManager().getGameInfo(name);
+        this.gameInfo = () -> HyriAPI.get().getGameManager().getGameInfo(name);
     }
 
     public LobbyGame(String name, Material icon, State state) {
@@ -86,7 +88,7 @@ public class LobbyGame {
     }
 
     public IHyriGameInfo getGameInfo() {
-        return this.gameInfo;
+        return this.gameInfo.get();
     }
 
     public IHyriCategoryCounter getPlayerCounter() {
@@ -108,6 +110,14 @@ public class LobbyGame {
 
     public void setUsedInSelector(boolean usedInSelector) {
         this.usedInSelector = usedInSelector;
+    }
+
+    public boolean isHostCompatible() {
+        return this.hostCompatible;
+    }
+
+    public void setHostCompatible(boolean hostCompatible) {
+        this.hostCompatible = hostCompatible;
     }
 
     public StoreCategory getStoreCategory() {

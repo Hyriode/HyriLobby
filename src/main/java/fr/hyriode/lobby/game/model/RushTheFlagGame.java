@@ -20,6 +20,7 @@ public class RushTheFlagGame extends LobbyGame {
     public RushTheFlagGame() {
         super("rushtheflag", ICON, State.OPENED);
         this.npcData = new NPCData(new Location(IHyrame.WORLD.get(), -45.5, 187, -1.5, -90, 0), UsefulSkin.RUSH_THE_FLAG).addEquipment(EnumItemSlot.MAIN_HAND, ICON);
+        this.hostCompatible = true;
     }
 
 }

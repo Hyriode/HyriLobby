@@ -1,10 +1,13 @@
 package fr.hyriode.lobby.gui.selector.game;
 
+import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.game.IHyriGameInfo;
+import fr.hyriode.api.game.rotating.IHyriRotatingGame;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.game.LobbyGame;
 import fr.hyriode.lobby.gui.LobbyGUI;
+import fr.hyriode.lobby.gui.host.HostGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.util.UsefulHead;
 import org.bukkit.ChatColor;
@@ -43,7 +46,7 @@ public class GameSelectorGUI extends LobbyGUI {
     }
 
     protected void init() {
-        this.border();
+        this.applyDesign(Design.BORDER);
 
         this.addGameItems();
         this.addOtherItems();
@@ -63,28 +66,33 @@ public class GameSelectorGUI extends LobbyGUI {
     private void addOtherItems()  {
         final ItemStack homeItem = ItemBuilder.asHead()
                 .withHeadTexture(UsefulHead.GLOBE)
-                .withName(LobbyMessage.SELECTOR_HOME_ITEM_NAME.asString(this.owner))
-                .withLore(LobbyMessage.SELECTOR_HOME_ITEM_DESCRIPTION.asList(this.owner))
+                .withName(LobbyMessage.SELECTOR_HOME_ITEM_NAME.asString(this.account))
+                .withLore(LobbyMessage.SELECTOR_HOME_ITEM_DESCRIPTION.asList(this.account))
                 .build();
 
         final ItemStack vipItem = new ItemBuilder(Material.GOLD_INGOT)
-                .withName(LobbyMessage.SELECTOR_VIP_ITEM_NAME.asString(this.owner))
-                .withLore(LobbyMessage.SELECTOR_VIP_ITEM_DESCRIPTION.asList(this.owner))
+                .withName(LobbyMessage.SELECTOR_VIP_ITEM_NAME.asString(this.account))
+                .withLore(LobbyMessage.SELECTOR_VIP_ITEM_DESCRIPTION.asList(this.account))
                 .build();
 
         final ItemStack jumpItem = new ItemBuilder(Material.FEATHER)
-                .withName(LobbyMessage.SELECTOR_JUMP_ITEM_NAME.asString(this.owner))
-                .withLore(LobbyMessage.SELECTOR_JUMP_ITEM_DESCRIPTION.asList(this.owner))
+                .withName(LobbyMessage.SELECTOR_JUMP_ITEM_NAME.asString(this.account))
+                .withLore(LobbyMessage.SELECTOR_JUMP_ITEM_DESCRIPTION.asList(this.account))
                 .build();
+
+        final List<String> hostLore = LobbyMessage.SELECTOR_HOST_ITEM_DESCRIPTION.asList(this.account);
+
+        hostLore.add("");
+        hostLore.add(LobbyMessage.CLICK_TO_SHOW.asString(this.account));
 
         final ItemStack hostItem = ItemBuilder.asHead()
                 .withHeadTexture(UsefulHead.CHEST)
-                .withName(LobbyMessage.SELECTOR_HOST_ITEM_NAME.asString(this.owner))
-                .withLore(LobbyMessage.SELECTOR_HOST_ITEM_DESCRIPTION.asList(this.owner))
+                .withName(LobbyMessage.SELECTOR_HOST_ITEM_NAME.asString(this.account))
+                .withLore(hostLore)
                 .build();
 
         this.setItem(4, homeItem);
-        this.setItem(26, hostItem);
+        this.setItem(26, hostItem, event -> new HostGUI(this.owner, this.plugin, false).open());
         this.setItem(18, vipItem, event -> this.owner.teleport(this.plugin.config().getVIPLocation().asBukkit()));
         this.setItem(27, jumpItem, event -> this.owner.teleport(this.plugin.config().getJumpLocation().asBukkit()));
 
@@ -111,7 +119,16 @@ public class GameSelectorGUI extends LobbyGUI {
                 .withLore(LobbyMessage.SELECTOR_ROTATING_GAME_ITEM_DESCRIPTION.asList(this.owner))
                 .build();
 
-        this.setItem(35, rotatingGameItem);
+
+        this.setItem(35, rotatingGameItem, event -> {
+            final IHyriRotatingGame game = HyriAPI.get().getGameManager().getRotatingGameManager().getRotatingGame();
+
+            if (game == null || game.getInfo() == null) {
+                return;
+            }
+
+            new RotatingGameTypeSelectorGUI(this.plugin, this.owner, true).open();
+        });
     }
 
     private void addGameItem(int slot, LobbyGame game) {
@@ -128,7 +145,7 @@ public class GameSelectorGUI extends LobbyGUI {
         lore.add(LobbyMessage.PLAY.asString(this.owner));
 
         this.setItem(slot, new ItemBuilder(game.getIcon())
-                .withName(ChatColor.DARK_AQUA + gameInfo.getDisplayName() + (state != State.OPENED ? " " + state.getDisplay().getValue(this.owner) : ""))
+                .withName(ChatColor.AQUA + gameInfo.getDisplayName() + (state != State.OPENED ? " " + state.getDisplay().getValue(this.owner) : ""))
                 .withLore(lore)
                 .build(), event -> new GameTypeSelectorGUI(this.plugin, this.owner, game, true).open());
     }

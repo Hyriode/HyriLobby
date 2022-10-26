@@ -5,6 +5,7 @@ import fr.hyriode.hyrame.hologram.Hologram;
 import fr.hyriode.hyrame.npc.NPC;
 import fr.hyriode.hyrame.npc.NPCManager;
 import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.gui.host.HostGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.npc.SingleNPCHandler;
 import fr.hyriode.lobby.npc.util.NPCPlayLine;
@@ -37,7 +38,11 @@ public class HostNPCHandler extends SingleNPCHandler {
                 .setTrackingPlayer(false)
                 .setShowingToAll(false)
                 .addPlayer(player)
-                .setInteractCallback((rightClick, target) -> {});
+                .setInteractCallback((rightClick, target) -> {
+                    if (rightClick) {
+                        new HostGUI(target, this.plugin, true).open();
+                    }
+                });
     }
 
 }

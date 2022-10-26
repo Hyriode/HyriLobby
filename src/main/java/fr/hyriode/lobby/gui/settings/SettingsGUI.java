@@ -44,7 +44,7 @@ public class SettingsGUI extends LobbyGUI {
     protected void init() {
         this.inventory.clear();
 
-        this.border();
+        this.applyDesign(Design.BORDER);
 
         final List<HyriSettingsLevel> reducedLevels = Arrays.asList(HyriSettingsLevel.ALL, HyriSettingsLevel.FRIENDS, HyriSettingsLevel.NONE);
 
@@ -155,6 +155,8 @@ public class SettingsGUI extends LobbyGUI {
     @Override
     public void onClose(InventoryCloseEvent event) {
         super.onClose(event);
+
+        this.account.update();
 
         if (this.clicked) {
             this.owner.sendMessage(LobbyMessage.SETTINGS_UPDATED_MESSAGE.asString(this.account));

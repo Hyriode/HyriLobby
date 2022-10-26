@@ -5,7 +5,7 @@ import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.item.ItemHead;
-import fr.hyriode.lobby.util.ListUtil;
+import fr.hyriode.hyrame.utils.list.ListReplacer;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
@@ -52,7 +52,7 @@ public enum Language implements ItemHead {
     public ItemStack createItem(IHyriPlayer account) {
         return ItemBuilder.asHead()
                 .withName(LobbyMessage.LANG_SETTINGS_ITEM_NAME.asString(account))
-                .withLore(ListUtil.replace(LobbyMessage.LANG_SETTINGS_ITEM_LORE.asList(account), "%lang%", this.getDisplay(account)))
+                .withLore(ListReplacer.replace(LobbyMessage.LANG_SETTINGS_ITEM_LORE.asList(account), "%lang%", this.getDisplay(account)).list())
                 .withHeadTexture(this.texture)
                 .build();
     }

@@ -5,7 +5,7 @@ import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.store.ConfirmPurchaseGUI;
+import fr.hyriode.lobby.gui.ConfirmGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -24,14 +24,14 @@ import java.util.function.Predicate;
  */
 public class StoreItem extends StoreIcon {
 
-    private HyriLanguageMessage name;
-    private HyriLanguageMessage description;
+    protected HyriLanguageMessage name;
+    protected HyriLanguageMessage description;
 
     protected Predicate<IHyriPlayer> owningCheck = account -> account.getTransaction(this.getCategory(), this.id) != null;
-    protected Consumer<IHyriPlayer> whenBought;
+    protected Consumer<IHyriPlayer> whenPurchased;
 
     protected final String category;
-    protected final long price;
+    protected long price;
 
     public StoreItem(ItemStack itemStack, String category, String id, long price) {
         super(id, itemStack);
@@ -84,14 +84,16 @@ public class StoreItem extends StoreIcon {
             return;
         }
 
-        new ConfirmPurchaseGUI(player, plugin, this)
+        new ConfirmGUI(player, plugin, this.createItem(account, false))
                 .whenConfirm(event -> {
                     player.closeInventory();
                     hyris.remove(this.price).exec();
                     player.sendMessage(LobbyMessage.STORE_PURCHASE_CONFIRMED_MESSAGE.asString(account));
                     player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 2.0F);
 
-                    this.whenBought.accept(account);
+                    if (this.whenPurchased != null) {
+                        this.whenPurchased.accept(account);
+                    }
 
                     account.update();
                 })
@@ -110,13 +112,17 @@ public class StoreItem extends StoreIcon {
         return this.price;
     }
 
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
     public StoreItem withOwningCheck(Predicate<IHyriPlayer> owningCheck) {
         this.owningCheck = owningCheck;
         return this;
     }
 
-    public StoreItem whenBought(Consumer<IHyriPlayer> whenBought) {
-        this.whenBought = whenBought;
+    public StoreItem whenPurchased(Consumer<IHyriPlayer> whenPurchased) {
+        this.whenPurchased = whenPurchased;
         return this;
     }
 

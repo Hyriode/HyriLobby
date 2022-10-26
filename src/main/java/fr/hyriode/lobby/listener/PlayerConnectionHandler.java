@@ -31,4 +31,5 @@ public class PlayerConnectionHandler extends HyriListener<HyriLobby> {
 
         this.plugin.getPlayerManager().handleLogout(player.getUniqueId());
     }
+
 }
