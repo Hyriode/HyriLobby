@@ -28,8 +28,8 @@ repositories {
         url 'https://maven.pkg.github.com/Hyriode/Hyrame/'
 
         credentials {
-            username System.getenv("USERNAME")
-            password System.getenv("TOKEN")
+            username System.getenv("GITHUB_USERNAME")
+            password System.getenv("GITHUB_TOKEN")
         }
     }
 }
@@ -43,4 +43,13 @@ processResources {
     filter {
         it.replace('@version@', project.version)
     }
+}
+
+task copyJar(type: Copy) {
+    from layout.buildDirectory.file("libs/HyriLobby-1.0.1.jar")
+    into layout.buildDirectory.file("Server/plugins")
+}
+
+jar {
+    jar.finalizedBy copyJar
 }

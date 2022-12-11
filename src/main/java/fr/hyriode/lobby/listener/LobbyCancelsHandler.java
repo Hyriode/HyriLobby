@@ -1,5 +1,6 @@
 package fr.hyriode.lobby.listener;
 
+import fr.hyriode.api.HyriAPI;
 import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.player.LobbyPlayer;

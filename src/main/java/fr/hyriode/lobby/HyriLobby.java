@@ -66,8 +66,8 @@ public class HyriLobby extends JavaPlugin {
                 ),
                 new LocationWrapper(-153.5, 237, 107.5),
                 new LobbyConfig.Zone(
-                        new LocationWrapper(-283, 150, -32),
-                        new LocationWrapper(-289, 182, -48)),
+                        new LocationWrapper(-282, 150, 13),
+                        new LocationWrapper(-386, 225, -94)),
                 new LobbyConfig.Zone(
                         new LocationWrapper(-369, 156, -49),
                         new LocationWrapper(-343, 149, -78)));
