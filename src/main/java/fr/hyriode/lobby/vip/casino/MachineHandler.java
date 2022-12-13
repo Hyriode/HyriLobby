@@ -5,9 +5,7 @@ import fr.hyriode.hyrame.utils.Area;
 import fr.hyriode.hyrame.utils.LocationWrapper;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.config.LobbyConfig;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -15,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class MachineHandler extends HyriListener<HyriLobby> {
 
+    private final GameManager gameManager = new GameManager();
     public MachineHandler(HyriLobby plugin) {
         super(plugin);
     }
@@ -25,8 +24,12 @@ public class MachineHandler extends HyriListener<HyriLobby> {
         final Block block = event.getClickedBlock();
         final Area casinoArea = new LobbyConfig.Zone(new LocationWrapper(-337D, 163D, 0D), new LocationWrapper(-372D, 197, -31)).asArea();
 
-        if(block != null && casinoArea.isInArea(player.getLocation())) {
-
+        if(block != null && casinoArea.isInArea(block.getLocation())) {
+            this.gameManager.getBlockMap().forEach((material, iGame) -> {
+                if(block.getType() == material) {
+                    iGame.init(player);
+                }
+            });
         }
     }
 }
