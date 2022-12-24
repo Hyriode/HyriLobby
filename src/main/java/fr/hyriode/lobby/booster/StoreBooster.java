@@ -63,7 +63,7 @@ public class StoreBooster extends StoreItem {
     public StoreBooster(String category) {
         super(new ItemStack(Material.POTION), category, "booster", -1);
         this.type = Type.ONE_FIVE;
-        this.whenPurchased = player -> HyriAPI.get().getBoosterManager().giveBooster(player, this.global ? IHyriBoosterManager.GLOBAL_TYPE : IHyriBoosterManager.SELECTABLE_TYPE, this.type.getMultiplier(), 3600);
+        this.whenPurchased = player -> HyriAPI.get().getBoosterManager().giveBooster(player, this.type.getMultiplier(), 3600);
 
         this.updatePrice();
     }

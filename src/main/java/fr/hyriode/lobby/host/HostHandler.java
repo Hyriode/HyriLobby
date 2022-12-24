@@ -45,7 +45,7 @@ public class HostHandler {
     }
 
     private void handleEvent(HyggServer server) {
-        if (!HyriAPI.get().getHyliosAPI().getHostAPI().isHost(server)) {
+        if (server.getAccessibility() != HyggServer.Accessibility.HOST) {
             return;
         }
 

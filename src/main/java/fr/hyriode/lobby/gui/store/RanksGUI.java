@@ -1,7 +1,7 @@
 package fr.hyriode.lobby.gui.store;
 
 import fr.hyriode.api.player.IHyriPlayer;
-import fr.hyriode.api.rank.HyriPlus;
+import fr.hyriode.api.rank.hyriplus.HyriPlusTransaction;
 import fr.hyriode.api.rank.type.HyriPlayerRankType;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
@@ -40,7 +40,7 @@ public class RanksGUI extends LobbyGUI {
 
         final StoreItem vipPlus = new StoreDependentItem(itemCreator.apply(UsefulHead.LIME_GREEN_CUBE), categoryId, HyriPlayerRankType.VIP_PLUS.getName(), -1, vip).withOwningCheck(owningCheck.apply(HyriPlayerRankType.VIP_PLUS));
         final StoreItem epic = new StoreDependentItem(itemCreator.apply(UsefulHead.DEEP_SKY_BLUE), categoryId, HyriPlayerRankType.EPIC.getName(), -1, vipPlus).withOwningCheck(owningCheck.apply(HyriPlayerRankType.EPIC));
-        final StoreItem hyriPlus = new StoreDependentItem(itemCreator.apply(UsefulHead.GOLD_BLOCK), categoryId, HyriPlus.TRANSACTION_TYPE, -1, epic).withOwningCheck(IHyriPlayer::hasHyriPlus);
+        final StoreItem hyriPlus = new StoreDependentItem(itemCreator.apply(UsefulHead.GOLD_BLOCK), categoryId, HyriPlusTransaction.TRANSACTION_TYPE, -1, epic).withOwningCheck(IHyriPlayer::hasHyriPlus);
 
         CATEGORY.addContent(vip, vipPlus, epic, hyriPlus);
     }
@@ -59,7 +59,7 @@ public class RanksGUI extends LobbyGUI {
         final StoreItem vip = CATEGORY.getItem(HyriPlayerRankType.VIP.getName());
         final StoreItem vipPlus = CATEGORY.getItem(HyriPlayerRankType.VIP_PLUS.getName());
         final StoreItem epic = CATEGORY.getItem(HyriPlayerRankType.EPIC.getName());
-        final StoreItem hyriPlus = CATEGORY.getItem(HyriPlus.TRANSACTION_TYPE);
+        final StoreItem hyriPlus = CATEGORY.getItem(HyriPlusTransaction.TRANSACTION_TYPE);
 
         this.setItem(20, vip.createItem(this.account), event -> vip.purchase(this.plugin, this.owner));
         this.setItem(21, vipPlus.createItem(this.account), onlyOnWebsite);

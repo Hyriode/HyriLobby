@@ -1,8 +1,8 @@
 package fr.hyriode.lobby.gui.settings;
 
 import fr.hyriode.api.player.IHyriPlayer;
-import fr.hyriode.api.settings.HyriSettingsLevel;
 import fr.hyriode.api.settings.IHyriPlayerSettings;
+import fr.hyriode.api.settings.SettingsLevel;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.HyriLobby;
@@ -46,7 +46,7 @@ public class SettingsGUI extends LobbyGUI {
 
         this.applyDesign(Design.BORDER);
 
-        final List<HyriSettingsLevel> reducedLevels = Arrays.asList(HyriSettingsLevel.ALL, HyriSettingsLevel.FRIENDS, HyriSettingsLevel.NONE);
+        final List<SettingsLevel> reducedLevels = Arrays.asList(SettingsLevel.ALL, SettingsLevel.FRIENDS, SettingsLevel.NONE);
 
         this.addItem(20, new BooleanItem(Material.NETHER_STAR, LobbyMessage.SETTINGS_AUTO_QUEUE_NAME, LobbyMessage.SETTINGS_AUTO_QUEUE_DESCRIPTION)
                 .withValueProvider(this.settings::isAutoQueueEnabled)
@@ -86,7 +86,7 @@ public class SettingsGUI extends LobbyGUI {
                     this.settings.setPlayersVisibilityLevel(value);
                     this.updateVisibility();
                 })
-                .withAvailableValues(Arrays.asList(HyriSettingsLevel.values())));
+                .withAvailableValues(Arrays.asList(SettingsLevel.values())));
 
         if (this.withLang) {
             this.setItem(49, Language.getFrom(this.settings.getLanguage()).createItem(this.account), event -> this.openWithGoBack(49, new LanguageGUI(this.plugin, this.owner)));
@@ -265,7 +265,7 @@ public class SettingsGUI extends LobbyGUI {
 
     }
 
-    private static class LevelItem extends Item<HyriSettingsLevel> {
+    private static class LevelItem extends Item<SettingsLevel> {
 
         public LevelItem(ItemStack itemStack, LobbyMessage name, LobbyMessage description) {
             super(itemStack, name, description);

@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class StoreItem extends LobbyItem {
 
     public StoreItem(HyriLobby plugin) {
-        super(plugin, "store", "item.store.name", Material.EMERALD, (byte) 0);
+        super(plugin, "store", "item.store.name", "item.store.description", Material.EMERALD);
     }
 
     @Override

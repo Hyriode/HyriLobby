@@ -88,7 +88,7 @@ public class BoostersGUI extends LobbyGUI {
 
         return new ItemBuilder(Material.POTION)
                 .withAllItemFlags()
-                .withName(LobbyMessage.BOOSTERS_BOOSTER_ITEM_NAME.asString(this.account).replace("%type%", (booster.getType().equals(IHyriBoosterManager.GLOBAL_TYPE) ? LobbyMessage.BOOSTERS_BOOSTER_GLOBAL : LobbyMessage.BOOSTERS_BOOSTER_GAME).asString(this.account)))
+                .withName(LobbyMessage.BOOSTERS_BOOSTER_ITEM_NAME.asString(this.account))
                 .withLore(lore)
                 .build();
     }

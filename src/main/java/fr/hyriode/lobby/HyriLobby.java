@@ -1,8 +1,8 @@
 package fr.hyriode.lobby;
 
 import fr.hyriode.api.HyriAPI;
-import fr.hyriode.api.server.IHyriServer;
-import fr.hyriode.hylios.api.lobby.LobbyAPI;
+import fr.hyriode.api.server.ILobbyAPI;
+import fr.hyriode.hyggdrasil.api.server.HyggServer;
 import fr.hyriode.hyrame.HyrameLoader;
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.plugin.IPluginProvider;
@@ -76,14 +76,17 @@ public class HyriLobby extends JavaPlugin {
         this.gameManager = new LobbyGameManager();
         this.npcManager = new LobbyNPCManager(this);
         this.leaderboardManager = new LobbyLeaderboardManager(this);
-        this.hostHandler = new HostHandler(this);
+
+        if(!HyriAPI.get().getConfig().isDevEnvironment()) {
+            this.hostHandler = new HostHandler(this);
+        }
 
         HyriAPI.get().getEventBus().register(new LanguageListener(this));
         HyriAPI.get().getQueueManager().addHandler(new NormalQueueHandler(this));
         HyriAPI.get().getQueueManager().addHandler(new HostQueueHandler(this));
 
-        HyriAPI.get().getServer().setState(IHyriServer.State.READY);
-        HyriAPI.get().getServer().setSlots(LobbyAPI.MAX_PLAYERS);
+        HyriAPI.get().getServer().setState(HyggServer.State.READY);
+        HyriAPI.get().getServer().setSlots(ILobbyAPI.MAX_PLAYERS);
     }
 
     @Override

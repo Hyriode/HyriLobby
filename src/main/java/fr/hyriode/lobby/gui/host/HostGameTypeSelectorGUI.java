@@ -1,8 +1,8 @@
 package fr.hyriode.lobby.gui.host;
 
 import fr.hyriode.api.game.HyriGameType;
-import fr.hyriode.hylios.api.host.HostRequest;
-import fr.hyriode.hylios.api.host.HostType;
+import fr.hyriode.api.host.HostRequest;
+import fr.hyriode.api.host.HostType;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.game.LobbyGame;

@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class LobbyJumpLeaveItem extends HyriItem<HyriLobby> {
 
     public LobbyJumpLeaveItem(HyriLobby plugin) {
-        super(plugin, "jump_leave", () -> HyriLanguageMessage.get("item.jump-leave.name"), Material.BED);
+        super(plugin, "jump_leave", () -> HyriLanguageMessage.get("item.jump-leave.name"), () -> HyriLanguageMessage.get("item.jump-leave.description"), Material.BED);
     }
 
     @Override

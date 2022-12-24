@@ -2,9 +2,9 @@ package fr.hyriode.lobby.scoreboard;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.HyriConstants;
-import fr.hyriode.api.player.IHyriPlayer;
-import fr.hyriode.hyrame.game.scoreboard.HyriScoreboardIpConsumer;
 import fr.hyriode.api.language.HyriLanguageMessage;
+import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.hyrame.game.scoreboard.IPLine;
 import fr.hyriode.hyrame.scoreboard.HyriScoreboard;
 import fr.hyriode.hyrame.utils.TimeUtil;
 import fr.hyriode.lobby.HyriLobby;
@@ -26,7 +26,7 @@ public class LobbyScoreboard extends HyriScoreboard {
         this.addBlankLine(1);
         this.addBlankLine(4);
         this.addBlankLine(9);
-        this.setLine(10, this.getServerIp(), new HyriScoreboardIpConsumer(HyriConstants.SERVER_IP), 2);
+        this.setLine(10, this.getServerIp(), new IPLine(HyriConstants.SERVER_IP), 2);
 
         this.addUpdatableLines();
     }
@@ -85,7 +85,7 @@ public class LobbyScoreboard extends HyriScoreboard {
     }
 
     private String getLevel() {
-        return DASH + this.getLinePrefix("level").replace("%value%", String.valueOf(this.account.getNetworkLeveling().getLevel()));
+        return "0"; //TODO
     }
 
     private String getServerIp() {

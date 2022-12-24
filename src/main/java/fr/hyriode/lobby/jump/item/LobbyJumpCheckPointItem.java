@@ -19,7 +19,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class LobbyJumpCheckPointItem extends HyriItem<HyriLobby> {
 
     public LobbyJumpCheckPointItem(HyriLobby plugin) {
-        super(plugin, "jump_checkpoint", () -> HyriLanguageMessage.get("item.jump-checkpoint.name"), Material.SLIME_BALL);
+        super(plugin, "jump_checkpoint", () -> HyriLanguageMessage.get("item.jump-checkpoint.name"), () -> HyriLanguageMessage.get("item.jump-checkpoint.name"), Material.SLIME_BALL);
     }
 
     @Override

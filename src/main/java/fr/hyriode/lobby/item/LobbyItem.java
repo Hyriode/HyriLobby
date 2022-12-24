@@ -9,8 +9,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public abstract class LobbyItem extends HyriItem<HyriLobby> {
 
-    public LobbyItem(HyriLobby plugin, String name, String key, Material material, byte data) {
-        super(plugin, name, () -> HyriLanguageMessage.get(key), material, data);
+    public LobbyItem(HyriLobby plugin, String name, String displayKey, String descriptionKey, Material material) {
+        super(plugin, name, () -> HyriLanguageMessage.get(displayKey), () -> HyriLanguageMessage.get(descriptionKey), material);
     }
 
     @Override
