@@ -1,6 +1,7 @@
 package fr.hyriode.lobby.gui;
 
 import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.inventory.HyriInventory;
 import fr.hyriode.hyrame.inventory.pagination.PaginatedInventory;
@@ -35,12 +36,14 @@ public abstract class LobbyGUI extends PaginatedInventory {
     protected HyriLobby plugin;
     protected final IHyrame hyrame;
     protected final IHyriPlayer account;
+    protected final IHyriPlayerSession session;
 
     public LobbyGUI(Player owner, HyriLobby plugin, String name, int size) {
         super(owner, name, size);
         this.plugin = plugin;
         this.hyrame = plugin.getHyrame();
         this.account = IHyriPlayer.get(owner.getUniqueId());
+        this.session = IHyriPlayerSession.get(owner.getUniqueId());
     }
 
     public LobbyGUI(Player owner, HyriLobby plugin, Supplier<String> guiName, int size) {

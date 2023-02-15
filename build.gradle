@@ -32,10 +32,21 @@ repositories {
             password System.getenv("GITHUB_TOKEN")
         }
     }
+
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'fr.hyriode:hyrame:1.3.6'
 }
 
 processResources {

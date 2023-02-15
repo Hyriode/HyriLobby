@@ -3,6 +3,7 @@ package fr.hyriode.lobby.gui.selector;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.friend.IHyriFriend;
 import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.api.server.IHyriServerManager;
 import fr.hyriode.api.server.ILobbyAPI;
 import fr.hyriode.hyggdrasil.api.server.HyggServer;
@@ -103,8 +104,10 @@ public class LobbySelectorGUI extends LobbyGUI {
         for (IHyriFriend friend : totalFriends) {
             final IHyriPlayer friendAccount = HyriAPI.get().getPlayerManager().getPlayer(friend.getUniqueId());
 
-            if (friendAccount != null && friendAccount.isOnline()) {
-                final String server = friendAccount.getCurrentServer();
+            final IHyriPlayerSession friendSession = IHyriPlayerSession.get(friend.getUniqueId());
+
+            if (friendSession != null) {
+                final String server = friendSession.getServer();
                 final List<IHyriPlayer> players = friendsServers.getOrDefault(server, new ArrayList<>());
 
                 players.add(friendAccount);
@@ -118,7 +121,7 @@ public class LobbySelectorGUI extends LobbyGUI {
     private void handleClick(InventoryClickEvent event, String serverToSend) {
         final Player player = (Player) event.getWhoClicked();
 
-        if (this.account.getCurrentServer().equals(serverToSend)) {
+        if (this.session.getServer().equals(serverToSend)) {
             return;
         }
 
@@ -150,7 +153,8 @@ public class LobbySelectorGUI extends LobbyGUI {
     private List<String> getLobbyLore(int friends, HyggServer server) {
         final List<String> list = new ArrayList<>();
         final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(this.owner.getUniqueId());
-        final String currentServer = account.getCurrentServer();
+        final IHyriPlayerSession session = IHyriPlayerSession.get(this.owner.getUniqueId());
+        final String currentServer = session.getServer();
 
         list.add(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.owner) + ChatColor.AQUA + server.getPlayingPlayers().size() + "/" + ILobbyAPI.MAX_PLAYERS);
 

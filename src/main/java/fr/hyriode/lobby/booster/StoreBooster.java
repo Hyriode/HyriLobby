@@ -3,6 +3,7 @@ package fr.hyriode.lobby.booster;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.booster.IHyriBoosterManager;
 import fr.hyriode.api.player.IHyriPlayer;
+
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.hyrame.utils.list.ListReplacer;

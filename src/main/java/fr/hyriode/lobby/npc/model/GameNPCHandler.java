@@ -96,7 +96,7 @@ public class GameNPCHandler extends LobbyNPCHandler {
 
         final List<String> header = new ArrayList<>();
 
-        header.add(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + game.getGameInfo().getDisplayName());
+        //header.add(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + game.getGameInfo().getDisplayName());
         header.add(" ");
         header.add(" ");
 
@@ -112,7 +112,7 @@ public class GameNPCHandler extends LobbyNPCHandler {
         final Hologram hologram = npc.getHologram();
 
         hologram.setLine(1, new Hologram.Line(() -> LobbyMessage.GAME_NPC_HEADER_PLAYERS.asString(player).replace("%players%", String.valueOf(game.getPlayers()))));
-        hologram.setLine(2, new Hologram.Line(new NPCPlayLine()));
+     //   hologram.setLine(2, new Hologram.Line(new NPCPlayLine()));
 
         for (Map.Entry<EnumItemSlot, ItemStack> entry : npcData.getEquipment().entrySet()) {
             npc.setEquipment(entry.getKey(), entry.getValue());

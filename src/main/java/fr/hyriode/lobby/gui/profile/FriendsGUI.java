@@ -3,6 +3,7 @@ package fr.hyriode.lobby.gui.profile;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.friend.IHyriFriend;
 import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.hyrame.inventory.pagination.PaginatedItem;
 import fr.hyriode.hyrame.inventory.pagination.PaginationArea;
 import fr.hyriode.hyrame.item.ItemBuilder;
@@ -79,12 +80,13 @@ public class FriendsGUI extends LobbyGUI {
         final UUID friendId = friend.getUniqueId();
         final Date whenAdded = friend.getWhenAdded();
         final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(friendId);
+        final IHyriPlayerSession session = IHyriPlayerSession.get(friendId);
         final long friendsFor = System.currentTimeMillis() - whenAdded.getTime();
         final String formattedFriendsFor = new DurationFormatter()
                 .withDays(true)
                 .withSeconds(friendsFor < 60 * 1000L)
                 .format(this.account.getSettings().getLanguage(), friendsFor);
-        final List<String> lore = ListReplacer.replace(LobbyMessage.FRIENDS_FRIEND_ITEM_LORE.asList(this.account), "%online%", account.isOnline() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
+        final List<String> lore = ListReplacer.replace(LobbyMessage.FRIENDS_FRIEND_ITEM_LORE.asList(this.account), "%online%", session != null ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
                 .replace("%friends_for%", formattedFriendsFor)
                 .replace("%date%", TimeUtil.formatDate(whenAdded, "dd/MM/yyyy"))
                 .replace("%premium%", account.isPremium() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)

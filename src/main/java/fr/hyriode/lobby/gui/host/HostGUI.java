@@ -7,6 +7,7 @@ import fr.hyriode.api.host.HostType;
 import fr.hyriode.api.host.IHostManager;
 import fr.hyriode.api.party.IHyriParty;
 import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.api.rank.type.HyriPlayerRankType;
 import fr.hyriode.hyggdrasil.api.server.HyggServer;
 import fr.hyriode.hyrame.inventory.pagination.PaginatedItem;
@@ -149,10 +150,10 @@ public class HostGUI extends LobbyGUI {
     }
 
     private void sendToHost(String serverName) {
-        final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(this.owner.getUniqueId());
-        final IHyriParty party = HyriAPI.get().getPartyManager().getParty(account.getParty());
+        final IHyriPlayerSession session = IHyriPlayerSession.get(this.owner.getUniqueId());
+        final IHyriParty party = HyriAPI.get().getPartyManager().getParty(session.getParty());
 
-        if (account.isInModerationMode()) {
+        if (session.isModerating()) {
             this.owner.sendMessage(LobbyMessage.STAFF_ERROR.asString(this.account));
         } else if (party != null && !party.isLeader(this.owner.getUniqueId())) {
             this.owner.sendMessage(LobbyMessage.IN_PARTY_ERROR.asString(this.account));

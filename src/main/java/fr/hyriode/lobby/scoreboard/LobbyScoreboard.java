@@ -78,6 +78,7 @@ public class LobbyScoreboard extends HyriScoreboard {
                 .replace("%value%", this.getHyris());
     }
 
+
     private String getHyris() {
         final long hyris = this.account.getHyris().getAmount();
 

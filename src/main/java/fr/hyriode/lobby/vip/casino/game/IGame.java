@@ -1,11 +1,9 @@
 package fr.hyriode.lobby.vip.casino.game;
 
-import fr.hyriode.api.money.IHyriMoney;
 import fr.hyriode.api.player.IHyriPlayer;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import fr.hyriode.hyrame.inventory.HyriInventory;
+import fr.hyriode.lobby.vip.casino.game.rollermachines.RollingMachinesInventory;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
 public interface IGame {
@@ -14,19 +12,24 @@ public interface IGame {
         final IHyriPlayer hyriPlayer = IHyriPlayer.get(player.getUniqueId());
         final long hyris = hyriPlayer.getHyris().getAmount();
 
-        if(hyris >= this.getHyrisPrice()) {
-            hyriPlayer.getHyris().remove(500L).exec();
-            hyriPlayer.update();
-            player.openInventory(initGui(Bukkit.createInventory(null, 27, this.getName())));
-        } else {
-            //remove before prod
-            hyriPlayer.getHyris().add(500L).exec();
-            hyriPlayer.update();
-            player.sendMessage("§4Vous n'avez pas assez d'Hyris " + hyriPlayer.getName());
+        if(this.getHyrisPrice() != 0L) {
+            if(hyris >= this.getHyrisPrice()) {
+                hyriPlayer.getHyris().remove(this.getHyrisPrice()).exec();
+                hyriPlayer.update();
+            } else {
+                player.sendMessage("§4Vous n'avez pas assez d'Hyris");
+                return;
+            }
         }
+
+        this.getInventory(player).open();
     }
+    HyriInventory getInventory(Player player);
     String getName();
     long getHyrisPrice();
-    Inventory initGui(Inventory inventory);
-    void onWinning();
+
+
+    default void onWinning() {
+
+    }
 }

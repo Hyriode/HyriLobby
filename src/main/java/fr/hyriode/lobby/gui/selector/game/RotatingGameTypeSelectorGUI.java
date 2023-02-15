@@ -6,6 +6,7 @@ import fr.hyriode.api.game.IHyriGameInfo;
 import fr.hyriode.api.network.counter.IHyriGlobalCounter;
 import fr.hyriode.api.party.IHyriParty;
 import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.LobbyGUI;
@@ -97,10 +98,10 @@ public class RotatingGameTypeSelectorGUI extends LobbyGUI {
     }
 
     private void sendPlayerToGame(Player player, String type) {
-        final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId());
-        final IHyriParty party = HyriAPI.get().getPartyManager().getParty(account.getParty());
+        final IHyriPlayerSession session = IHyriPlayerSession.get(player.getUniqueId());
+        final IHyriParty party = HyriAPI.get().getPartyManager().getParty(session.getParty());
 
-        if (account.isInModerationMode()) {
+        if (session.isModerating()) {
             player.sendMessage(LobbyMessage.STAFF_ERROR.asString(player));
         } else if (party != null && !party.isLeader(player.getUniqueId())) {
             player.sendMessage(LobbyMessage.IN_PARTY_ERROR.asString(player));

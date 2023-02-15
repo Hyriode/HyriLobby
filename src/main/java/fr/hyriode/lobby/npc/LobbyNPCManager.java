@@ -5,6 +5,9 @@ import fr.hyriode.lobby.npc.model.GameNPCHandler;
 import fr.hyriode.lobby.npc.model.HostNPCHandler;
 import fr.hyriode.lobby.npc.model.LanguageNPCHandler;
 import fr.hyriode.lobby.npc.model.RotatingGameNPCHandler;
+import fr.hyriode.lobby.quest.AQuest;
+import fr.hyriode.lobby.quest.TestQuest;
+import fr.hyriode.lobby.vip.casino.game.zzs.ZeroZeroSevenNPC;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,7 +15,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by AstFaster
@@ -31,6 +36,19 @@ public class LobbyNPCManager {
         this.registerHandler(new LanguageNPCHandler(plugin));
         this.registerHandler(new RotatingGameNPCHandler(plugin));
         this.registerHandler(new HostNPCHandler(plugin));
+
+        this.registerHandler(new ZeroZeroSevenNPC(plugin));
+
+        this.registerQuests(plugin);
+    }
+
+    private void registerQuests(HyriLobby plugin) {
+        final Set<AQuest> questSet = new HashSet<>();
+        questSet.add(new TestQuest(plugin));
+
+        for (AQuest quest : questSet) {
+            this.registerHandler(quest);
+        }
     }
 
     public <T extends LobbyNPCHandler> T registerHandler(T npcHandler) {
@@ -63,5 +81,4 @@ public class LobbyNPCManager {
         }
 
     }
-
 }
