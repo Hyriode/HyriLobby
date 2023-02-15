@@ -23,4 +23,4 @@ jobs:
         run: gradle build
         env:
           USERNAME: ${{ github.actor }}
-          TOKEN: ${{ secrets.TOKEN }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
