@@ -1,9 +1,9 @@
 package fr.hyriode.lobby.gui.profile;
 
 import fr.hyriode.api.HyriAPI;
-import fr.hyriode.api.friend.IHyriFriend;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.player.IHyriPlayerSession;
+import fr.hyriode.api.player.model.IHyriFriend;
 import fr.hyriode.hyrame.inventory.pagination.PaginatedItem;
 import fr.hyriode.hyrame.inventory.pagination.PaginationArea;
 import fr.hyriode.hyrame.item.ItemBuilder;
@@ -71,25 +71,25 @@ public class FriendsGUI extends LobbyGUI {
 
         pagination.clear();
 
-        for (IHyriFriend friend : HyriAPI.get().getFriendManager().getFriends(this.owner.getUniqueId())) {
+        for (IHyriFriend friend : this.account.getFriends().getAll()) {
             pagination.add(PaginatedItem.from(this.createFriendItem(friend), this.clickEvent(friend)));
         }
     }
 
     private ItemStack createFriendItem(IHyriFriend friend) {
         final UUID friendId = friend.getUniqueId();
-        final Date whenAdded = friend.getWhenAdded();
+        final long whenAdded = friend.whenAdded();
         final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(friendId);
         final IHyriPlayerSession session = IHyriPlayerSession.get(friendId);
-        final long friendsFor = System.currentTimeMillis() - whenAdded.getTime();
+        final long friendsFor = System.currentTimeMillis() - whenAdded;
         final String formattedFriendsFor = new DurationFormatter()
                 .withDays(true)
                 .withSeconds(friendsFor < 60 * 1000L)
                 .format(this.account.getSettings().getLanguage(), friendsFor);
         final List<String> lore = ListReplacer.replace(LobbyMessage.FRIENDS_FRIEND_ITEM_LORE.asList(this.account), "%online%", session != null ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
                 .replace("%friends_for%", formattedFriendsFor)
-                .replace("%date%", TimeUtil.formatDate(whenAdded, "dd/MM/yyyy"))
-                .replace("%premium%", account.isPremium() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
+                .replace("%date%", TimeUtil.formatDate(new Date(whenAdded), "dd/MM/yyyy"))
+                .replace("%premium%", account.getAuth().isPremium() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
                 .replace("%level%", String.valueOf(account.getNetworkLeveling().getLevel()))
                 .list();
 
@@ -103,7 +103,13 @@ public class FriendsGUI extends LobbyGUI {
     private Consumer<InventoryClickEvent> clickEvent(IHyriFriend friend) {
         return event -> {
             if (event.isRightClick()) {
-                HyriAPI.get().getFriendManager().createHandler(this.owner.getUniqueId()).removeFriend(friend.getUniqueId());
+                this.account.getFriends().remove(friend.getUniqueId());
+                this.account.update();
+
+                final IHyriPlayer friendAccount = IHyriPlayer.get(friend.getUniqueId());
+
+                friendAccount.getFriends().remove(this.owner.getUniqueId());
+                friendAccount.update();
 
                 this.owner.playSound(this.owner.getLocation(), Sound.FIZZ, 0.5F, 1.0F);
 

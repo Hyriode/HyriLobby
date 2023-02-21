@@ -1,8 +1,8 @@
 package fr.hyriode.lobby.gui.settings;
 
 import fr.hyriode.api.player.IHyriPlayer;
-import fr.hyriode.api.settings.IHyriPlayerSettings;
-import fr.hyriode.api.settings.SettingsLevel;
+import fr.hyriode.api.player.model.IHyriPlayerSettings;
+import fr.hyriode.api.player.model.SettingsLevel;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.HyriLobby;

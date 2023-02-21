@@ -1,9 +1,9 @@
 package fr.hyriode.lobby.store;
 
+import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.money.IHyriMoney;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.item.ItemBuilder;
-import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.ConfirmGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
@@ -27,7 +27,7 @@ public class StoreItem extends StoreIcon {
     protected HyriLanguageMessage name;
     protected HyriLanguageMessage description;
 
-    protected Predicate<IHyriPlayer> owningCheck = account -> account.getTransaction(this.getCategory(), this.id) != null;
+    protected Predicate<IHyriPlayer> owningCheck = account -> account.getTransactions().get(this.getCategory(), this.id) != null;
     protected Consumer<IHyriPlayer> whenPurchased;
 
     protected final String category;

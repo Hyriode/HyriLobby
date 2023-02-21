@@ -1,5 +1,6 @@
 package fr.hyriode.lobby.npc.model;
 
+import fr.hyriode.api.game.IHyriGameInfo;
 import fr.hyriode.hyrame.hologram.Hologram;
 import fr.hyriode.hyrame.npc.NPC;
 import fr.hyriode.hyrame.npc.NPCManager;
@@ -12,7 +13,6 @@ import fr.hyriode.lobby.npc.LobbyNPCHandler;
 import fr.hyriode.lobby.npc.util.NPCPlayLine;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
@@ -95,8 +95,9 @@ public class GameNPCHandler extends LobbyNPCHandler {
         }
 
         final List<String> header = new ArrayList<>();
+        final IHyriGameInfo gameInfo = game.getGameInfo();
 
-        //header.add(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + game.getGameInfo().getDisplayName());
+        header.add(ChatColor.DARK_AQUA + "" + ChatColor.BOLD + (gameInfo != null ? gameInfo.getDisplayName() : "Unknown"));
         header.add(" ");
         header.add(" ");
 
@@ -112,7 +113,7 @@ public class GameNPCHandler extends LobbyNPCHandler {
         final Hologram hologram = npc.getHologram();
 
         hologram.setLine(1, new Hologram.Line(() -> LobbyMessage.GAME_NPC_HEADER_PLAYERS.asString(player).replace("%players%", String.valueOf(game.getPlayers()))));
-     //   hologram.setLine(2, new Hologram.Line(new NPCPlayLine()));
+        hologram.setLine(2, new Hologram.Line(new NPCPlayLine()));
 
         for (Map.Entry<EnumItemSlot, ItemStack> entry : npcData.getEquipment().entrySet()) {
             npc.setEquipment(entry.getKey(), entry.getValue());

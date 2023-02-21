@@ -2,7 +2,7 @@ package fr.hyriode.lobby.gui.settings;
 
 import fr.hyriode.api.language.HyriLanguage;
 import fr.hyriode.api.player.IHyriPlayer;
-import fr.hyriode.api.settings.IHyriPlayerSettings;
+import fr.hyriode.api.player.model.IHyriPlayerSettings;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.HyriLobby;
@@ -48,6 +48,7 @@ public class LanguageGUI extends LobbyGUI {
                     final HyriLanguage newLang = language.getInitial();
 
                     this.settings.setLanguage(newLang);
+                    this.account.update();
                     this.owner.closeInventory();
 
                     final IHyriPlayer newAccount = IHyriPlayer.get(this.owner.getUniqueId());

@@ -7,21 +7,13 @@ import fr.hyriode.hyrame.inventory.HyriInventory;
 import fr.hyriode.hyrame.inventory.pagination.PaginatedInventory;
 import fr.hyriode.hyrame.inventory.pagination.PaginatedItem;
 import fr.hyriode.hyrame.item.ItemBuilder;
-import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.language.LobbyMessage;
-import fr.hyriode.lobby.util.InventoryUtil;
 import fr.hyriode.lobby.util.UsefulHead;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.ItemStack;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Supplier;
 

@@ -1,9 +1,7 @@
 package fr.hyriode.lobby.booster;
 
 import fr.hyriode.api.HyriAPI;
-import fr.hyriode.api.booster.IHyriBoosterManager;
 import fr.hyriode.api.player.IHyriPlayer;
-
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.hyrame.utils.list.ListReplacer;
@@ -11,10 +9,6 @@ import fr.hyriode.lobby.store.StoreItem;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
 
 /**
  * Created by AstFaster

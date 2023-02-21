@@ -2,7 +2,7 @@ package fr.hyriode.lobby.vip;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.player.IHyriPlayer;
-import fr.hyriode.api.rank.type.HyriPlayerRankType;
+import fr.hyriode.api.rank.PlayerRank;
 import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.hyrame.utils.Area;
 import fr.hyriode.lobby.HyriLobby;
@@ -27,9 +27,8 @@ public class VIPZoneHandler extends HyriListener<HyriLobby> {
         final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
         final IHyriPlayer hyriPlayer = HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId());
 
-
-        if(vip.isInArea(player.getLocation())) {
-            if(hyriPlayer.getRank().is(HyriPlayerRankType.PLAYER)) {
+        if (vip.isInArea(player.getLocation())) {
+            if (hyriPlayer.getRank().is(PlayerRank.PLAYER)) {
                 player.teleport(this.plugin.config().getVIPLocation().asBukkit());
             }
         }

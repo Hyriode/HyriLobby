@@ -1,8 +1,8 @@
 package fr.hyriode.lobby.config;
 
+import fr.hyriode.api.config.IHyriConfig;
 import fr.hyriode.hyrame.utils.Area;
 import fr.hyriode.hyrame.utils.LocationWrapper;
-import fr.hyriode.hystia.api.config.IConfig;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Akkashi
  * on 26/04/2022 at 17:49
  */
-public class LobbyConfig implements IConfig {
+public class LobbyConfig implements IHyriConfig {
 
     private final LocationWrapper spawnLocation;
     private final LocationWrapper vipLocation;

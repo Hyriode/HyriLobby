@@ -2,9 +2,7 @@ package fr.hyriode.lobby.vip.casino.game;
 
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.inventory.HyriInventory;
-import fr.hyriode.lobby.vip.casino.game.rollermachines.RollingMachinesInventory;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 public interface IGame {
 

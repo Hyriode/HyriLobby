@@ -24,13 +24,11 @@ public class HostInvitationCommand extends HyriCommand<HyriLobby> {
         this.handleArgument(ctx, "%input%", output -> {
             final String serverName = output.get(String.class);
 
-            System.out.println(serverName);
-
             if (HyriAPI.get().getServerManager().getServer(serverName) == null) {
                 return;
             }
 
-            HyriAPI.get().getQueueManager().addPlayerInQueue(player.getUniqueId(), serverName, true);
+            HyriAPI.get().getQueueManager().addPlayerInQueue(player.getUniqueId(), serverName);
         });
     }
 

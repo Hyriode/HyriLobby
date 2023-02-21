@@ -69,7 +69,7 @@ public class RotatingGameNPCHandler extends SingleNPCHandler {
         for (int i = 0; i < header.size(); i++) {
             final int index = i;
 
-            hologram.setLine(index, new Hologram.Line(target -> LobbyMessage.NPC_ROTATING_GAME_HEADER.asList(target).get(index)));
+            hologram.setLine(index, new Hologram.Line(target -> header.get(index)));
         }
 
         hologram.setLine(header.size(), new Hologram.Line(new NPCPlayLine()));

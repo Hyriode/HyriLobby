@@ -1,9 +1,9 @@
 package fr.hyriode.lobby.gui.selector;
 
 import fr.hyriode.api.HyriAPI;
-import fr.hyriode.api.friend.IHyriFriend;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.player.IHyriPlayerSession;
+import fr.hyriode.api.player.model.IHyriFriend;
 import fr.hyriode.api.server.IHyriServerManager;
 import fr.hyriode.api.server.ILobbyAPI;
 import fr.hyriode.hyggdrasil.api.server.HyggServer;
@@ -98,7 +98,7 @@ public class LobbySelectorGUI extends LobbyGUI {
     }
 
     private Map<String, List<IHyriPlayer>> getFriendsServers() {
-        final List<IHyriFriend> totalFriends = HyriAPI.get().getFriendManager().getFriends(this.account.getUniqueId());
+        final List<IHyriFriend> totalFriends = this.account.getFriends().getAll();
         final Map<String, List<IHyriPlayer>> friendsServers = new HashMap<>();
 
         for (IHyriFriend friend : totalFriends) {

@@ -1,13 +1,10 @@
 package fr.hyriode.lobby.jump;
 
-import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.hyrame.utils.LocationWrapper;
-import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.HyriLobby;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Project: HyriLobby

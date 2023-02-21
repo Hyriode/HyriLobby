@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 public class PlayerProfileItem extends LobbyItem {
 
     public PlayerProfileItem(HyriLobby plugin) {
-        super(plugin, "player_profile", "item.profile.name", "item.profile.description", Material.SKULL_ITEM);
+        super(plugin, "player_profile", "item.profile.name", "item.profile.description", ItemBuilder.asHead().build());
     }
 
     @Override

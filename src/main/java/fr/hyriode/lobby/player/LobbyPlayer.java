@@ -3,14 +3,13 @@ package fr.hyriode.lobby.player;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.HyriConstants;
-import fr.hyriode.api.friend.IHyriFriendHandler;
 import fr.hyriode.api.leveling.IHyriLeveling;
 import fr.hyriode.api.party.IHyriParty;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.player.IHyriPlayerSession;
+import fr.hyriode.api.player.model.SettingsLevel;
 import fr.hyriode.api.queue.IHyriQueueManager;
-import fr.hyriode.api.rank.type.HyriPlayerRankType;
-import fr.hyriode.api.settings.SettingsLevel;
+import fr.hyriode.api.rank.PlayerRank;
 import fr.hyriode.hyrame.actionbar.ActionBar;
 import fr.hyriode.hyrame.item.IItemManager;
 import fr.hyriode.hyrame.item.ItemBuilder;
@@ -74,12 +73,12 @@ public class LobbyPlayer {
 
         PlayerUtil.resetPlayer(player, true);
 
-        player.setLevel(0); //TODO
-        player.setExp(0); //TODO
+        player.setLevel(account.getNetworkLeveling().getLevel());
+        player.setExp(this.getExp());
         player.getInventory().setArmorContents(null);
         player.setGameMode(GameMode.ADVENTURE);
 
-        if (account.getRank().isSuperior(HyriPlayerRankType.VIP_PLUS) || account.getRank().isStaff()) {
+        if (account.getRank().isSuperior(PlayerRank.VIP_PLUS) || account.getRank().isStaff()) {
             player.setAllowFlight(true);
         }
 
@@ -95,12 +94,6 @@ public class LobbyPlayer {
 
         this.inPvp = false;
         this.jump = null;
-
-        //to remove before prod
-        System.out.println("test");
-
-        this.asPlayer().teleport(new LocationWrapper(-367D, 163D, -14D).asBukkit());
-
     }
 
     public void handleLogout() {
@@ -231,7 +224,7 @@ public class LobbyPlayer {
     public void giveDefaultItems() {
         final Player player = this.asPlayer();
         final IHyriPlayerSession session = IHyriPlayerSession.get(this.uuid);
-        final IHyriParty party = session.isModerating() ? HyriAPI.get().getPartyManager().getParty(session.getParty()) : null;
+        final IHyriParty party = session.isModerating() ? IHyriParty.get(session.getParty()) : null;
         final IItemManager item = this.plugin.getHyrame().getItemManager();
         final IHyriQueueManager queueManager = HyriAPI.get().getQueueManager();
 
@@ -262,14 +255,13 @@ public class LobbyPlayer {
     public void initPlayersVisibility(SettingsLevel level, boolean showAll) {
         final Player player = this.asPlayer();
         final IHyriPlayerSession session = IHyriPlayerSession.get(this.uuid);
-        final IHyriFriendHandler handler = HyriAPI.get().getFriendManager().createHandler(player.getUniqueId());
-        final IHyriParty party = session.hasParty() ? HyriAPI.get().getPartyManager().getParty(session.getParty()) : null;
+        final IHyriParty party = session.hasParty() ? IHyriParty.get(session.getParty()) : null;
 
         for (Player target : Bukkit.getOnlinePlayers()) {
             final UUID targetId = target.getUniqueId();
             final IHyriPlayer targetAccount = IHyriPlayer.get(targetId);
 
-                if (level == SettingsLevel.ALL || targetAccount.getRank().isStaff() || showAll) {
+            if (level == SettingsLevel.ALL || targetAccount.getRank().isStaff() || showAll) {
                 player.showPlayer(target);
                 continue;
             }
@@ -280,7 +272,7 @@ public class LobbyPlayer {
             }
 
             if (level == SettingsLevel.FRIENDS) {
-                if (handler.areFriends(targetId)) {
+                if (targetAccount.getFriends().has(this.uuid)) {
                     player.showPlayer(target);
                 } else {
                     player.hidePlayer(target);
@@ -313,7 +305,7 @@ public class LobbyPlayer {
             return;
         }
 
-        if (account.getRank().isSuperior(HyriPlayerRankType.VIP_PLUS) || account.getRank().isStaff() || (session.hasNickname() && session.getNickname().getRank().getId() >= HyriPlayerRankType.VIP_PLUS.getId())) {
+        if (account.getRank().isSuperior(PlayerRank.VIP_PLUS) || account.getRank().isStaff() || (session.getNickname().has() && session.getNickname().getRank().getId() >= PlayerRank.VIP_PLUS.getId())) {
             for (Player target : Bukkit.getOnlinePlayers()) {
                 target.sendMessage(LobbyMessage.JOIN_VIP_MESSAGE.asString(target).replace("%player%", account.getNameWithRank()));
             }
@@ -328,7 +320,7 @@ public class LobbyPlayer {
         if (session.getLastServer() == null) {
             final Title title = new Title(basicTitle, LobbyMessage.BASIC_JOIN_SUBTITLE.asString(account), 20, 3 * 20, 20);
 
-            if (account.getPlayTime() == 0) {
+            if (account.getStatistics().getTotalPlayTime() == 0) {
                 title.setSubTitle(LobbyMessage.FIRST_JOIN_SUBTITLE.asString(account));
             }
 

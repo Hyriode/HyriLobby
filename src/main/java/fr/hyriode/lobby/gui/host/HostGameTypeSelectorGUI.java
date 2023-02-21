@@ -1,6 +1,6 @@
 package fr.hyriode.lobby.gui.host;
 
-import fr.hyriode.api.game.HyriGameType;
+import fr.hyriode.api.game.IHyriGameType;
 import fr.hyriode.api.host.HostRequest;
 import fr.hyriode.api.host.HostType;
 import fr.hyriode.hyrame.item.ItemBuilder;
@@ -16,10 +16,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.Comparator;
-import java.util.Map;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by AstFaster
@@ -56,21 +54,20 @@ public class HostGameTypeSelectorGUI extends LobbyGUI {
     }
 
     private void addTypesItem() {
-        final Set<Map.Entry<String, HyriGameType>> entries = this.game.getGameInfo().getTypes().entrySet();
-        final Stream<Map.Entry<String, HyriGameType>> entriesStream = entries.stream().sorted(Comparator.comparingInt(o -> o.getValue().getId()));
+        final List<IHyriGameType> types = this.game.getGameInfo().getTypes().stream().sorted(Comparator.comparingInt(IHyriGameType::getId)).collect(Collectors.toList());
 
-        for (Map.Entry<String, HyriGameType> entry : entriesStream.collect(Collectors.toList())) {
-            for (int i : GameTypeSelectorGUI.SlotConfiguration.getSlots(entries.size())) {
+        for (IHyriGameType type : types) {
+            for (int i : GameTypeSelectorGUI.SlotConfiguration.getSlots(types.size())) {
                 if (this.inventory.getItem(i) != null) {
                     continue;
                 }
 
                 this.setItem(i, new ItemBuilder(this.game.getIcon())
-                        .withName(ChatColor.AQUA + entry.getValue().getDisplayName())
+                        .withName(ChatColor.AQUA + type.getDisplayName())
                         .withLore("", LobbyMessage.HOST_CLICK_TO_CREATE.asString(this.account))
                         .build(),
                         event -> {
-                            new HostRequest(this.hostType, this.owner.getUniqueId(), this.game.getName(), entry.getKey()).send();
+                            new HostRequest(this.hostType, this.owner.getUniqueId(), this.game.getName(), type.getName()).send();
                             new HostWaitingAnimation(this.owner).start(this.plugin);
 
                             this.plugin.getHostHandler().addWaitingPlayer(this.owner.getUniqueId());

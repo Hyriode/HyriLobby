@@ -2,7 +2,6 @@ package fr.hyriode.lobby.gui.profile;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.booster.HyriBoosterTransaction;
-import fr.hyriode.api.booster.IHyriBoosterManager;
 import fr.hyriode.hyrame.inventory.pagination.PaginatedItem;
 import fr.hyriode.hyrame.inventory.pagination.PaginationArea;
 import fr.hyriode.hyrame.item.ItemBuilder;
@@ -69,8 +68,6 @@ public class BoostersGUI extends LobbyGUI {
 
                             booster.setUsed(true);
 
-                            this.account.removeTransaction(HyriBoosterTransaction.TRANSACTIONS_TYPE, name);
-                            this.account.addTransaction(HyriBoosterTransaction.TRANSACTIONS_TYPE, name, booster);
                             this.account.update();
                         })
                         .whenCancel(e -> this.open())

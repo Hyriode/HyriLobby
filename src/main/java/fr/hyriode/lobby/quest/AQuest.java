@@ -28,7 +28,6 @@ public abstract class AQuest extends SingleNPCHandler {
 
     protected abstract String getLore();
 
-
     @Override
     public NPC createNPC(Player player) {
         return NPCManager.createNPC(this.getNPCLocation(), this.getSkin(), Collections.singletonList(this.getNPCName()))

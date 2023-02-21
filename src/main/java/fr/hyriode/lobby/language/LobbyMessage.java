@@ -4,8 +4,8 @@ import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.HyriConstants;
 import fr.hyriode.api.game.IHyriGameInfo;
 import fr.hyriode.api.game.rotating.IHyriRotatingGame;
-import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.language.HyriLanguageMessage;
+import fr.hyriode.api.player.IHyriPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -97,12 +97,8 @@ public enum LobbyMessage {
     PROFILE_SETTINGS_NAME("gui.profile.item.settings.name"),
     PROFILE_SETTINGS_LORE("gui.profile.item.settings.lore"),
 
-    PROFILE_ACCOUNT("gui.profile.item.account.name"),
-    PROFILE_RANK("gui.profile.item.rank.name"),
-    PROFILE_LEVEL("gui.profile.item.level.name"),
-    PROFILE_FIRST_JOIN("gui.profile.item.first-join.name"),
-    PROFILE_PLAYTIME("gui.profile.item.playtime.name"),
-
+    PROFILE_ACCOUNT_NAME("gui.profile.item.account.name"),
+    PROFILE_ACCOUNT_LORE("gui.profile.item.account.lore"),
     PROFILE_LEVELING_NAME("gui.profile.item.leveling.name"),
     PROFILE_LEVELING_LORE("gui.profile.item.leveling.lore"),
 

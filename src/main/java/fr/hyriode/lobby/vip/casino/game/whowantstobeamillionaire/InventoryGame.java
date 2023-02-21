@@ -1,8 +1,6 @@
 package fr.hyriode.lobby.vip.casino.game.whowantstobeamillionaire;
 
 import fr.hyriode.api.player.IHyriPlayer;
-import fr.hyriode.hyrame.host.option.IntegerOption;
-import fr.hyriode.hyrame.host.option.PreciseIntegerOption;
 import fr.hyriode.hyrame.inventory.HyriInventory;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.item.ItemHead;
@@ -13,12 +11,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class InventoryGame extends HyriInventory {

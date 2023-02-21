@@ -1,13 +1,11 @@
 package fr.hyriode.lobby.leveling;
 
 import fr.hyriode.api.HyriAPI;
-import fr.hyriode.api.booster.IHyriBoosterManager;
 import fr.hyriode.api.color.HyriChatColor;
 import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.lootbox.HyriLootboxRarity;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.utils.Symbols;
-import fr.hyriode.lobby.language.LobbyMessage;
 import org.bukkit.ChatColor;
 
 import java.util.function.Supplier;
@@ -327,7 +325,7 @@ public enum LevelingReward {
 
         @Override
         public void claim(IHyriPlayer player) {
-            player.setAvailableHosts(player.getAvailableHosts() + this.data);
+            player.getHosts().addAvailableHosts(this.data);
         }
 
         @Override

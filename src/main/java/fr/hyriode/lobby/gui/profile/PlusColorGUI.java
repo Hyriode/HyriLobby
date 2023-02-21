@@ -2,9 +2,9 @@ package fr.hyriode.lobby.gui.profile;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.color.HyriChatColor;
-import fr.hyriode.api.rank.HyriRankUpdatedEvent;
-import fr.hyriode.api.rank.hyriplus.HyriPlus;
-import fr.hyriode.api.rank.type.HyriPlayerRankType;
+import fr.hyriode.api.player.event.RankUpdatedEvent;
+import fr.hyriode.api.player.model.IHyriPlus;
+import fr.hyriode.api.rank.PlayerRank;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.list.ListReplacer;
 import fr.hyriode.lobby.HyriLobby;
@@ -58,11 +58,11 @@ public class PlusColorGUI extends LobbyGUI {
 
     private void addItem(int slot, Color color) {
         final HyriChatColor initialColor = color.getInitial();
-        final HyriPlus hyriPlus = this.account.getHyriPlus();
+        final IHyriPlus hyriPlus = this.account.getHyriPlus();
         final boolean own = hyriPlus.getColors().contains(initialColor);
         final boolean selected = hyriPlus.getColor() == initialColor;
-        final String oldPrefix = HyriPlayerRankType.EPIC.getDefaultPrefix() + hyriPlus.getColor() + "+";
-        final String newPrefix = HyriPlayerRankType.EPIC.getDefaultPrefix() + initialColor + "+";
+        final String oldPrefix = PlayerRank.EPIC.getDefaultPrefix() + hyriPlus.getColor() + "+";
+        final String newPrefix = PlayerRank.EPIC.getDefaultPrefix() + initialColor + "+";
         final List<String> lore = ListReplacer.replace(LobbyMessage.HYRIPLUS_COLOR_LORE.asList(this.account), "%old%", oldPrefix)
                 .replace("%new%", newPrefix)
                 .list();
@@ -93,7 +93,7 @@ public class PlusColorGUI extends LobbyGUI {
 
                 hyriPlus.setColor(initialColor);
 
-                HyriAPI.get().getEventBus().publish(new HyriRankUpdatedEvent(this.owner.getUniqueId()));
+                HyriAPI.get().getEventBus().publish(new RankUpdatedEvent(this.owner.getUniqueId()));
 
                 this.account.update();
                 this.owner.sendMessage(LobbyMessage.HYRIPLUS_CHANGED_MESSAGE.asString(this.account));

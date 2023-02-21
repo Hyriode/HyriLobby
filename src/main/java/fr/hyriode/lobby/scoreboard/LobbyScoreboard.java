@@ -24,9 +24,11 @@ public class LobbyScoreboard extends HyriScoreboard {
         this.account = IHyriPlayer.get(this.player.getUniqueId());
 
         this.addBlankLine(1);
+        this.setLine(3, this.getServer());
         this.addBlankLine(4);
-        this.addBlankLine(9);
-        this.setLine(10, this.getServerIp(), new IPLine(HyriConstants.SERVER_IP), 2);
+        this.setLine(5, this.getProfile());
+        this.addBlankLine(10);
+        this.setLine(11, this.getServerIp(), new IPLine(HyriConstants.SERVER_IP), 2);
 
         this.addUpdatableLines();
     }
@@ -41,11 +43,10 @@ public class LobbyScoreboard extends HyriScoreboard {
     private void addUpdatableLines() {
         this.setLine(0, this.getCurrentDate());
         this.setLine(2, this.getPlayers());
-        this.setLine(3, this.getServer());
-        this.setLine(5, this.getProfile());
         this.setLine(6, this.getRank());
-        this.setLine(7, this.getHyrisLine());
-        this.setLine(8, this.getLevel());
+        this.setLine(7, this.getHyris());
+        this.setLine(8, this.getGems());
+        this.setLine(9, this.getLevel());
     }
 
     private String getCurrentDate() {
@@ -73,20 +74,16 @@ public class LobbyScoreboard extends HyriScoreboard {
         return line.replace("%value%", this.account.getPrefix());
     }
 
-    private String getHyrisLine() {
-        return DASH + this.getLinePrefix("hyris")
-                .replace("%value%", this.getHyris());
+    private String getHyris() {
+        return DASH + this.getLinePrefix("hyris").replace("%value%", NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."));
     }
 
-
-    private String getHyris() {
-        final long hyris = this.account.getHyris().getAmount();
-
-        return NumberFormat.getInstance().format(hyris).replace(",", ".");
+    private String getGems() {
+        return DASH + this.getLinePrefix("gems").replace("%value%", NumberFormat.getInstance().format(this.account.getGems().getAmount()).replace(",", "."));
     }
 
     private String getLevel() {
-        return "0"; //TODO
+        return DASH + this.getLinePrefix("level").replace("%value%", String.valueOf(this.account.getNetworkLeveling().getLevel()));
     }
 
     private String getServerIp() {

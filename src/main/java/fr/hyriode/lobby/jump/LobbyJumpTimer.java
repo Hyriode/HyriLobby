@@ -2,7 +2,8 @@ package fr.hyriode.lobby.jump;
 
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**

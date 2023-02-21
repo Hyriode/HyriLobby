@@ -3,8 +3,9 @@
   "scoreboard.server.display": "&fServer: &b%value%",
   "scoreboard.profile.display": "&3Profile",
   "scoreboard.rank.display": "&fRank: &b%value%",
-  "scoreboard.level.display": "&fLevel: &b%value%✯",
   "scoreboard.hyris.display": "&fHyris: &d%value% ⛃",
+  "scoreboard.gems.display": "&fGems: &a%value% ✦",
+  "scoreboard.level.display": "&fLevel: &b%value% ✯",
   "scoreboard.no-rank.value": "&7Player",
 
   "message.join.display": "\n&3&m---------------------&r&b Hyriode &3&m---------------------&r\n \n                       &7Website: &b%website%\n                       &7Store: &b%store%\n                      &7Discord: &b%discord%\n \n&3&m--------------------------------------------------&r\n \n",
@@ -58,7 +59,7 @@
   "gui.lobby-selector.name": "&8Change lobby",
   "gui.lobby-selector.item.name": "&fLobby ID: ",
 
-  "gui.game-selector.name": "&8Main menu",
+  "gui.game-selector.name": "&8Main Menu",
   "gui.game-selector.item.host.name": "&bHosts",
   "gui.game-selector.item.host.description": "&7Show the hosts created by\n&7the other players on the server.",
   "gui.game-selector.item.vip.name": "&eVIP Area",
@@ -115,10 +116,7 @@
   "gui.profile.item.friends.name": "&bFriends",
   "gui.profile.item.friends.lore": "&7Manage your friends list by adding\n&7other players from the server.\n\n&3Click to see",
   "gui.profile.item.account.name": "&bAccount",
-  "gui.profile.item.rank.name": "Rank",
-  "gui.profile.item.level.name": "Level",
-  "gui.profile.item.first-join.name": "First login",
-  "gui.profile.item.playtime.name": "Playtime",
+  "gui.profile.item.account.lore": "&8▪ &7Rank: %rank%\n&8▪ &7Premium: %premium%\n&8▪ &7Hyri+: %hyri+%\n&8▪ &7Hyris: &d%hyris% ⛃\n&8▪ &7Gems: &a%gems% ✦\n&8▪ &7Level: &b%level% ✯\n&8▪ &7First login: &b%first_login%\n&8▪ &7Play time: &b%play_time%",
   "gui.profile.item.leveling.name": "&bLeveling",
   "gui.profile.item.leveling.lore": "&7Play games, complete quests or\n&7achieve challenges to earn &bexperience &7and\n&7level up.\n\n&8▪ &7Level: &b%current_level% %progress_bar% &8%percentage%\n&8▪ &7Next level in: &b%experience% xp\n\n&3Click to see rewards",
   "gui.profile.item.settings.name": "&bSettings",
@@ -137,7 +135,7 @@
   "gui.profile.item.statistics.lore": "&7See your stats in the\n&7different games that are\n&7on the server.\n\n&3Click to see",
 
   "gui.friends.name": "&8Friends",
-  "gui.friends.friend.item.lore": "&8▪ &7Online: %online%\n&8▪ &7Friends for: &b%friends_for% &8(%date%)\n&8▪ &7Premium: %premium%\n&8▪ &7Level: &b%level%✯\n\n&cRight-click to remove friend",
+  "gui.friends.friend.item.lore": "&8▪ &7Online: %online%\n&8▪ &7Friends for: &b%friends_for% &8(%date%)\n&8▪ &7Premium: %premium%\n&8▪ &7Level: &b%level% ✯\n\n&cRight-click to remove friend",
   "gui.friends.add-friend.item.name": "&bAdd friend",
   "gui.friends.add-friend.item.lore": "&7Add a player in your friends\n&7list by sending to him a\n&7request.\n\n&3Click to add a friend",
   "gui.friends.add-friend.sign.line": "Player name",
@@ -288,7 +286,7 @@
   "click.to-claim": "&3Click to claim",
 
   "npc.language.header": "&3Language\n&fSelect your language\n&8» &bCLICK &8«",
-  "npc.rotating-game.header": "&b&kE&r &3&l%rotating_game% &r&b&kE\n&bRotating game\n&b%players% &fplayers",
+  "npc.rotating-game.header": "&f&kE&r &bRotating game &r&f&kE\n&3&l%rotating_game%\nb%players% &fplayers",
   "npc.host.header": "&3Hosts\n&fCreate your host\n&8» &bCLICK &8«",
 
   "leaderboard.leveling.header": "&3Leveling &8┃ &7Leaderboard",

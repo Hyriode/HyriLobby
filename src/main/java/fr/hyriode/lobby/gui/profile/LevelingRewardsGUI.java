@@ -1,6 +1,6 @@
 package fr.hyriode.lobby.gui.profile;
 
-import fr.hyriode.api.leveling.IHyriLeveling;
+import fr.hyriode.api.leveling.NetworkLeveling;
 import fr.hyriode.hyrame.inventory.pagination.PaginatedItem;
 import fr.hyriode.hyrame.inventory.pagination.PaginationArea;
 import fr.hyriode.hyrame.item.ItemBuilder;
@@ -52,7 +52,7 @@ public class LevelingRewardsGUI extends LobbyGUI {
         pagination.clear();
 
         for (LevelingReward reward : LevelingReward.VALUES) {
-            final IHyriLeveling leveling = this.account.getNetworkLeveling();
+            final NetworkLeveling leveling = this.account.getNetworkLeveling();
             final int level = reward.getLevel();
             final boolean claimed = leveling.getClaimedRewards().contains(level);
             final boolean notLevel = leveling.getLevel() < level;

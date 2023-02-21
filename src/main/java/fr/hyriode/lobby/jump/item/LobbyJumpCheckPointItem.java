@@ -1,8 +1,8 @@
 package fr.hyriode.lobby.jump.item;
 
+import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.item.HyriItem;
-import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.jump.LobbyJump;
 import fr.hyriode.lobby.language.LobbyMessage;

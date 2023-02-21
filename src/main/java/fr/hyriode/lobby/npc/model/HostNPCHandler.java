@@ -1,19 +1,14 @@
 package fr.hyriode.lobby.npc.model;
 
 import fr.hyriode.hyrame.IHyrame;
-import fr.hyriode.hyrame.hologram.Hologram;
 import fr.hyriode.hyrame.npc.NPC;
 import fr.hyriode.hyrame.npc.NPCManager;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.host.HostGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.npc.SingleNPCHandler;
-import fr.hyriode.lobby.npc.util.NPCPlayLine;
-import fr.hyriode.lobby.util.UsefulSkin;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-
-import java.util.List;
 
 /**
  * Created by AstFaster

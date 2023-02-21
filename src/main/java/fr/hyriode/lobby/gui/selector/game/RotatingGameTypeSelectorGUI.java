@@ -1,11 +1,10 @@
 package fr.hyriode.lobby.gui.selector.game;
 
 import fr.hyriode.api.HyriAPI;
-import fr.hyriode.api.game.HyriGameType;
 import fr.hyriode.api.game.IHyriGameInfo;
+import fr.hyriode.api.game.IHyriGameType;
 import fr.hyriode.api.network.counter.IHyriGlobalCounter;
 import fr.hyriode.api.party.IHyriParty;
-import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
@@ -19,7 +18,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class RotatingGameTypeSelectorGUI extends LobbyGUI {
 
@@ -77,20 +75,18 @@ public class RotatingGameTypeSelectorGUI extends LobbyGUI {
     }
 
     private void addTypesItems() {
-        final Set<Map.Entry<String, HyriGameType>> entries = this.game.getTypes().entrySet();
-        final Stream<Map.Entry<String, HyriGameType>> entriesStream = entries.stream().sorted(Comparator.comparingInt(o -> o.getValue().getId()));
+        final List<IHyriGameType> types = this.game.getTypes().stream().sorted(Comparator.comparingInt(IHyriGameType::getId)).collect(Collectors.toList());
         final IHyriGlobalCounter playerCount = HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter();
 
-        for (Map.Entry<String, HyriGameType> entry : entriesStream.collect(Collectors.toList())) {
-            final String gameTypeName = entry.getKey();
-            final int players = playerCount.getCategory(this.game.getName()).getPlayers(gameTypeName);
+        for (IHyriGameType type : types) {
+            final int players = playerCount.getCategory(this.game.getName()).getPlayers(type.getName());
 
-            for (int i : SlotConfiguration.getSlots(entries.size())) {
+            for (int i : SlotConfiguration.getSlots(types.size())) {
                 if(this.inventory.getItem(i) == null) {
                     this.setItem(i, ItemBuilder.asHead(UsefulHead.DICE_1)
-                            .withName(ChatColor.AQUA + entry.getValue().getDisplayName())
+                            .withName(ChatColor.AQUA + type.getDisplayName())
                             .withLore(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.owner) + ChatColor.AQUA + players, "", LobbyMessage.PLAY.asLang().getValue(this.owner))
-                            .build(), event -> this.sendPlayerToGame(this.owner, gameTypeName));
+                            .build(), event -> this.sendPlayerToGame(this.owner, type.getName()));
                     break;
                 }
             }
@@ -99,7 +95,7 @@ public class RotatingGameTypeSelectorGUI extends LobbyGUI {
 
     private void sendPlayerToGame(Player player, String type) {
         final IHyriPlayerSession session = IHyriPlayerSession.get(player.getUniqueId());
-        final IHyriParty party = HyriAPI.get().getPartyManager().getParty(session.getParty());
+        final IHyriParty party = IHyriParty.get(session.getParty());
 
         if (session.isModerating()) {
             player.sendMessage(LobbyMessage.STAFF_ERROR.asString(player));

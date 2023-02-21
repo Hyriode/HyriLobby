@@ -1,7 +1,7 @@
 package fr.hyriode.lobby.gui.profile;
 
 import fr.hyriode.api.leveling.IHyriLeveling;
-import fr.hyriode.api.rank.hyriplus.HyriPlus;
+import fr.hyriode.api.player.model.IHyriPlus;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.DurationFormatter;
 import fr.hyriode.hyrame.utils.Symbols;
@@ -17,7 +17,6 @@ import fr.hyriode.lobby.util.UsefulHead;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 
@@ -43,7 +42,7 @@ public class ProfileGUI extends LobbyGUI {
 
         // Account information item
         this.setItem(13, ItemBuilder.asHead()
-                .withName(LobbyMessage.PROFILE_ACCOUNT.asString(this.owner))
+                .withName(LobbyMessage.PROFILE_ACCOUNT_NAME.asString(this.owner))
                 .withLore(this.getAccountLore())
                 .withPlayerHead(this.owner.getUniqueId())
                 .build());
@@ -74,7 +73,7 @@ public class ProfileGUI extends LobbyGUI {
                 .withLore(this.getHyriPlusLore())
                 .build(),
                 event -> {
-                    if (this.account.hasHyriPlus()) {
+                    if (this.account.getHyriPlus().has()) {
                         this.openWithGoBack(49, new PlusColorGUI(this.owner, this.plugin));
                     } else {
                         this.owner.chat("/store");
@@ -100,19 +99,18 @@ public class ProfileGUI extends LobbyGUI {
     }
 
     private List<String> getAccountLore() {
-        final List<String> lore = new ArrayList<>();
-        final BiConsumer<String, String> lineBuilder = (prefix, value) -> lore.add(ChatColor.DARK_GRAY + Symbols.DOT_BOLD + ChatColor.GRAY + " " + prefix + ": " + ChatColor.AQUA + value);
-        final String playtime = new DurationFormatter().format(this.account.getSettings().getLanguage(), this.account.getPlayTime());
+        final List<String> lore = LobbyMessage.PROFILE_ACCOUNT_LORE.asList(this.account);
+        final String playTime = new DurationFormatter().format(this.account.getSettings().getLanguage(), this.account.getStatistics().getTotalPlayTime());
 
-        lineBuilder.accept(LobbyMessage.PROFILE_RANK.asString(this.account), this.account.getPrefix());
-        lineBuilder.accept("Premium", this.account.isPremium() ? ChatColor.GREEN + "✔" : ChatColor.RED + "✘");
-        lineBuilder.accept("Hyri+", this.account.hasHyriPlus() ? ChatColor.GREEN + "✔" : ChatColor.RED + "✘");
-        lineBuilder.accept(LobbyMessage.PROFILE_LEVEL.asString(this.account), String.valueOf(this.account.getNetworkLeveling().getLevel()));
-        lineBuilder.accept("Hyris", ChatColor.LIGHT_PURPLE + NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."));
-        lineBuilder.accept(LobbyMessage.PROFILE_FIRST_JOIN.asString(this.account), TimeUtil.formatDate(new Date(this.account.getFirstLoginDate()), "dd/MM/yyyy HH:mm:ss"));
-        lineBuilder.accept(LobbyMessage.PROFILE_PLAYTIME.asString(this.account), playtime);
-
-        return lore;
+        return  ListReplacer.replace(lore, "%rank%", this.account.getPrefix())
+                .replace("%premium%", this.account.getAuth().isPremium() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
+                .replace("%hyri+%", this.account.getHyriPlus().has() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
+                .replace("%hyris%", NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."))
+                .replace("%gems%", NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."))
+                .replace("%level%", String.valueOf(this.account.getNetworkLeveling().getLevel()))
+                .replace("%first_login%", TimeUtil.formatDate(new Date(this.account.getFirstLoginDate()), "dd/MM/yyyy HH:mm:ss"))
+                .replace("%play_time%",  playTime)
+                .list();
     }
 
     private List<String> getLevelingLore() {
@@ -149,14 +147,16 @@ public class ProfileGUI extends LobbyGUI {
 
         lore.add("");
 
-        if (this.account.hasHyriPlus()) {
-            final HyriPlus hyriPlus = this.account.getHyriPlus();
-            final Date purchase = new Date(hyriPlus.getEnabledDate());
-            final Date expiration = new Date(hyriPlus.getEnabledDate() + hyriPlus.getDuration() * 1000);
+        final IHyriPlus hyriPlus = this.account.getHyriPlus();
 
-            lineBuilder.accept(LobbyMessage.PROFILE_HYRIPLUS_BUY_DATE.asString(this.account), TimeUtil.formatDate(purchase));
-            lineBuilder.accept(LobbyMessage.PROFILE_HYRIPLUS_EXPIRE_DATE.asString(this.account), TimeUtil.formatDate(expiration));
-            lineBuilder.accept(LobbyMessage.PROFILE_HYRIPLUS_REMAINING.asString(this.account), new DurationFormatter().withDays(true).withSeconds(false).format(this.account.getSettings().getLanguage(), expiration.getTime() - purchase.getTime()));
+        if (hyriPlus.has()) {
+            final long enabledDate = hyriPlus.getEnabledDate();
+            final Date purchase = new Date(enabledDate);
+            final Date expiration = new Date(enabledDate + hyriPlus.getDuration() * 1000);
+
+            lineBuilder.accept(LobbyMessage.PROFILE_HYRIPLUS_BUY_DATE.asString(this.account), enabledDate <= 0 ? "-" : TimeUtil.formatDate(purchase));
+            lineBuilder.accept(LobbyMessage.PROFILE_HYRIPLUS_EXPIRE_DATE.asString(this.account), enabledDate <= 0 ? "-" : TimeUtil.formatDate(expiration));
+            lineBuilder.accept(LobbyMessage.PROFILE_HYRIPLUS_REMAINING.asString(this.account), enabledDate <= 0 ? "-" : new DurationFormatter().withDays(true).withSeconds(false).format(this.account.getSettings().getLanguage(), expiration.getTime() - purchase.getTime()));
             lineBuilder.accept(LobbyMessage.PROFILE_HYRIPLUS_PLUS_COLOR.asString(this.account), hyriPlus.getColor() + "+");
 
             lore.add("");

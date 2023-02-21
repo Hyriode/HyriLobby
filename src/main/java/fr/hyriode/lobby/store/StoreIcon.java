@@ -1,7 +1,7 @@
 package fr.hyriode.lobby.store;
 
-import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.language.HyriLanguageMessage;
+import fr.hyriode.api.player.IHyriPlayer;
 import org.bukkit.inventory.ItemStack;
 
 /**

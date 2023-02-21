@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static fr.hyriode.lobby.game.LobbyGame.*;
+import static fr.hyriode.lobby.game.LobbyGame.State;
 
 public class GameSelectorGUI extends LobbyGUI {
 

@@ -1,6 +1,6 @@
 package fr.hyriode.lobby.command;
 
-import fr.hyriode.api.rank.type.HyriPlayerRankType;
+import fr.hyriode.api.rank.PlayerRank;
 import fr.hyriode.hyrame.command.HyriCommand;
 import fr.hyriode.hyrame.command.HyriCommandContext;
 import fr.hyriode.hyrame.command.HyriCommandInfo;
@@ -21,7 +21,7 @@ public class FlyCommand extends HyriCommand<HyriLobby> {
         super(plugin, new HyriCommandInfo("fly")
                 .withDescription("Permits to fly in the lobby")
                 .withType(HyriCommandType.PLAYER)
-                .withPermission(iHyriPlayer -> iHyriPlayer.getRank().isStaff() || iHyriPlayer.getRank().isSuperior(HyriPlayerRankType.VIP_PLUS))
+                .withPermission(account -> account.getRank().isSuperior(PlayerRank.VIP_PLUS))
                 .withUsage("/fly"));
     }
 

@@ -1,12 +1,13 @@
 package fr.hyriode.lobby.gui.store;
 
 import fr.hyriode.api.player.IHyriPlayer;
-import fr.hyriode.api.rank.hyriplus.HyriPlusTransaction;
-import fr.hyriode.api.rank.type.HyriPlayerRankType;
+import fr.hyriode.api.player.transaction.HyriPlusTransaction;
+import fr.hyriode.api.rank.PlayerRank;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.LobbyGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
+import fr.hyriode.lobby.store.RankTransaction;
 import fr.hyriode.lobby.store.StoreCategory;
 import fr.hyriode.lobby.store.StoreDependentItem;
 import fr.hyriode.lobby.store.StoreItem;
@@ -29,18 +30,18 @@ public class RanksGUI extends LobbyGUI {
 
     static {
         final Function<UsefulHead, ItemStack> itemCreator = head -> ItemBuilder.asHead().withHeadTexture(head).build();
-        final Function<HyriPlayerRankType, Predicate<IHyriPlayer>> owningCheck = rankType -> account -> account.getRank().isSuperior(rankType);
+        final Function<PlayerRank, Predicate<IHyriPlayer>> owningCheck = rankType -> account -> account.getRank().isSuperior(rankType);
         final String categoryId = CATEGORY.getId();
-        final StoreItem vip = new StoreItem(itemCreator.apply(UsefulHead.GOLD_CUBE), categoryId, HyriPlayerRankType.VIP.getName(), 85000)
-                .withOwningCheck(owningCheck.apply(HyriPlayerRankType.VIP))
+        final StoreItem vip = new StoreItem(itemCreator.apply(UsefulHead.GOLD_CUBE), categoryId, PlayerRank.VIP.getName(), 85000)
+                .withOwningCheck(owningCheck.apply(PlayerRank.VIP))
                 .whenPurchased(account -> {
-                    account.addTransaction("ranks", HyriPlayerRankType.VIP.getName(), null);
-                    account.setPlayerRank(HyriPlayerRankType.VIP);
+                    account.getTransactions().add("ranks", PlayerRank.VIP.getName(), new RankTransaction(PlayerRank.VIP));
+                    account.getRank().setPlayerType(PlayerRank.VIP);
                 });
 
-        final StoreItem vipPlus = new StoreDependentItem(itemCreator.apply(UsefulHead.LIME_GREEN_CUBE), categoryId, HyriPlayerRankType.VIP_PLUS.getName(), -1, vip).withOwningCheck(owningCheck.apply(HyriPlayerRankType.VIP_PLUS));
-        final StoreItem epic = new StoreDependentItem(itemCreator.apply(UsefulHead.DEEP_SKY_BLUE), categoryId, HyriPlayerRankType.EPIC.getName(), -1, vipPlus).withOwningCheck(owningCheck.apply(HyriPlayerRankType.EPIC));
-        final StoreItem hyriPlus = new StoreDependentItem(itemCreator.apply(UsefulHead.GOLD_BLOCK), categoryId, HyriPlusTransaction.TRANSACTION_TYPE, -1, epic).withOwningCheck(IHyriPlayer::hasHyriPlus);
+        final StoreItem vipPlus = new StoreDependentItem(itemCreator.apply(UsefulHead.LIME_GREEN_CUBE), categoryId, PlayerRank.VIP_PLUS.getName(), -1, vip).withOwningCheck(owningCheck.apply(PlayerRank.VIP_PLUS));
+        final StoreItem epic = new StoreDependentItem(itemCreator.apply(UsefulHead.DEEP_SKY_BLUE), categoryId, PlayerRank.EPIC.getName(), -1, vipPlus).withOwningCheck(owningCheck.apply(PlayerRank.EPIC));
+        final StoreItem hyriPlus = new StoreDependentItem(itemCreator.apply(UsefulHead.GOLD_BLOCK), categoryId, HyriPlusTransaction.TRANSACTIONS_TYPE, -1, epic).withOwningCheck(account -> account.getHyriPlus().has());
 
         CATEGORY.addContent(vip, vipPlus, epic, hyriPlus);
     }
@@ -56,10 +57,10 @@ public class RanksGUI extends LobbyGUI {
         this.applyDesign(Design.BORDER);
 
         final Consumer<InventoryClickEvent> onlyOnWebsite = event -> this.owner.sendMessage(LobbyMessage.STORE_ONLY_ON_WEBSITE_MESSAGE.asString(this.account));
-        final StoreItem vip = CATEGORY.getItem(HyriPlayerRankType.VIP.getName());
-        final StoreItem vipPlus = CATEGORY.getItem(HyriPlayerRankType.VIP_PLUS.getName());
-        final StoreItem epic = CATEGORY.getItem(HyriPlayerRankType.EPIC.getName());
-        final StoreItem hyriPlus = CATEGORY.getItem(HyriPlusTransaction.TRANSACTION_TYPE);
+        final StoreItem vip = CATEGORY.getItem(PlayerRank.VIP.getName());
+        final StoreItem vipPlus = CATEGORY.getItem(PlayerRank.VIP_PLUS.getName());
+        final StoreItem epic = CATEGORY.getItem(PlayerRank.EPIC.getName());
+        final StoreItem hyriPlus = CATEGORY.getItem(HyriPlusTransaction.TRANSACTIONS_TYPE);
 
         this.setItem(20, vip.createItem(this.account), event -> vip.purchase(this.plugin, this.owner));
         this.setItem(21, vipPlus.createItem(this.account), onlyOnWebsite);
