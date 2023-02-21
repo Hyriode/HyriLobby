@@ -2,14 +2,14 @@ package fr.hyriode.lobby.gui.host;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.game.IHyriGameInfo;
+import fr.hyriode.api.host.HostData;
+import fr.hyriode.api.host.HostType;
+import fr.hyriode.api.host.IHostManager;
 import fr.hyriode.api.party.IHyriParty;
 import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.api.rank.type.HyriPlayerRankType;
 import fr.hyriode.hyggdrasil.api.server.HyggServer;
-import fr.hyriode.hyggdrasil.api.server.HyggServerState;
-import fr.hyriode.hylios.api.host.HostAPI;
-import fr.hyriode.hylios.api.host.HostData;
-import fr.hyriode.hylios.api.host.HostType;
 import fr.hyriode.hyrame.inventory.pagination.PaginatedItem;
 import fr.hyriode.hyrame.inventory.pagination.PaginationArea;
 import fr.hyriode.hyrame.item.ItemBuilder;
@@ -110,14 +110,14 @@ public class HostGUI extends LobbyGUI {
 
     private void setupItems() {
         final Pagination<PaginatedItem> pagination = this.paginationManager.getPagination();
-        final HostAPI hostAPI = HyriAPI.get().getHyliosAPI().getHostAPI();
+        final IHostManager hostAPI = HyriAPI.get().getHostManager();
 
         pagination.clear();
 
         for (HyggServer server : hostAPI.getHosts()) {
-            final HyggServerState state = server.getState();
+            final HyggServer.State state = server.getState();
 
-            if ((state == HyggServerState.PLAYING && !this.spectating) || (state != HyggServerState.PLAYING && this.spectating)) {
+            if ((state == HyggServer.State.PLAYING && !this.spectating) || (state != HyggServer.State.PLAYING && this.spectating)) {
                 continue;
             }
 
@@ -139,7 +139,7 @@ public class HostGUI extends LobbyGUI {
 
             pagination.add(PaginatedItem.from(itemStack, event -> {
                 if (this.spectating) {
-                    HyriAPI.get().getServerManager().sendSpectatorToServer(this.owner.getUniqueId(), server.getName());
+                    HyriAPI.get().getServerManager().sendPlayerToServer(this.owner.getUniqueId(), server.getName());
                 } else {
                     this.sendToHost(server.getName());
                 }
@@ -150,15 +150,15 @@ public class HostGUI extends LobbyGUI {
     }
 
     private void sendToHost(String serverName) {
-        final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(this.owner.getUniqueId());
-        final IHyriParty party = HyriAPI.get().getPartyManager().getParty(account.getParty());
+        final IHyriPlayerSession session = IHyriPlayerSession.get(this.owner.getUniqueId());
+        final IHyriParty party = HyriAPI.get().getPartyManager().getParty(session.getParty());
 
-        if (account.isInModerationMode()) {
+        if (session.isModerating()) {
             this.owner.sendMessage(LobbyMessage.STAFF_ERROR.asString(this.account));
         } else if (party != null && !party.isLeader(this.owner.getUniqueId())) {
             this.owner.sendMessage(LobbyMessage.IN_PARTY_ERROR.asString(this.account));
         } else {
-            HyriAPI.get().getQueueManager().addPlayerInQueue(this.owner.getUniqueId(), serverName, true);
+            HyriAPI.get().getQueueManager().addPlayerInQueue(this.owner.getUniqueId(), serverName);
 
             this.owner.closeInventory();
         }
@@ -170,7 +170,7 @@ public class HostGUI extends LobbyGUI {
     }
 
     private ItemStack createItem(HyggServer server) {
-        final HostData hostData = HyriAPI.get().getHyliosAPI().getHostAPI().getHostData(server);
+        final HostData hostData = HyriAPI.get().getHostManager().getHostData(server);
 
         if (hostData == null) {
             return null;
@@ -182,16 +182,16 @@ public class HostGUI extends LobbyGUI {
             return null;
         }
 
-        final IHyriGameInfo gameInfo = HyriAPI.get().getGameManager().getGameInfo(hostData.getGame());
+        final IHyriGameInfo gameInfo = HyriAPI.get().getGameManager().getGameInfo(hostData.getName());
 
-        if (gameInfo == null || gameInfo.getType(hostData.getGameType()) == null) {
+        if (gameInfo == null || gameInfo.getType(hostData.getType().toString()) == null) {
             return null;
         }
 
         final int players = server.getPlayingPlayers().size();
         final List<String> lore = ListReplacer.replace(LobbyMessage.HOST_ITEM_LORE.asList(this.account), "%owner%", IHyriPlayer.get(hostData.getOwner()).getNameWithRank())
                 .replace("%game%", gameInfo.getDisplayName())
-                .replace("%game_type%", gameInfo.getType(hostData.getGameType()).getDisplayName())
+                .replace("%game_type%", gameInfo.getType(hostData.getType().toString()).getDisplayName())
                 .replace("%state%", state.getDisplay().getValue(this.account))
                 .replace("%players%", String.valueOf(players))
                 .replace("%slots%", String.valueOf(server.getSlots()))

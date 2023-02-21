@@ -292,5 +292,7 @@
   "npc.host.header": "&3Hosts\n&fCreate your host\n&8» &bCLICK &8«",
 
   "leaderboard.leveling.header": "&3Leveling &8┃ &7Leaderboard",
-  "leaderboard.jump.header": "&3Parkour &8┃ &7Leaderboard"
+  "leaderboard.jump.header": "&3Parkour &8┃ &7Leaderboard",
+
+  "game.casino.roller-machines.name": "Roller machines"
 }

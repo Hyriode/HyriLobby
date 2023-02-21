@@ -18,7 +18,7 @@ import java.util.UUID;
 public class LeaveQueueItem extends LobbyItem {
 
     public LeaveQueueItem(HyriLobby plugin) {
-        super(plugin, "leave_queue", "item.queue.leave", Material.BARRIER, (byte) 0);
+        super(plugin, "leave_queue", "item.queue.leave", "item.queue.leave.description", Material.BARRIER);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class LeaveQueueItem extends LobbyItem {
         final IHyriParty party = HyriAPI.get().getPartyManager().getPlayerParty(playerId);
 
         if (party != null && party.isLeader(playerId)) {
-            HyriAPI.get().getQueueManager().removePartyFromQueue(party.getId());
+            HyriAPI.get().getQueueManager().removePlayerFromQueue(party.getId());
         } else {
             HyriAPI.get().getQueueManager().removePlayerFromQueue(playerId);
         }

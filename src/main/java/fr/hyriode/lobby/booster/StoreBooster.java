@@ -3,6 +3,7 @@ package fr.hyriode.lobby.booster;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.booster.IHyriBoosterManager;
 import fr.hyriode.api.player.IHyriPlayer;
+
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.hyrame.utils.list.ListReplacer;
@@ -63,7 +64,7 @@ public class StoreBooster extends StoreItem {
     public StoreBooster(String category) {
         super(new ItemStack(Material.POTION), category, "booster", -1);
         this.type = Type.ONE_FIVE;
-        this.whenPurchased = player -> HyriAPI.get().getBoosterManager().giveBooster(player, this.global ? IHyriBoosterManager.GLOBAL_TYPE : IHyriBoosterManager.SELECTABLE_TYPE, this.type.getMultiplier(), 3600);
+        this.whenPurchased = player -> HyriAPI.get().getBoosterManager().giveBooster(player, this.type.getMultiplier(), 3600);
 
         this.updatePrice();
     }

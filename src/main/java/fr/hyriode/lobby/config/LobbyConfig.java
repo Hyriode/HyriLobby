@@ -22,10 +22,10 @@ public class LobbyConfig implements IConfig {
     private final List<LocationWrapper> checkpoints;
     private final LocationWrapper jumpEnd;
 
-    private final Zone vipEntry;
+    private final Zone vipZone;
     private final Zone pvpZone;
 
-    public LobbyConfig(LocationWrapper spawnLocation, LocationWrapper vipLocation, LocationWrapper jumpLocation, LocationWrapper pvpLocation, LocationWrapper jumpStart, List<LocationWrapper> checkpoints, LocationWrapper jumpEnd, Zone vipEntry, Zone pvpZone) {
+    public LobbyConfig(LocationWrapper spawnLocation, LocationWrapper vipLocation, LocationWrapper jumpLocation, LocationWrapper pvpLocation, LocationWrapper jumpStart, List<LocationWrapper> checkpoints, LocationWrapper jumpEnd, Zone vipZone, Zone pvpZone) {
         this.spawnLocation = spawnLocation;
         this.vipLocation = vipLocation;
         this.jumpLocation = jumpLocation;
@@ -33,7 +33,7 @@ public class LobbyConfig implements IConfig {
         this.jumpStart = jumpStart;
         this.checkpoints = checkpoints;
         this.jumpEnd = jumpEnd;
-        this.vipEntry = vipEntry;
+        this.vipZone = vipZone;
         this.pvpZone = pvpZone;
     }
 
@@ -65,8 +65,8 @@ public class LobbyConfig implements IConfig {
         return this.pvpZone;
     }
 
-    public Zone getVIPEntry() {
-        return this.vipEntry;
+    public Zone getVIPZone() {
+        return this.vipZone;
     }
 
     public LocationWrapper getPvpLocation() {
@@ -96,5 +96,4 @@ public class LobbyConfig implements IConfig {
         }
 
     }
-
 }

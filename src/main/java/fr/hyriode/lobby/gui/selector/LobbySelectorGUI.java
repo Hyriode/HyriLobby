@@ -3,10 +3,10 @@ package fr.hyriode.lobby.gui.selector;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.friend.IHyriFriend;
 import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.api.server.IHyriServerManager;
+import fr.hyriode.api.server.ILobbyAPI;
 import fr.hyriode.hyggdrasil.api.server.HyggServer;
-import fr.hyriode.hyggdrasil.api.server.HyggServerState;
-import fr.hyriode.hylios.api.lobby.LobbyAPI;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.item.ItemNBT;
 import fr.hyriode.lobby.HyriLobby;
@@ -19,10 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LobbySelectorGUI extends LobbyGUI {
 
@@ -70,11 +67,11 @@ public class LobbySelectorGUI extends LobbyGUI {
 
         this.applyDesign(Design.BORDER);
 
-        final List<HyggServer> servers = this.serverManager.getLobbies();
+        final Set<HyggServer> servers = this.serverManager.getServers();
         final HashMap<String, ItemStack> items = new HashMap<>();
 
         for (HyggServer server : servers) {
-            if (server.getState() != HyggServerState.READY) {
+            if (server.getState() != HyggServer.State.READY) {
                 continue;
             }
 
@@ -105,10 +102,12 @@ public class LobbySelectorGUI extends LobbyGUI {
         final Map<String, List<IHyriPlayer>> friendsServers = new HashMap<>();
 
         for (IHyriFriend friend : totalFriends) {
-            final IHyriPlayer friendAccount = HyriAPI.get().getPlayerManager().getCachedPlayer(friend.getUniqueId());
+            final IHyriPlayer friendAccount = HyriAPI.get().getPlayerManager().getPlayer(friend.getUniqueId());
 
-            if (friendAccount != null && friendAccount.isOnline()) {
-                final String server = friendAccount.getCurrentServer();
+            final IHyriPlayerSession friendSession = IHyriPlayerSession.get(friend.getUniqueId());
+
+            if (friendSession != null) {
+                final String server = friendSession.getServer();
                 final List<IHyriPlayer> players = friendsServers.getOrDefault(server, new ArrayList<>());
 
                 players.add(friendAccount);
@@ -122,7 +121,7 @@ public class LobbySelectorGUI extends LobbyGUI {
     private void handleClick(InventoryClickEvent event, String serverToSend) {
         final Player player = (Player) event.getWhoClicked();
 
-        if (this.account.getCurrentServer().equals(serverToSend)) {
+        if (this.session.getServer().equals(serverToSend)) {
             return;
         }
 
@@ -154,9 +153,10 @@ public class LobbySelectorGUI extends LobbyGUI {
     private List<String> getLobbyLore(int friends, HyggServer server) {
         final List<String> list = new ArrayList<>();
         final IHyriPlayer account = HyriAPI.get().getPlayerManager().getPlayer(this.owner.getUniqueId());
-        final String currentServer = account.getCurrentServer();
+        final IHyriPlayerSession session = IHyriPlayerSession.get(this.owner.getUniqueId());
+        final String currentServer = session.getServer();
 
-        list.add(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.owner) + ChatColor.AQUA + server.getPlayingPlayers().size() + "/" + LobbyAPI.MAX_PLAYERS);
+        list.add(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.owner) + ChatColor.AQUA + server.getPlayingPlayers().size() + "/" + ILobbyAPI.MAX_PLAYERS);
 
         if (friends > 0) {
             list.add(LobbyMessage.FRIENDS.asString(this.owner) + ChatColor.AQUA + friends);

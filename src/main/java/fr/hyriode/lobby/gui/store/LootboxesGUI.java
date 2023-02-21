@@ -22,14 +22,14 @@ public class LootboxesGUI extends LobbyGUI {
 
     private static final StoreCategory CATEGORY = new StoreCategory(null, "lootboxes");
 
-    static {
+    /*static {
         for (Lootbox lootbox : Lootbox.values()) {
             final StoreItem item = new StoreLootbox(CATEGORY.getId(), lootbox)
                     .whenPurchased(account -> HyriAPI.get().getLootboxManager().giveLootbox(account, lootbox.getRarity()));
 
             CATEGORY.addContent(item);
         }
-    }
+    }*/
 
     public LootboxesGUI(Player owner, HyriLobby plugin) {
         super(owner, plugin, () -> "store-lootboxes", 54);

@@ -109,7 +109,7 @@ public class ProfileGUI extends LobbyGUI {
         lineBuilder.accept("Hyri+", this.account.hasHyriPlus() ? ChatColor.GREEN + "✔" : ChatColor.RED + "✘");
         lineBuilder.accept(LobbyMessage.PROFILE_LEVEL.asString(this.account), String.valueOf(this.account.getNetworkLeveling().getLevel()));
         lineBuilder.accept("Hyris", ChatColor.LIGHT_PURPLE + NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."));
-        lineBuilder.accept(LobbyMessage.PROFILE_FIRST_JOIN.asString(this.account), TimeUtil.formatDate(this.account.getFirstLoginDate(), "dd/MM/yyyy HH:mm:ss"));
+        lineBuilder.accept(LobbyMessage.PROFILE_FIRST_JOIN.asString(this.account), TimeUtil.formatDate(new Date(this.account.getFirstLoginDate()), "dd/MM/yyyy HH:mm:ss"));
         lineBuilder.accept(LobbyMessage.PROFILE_PLAYTIME.asString(this.account), playtime);
 
         return lore;
@@ -151,8 +151,8 @@ public class ProfileGUI extends LobbyGUI {
 
         if (this.account.hasHyriPlus()) {
             final HyriPlus hyriPlus = this.account.getHyriPlus();
-            final Date purchase = hyriPlus.getEnabledDate();
-            final Date expiration = new Date(hyriPlus.getEnabledDate().getTime() + hyriPlus.getDuration() * 1000);
+            final Date purchase = new Date(hyriPlus.getEnabledDate());
+            final Date expiration = new Date(hyriPlus.getEnabledDate() + hyriPlus.getDuration() * 1000);
 
             lineBuilder.accept(LobbyMessage.PROFILE_HYRIPLUS_BUY_DATE.asString(this.account), TimeUtil.formatDate(purchase));
             lineBuilder.accept(LobbyMessage.PROFILE_HYRIPLUS_EXPIRE_DATE.asString(this.account), TimeUtil.formatDate(expiration));

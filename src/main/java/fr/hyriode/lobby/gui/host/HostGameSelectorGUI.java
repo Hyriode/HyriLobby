@@ -1,6 +1,6 @@
 package fr.hyriode.lobby.gui.host;
 
-import fr.hyriode.hylios.api.host.HostType;
+import fr.hyriode.api.host.HostType;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.list.ListReplacer;
 import fr.hyriode.lobby.HyriLobby;
@@ -29,7 +29,7 @@ public class HostGameSelectorGUI extends LobbyGUI {
             29, 30, 31, 32, 33
     };
 
-    private HostType hostType = HostType.PUBLIC;
+   private HostType hostType = HostType.PUBLIC;
 
     public HostGameSelectorGUI(Player owner, HyriLobby plugin) {
         super(owner, plugin, () -> "host.game-selector", 6 * 9);

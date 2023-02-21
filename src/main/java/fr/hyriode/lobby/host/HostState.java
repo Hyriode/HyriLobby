@@ -1,11 +1,10 @@
 package fr.hyriode.lobby.host;
 
 import fr.hyriode.api.HyriAPI;
+import fr.hyriode.api.host.HostData;
+import fr.hyriode.api.host.IHostManager;
 import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.hyggdrasil.api.server.HyggServer;
-import fr.hyriode.hyggdrasil.api.server.HyggServerState;
-import fr.hyriode.hylios.api.host.HostAPI;
-import fr.hyriode.hylios.api.host.HostData;
 import fr.hyriode.hyrame.item.ItemHead;
 import fr.hyriode.lobby.util.UsefulHead;
 
@@ -39,22 +38,22 @@ public enum HostState {
     }
 
     public static HostState getFromServer(HyggServer server) {
-        final HostAPI hostAPI = HyriAPI.get().getHyliosAPI().getHostAPI();
+        final IHostManager hostAPI = HyriAPI.get().getHostManager();
         final HostData hostData = hostAPI.getHostData(server);
 
         if (hostData == null) {
             return null;
         }
 
-        final HyggServerState state = server.getState();
+        final HyggServer.State state = server.getState();
 
-        if (state == HyggServerState.CREATING || state == HyggServerState.STARTING) {
+        if (state == HyggServer.State.CREATING || state == HyggServer.State.STARTING) {
             return STARTING;
-        } else if (state == HyggServerState.READY && hostData.isWhitelisted()) {
+        } else if (state == HyggServer.State.READY && hostData.isWhitelisted()) {
             return WHITELISTED;
-        } else if (state == HyggServerState.READY && !hostData.isWhitelisted()) {
+        } else if (state == HyggServer.State.READY && !hostData.isWhitelisted()) {
             return WAITING;
-        } else if (state == HyggServerState.PLAYING) {
+        } else if (state == HyggServer.State.PLAYING) {
             return PLAYING;
         }
         return null;

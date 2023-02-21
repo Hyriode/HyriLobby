@@ -28,19 +28,38 @@ repositories {
         url 'https://maven.pkg.github.com/Hyriode/Hyrame/'
 
         credentials {
-            username System.getenv("USERNAME")
-            password System.getenv("TOKEN")
+            username System.getenv("GITHUB_USERNAME")
+            password System.getenv("GITHUB_TOKEN")
         }
+    }
+
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+
+    maven {
+        name = 'sonatype'
+        url = 'https://oss.sonatype.org/content/groups/public/'
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-//    implementation 'fr.hyriode:hyrame:1.3.4'
+    implementation 'fr.hyriode:hyrame:1.3.6'
 }
 
 processResources {
     filter {
         it.replace('@version@', project.version)
     }
+}
+
+task copyJar(type: Copy) {
+    from layout.buildDirectory.file("libs/HyriLobby-1.0.1.jar")
+    into layout.buildDirectory.file("Server/plugins")
+}
+
+jar {
+    jar.finalizedBy copyJar
 }
