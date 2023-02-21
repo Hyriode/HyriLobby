@@ -16,6 +16,13 @@ compileJava {
     options.encoding = 'UTF-8'
 }
 
+jar {
+    manifest {
+        attributes 'Specific-Version': project.version
+        attributes 'Implementation-Version': "${ project.version }-${ commitSha }-${ buildNumber }"
+    }
+}
+
 tasks.withType(Javadoc) {
     options.encoding = 'UTF-8'
 }
@@ -51,15 +58,6 @@ dependencies {
 
 processResources {
     filter {
-        it.replace('@version@', project.version)
+        it.replace('@version@', "${ project.version }-${ commitSha }-${ buildNumber }")
     }
-}
-
-task copyJar(type: Copy) {
-    from layout.buildDirectory.file("libs/HyriLobby-1.0.1.jar")
-    into layout.buildDirectory.file("Server/plugins")
-}
-
-jar {
-    jar.finalizedBy copyJar
 }

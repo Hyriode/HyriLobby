@@ -25,7 +25,7 @@ jobs:
           args: https://cdn.getbukkit.org/spigot/spigot-1.8.8-R0.1-SNAPSHOT-latest.jar --create-dirs -o libs/spigot.jar
 
       - name: Build jar with Gradle
-        run: gradle build
+        run: gradle build -PbuildNumber=${{ github.run_number }} -PcommitSha=${SHORT_SHA}
         env:
           GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
