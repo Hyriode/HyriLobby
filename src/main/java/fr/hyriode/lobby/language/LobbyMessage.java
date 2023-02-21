@@ -129,6 +129,7 @@ public enum LobbyMessage {
     HYRIPLUS_PREFIX("prefix.hyriplus"),
     HYRIPLUS_COLOR_LORE("hyriplus.color.item.lore"),
     HYRIPLUS_NOT_UNLOCKED_LINE("hyriplus.not-unlocked.line"),
+    HYRIPLUS_SELECTED_LINE("hyriplus.selected.line"),
     HYRIPLUS_NOT_UNLOCKED_MESSAGE("hyriplus.not-unlocked.message", HYRIPLUS_PREFIX),
     HYRIPLUS_CHANGED_MESSAGE("hyriplus.changed.message", HYRIPLUS_PREFIX),
 
@@ -137,6 +138,7 @@ public enum LobbyMessage {
     LEVELING_REWARD_CLAIMED("leveling.reward-claimed.message", LEVELING_PREFIX),
     LEVELING_REWARD_ALREADY_CLAIMED("leveling.reward-already-claimed.message", LEVELING_PREFIX),
     LEVELING_REWARD_ALREADY_CLAIMED_LINE("leveling.reward-already-claimed.line"),
+    LEVELING_REWARD_NOT_LEVEL_LINE("leveling.reward-not-level.line"),
     LEVELING_REWARD_ITEM("leveling.reward.item.name"),
 
     BOOSTERS_BOOSTER_ITEM_NAME("gui.boosters.booster.item.name"),
@@ -228,6 +230,7 @@ public enum LobbyMessage {
     HOST_TYPE_ITEM_LORE("host.type-item.lore"),
     HOST_CLICK_TO_CREATE("host.click.to-create"),
     HOST_CREATING_HOST_BAR("host.creating-host.bar"),
+    HOST_ADVERT_MESSAGE("host.advert.message"),
 
     LEADERBOARD_LEVELING_HEADER("leaderboard.leveling.header"),
     LEADERBOARD_JUMP_HEADER("leaderboard.jump.header"),

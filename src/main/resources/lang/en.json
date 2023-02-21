@@ -10,7 +10,7 @@
   "message.join.display": "\n&3&m---------------------&r&b Hyriode &3&m---------------------&r\n \n                       &7Website: &b%website%\n                       &7Store: &b%store%\n                      &7Discord: &b%discord%\n \n&3&m--------------------------------------------------&r\n \n",
   "message.join-vip.display": "%player%&6 joined the lobby!",
 
-  "prefix.queue": "&3Queue &8┃ ",
+  "prefix.queue": "&3Queue &f┃ ",
   "message.queue.player-joined": "&fYou &ajoined &fthe queue for &3%game% &8(%game_type%)",
   "message.queue.group-joined": "&fYour group &ajoined &fthe queue for &3%game% &8(%game_type%)",
   "message.queue.player-already-in": "&fYou &calready &fare in the queue for &3%game% &8(%game_type%)",
@@ -23,7 +23,7 @@
   "bar.host-queue.display": "&f%position%/%total% - &b%host%",
   "item.queue.leave": "&3Leave queue",
 
-  "prefix.jump": "&3Parkour",
+  "prefix.jump": "&3Parkour &f┃",
   "message.jump-join.display": "&fYou started the&b parkour&f!",
   "message.jump-leave.display": "&fYou have&c abandoned&f the&b parkour&f!",
   "bar.jump-respawn.display": "&cYou fell off the parkour.",
@@ -146,6 +146,7 @@
   "gui.plus-color.name": "&8Hyri+ color",
   "hyriplus.color.item.lore": "&7Changes the color of the &bHyri+\n&7from %old% &7to %new%&f.",
   "hyriplus.not-unlocked.line": "&cNot unlocked yet (Level %level%)",
+  "hyriplus.selected.line": "&aSelected",
   "hyriplus.not-unlocked.message": "&fYou &cdon't &fown this color!",
   "hyriplus.changed.message": "&fYou just &achanged &fthe color of your &brank&f.",
 
@@ -161,6 +162,7 @@
   "leveling.reward-claimed.message": "&fYou just &aclaimed the &breward &ffor level &b%level%&f.",
   "leveling.reward-already-claimed.message": "&fYou &calready claimed &fthis &breward&f!",
   "leveling.reward-already-claimed.line": "&cAlready claimed",
+  "leveling.reward-not-level.line": "&cInsufficient level",
   "leveling.reward.item.name": "&bRewards &8┃ &7Level %level%",
   "leveling.hyris.description": "&8+&d%amount% ⛃",
   "leveling.cosmetic.description": "&8+TODO Cosmetic",
@@ -231,6 +233,7 @@
   "host.type-item.lore": "&7Edit the type of the host. Each type\n&7has a different number of\n&7permissions and commands.\n\n&8Status:\n&8▪ %public_color%Public\n&8▪ %private_color%Private\n\n&3Click to change",
   "host.click.to-create": "&3Click to create the host",
   "host.creating-host.bar": "&3Host &8┃ &fCreation of your host in progress...",
+  "host.advert.message": "%player% &ainvited &fyou to join his host%split%&l&b[➥ Join]",
 
   "host.state.starting.display": "&eCreating",
   "host.state.whitelisted.display": "&9Restricted access",

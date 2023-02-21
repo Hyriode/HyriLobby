@@ -60,6 +60,7 @@ public class PlusColorGUI extends LobbyGUI {
         final HyriChatColor initialColor = color.getInitial();
         final HyriPlus hyriPlus = this.account.getHyriPlus();
         final boolean own = hyriPlus.getColors().contains(initialColor);
+        final boolean selected = hyriPlus.getColor() == initialColor;
         final String oldPrefix = HyriPlayerRankType.EPIC.getDefaultPrefix() + hyriPlus.getColor() + "+";
         final String newPrefix = HyriPlayerRankType.EPIC.getDefaultPrefix() + initialColor + "+";
         final List<String> lore = ListReplacer.replace(LobbyMessage.HYRIPLUS_COLOR_LORE.asList(this.account), "%old%", oldPrefix)
@@ -70,17 +71,26 @@ public class PlusColorGUI extends LobbyGUI {
 
         if (own) {
             lore.add(LobbyMessage.CLICK_TO_CHANGE.asString(this.account));
-        } else {
+        } else if (selected) {
+            lore.add(LobbyMessage.HYRIPLUS_SELECTED_LINE.asString(this.account));
+        }else {
             lore.add(LobbyMessage.HYRIPLUS_NOT_UNLOCKED_LINE.asString(this.account).replace("%level%", String.valueOf(color.getLevel())));
         }
 
-        final ItemStack itemStack = new ItemBuilder(color.getItemStack())
+        final ItemBuilder itemStack = new ItemBuilder(color.getItemStack())
                 .withName(newPrefix)
-                .withLore(lore)
-                .build();
+                .withLore(lore);
 
-        this.setItem(slot, itemStack, event -> {
+        if (selected) {
+            itemStack.withGlow();
+        }
+
+        this.setItem(slot, itemStack.build(), event -> {
             if (own) {
+                if (selected) {
+                    return;
+                }
+
                 hyriPlus.setColor(initialColor);
 
                 HyriAPI.get().getEventBus().publish(new HyriRankUpdatedEvent(this.owner.getUniqueId()));

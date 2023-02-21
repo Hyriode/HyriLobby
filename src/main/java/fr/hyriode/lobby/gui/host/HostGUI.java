@@ -193,7 +193,7 @@ public class HostGUI extends LobbyGUI {
                 .replace("%game%", gameInfo.getDisplayName())
                 .replace("%game_type%", gameInfo.getType(hostData.getGameType()).getDisplayName())
                 .replace("%state%", state.getDisplay().getValue(this.account))
-                .replace("%players%", String.valueOf(server.getPlayingPlayers().size()))
+                .replace("%players%", String.valueOf(players))
                 .replace("%slots%", String.valueOf(server.getSlots()))
                 .list();
 

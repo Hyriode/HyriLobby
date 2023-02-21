@@ -52,16 +52,16 @@ public class LevelingRewardsGUI extends LobbyGUI {
         pagination.clear();
 
         for (LevelingReward reward : LevelingReward.VALUES) {
+            final IHyriLeveling leveling = this.account.getNetworkLeveling();
             final int level = reward.getLevel();
-            final boolean claimed = this.account.getNetworkLeveling().getClaimedRewards().contains(level);
+            final boolean claimed = leveling.getClaimedRewards().contains(level);
+            final boolean notLevel = leveling.getLevel() < level;
 
-            pagination.add(PaginatedItem.from(this.createItem(reward, claimed), event -> {
+            pagination.add(PaginatedItem.from(this.createItem(reward, claimed, notLevel), event -> {
                 if (claimed) {
                     this.owner.sendMessage(LobbyMessage.LEVELING_REWARD_ALREADY_CLAIMED.asString(this.account));
                 } else {
-                    final IHyriLeveling leveling = this.account.getNetworkLeveling();
-
-                    if (leveling.getLevel() < level) {
+                    if (notLevel) {
                         this.owner.sendMessage(LobbyMessage.LEVELING_REWARD_NOT_LEVEL.asString(this.account));
                         return;
                     }
@@ -81,14 +81,14 @@ public class LevelingRewardsGUI extends LobbyGUI {
         this.paginationManager.updateGUI();
     }
 
-    private ItemStack createItem(LevelingReward reward, boolean claimed) {
+    private ItemStack createItem(LevelingReward reward, boolean claimed, boolean notLevel) {
         final List<String> lore = new ArrayList<>();
         final LevelingReward.Handler<?> handler = reward.getHandler();
 
         lore.add("");
         lore.addAll(handler == null ? Collections.singletonList(ChatColor.DARK_GRAY + "+1 None") : Arrays.asList(handler.getDescription(this.account).split("\n")));
         lore.add("");
-        lore.add((claimed ? LobbyMessage.LEVELING_REWARD_ALREADY_CLAIMED_LINE : LobbyMessage.CLICK_TO_CLAIM).asString(this.account));
+        lore.add((claimed ? LobbyMessage.LEVELING_REWARD_ALREADY_CLAIMED_LINE : (notLevel ? LobbyMessage.LEVELING_REWARD_NOT_LEVEL_LINE : LobbyMessage.CLICK_TO_CLAIM)).asString(this.account));
 
         return new ItemBuilder(claimed ? Material.HOPPER_MINECART : Material.STORAGE_MINECART)
                 .withName(LobbyMessage.LEVELING_REWARD_ITEM.asString(this.account).replace("%level%", String.valueOf(reward.getLevel())))

@@ -30,6 +30,8 @@ public class HostHandler {
         eventBus.subscribe(HyggServerStartedEvent.class, event -> this.handleEvent(event.getServer()));
         eventBus.subscribe(HyggServerUpdatedEvent.class, event -> this.handleEvent(event.getServer()));
         eventBus.subscribe(HyggServerStoppedEvent.class, event -> this.handleEvent(event.getServer()));
+
+        new HostListener();
     }
 
     public boolean isWaiting(UUID player) {
