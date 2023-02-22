@@ -125,7 +125,7 @@ public class LobbyPlayer {
 
         player.sendMessage(LobbyMessage.JUMP_JOIN_MESSAGE.asString(player));
 
-        jump.getTimer().onChanged(time -> new ActionBar(LobbyMessage.JUMP_TIME_BAR.asString(player).replace("%time%", TimeUtil.formatTime(time * 100))).send(player));
+        jump.getTimer().onChanged(time -> new ActionBar(LobbyMessage.JUMP_TIME_BAR.asString(player).replace("%time%", TimeUtil.formatTime(time))).send(player));
 
         player.getInventory().setHeldItemSlot(2);
     }
@@ -150,8 +150,6 @@ public class LobbyPlayer {
         this.plugin.getLeaderboardManager().getJumpLeaderboard().updatePlayerScore(this.uuid, time);
 
         this.handleLogin(false, false);
-
-        player.getInventory().setHeldItemSlot(2);
     }
 
     public void resetTimer() {
@@ -177,7 +175,7 @@ public class LobbyPlayer {
 
         this.handleLogin(false, false);
 
-        player.getInventory().setHeldItemSlot(2);
+        player.getInventory().setHeldItemSlot(0);
 
         if (teleport) {
             player.teleport(this.plugin.config().getJumpLocation().asBukkit());
@@ -229,7 +227,7 @@ public class LobbyPlayer {
 
         player.getInventory().clear();
 
-        if (queueManager.getQueue(player.getUniqueId()) != null || (party != null && party.isLeader(this.uuid) && queueManager.getQueue(party.getId()) != null)) {
+        if (session.getQueue() != null && queueManager.getQueue(session.getQueue()) != null) {
             item.giveItem(player, 0, LeaveQueueItem.class);
         } else {
             item.giveItem(player, 0, GameSelectorItem.class);

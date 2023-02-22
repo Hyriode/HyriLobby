@@ -39,7 +39,7 @@ public enum LobbyMessage {
     JUMP_GO_BACK_CHECKPOINT_MESSAGE("message.back-checkpoint", JUMP_PREFIX),
     JUMP_SUCCESS_ALL_MESSAGE("message.jump-success", JUMP_PREFIX),
     JUMP_RESPAWN_BAR("bar.jump-respawn"),
-    JUMP_TIME_BAR("bar.jump-time", QUEUE_PREFIX),
+    JUMP_TIME_BAR("bar.jump-time", JUMP_PREFIX),
 
     STAFF_ERROR("message.error-staff.display"),
     IN_PARTY_ERROR("message.queue-party-error.display"),
