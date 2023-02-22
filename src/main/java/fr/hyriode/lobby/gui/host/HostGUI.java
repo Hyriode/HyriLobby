@@ -151,12 +151,9 @@ public class HostGUI extends LobbyGUI {
 
     private void sendToHost(String serverName) {
         final IHyriPlayerSession session = IHyriPlayerSession.get(this.owner.getUniqueId());
-        final IHyriParty party = HyriAPI.get().getPartyManager().getParty(session.getParty());
 
         if (session.isModerating()) {
             this.owner.sendMessage(LobbyMessage.STAFF_ERROR.asString(this.account));
-        } else if (party != null && !party.isLeader(this.owner.getUniqueId())) {
-            this.owner.sendMessage(LobbyMessage.IN_PARTY_ERROR.asString(this.account));
         } else {
             HyriAPI.get().getQueueManager().addPlayerInQueue(this.owner.getUniqueId(), serverName);
 

@@ -14,21 +14,19 @@ import java.util.function.Consumer;
 public class LobbyJumpTimer extends BukkitRunnable {
 
     private long currentTime = 0;
-    private final List<Consumer<Long>> timeChangedActions = new ArrayList<>();
+    private Consumer<Long> onChanged;
 
     @Override
     public void run() {
         this.currentTime++;
 
-        this.timeChangedActions.forEach(consumer -> consumer.accept(this.currentTime));
+        if (this.onChanged != null) {
+            this.onChanged.accept(this.currentTime);
+        }
     }
 
-    public void setOnTimeChanged(Consumer<Long> timeChanged) {
-        this.timeChangedActions.add(timeChanged);
-    }
-
-    public List<Consumer<Long>> getTimeChangedActions() {
-        return timeChangedActions;
+    public void onChanged(Consumer<Long> onChanged) {
+        this.onChanged = onChanged;
     }
 
     public long getCurrentTime() {

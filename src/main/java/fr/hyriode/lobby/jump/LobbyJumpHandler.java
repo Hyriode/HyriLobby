@@ -49,7 +49,7 @@ public class LobbyJumpHandler extends HyriListener<HyriLobby> {
                         this.checkLocation(location, lobbyPlayer.getJump().getCheckPoints().get(lobbyPlayer.getJump().getCheckPoints().indexOf(lobbyPlayer.getJump().getActualCheckPoint()) + 1).getLocation())
                 ) {
                     lobbyPlayer.getJump().setActualCheckPoint(lobbyPlayer.getJump().getCheckPoints().get(lobbyPlayer.getJump().getCheckPoints().indexOf(lobbyPlayer.getJump().getActualCheckPoint()) + 1));
-                    player.sendMessage(LobbyMessage.JUMP_SUCCESS_CHECKPOINT.asLang().getValue(player)
+                    player.sendMessage(LobbyMessage.JUMP_SUCCESS_CHECKPOINT_MESSAGE.asString(player)
                             .replace("%value%", String.valueOf(lobbyPlayer.getJump().getCheckPoints().indexOf(lobbyPlayer.getJump().getActualCheckPoint()))));
                     this.playCheckPointSound(lobbyPlayer.asPlayer());
                     break;
@@ -65,7 +65,7 @@ public class LobbyJumpHandler extends HyriListener<HyriLobby> {
         if (lobbyPlayer.hasJump()) {
             if (location.getBlockY() <= lobbyPlayer.getJump().getActualCheckPoint().getYTeleport()) {
                 player.teleport(lobbyPlayer.getJump().getActualCheckPoint().getLocation());
-                new ActionBar(LobbyMessage.JUMP_RESPAWN_BAR.asLang().getValue(player)).send(player);
+                new ActionBar(LobbyMessage.JUMP_RESPAWN_BAR.asString(player)).send(player);
             }
         }
     }
@@ -85,7 +85,7 @@ public class LobbyJumpHandler extends HyriListener<HyriLobby> {
     }
 
     private void playCheckPointSound(Player player) {
-        player.playSound(player.getLocation(), Sound.CLICK, 3f, 1f);
+        player.playSound(player.getLocation(), Sound.NOTE_PLING, 3f, 2.0f);
     }
 
     private void playEndSound(Player player) {

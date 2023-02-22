@@ -16,6 +16,7 @@ import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.title.Title;
 import fr.hyriode.hyrame.utils.LocationWrapper;
 import fr.hyriode.hyrame.utils.PlayerUtil;
+import fr.hyriode.hyrame.utils.TimeUtil;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.item.hotbar.*;
 import fr.hyriode.lobby.item.queue.LeaveQueueItem;
@@ -124,13 +125,7 @@ public class LobbyPlayer {
 
         player.sendMessage(LobbyMessage.JUMP_JOIN_MESSAGE.asString(player));
 
-        jump.getTimer().setOnTimeChanged(aLong -> {
-            final SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
-            format.setTimeZone(TimeZone.getTimeZone("GMT"));
-            final String line = format.format(aLong * 1000);
-
-            new ActionBar(ChatColor.AQUA + line).send(player);
-        });
+        jump.getTimer().onChanged(time -> new ActionBar(LobbyMessage.JUMP_TIME_BAR.asString(player).replace("%time%", TimeUtil.formatTime(time * 100))).send(player));
 
         player.getInventory().setHeldItemSlot(2);
     }
@@ -141,11 +136,11 @@ public class LobbyPlayer {
         }
 
         final Player player = this.asPlayer();
-        final long time = System.currentTimeMillis() - jump.getStartTime();
+        final long time = System.currentTimeMillis() - this.jump.getStartTime();
         final SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         final DecimalFormat decimal = new DecimalFormat("000");
 
-        player.sendMessage(LobbyMessage.JUMP_SUCCESS_ALL.asString(player).replace("%time%", format.format(time) + "." + decimal.format(time % 1000)));
+        player.sendMessage(LobbyMessage.JUMP_SUCCESS_ALL_MESSAGE.asString(player).replace("%time%", format.format(time) + "." + decimal.format(time % 1000)));
 
         this.jump.getTimer().cancel();
         this.jump.setActualCheckPoint(null);
@@ -164,7 +159,7 @@ public class LobbyPlayer {
 
         this.jump.getTimer().setCurrentTime(0);
 
-        player.sendMessage(LobbyMessage.JUMP_RESET.asString(player));
+        player.sendMessage(LobbyMessage.JUMP_RESET_MESSAGE.asString(player));
     }
 
     public void leaveJump(boolean teleport) {

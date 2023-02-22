@@ -110,8 +110,6 @@ public class GameTypeSelectorGUI extends LobbyGUI {
 
         if (session.isModerating()) {
             player.sendMessage(LobbyMessage.STAFF_ERROR.asString(player));
-        } else if (party != null && !party.isLeader(player.getUniqueId())) {
-            player.sendMessage(LobbyMessage.IN_PARTY_ERROR.asString(player));
         } else {
             HyriAPI.get().getQueueManager().addPlayerInQueue(player.getUniqueId(), this.game.getName(), type, null);
 

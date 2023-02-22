@@ -11,6 +11,11 @@ java {
     }
 }
 
+configurations.all {
+    // Check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 compileJava {
     targetCompatibility = sourceCompatibility = JavaVersion.VERSION_1_8
     options.encoding = 'UTF-8'
@@ -53,7 +58,7 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'fr.hyriode:hyrame:1.3.8'
+    implementation 'fr.hyriode:hyrame:1.3.9-SNAPSHOT'
 }
 
 processResources {
