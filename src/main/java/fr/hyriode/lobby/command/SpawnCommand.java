@@ -23,9 +23,10 @@ public class SpawnCommand extends HyriCommand<HyriLobby> {
 
         if (lp.hasJump()) {
             lp.leaveJump(false);
+            return;
         }
 
-        lp.handleLogin(false, true);
+        lp.teleportToSpawn();
     }
 
 }
