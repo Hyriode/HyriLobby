@@ -25,7 +25,7 @@ public class LobbyPlayerManager {
 
         Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
             for (LobbyScoreboard scoreboard : plugin.getHyrame().getScoreboardManager().getScoreboards(LobbyScoreboard.class)) {
-                scoreboard.update();
+                scoreboard.update(false);
             }
         }, 20L, 20L);
     }

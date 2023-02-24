@@ -24,20 +24,30 @@ public class LobbyScoreboard extends HyriScoreboard {
         this.account = IHyriPlayer.get(this.player.getUniqueId());
 
         this.addBlankLine(1);
-        this.setLine(3, this.getServer());
         this.addBlankLine(4);
-        this.setLine(5, this.getProfile());
         this.addBlankLine(10);
+
+        this.addLines();
+    }
+
+    public void update(boolean all) {
+        this.account = IHyriPlayer.get(this.player.getUniqueId());
+
+        if (all) {
+            this.addLines();
+        } else {
+            this.addUpdatableLines();
+        }
+
+        this.updateLines();
+    }
+
+    private void addLines() {
+        this.setLine(3, this.getServer());
+        this.setLine(5, this.getProfile());
         this.setLine(11, this.getServerIp(), new IPLine(HyriConstants.SERVER_IP), 2);
 
         this.addUpdatableLines();
-    }
-
-    public void update() {
-        this.account = IHyriPlayer.get(this.player.getUniqueId());
-
-        this.addUpdatableLines();
-        this.updateLines();
     }
 
     private void addUpdatableLines() {

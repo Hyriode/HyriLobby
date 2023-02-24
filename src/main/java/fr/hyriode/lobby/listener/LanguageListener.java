@@ -37,7 +37,7 @@ public class LanguageListener {
                 handler.onLogin(player);
             }
 
-            lobbyPlayer.getLobbyScoreboard().update();
+            lobbyPlayer.getLobbyScoreboard().update(true);
             lobbyPlayer.giveDefaultItems();
 
             this.plugin.getLeaderboardManager().refreshLeaderboards(player);
