@@ -26,7 +26,7 @@ public class SpawnCommand extends HyriCommand<HyriLobby> {
             return;
         }
 
-        lp.teleportToSpawn();
+        lp.handleLogin(false, true);
     }
 
 }
