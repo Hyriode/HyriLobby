@@ -87,6 +87,7 @@ public class NormalQueueHandler implements IHyriQueueHandler, Listener {
     public void onUpdate(QueueUpdatedEvent event) {
         final IHyriQueue queue = event.getQueue();
 
+
         if (queue.getType() != IHyriQueue.Type.GAME) {
             return;
         }
@@ -110,10 +111,6 @@ public class NormalQueueHandler implements IHyriQueueHandler, Listener {
                     .replace("%game%", gameInfo.getDisplayName())
                     .replace("%game_type%", gameInfo.getType(queue.getGameType()).getDisplayName()));
             bar.send(player);
-
-            this.hyrame.getItemManager().giveItem(player, 0, LeaveQueueItem.class);
-
-            this.sendQueueMessage(player, queue, LobbyMessage.QUEUE_NORMAL_PLAYER_LEFT_MESSAGE);
         }
     }
 
