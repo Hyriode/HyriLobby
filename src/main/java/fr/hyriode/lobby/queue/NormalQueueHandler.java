@@ -51,7 +51,7 @@ public class NormalQueueHandler implements IHyriQueueHandler, Listener {
     public void onJoinQueue(PlayerJoinQueueEvent event) {
         final IHyriQueue queue = event.getQueue();
 
-        if (queue.getType() == IHyriQueue.Type.GAME) {
+        if (queue.getType() != IHyriQueue.Type.GAME) {
             return;
         }
 
@@ -69,7 +69,7 @@ public class NormalQueueHandler implements IHyriQueueHandler, Listener {
     public void onLeaveQueue(PlayerLeaveQueueEvent event) {
         final IHyriQueue queue = event.getQueue();
 
-        if (queue.getType() == IHyriQueue.Type.GAME) {
+        if (queue.getType() != IHyriQueue.Type.GAME) {
             return;
         }
 
@@ -87,7 +87,7 @@ public class NormalQueueHandler implements IHyriQueueHandler, Listener {
     public void onUpdate(QueueUpdatedEvent event) {
         final IHyriQueue queue = event.getQueue();
 
-        if (queue.getType() == IHyriQueue.Type.GAME) {
+        if (queue.getType() != IHyriQueue.Type.GAME) {
             return;
         }
 
@@ -121,7 +121,7 @@ public class NormalQueueHandler implements IHyriQueueHandler, Listener {
     public void onDisable(QueueDisabledEvent event) {
         final IHyriQueue queue = event.getQueue();
 
-        if (queue.getType() == IHyriQueue.Type.GAME) {
+        if (queue.getType() != IHyriQueue.Type.GAME) {
             return;
         }
 

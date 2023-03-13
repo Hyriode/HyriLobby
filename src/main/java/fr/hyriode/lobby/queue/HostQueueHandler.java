@@ -57,7 +57,7 @@ public class HostQueueHandler implements IHyriQueueHandler, Listener {
     public void onJoinQueue(PlayerJoinQueueEvent event) {
         final IHyriQueue queue = event.getQueue();
 
-        if (queue.getType() == IHyriQueue.Type.SERVER) {
+        if (queue.getType() != IHyriQueue.Type.SERVER) {
             return;
         }
 
@@ -75,7 +75,7 @@ public class HostQueueHandler implements IHyriQueueHandler, Listener {
     public void onLeaveQueue(PlayerLeaveQueueEvent event) {
         final IHyriQueue queue = event.getQueue();
 
-        if (queue.getType() == IHyriQueue.Type.SERVER) {
+        if (queue.getType() != IHyriQueue.Type.SERVER) {
             return;
         }
 
@@ -93,7 +93,7 @@ public class HostQueueHandler implements IHyriQueueHandler, Listener {
     public void onUpdate(QueueUpdatedEvent event) {
         final IHyriQueue queue = event.getQueue();
 
-        if (queue.getType() == IHyriQueue.Type.SERVER) {
+        if (queue.getType() != IHyriQueue.Type.SERVER) {
             return;
         }
 
@@ -137,7 +137,7 @@ public class HostQueueHandler implements IHyriQueueHandler, Listener {
     public void onDisable(QueueDisabledEvent event) {
         final IHyriQueue queue = event.getQueue();
 
-        if (queue.getType() == IHyriQueue.Type.SERVER) {
+        if (queue.getType() != IHyriQueue.Type.SERVER) {
             return;
         }
 
