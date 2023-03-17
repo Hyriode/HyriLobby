@@ -25,11 +25,11 @@ public class LobbySelectorGUI extends LobbyGUI {
 
     private static final String NBT = "LobbyItem";
 
-    private final IHyriServerManager serverManager;
+    private final ILobbyAPI lobbyAPI;
 
     public LobbySelectorGUI(HyriLobby plugin, Player owner) {
         super(owner, plugin, () -> "lobby-selector", 54);
-        this.serverManager = HyriAPI.get().getServerManager();
+        this.lobbyAPI = HyriAPI.get().getLobbyAPI();
 
         this.newUpdate(3 * 20L);
         this.init();
@@ -67,7 +67,7 @@ public class LobbySelectorGUI extends LobbyGUI {
 
         this.applyDesign(Design.BORDER);
 
-        final Set<HyggServer> servers = this.serverManager.getServers();
+        final Set<HyggServer> servers = this.lobbyAPI.getLobbies();
         final HashMap<String, ItemStack> items = new HashMap<>();
 
         for (HyggServer server : servers) {
