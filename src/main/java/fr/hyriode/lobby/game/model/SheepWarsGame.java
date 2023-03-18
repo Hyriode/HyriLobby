@@ -11,7 +11,6 @@ public class SheepWarsGame extends LobbyGame {
 
     public SheepWarsGame() {
         super("sheepwars", Material.WOOL, State.OPENED);
-        this.hostCompatible = true;
         this.usedInSelector = false;
     }
 

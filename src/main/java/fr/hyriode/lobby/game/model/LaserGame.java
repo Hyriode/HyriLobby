@@ -16,7 +16,6 @@ public class LaserGame extends LobbyGame {
     public LaserGame() {
         super("lasergame", Material.IRON_HOE, State.OPENED);
         this.npcData = new NPCData(new Location(IHyrame.WORLD.get(), -48.5, 187, -8.5, -90, 0), UsefulSkin.LASER_GAME).addEquipment(EnumItemSlot.MAIN_HAND, Material.IRON_HOE);
-        this.hostCompatible = true;
     }
 
 }

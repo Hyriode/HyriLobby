@@ -11,7 +11,6 @@ public class GetDownGame extends LobbyGame {
 
     public GetDownGame() {
         super("getdown", Material.SEA_LANTERN, State.OPENED);
-        this.hostCompatible = true;
         this.usedInSelector = false;
     }
 
