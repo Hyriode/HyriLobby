@@ -20,6 +20,14 @@ public abstract class LobbyItem extends HyriItem<HyriLobby> {
         super(plugin, name, () -> HyriLanguageMessage.get(displayKey), () -> HyriLanguageMessage.get(descriptionKey), item);
     }
 
+    public LobbyItem(HyriLobby plugin, String name, String displayKey, Material material) {
+        super(plugin, name, () -> HyriLanguageMessage.get(displayKey), null, material);
+    }
+
+    public LobbyItem(HyriLobby plugin, String name, String displayKey, ItemStack item) {
+        super(plugin, name, () -> HyriLanguageMessage.get(displayKey), null, item);
+    }
+
     @Override
     public void onLeftClick(IHyrame hyrame, PlayerInteractEvent event) {
         this.onClick(hyrame, event);
