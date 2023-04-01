@@ -9,6 +9,7 @@ import fr.hyriode.hyrame.utils.TimeUtil;
 import fr.hyriode.hyrame.utils.list.ListReplacer;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.LobbyGUI;
+import fr.hyriode.lobby.gui.profile.booster.BoostersGUI;
 import fr.hyriode.lobby.gui.settings.LanguageGUI;
 import fr.hyriode.lobby.gui.settings.SettingsGUI;
 import fr.hyriode.lobby.language.Language;
@@ -21,7 +22,6 @@ import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.function.BiConsumer;

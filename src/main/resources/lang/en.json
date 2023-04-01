@@ -13,14 +13,14 @@
 
   "prefix.queue": "&3Queue &f┃ ",
   "message.normal-queue.player-joined": "&fYou &ajoined &fthe queue for &3%game% &8(%game_type%)",
-  "message.normal-queue.player-left": "&fYou &aleft &fthe queue for &3%game% &8(%game_type%)",
+  "message.normal-queue.player-left": "&fYou &cleft &fthe queue for &3%game% &8(%game_type%)",
   "bar.normal-queue.display": "&fEn attente d'un serveur... - &b%game% &8(%game_type%)",
   "message.host-queue.player-joined": "&fYou &ajoined &fthe queue for &3%host% &8(%server%)",
-  "message.host-queue.player-left": "&fYou &aleft &fthe queue for &3%host% &8(%server%)",
+  "message.host-queue.player-left": "&fYou &cleft &fthe queue for &3%host% &8(%server%)",
   "bar.host-queue.display": "&fEn attente du serveur... - &b%host% &8(%server%)",
   "item.queue.leave": "&3Leave queue",
 
-  "prefix.jump": "&3Parkour &f┃",
+  "prefix.jump": "&3Parkour &f┃ ",
   "message.jump-join": "&fYou started the&b parkour&f!",
   "message.jump-leave": "&fYou have&c abandoned&f the&b parkour&f!",
   "message.checkpoint-success": "&fYou reached the&b checkpoint #%value%&f!",
@@ -143,10 +143,12 @@
   "hyriplus.changed.message": "&fYou just &achanged &fthe color of your &brank&f.",
 
   "gui.boosters.name": "&8Boosters",
-  "gui.boosters.booster.item.name": "&bBooster &8┃ &7%type%",
+  "gui.boosters.booster.item.name": "&bBooster &8┃ &7%boost%",
   "gui.boosters.booster.item.lore": "\n&8Information:\n&8▪ &7Boost: &b%boost% &8(%multiplier%)\n&8▪ &7Duration: &b%duration%\n\n&3Click to enable",
   "boosters.booster.game": "Jeu",
   "boosters.booster.global": "Global",
+
+  "gui.booster-game-selector.name": "&8Game selector",
 
   "prefix.leveling": "&3Leveling &f┃ ",
   "gui.leveling.name": "&8Leveling",
@@ -280,7 +282,7 @@
   "click.to-claim": "&3Click to claim",
 
   "npc.language.header": "&3Language\n&fSelect your language\n&8» &bCLICK &8«",
-  "npc.rotating-game.header": "&f&kE&r &bRotating game &r&f&kE\n&3&l%rotating_game%\nb%players% &fplayers",
+  "npc.rotating-game.header": "&f&kE&r &bRotating game &r&f&kE\n&3&l%rotating_game%\n&b%players% &fplayers",
   "npc.host.header": "&3Hosts\n&fCreate your host\n&8» &bCLICK &8«",
 
   "leaderboard.leveling.header": "&3Leveling &8┃ &7Leaderboard",

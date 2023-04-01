@@ -1,4 +1,4 @@
-package fr.hyriode.lobby.gui.profile;
+package fr.hyriode.lobby.gui.profile.booster;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.booster.HyriBoosterTransaction;
@@ -50,7 +50,6 @@ public class BoostersGUI extends LobbyGUI {
         final Map<String, HyriBoosterTransaction> boosters = HyriAPI.get().getBoosterManager().getPlayerBoosters(this.account);
 
         for (Map.Entry<String, HyriBoosterTransaction> entry : boosters.entrySet()) {
-            final String name = entry.getKey();
             final HyriBoosterTransaction booster = entry.getValue();
 
             if (booster.isUsed()) {
@@ -59,33 +58,32 @@ public class BoostersGUI extends LobbyGUI {
 
             final ItemStack itemStack = this.createBoosterItem(booster);
 
-            pagination.add(PaginatedItem.from(itemStack, event -> {
-                new ConfirmGUI(this.owner, this.plugin, new ItemBuilder(itemStack).removeLoreLines(2).build())
-                        .whenConfirm(e -> {
-                            this.owner.closeInventory();
+            pagination.add(PaginatedItem.from(itemStack, event -> new ConfirmGUI(this.owner, this.plugin, new ItemBuilder(itemStack).removeLoreLines(2).build())
+                    .whenConfirm(e -> {
+                        this.owner.closeInventory();
 
-                            HyriAPI.get().getBoosterManager().enableBooster(this.owner.getUniqueId(), "global", booster.getMultiplier(), booster.getDuration());
+                        HyriAPI.get().getBoosterManager().enableBooster(this.owner.getUniqueId(), "global", booster.getMultiplier(), booster.getDuration());
 
-                            booster.setUsed(true);
+                        booster.setUsed(true);
 
-                            this.account.update();
-                        })
-                        .whenCancel(e -> this.open())
-                        .open();
-            }));
+                        this.account.update();
+                    })
+                    .whenCancel(e -> this.open())
+                    .open()));
         }
     }
 
     private ItemStack createBoosterItem(HyriBoosterTransaction booster) {
+        final String boost = "+" + ((int) booster.getMultiplier() * 100);
         final String duration = new DurationFormatter().format(this.account.getSettings().getLanguage(), booster.getDuration() * 1000);
-        final List<String> lore = ListReplacer.replace(LobbyMessage.BOOSTERS_BOOSTER_ITEM_LORE.asList(this.account), "%boost%", "+" + ((int) booster.getMultiplier() * 100))
+        final List<String> lore = ListReplacer.replace(LobbyMessage.BOOSTERS_BOOSTER_ITEM_LORE.asList(this.account), "%boost%", boost)
                 .replace("%multiplier%", "x" + booster.getMultiplier())
                 .replace("%duration%", duration)
                 .list();
 
         return new ItemBuilder(Material.POTION)
                 .withAllItemFlags()
-                .withName(LobbyMessage.BOOSTERS_BOOSTER_ITEM_NAME.asString(this.account))
+                .withName(LobbyMessage.BOOSTERS_BOOSTER_ITEM_NAME.asString(this.account).replace("%boost%", boost))
                 .withLore(lore)
                 .build();
     }

@@ -143,10 +143,12 @@
   "hyriplus.changed.message": "&fVous avez &achangé &fla couleur de votre &bgrade&f.",
 
   "gui.boosters.name": "&8Boosters",
-  "gui.boosters.booster.item.name": "&bBooster &8┃ &7%type%",
+  "gui.boosters.booster.item.name": "&bBooster &8┃ &7%boost%",
   "gui.boosters.booster.item.lore": "\n&8Informations:\n&8▪ &7Boost: &b%boost% &8(%multiplier%)\n&8▪ &7Durée: &b%duration%\n\n&3Cliquer pour activer",
   "boosters.booster.game": "Jeu",
   "boosters.booster.global": "Global",
+
+  "gui.booster-game-selector.name": "&8Choix du jeu",
 
   "prefix.leveling": "&3Niveaux &f┃ ",
   "gui.leveling.name": "&8Niveaux",

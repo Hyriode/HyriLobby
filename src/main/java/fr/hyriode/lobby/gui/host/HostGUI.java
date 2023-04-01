@@ -5,7 +5,6 @@ import fr.hyriode.api.game.IHyriGameInfo;
 import fr.hyriode.api.host.HostData;
 import fr.hyriode.api.host.HostType;
 import fr.hyriode.api.host.IHostManager;
-import fr.hyriode.api.party.IHyriParty;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.api.rank.PlayerRank;
@@ -28,6 +27,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by AstFaster
@@ -54,9 +54,9 @@ public class HostGUI extends LobbyGUI {
         this.setSpectatingItem();
 
         this.setItem(51, ItemBuilder.asHead(UsefulHead.MONITOR_PLUS)
-                        .withName(LobbyMessage.HOST_CREATE_ITEM_NAME.asString(this.account))
-                        .withLore(ListReplacer.replace(LobbyMessage.HOST_CREATE_ITEM_LORE.asList(this.account), "%available_hosts%", this.account.getRank().isSuperior(PlayerRank.EPIC) ? LobbyMessage.HOST_UNLIMITED_WORD.asString(this.account) : String.valueOf(this.account.getHosts().getAvailableHosts())).list())
-                        .build(),
+                .withName(LobbyMessage.HOST_CREATE_ITEM_NAME.asString(this.account))
+                .withLore(ListReplacer.replace(LobbyMessage.HOST_CREATE_ITEM_LORE.asList(this.account), "%available_hosts%", this.account.getRank().isSuperior(PlayerRank.EPIC) ? LobbyMessage.HOST_UNLIMITED_WORD.asString(this.account) : String.valueOf(this.account.getHosts().getAvailableHosts())).list())
+                .build(),
                 event -> {
                     if (this.account.getHosts().getAvailableHosts() < 1) {
                         this.owner.sendMessage(LobbyMessage.HOST_CREATE_ERROR.asString(this.account).replace("%rank%", PlayerRank.EPIC.getDefaultPrefix()));
@@ -123,15 +123,15 @@ public class HostGUI extends LobbyGUI {
 
             final HostData hostData = hostAPI.getHostData(server);
 
-            if (hostData.getType() == HostType.PRIVATE && !hostData.getWhitelistedPlayers().contains(this.owner.getUniqueId())) {
+            if (Objects.requireNonNull(hostData).getType() == HostType.PRIVATE && !hostData.getWhitelistedPlayers().contains(this.owner.getUniqueId())) {
                 continue;
             }
 
             if (this.spectating && !hostData.isSpectatorsAllowed()) {
-                return;
+                continue;
             }
 
-            final ItemStack itemStack = this.createItem(server);
+            final ItemStack itemStack = this.createItem(server, hostData);
 
             if (itemStack == null) {
                 continue;
@@ -166,22 +166,16 @@ public class HostGUI extends LobbyGUI {
         this.setupItems();
     }
 
-    private ItemStack createItem(HyggServer server) {
-        final HostData hostData = HyriAPI.get().getHostManager().getHostData(server);
-
-        if (hostData == null) {
-            return null;
-        }
-
+    private ItemStack createItem(HyggServer server, HostData hostData) {
         final HostState state = HostState.getFromServer(server);
 
         if (state == null) {
             return null;
         }
 
-        final IHyriGameInfo gameInfo = HyriAPI.get().getGameManager().getGameInfo(hostData.getName());
+        final IHyriGameInfo gameInfo = HyriAPI.get().getGameManager().getGameInfo(server.getType());
 
-        if (gameInfo == null || gameInfo.getType(hostData.getType().toString()) == null) {
+        if (gameInfo == null || gameInfo.getType(server.getGameType()) == null) {
             return null;
         }
 
