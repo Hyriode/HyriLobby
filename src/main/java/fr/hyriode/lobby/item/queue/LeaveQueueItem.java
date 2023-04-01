@@ -18,7 +18,7 @@ import java.util.UUID;
 public class LeaveQueueItem extends LobbyItem {
 
     public LeaveQueueItem(HyriLobby plugin) {
-        super(plugin, "leave_queue", "item.queue.leave", "item.queue.leave.description", Material.BARRIER);
+        super(plugin, "leave_queue", "item.queue.leave", Material.BARRIER);
     }
 
     @Override
