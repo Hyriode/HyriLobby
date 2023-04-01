@@ -2,6 +2,7 @@ package fr.hyriode.lobby.gui.host;
 
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.game.IHyriGameInfo;
+import fr.hyriode.api.game.IHyriGameType;
 import fr.hyriode.api.host.HostData;
 import fr.hyriode.api.host.HostType;
 import fr.hyriode.api.host.IHostManager;
@@ -175,14 +176,20 @@ public class HostGUI extends LobbyGUI {
 
         final IHyriGameInfo gameInfo = HyriAPI.get().getGameManager().getGameInfo(server.getType());
 
-        if (gameInfo == null || gameInfo.getType(server.getGameType()) == null) {
+        if (gameInfo == null) {
+            return null;
+        }
+
+        final IHyriGameType gameType = gameInfo.getType(server.getGameType());
+
+        if (gameType == null) {
             return null;
         }
 
         final int players = server.getPlayingPlayers().size();
         final List<String> lore = ListReplacer.replace(LobbyMessage.HOST_ITEM_LORE.asList(this.account), "%owner%", IHyriPlayer.get(hostData.getOwner()).getNameWithRank())
                 .replace("%game%", gameInfo.getDisplayName())
-                .replace("%game_type%", gameInfo.getType(hostData.getType().toString()).getDisplayName())
+                .replace("%game_type%", gameType.getDisplayName())
                 .replace("%state%", state.getDisplay().getValue(this.account))
                 .replace("%players%", String.valueOf(players))
                 .replace("%slots%", String.valueOf(server.getSlots()))
