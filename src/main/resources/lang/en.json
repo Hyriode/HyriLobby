@@ -4,7 +4,7 @@
   "scoreboard.profile.display": "&3Profile",
   "scoreboard.rank.display": "&fRank: &b%value%",
   "scoreboard.hyris.display": "&fHyris: &d%value% ⛃",
-  "scoreboard.gems.display": "&fGems: &a%value% ✦",
+  "scoreboard.hyodes.display": "&fHyodes: &a%value% ✦",
   "scoreboard.level.display": "&fLevel: &b%value% ✯",
   "scoreboard.no-rank.value": "&7Player",
 
@@ -110,7 +110,7 @@
   "gui.profile.item.friends.name": "&bFriends",
   "gui.profile.item.friends.lore": "&7Manage your friends list by adding\n&7other players from the server.\n\n&3Click to see",
   "gui.profile.item.account.name": "&bAccount",
-  "gui.profile.item.account.lore": "&8▪ &7Rank: %rank%\n&8▪ &7Premium: %premium%\n&8▪ &7Hyri+: %hyri+%\n&8▪ &7Hyris: &d%hyris% ⛃\n&8▪ &7Gems: &a%gems% ✦\n&8▪ &7Level: &b%level% ✯\n&8▪ &7First login: &b%first_login%\n&8▪ &7Play time: &b%play_time%",
+  "gui.profile.item.account.lore": "&8▪ &7Rank: %rank%\n&8▪ &7Premium: %premium%\n&8▪ &7Hyri+: %hyri+%\n&8▪ &7Hyris: &d%hyris% ⛃\n&8▪ &7Hyodes: &a%hyodes% ✦\n&8▪ &7Level: &b%level% ✯\n&8▪ &7First login: &b%first_login%\n&8▪ &7Play time: &b%play_time%",
   "gui.profile.item.leveling.name": "&bLeveling",
   "gui.profile.item.leveling.lore": "&7Play games, complete quests or\n&7achieve challenges to earn &bexperience &7and\n&7level up.\n\n&8▪ &7Level: &b%current_level% %progress_bar% &8%percentage%\n&8▪ &7Next level in: &b%experience% xp\n\n&3Click to see rewards",
   "gui.profile.item.settings.name": "&bSettings",

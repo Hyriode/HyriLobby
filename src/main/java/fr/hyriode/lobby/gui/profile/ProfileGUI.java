@@ -106,7 +106,7 @@ public class ProfileGUI extends LobbyGUI {
                 .replace("%premium%", this.account.getAuth().isPremium() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
                 .replace("%hyri+%", this.account.getHyriPlus().has() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
                 .replace("%hyris%", NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."))
-                .replace("%gems%", NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."))
+                .replace("%hyodes%", NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."))
                 .replace("%level%", String.valueOf(this.account.getNetworkLeveling().getLevel()))
                 .replace("%first_login%", TimeUtil.formatDate(new Date(this.account.getFirstLoginDate()), "dd/MM/yyyy HH:mm:ss"))
                 .replace("%play_time%",  playTime)

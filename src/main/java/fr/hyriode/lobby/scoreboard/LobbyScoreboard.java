@@ -55,7 +55,7 @@ public class LobbyScoreboard extends HyriScoreboard {
         this.setLine(2, this.getPlayers());
         this.setLine(6, this.getRank());
         this.setLine(7, this.getHyris());
-        this.setLine(8, this.getGems());
+        this.setLine(8, this.getHyodes());
         this.setLine(9, this.getLevel());
     }
 
@@ -88,8 +88,8 @@ public class LobbyScoreboard extends HyriScoreboard {
         return DASH + this.getLinePrefix("hyris").replace("%value%", NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."));
     }
 
-    private String getGems() {
-        return DASH + this.getLinePrefix("gems").replace("%value%", NumberFormat.getInstance().format(this.account.getGems().getAmount()).replace(",", "."));
+    private String getHyodes() {
+        return DASH + this.getLinePrefix("hyodes").replace("%value%", NumberFormat.getInstance().format(this.account.getHyodes().getAmount()).replace(",", "."));
     }
 
     private String getLevel() {
