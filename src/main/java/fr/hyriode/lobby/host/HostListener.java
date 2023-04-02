@@ -3,10 +3,10 @@ package fr.hyriode.lobby.host;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.event.HyriEventHandler;
 import fr.hyriode.api.game.IHyriGameInfo;
+import fr.hyriode.api.host.HostAdvertisementEvent;
 import fr.hyriode.api.host.HostData;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyggdrasil.api.server.HyggServer;
-import fr.hyriode.hyrame.host.event.HostAdvertisementEvent;
 import fr.hyriode.lobby.language.LobbyMessage;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -28,17 +28,23 @@ public class HostListener {
 
     @HyriEventHandler
     public void onAdvert(HostAdvertisementEvent event) {
+        final HostData hostData = event.getHostData().orElse(null);
+
+        if (hostData == null) {
+            return;
+        }
+
+        final HyggServer server = HyriAPI.get().getServerManager().getServer(event.getServerName());
+        final IHyriGameInfo gameInfo = HyriAPI.get().getGameManager().getGameInfo(server.getType());
+        final HostState state = HostState.getFromServer(server);
+
+        if (state == null) {
+            return;
+        }
+
+        final String owner = IHyriPlayer.get(hostData.getOwner()).getNameWithRank();
+
         for (Player player : Bukkit.getOnlinePlayers()) {
-            final HostData hostData = event.getHostData();
-            final HyggServer server = HyriAPI.get().getServerManager().getServer(event.getServerName());
-            final IHyriGameInfo gameInfo = HyriAPI.get().getGameManager().getGameInfo(server.getType());
-            final HostState state = HostState.getFromServer(server);
-
-            if (state == null) {
-                return;
-            }
-
-            final String owner = IHyriPlayer.get(hostData.getOwner()).getNameWithRank();
             final String[] message = LobbyMessage.HOST_ADVERT_MESSAGE.asString(player).split("%split%");
             final String hover = ChatColor.AQUA + hostData.getName() + "\n" +
                     LobbyMessage.HOST_ITEM_LORE.asString(player).replace("%owner%", owner)

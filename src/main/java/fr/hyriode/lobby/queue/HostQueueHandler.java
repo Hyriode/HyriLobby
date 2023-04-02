@@ -64,9 +64,9 @@ public class HostQueueHandler implements IHyriQueueHandler, Listener {
         final Player player = Bukkit.getPlayer(event.getPlayerId());
 
         if (player != null) {
-            this.hyrame.getItemManager().giveItem(player, 0, GameSelectorItem.class);
+            this.hyrame.getItemManager().giveItem(player, 0, LeaveQueueItem.class);
 
-            this.removeActionBar(player);
+            this.createActionBar(player, queue);
             this.sendQueueMessage(player, queue, LobbyMessage.QUEUE_HOST_PLAYER_JOINED_MESSAGE);
         }
     }
@@ -82,9 +82,9 @@ public class HostQueueHandler implements IHyriQueueHandler, Listener {
         final Player player = Bukkit.getPlayer(event.getPlayerId());
 
         if (player != null) {
-            this.hyrame.getItemManager().giveItem(player, 0, LeaveQueueItem.class);
+            this.hyrame.getItemManager().giveItem(player, 0, GameSelectorItem.class);
 
-            this.createActionBar(player, queue);
+            this.removeActionBar(player);
             this.sendQueueMessage(player, queue, LobbyMessage.QUEUE_HOST_PLAYER_LEFT_MESSAGE);
         }
     }

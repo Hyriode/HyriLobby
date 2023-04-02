@@ -11,7 +11,7 @@ import fr.hyriode.lobby.config.LobbyConfig;
 import fr.hyriode.lobby.game.LobbyGameManager;
 import fr.hyriode.lobby.host.HostHandler;
 import fr.hyriode.lobby.leaderboard.LobbyLeaderboardManager;
-import fr.hyriode.lobby.listener.LanguageListener;
+import fr.hyriode.lobby.listener.AccountListener;
 import fr.hyriode.lobby.npc.LobbyNPCManager;
 import fr.hyriode.lobby.player.LobbyPlayerManager;
 import fr.hyriode.lobby.queue.HostQueueHandler;
@@ -81,7 +81,7 @@ public class HyriLobby extends JavaPlugin {
             this.hostHandler = new HostHandler(this);
         }
 
-        HyriAPI.get().getEventBus().register(new LanguageListener(this));
+        HyriAPI.get().getEventBus().register(new AccountListener(this));
         HyriAPI.get().getQueueManager().addHandler(new NormalQueueHandler(this));
         HyriAPI.get().getQueueManager().addHandler(new HostQueueHandler(this));
 

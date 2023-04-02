@@ -2,6 +2,7 @@ package fr.hyriode.lobby.listener;
 
 import fr.hyriode.api.event.HyriEventHandler;
 import fr.hyriode.api.language.HyriLanguageUpdatedEvent;
+import fr.hyriode.api.player.event.ModerationUpdatedEvent;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.npc.LobbyNPCHandler;
 import fr.hyriode.lobby.player.LobbyPlayer;
@@ -13,11 +14,11 @@ import org.bukkit.entity.Player;
  * Created by AstFaster
  * on 29/06/2022 at 15:19
  */
-public class LanguageListener {
+public class AccountListener {
 
     private final HyriLobby plugin;
 
-    public LanguageListener(HyriLobby plugin) {
+    public AccountListener(HyriLobby plugin) {
         this.plugin = plugin;
     }
 
@@ -42,6 +43,15 @@ public class LanguageListener {
 
             this.plugin.getLeaderboardManager().refreshLeaderboards(player);
         }, 1L);
+    }
+
+    @HyriEventHandler
+    public void onModeration(ModerationUpdatedEvent event) {
+        if (!event.isModerating()) {
+            final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayerId());
+
+            lobbyPlayer.handleLogin(false, false);
+        }
     }
 
 }

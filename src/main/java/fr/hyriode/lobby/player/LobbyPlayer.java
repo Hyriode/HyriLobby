@@ -219,7 +219,6 @@ public class LobbyPlayer {
     public void giveDefaultItems() {
         final Player player = this.asPlayer();
         final IHyriPlayerSession session = IHyriPlayerSession.get(this.uuid);
-        final IHyriParty party = session.isModerating() ? IHyriParty.get(session.getParty()) : null;
         final IItemManager item = this.plugin.getHyrame().getItemManager();
         final IHyriQueueManager queueManager = HyriAPI.get().getQueueManager();
 

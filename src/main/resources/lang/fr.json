@@ -206,7 +206,7 @@
   "gui.confirm.item.confirm.name": "&aConfirmer",
   "gui.confirm.item.cancel.name": "&cAnnuler",
 
-  "message.store.not-enough-money": "&fTu ne possèdes &cpas assez &fd'dHyris&f!",
+  "message.store.not-enough-money": "&fTu ne possèdes &cpas assez &fd'&dHyris&f!",
   "message.store.purchase-confirmed": "&fL'achat a été &aconfirmé&f.",
   "message.store.purchase-cancelled": "&fL'achat a été &cannulé&f.",
   "message.store.only-on-website": "&fCet objet doit être &aacheté &fsur notre &bboutique &fen ligne.",
