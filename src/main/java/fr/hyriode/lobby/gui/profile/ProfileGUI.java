@@ -1,5 +1,6 @@
 package fr.hyriode.lobby.gui.profile;
 
+import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.leveling.IHyriLeveling;
 import fr.hyriode.api.player.model.IHyriPlus;
 import fr.hyriode.hyrame.item.ItemBuilder;
@@ -102,7 +103,7 @@ public class ProfileGUI extends LobbyGUI {
         final List<String> lore = LobbyMessage.PROFILE_ACCOUNT_LORE.asList(this.account);
         final String playTime = new DurationFormatter().format(this.account.getSettings().getLanguage(), this.account.getStatistics().getTotalPlayTime());
 
-        return  ListReplacer.replace(lore, "%rank%", this.account.getPrefix())
+        return  ListReplacer.replace(lore, "%rank%", this.account.getRank().isDefault() ? HyriLanguageMessage.get("scoreboard.no-rank.value").getValue(this.account) : this.account.getPrefix())
                 .replace("%premium%", this.account.getAuth().isPremium() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
                 .replace("%hyri+%", this.account.getHyriPlus().has() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
                 .replace("%hyris%", NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."))
@@ -118,10 +119,10 @@ public class ProfileGUI extends LobbyGUI {
         final BiConsumer<String, String> replacer = (character, value) -> ListReplacer.replace(lore, character, value);
         final IHyriLeveling leveling = this.account.getNetworkLeveling();
         final int currentLevel = leveling.getLevel();
-        final double currentExperience = leveling.getExperience();
-        final double totalExperience = leveling.getAlgorithm().levelToExperience(currentLevel + 1);
+        final double currentLevelExperience = leveling.getAlgorithm().levelToExperience(currentLevel);
+        final double currentExperience = leveling.getExperience() - currentLevelExperience;
+        final double totalExperience = leveling.getAlgorithm().levelToExperience(currentLevel + 1) - currentLevelExperience;
         final int percentage = (int) Math.floor(currentExperience / totalExperience * 100);
-
         final StringBuilder progressBar = new StringBuilder();
 
         for (int i = 0; i < 50; i++) {
