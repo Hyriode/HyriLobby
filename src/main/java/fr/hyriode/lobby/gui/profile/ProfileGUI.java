@@ -103,7 +103,7 @@ public class ProfileGUI extends LobbyGUI {
         final List<String> lore = LobbyMessage.PROFILE_ACCOUNT_LORE.asList(this.account);
         final String playTime = new DurationFormatter().format(this.account.getSettings().getLanguage(), this.account.getStatistics().getTotalPlayTime());
 
-        return  ListReplacer.replace(lore, "%rank%", this.account.getRank().isDefault() ? HyriLanguageMessage.get("scoreboard.no-rank.value").getValue(this.account) : this.account.getPrefix())
+        return ListReplacer.replace(lore, "%rank%", this.account.getRank().isDefault() ? HyriLanguageMessage.get("scoreboard.no-rank.value").getValue(this.account) : this.account.getPrefix())
                 .replace("%premium%", this.account.getAuth().isPremium() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
                 .replace("%hyri+%", this.account.getHyriPlus().has() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
                 .replace("%hyris%", NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."))

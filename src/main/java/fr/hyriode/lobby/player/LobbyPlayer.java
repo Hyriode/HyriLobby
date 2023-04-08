@@ -77,7 +77,7 @@ public class LobbyPlayer {
         PlayerUtil.resetPlayer(player, true);
 
         player.setLevel(account.getNetworkLeveling().getLevel());
-        player.setExp(this.getExp());
+        player.setExp(this.getExp(account.getNetworkLeveling()));
         player.getInventory().setArmorContents(null);
         player.setGameMode(GameMode.ADVENTURE);
 
@@ -322,10 +322,10 @@ public class LobbyPlayer {
         }
     }
 
-    private float getExp() {
-        final IHyriLeveling leveling = this.asHyriPlayer().getNetworkLeveling();
-        final double currentExperience = leveling.getExperience();
-        final double totalExperience = leveling.getAlgorithm().levelToExperience(leveling.getLevel() + 1);
+    private float getExp(IHyriLeveling leveling) {
+        final double currentLevelExperience = leveling.getAlgorithm().levelToExperience(leveling.getLevel());
+        final double currentExperience = leveling.getExperience() - currentLevelExperience;
+        final double totalExperience = leveling.getAlgorithm().levelToExperience(leveling.getLevel() + 1) - currentLevelExperience;
 
         return (float) (currentExperience / totalExperience);
     }

@@ -27,6 +27,7 @@ public class LobbyGameManager {
         this.registerGame(new LaserGame());
         this.registerGame(new GetDownGame());
         this.registerGame(new SheepWarsGame());
+        this.registerGame(new MoutronGame());
     }
 
     public <T extends LobbyGame> T registerGame(T game) {

@@ -20,7 +20,7 @@ public class LobbyScoreboard extends HyriScoreboard {
     private IHyriPlayer account;
 
     public LobbyScoreboard(HyriLobby plugin, Player player) {
-        super(plugin, player, "lobby", ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Hyriode");
+        super(plugin, player, "lobby", ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "Hyriode " + ChatColor.AQUA + ChatColor.BOLD + "2");
         this.account = IHyriPlayer.get(this.player.getUniqueId());
 
         this.addBlankLine(1);
