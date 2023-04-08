@@ -91,6 +91,8 @@
   "gui.settings.item.friend-connection.description": "&7Edit the display of the notifications\n&7when a friend logs-in.",
   "gui.settings.item.auto-queue.name": "&bAutomatic queue",
   "gui.settings.item.auto-queue.description": "&7Edit the automatic queue at\n&7the end of a game.",
+  "gui.settings.item.follow-party.name": "&bFollow party",
+  "gui.settings.item.follow-party.description": "&7Edit whether you follow your\n&7party or not.",
   "gui.settings.item.visibility.name": "&bPlayers visibility",
   "gui.settings.item.visibility.description": "&7Edit the players visibility\n&7in the lobbies.",
 

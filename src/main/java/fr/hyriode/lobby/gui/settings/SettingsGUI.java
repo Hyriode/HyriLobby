@@ -70,6 +70,10 @@ public class SettingsGUI extends LobbyGUI {
                 .withValueModifier(this.settings::setGlobalChatLevel)
                 .withAvailableValues(reducedLevels));
 
+        this.addItem(29, new BooleanItem(Material.ENDER_PEARL, LobbyMessage.SETTINGS_PRIVATE_MSG_NAME, LobbyMessage.SETTINGS_PRIVATE_MSG_DESCRIPTION)
+                .withValueProvider(this.settings::isFollowPartyEnabled)
+                .withValueModifier(this.settings::setFollowPartyEnabled));
+
         this.addItem(30, new LevelItem(Material.BOOK_AND_QUILL, LobbyMessage.SETTINGS_PRIVATE_MSG_NAME, LobbyMessage.SETTINGS_PRIVATE_MSG_DESCRIPTION)
                 .withValueProvider(this.settings::getPrivateMessagesLevel)
                 .withValueModifier(this.settings::setPrivateMessagesLevel)

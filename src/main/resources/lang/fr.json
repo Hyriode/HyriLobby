@@ -87,10 +87,12 @@
   "gui.settings.item.party-request.description": "&7Modifie la réception des\n&7demandes de groupe.",
   "gui.settings.item.friend-request.name": "&bDemandes d'amis",
   "gui.settings.item.friend-request.description": "&7Modifie la réception des\n&7demandes d'amis.",
-  "gui.settings.item.friend-connection.name": "&bNotification de connexion",
+  "gui.settings.item.friend-connection.name": "&bNotifications de connexion",
   "gui.settings.item.friend-connection.description": "&7Modifie l'apparition des notifications\n&7lors de la connexion d'un ami.",
   "gui.settings.item.auto-queue.name": "&bQueue automatique",
   "gui.settings.item.auto-queue.description": "&7Modifie la queue automatique\n&7à la fin d'une partie.",
+  "gui.settings.item.follow-party.name": "&bSuivre le groupe",
+  "gui.settings.item.follow-party.description": "&7Modifie si vous suivez votre groupe\n&7ou non.",
   "gui.settings.item.visibility.name": "&bVisibilité des joueurs",
   "gui.settings.item.visibility.description": "&7Modifie la visibilité des joueurs\n&7dans les lobbies.",
 

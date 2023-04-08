@@ -70,6 +70,8 @@ public enum LobbyMessage {
     SETTINGS_FRIEND_CONNECTION_DESCRIPTION("gui.settings.item.friend-connection.description"),
     SETTINGS_AUTO_QUEUE_NAME("gui.settings.item.auto-queue.name"),
     SETTINGS_AUTO_QUEUE_DESCRIPTION("gui.settings.item.auto-queue.description"),
+    SETTINGS_FOLLOW_PARTY_NAME("gui.settings.item.follow-party.name"),
+    SETTINGS_FOLLOW_PARTY_DESCRIPTION("gui.settings.item.follow-party.description"),
     SETTINGS_VISIBILITY_NAME("gui.settings.item.visibility.name"),
     SETTINGS_VISIBILITY_DESCRIPTION("gui.settings.item.visibility.description"),
     SETTINGS_LANG("gui.settings.item.lang.name"),
