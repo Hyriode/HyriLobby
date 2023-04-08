@@ -70,7 +70,7 @@ public class SettingsGUI extends LobbyGUI {
                 .withValueModifier(this.settings::setGlobalChatLevel)
                 .withAvailableValues(reducedLevels));
 
-        this.addItem(29, new BooleanItem(Material.ENDER_PEARL, LobbyMessage.SETTINGS_PRIVATE_MSG_NAME, LobbyMessage.SETTINGS_PRIVATE_MSG_DESCRIPTION)
+        this.addItem(29, new BooleanItem(Material.ENDER_PEARL, LobbyMessage.SETTINGS_FOLLOW_PARTY_NAME, LobbyMessage.SETTINGS_FOLLOW_PARTY_DESCRIPTION)
                 .withValueProvider(this.settings::isFollowPartyEnabled)
                 .withValueModifier(this.settings::setFollowPartyEnabled));
 
