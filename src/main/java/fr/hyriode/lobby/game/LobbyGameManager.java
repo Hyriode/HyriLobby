@@ -28,6 +28,7 @@ public class LobbyGameManager {
         this.registerGame(new GetDownGame());
         this.registerGame(new SheepWarsGame());
         this.registerGame(new MoutronGame());
+        this.registerGame(new PitchOutGame());
     }
 
     public <T extends LobbyGame> T registerGame(T game) {
@@ -41,6 +42,10 @@ public class LobbyGameManager {
             return game;
         }
         return null;
+    }
+
+    public LobbyGame getGame(String name) {
+        return this.games.get(name);
     }
 
     public List<LobbyGame> getGames() {

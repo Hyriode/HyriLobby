@@ -12,6 +12,7 @@ import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.util.UsefulHead;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 import java.util.function.Function;
@@ -19,6 +20,22 @@ import java.util.function.Supplier;
 
 public abstract class LobbyGUI extends PaginatedInventory {
 
+    public static final IDesign<Byte> PURIFIED_BORDER = new IDesign<Byte>() {
+
+        private final int[] slots = new int[] {0, 1, 2, 6, 7, 8, 45, 46, 47, 51, 52, 53};
+
+        @Override
+        public void apply(HyriInventory inventory, Byte data) {
+            final ItemStack border = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, 9)
+                    .withName(" ")
+                    .withAllItemFlags()
+                    .build();
+
+            for (int slot : slots) {
+                inventory.setItem(slot, border);
+            }
+        }
+    };
     public static final Function<UsefulHead, ItemBuilder> HEAD_ITEM = texture -> ItemBuilder.asHead().withHeadTexture(texture);
 
     private boolean pagesItem;

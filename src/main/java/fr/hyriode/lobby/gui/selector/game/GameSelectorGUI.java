@@ -46,7 +46,7 @@ public class GameSelectorGUI extends LobbyGUI {
     }
 
     protected void init() {
-        this.applyDesign(Design.BORDER);
+        this.applyDesign(PURIFIED_BORDER);
 
         this.addGameItems();
         this.addOtherItems();
@@ -64,37 +64,33 @@ public class GameSelectorGUI extends LobbyGUI {
     }
 
     private void addOtherItems()  {
-        final ItemStack homeItem = ItemBuilder.asHead()
-                .withHeadTexture(UsefulHead.GLOBE)
-                .withName(LobbyMessage.SELECTOR_HOME_ITEM_NAME.asString(this.account))
-                .withLore(LobbyMessage.SELECTOR_HOME_ITEM_DESCRIPTION.asList(this.account))
-                .build();
+//        final ItemStack homeItem = ItemBuilder.asHead()
+//                .withHeadTexture(UsefulHead.GLOBE)
+//                .withName(LobbyMessage.SELECTOR_HOME_ITEM_NAME.asString(this.account))
+//                .withLore(LobbyMessage.SELECTOR_HOME_ITEM_DESCRIPTION.asList(this.account))
+//                .build();
 
         final ItemStack vipItem = new ItemBuilder(Material.GOLD_INGOT)
                 .withName(LobbyMessage.SELECTOR_VIP_ITEM_NAME.asString(this.account))
                 .withLore(LobbyMessage.SELECTOR_VIP_ITEM_DESCRIPTION.asList(this.account))
                 .build();
 
-        final ItemStack jumpItem = new ItemBuilder(Material.FEATHER)
+        final ItemStack jumpItem = new ItemBuilder(Material.GOLD_INGOT)
                 .withName(LobbyMessage.SELECTOR_JUMP_ITEM_NAME.asString(this.account))
                 .withLore(LobbyMessage.SELECTOR_JUMP_ITEM_DESCRIPTION.asList(this.account))
                 .build();
 
-        final List<String> hostLore = LobbyMessage.SELECTOR_HOST_ITEM_DESCRIPTION.asList(this.account);
-
-        hostLore.add("");
-        hostLore.add(LobbyMessage.CLICK_TO_SHOW.asString(this.account));
-
         final ItemStack hostItem = ItemBuilder.asHead()
                 .withHeadTexture(UsefulHead.CHEST)
                 .withName(LobbyMessage.SELECTOR_HOST_ITEM_NAME.asString(this.account))
-                .withLore(hostLore)
+                .withLore(LobbyMessage.SELECTOR_HOST_ITEM_DESCRIPTION.asList(this.account))
+                .appendLore("", LobbyMessage.CLICK_TO_SHOW.asString(this.account))
                 .build();
 
-        this.setItem(4, homeItem);
-        this.setItem(26, hostItem, event -> new HostGUI(this.owner, this.plugin, false).open());
-        this.setItem(18, vipItem, event -> this.owner.teleport(this.plugin.config().getVIPLocation().asBukkit()));
-        this.setItem(27, jumpItem, event -> this.owner.teleport(this.plugin.config().getJumpLocation().asBukkit()));
+//        this.setItem(4, homeItem);
+        this.setItem(4, hostItem, event -> new HostGUI(this.owner, this.plugin, false).open());
+        this.setItem(18, jumpItem, event -> this.owner.teleport(this.plugin.config().getJumpLocation().asBukkit()));
+        this.setItem(27, vipItem, event -> this.owner.teleport(this.plugin.config().getVIPLocation().asBukkit()));
 
         this.addRotatingGameItem();
     }
@@ -113,12 +109,10 @@ public class GameSelectorGUI extends LobbyGUI {
                 break;
         }
 
-        final ItemStack rotatingGameItem = ItemBuilder.asHead()
-                .withHeadTexture(head)
+        final ItemStack rotatingGameItem = ItemBuilder.asHead(head)
                 .withName(LobbyMessage.SELECTOR_ROTATING_GAME_ITEM_NAME.asString(this.owner))
                 .withLore(LobbyMessage.SELECTOR_ROTATING_GAME_ITEM_DESCRIPTION.asList(this.owner))
                 .build();
-
 
         this.setItem(35, rotatingGameItem, event -> {
             final IHyriRotatingGame game = HyriAPI.get().getGameManager().getRotatingGameManager().getRotatingGame();

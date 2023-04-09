@@ -40,15 +40,11 @@ public class GameTypeSelectorGUI extends LobbyGUI {
 
     @Override
     protected void init() {
-        final ItemStack border = new ItemBuilder(Material.STAINED_GLASS_PANE, 1, 9).withName("§8").withAllItemFlags().build();
         final IHyriGameInfo gameInfo = this.game.getGameInfo();
 
         this.inventory.clear();
 
-        this.setHorizontalLine(0, 2, border);
-        this.setHorizontalLine(6, 8, border);
-        this.setHorizontalLine(45, 47, border);
-        this.setHorizontalLine(51, 53, border);
+        this.applyDesign(PURIFIED_BORDER);
 
         this.setItem(49, new ItemBuilder(Material.ARROW)
                 .withName(LobbyMessage.BACK_ITEM.asString(this.owner))
@@ -106,7 +102,6 @@ public class GameTypeSelectorGUI extends LobbyGUI {
 
     private void sendPlayerToGame(Player player, String type) {
         final IHyriPlayerSession session = IHyriPlayerSession.get(player.getUniqueId());
-        final IHyriParty party = IHyriParty.get(session.getParty());
 
         if (session.isModerating()) {
             player.sendMessage(LobbyMessage.STAFF_ERROR.asString(player));
