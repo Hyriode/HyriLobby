@@ -55,10 +55,10 @@ public class HostListener {
                         .replace("%slots%", String.valueOf(server.getSlots())) +
                     "\n\n" +
                     LobbyMessage.CLICK_TO_JOIN.asString(player);
-            final ComponentBuilder builder = new ComponentBuilder(new ComponentBuilder(message[0].replace("%player%", owner))
+            final ComponentBuilder builder = new ComponentBuilder(message[0].replace("%player%", owner))
                     .append(" ")
-                    .append(message[1])
-                    .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/hostinvitation " + event.getServerName())))
+                    .append(message[1]).color(net.md_5.bungee.api.ChatColor.AQUA).bold(true)
+                    .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/hostinvitation " + event.getServerName()))
                     .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(hover)));
 
             player.spigot().sendMessage(builder.create());
