@@ -19,6 +19,8 @@ import java.util.UUID;
  */
 public class HostHandler {
 
+    public static final int MAX_HOSTS = 20;
+
     private final List<UUID> players = new ArrayList<>();
 
     private final HyriLobby plugin;

@@ -295,7 +295,7 @@ public class LobbyPlayer {
 
         LobbyMessage.JOIN_MESSAGE.sendTo(this.asPlayer());
 
-        if (session.isVanished() || session.isModerating()) {
+        if (session.isVanished() || session.isModerating() || session.getNickname().has()) {
             return;
         }
 

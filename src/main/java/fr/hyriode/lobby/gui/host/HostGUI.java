@@ -18,6 +18,7 @@ import fr.hyriode.hyrame.utils.list.ListReplacer;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.LobbyGUI;
 import fr.hyriode.lobby.gui.selector.game.GameSelectorGUI;
+import fr.hyriode.lobby.host.HostHandler;
 import fr.hyriode.lobby.host.HostState;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.util.UsefulHead;
@@ -66,6 +67,11 @@ public class HostGUI extends LobbyGUI {
                         return;
                     }
 
+                    if (HyriAPI.get().getHostManager().getHosts().size() >= HostHandler.MAX_HOSTS) {
+                        this.owner.sendMessage(LobbyMessage.HOST_LIMIT_EXCEEDED_MESSAGE.asString(this.account));
+                        return;
+                    }
+
                     new HostGameSelectorGUI(this.owner, this.plugin).open();
                 });
 
@@ -78,9 +84,9 @@ public class HostGUI extends LobbyGUI {
                 .list();
 
         this.setItem(47, new ItemBuilder(this.spectating ? Material.EYE_OF_ENDER : Material.ENDER_PEARL)
-                        .withName(LobbyMessage.HOST_SPECTATING_ITEM_NAME.asString(this.account))
-                        .withLore(lore)
-                        .build(),
+                .withName(LobbyMessage.HOST_SPECTATING_ITEM_NAME.asString(this.account))
+                .withLore(lore)
+                .build(),
                 event -> {
                     this.owner.playSound(this.owner.getLocation(), Sound.CLICK, 0.5F, 2.0F);
                     this.spectating = !this.spectating;

@@ -226,6 +226,7 @@ public enum LobbyMessage {
     HOST_CLICK_TO_CREATE("host.click.to-create"),
     HOST_CREATING_HOST_BAR("host.creating-host.bar"),
     HOST_ADVERT_MESSAGE("host.advert.message"),
+    HOST_LIMIT_EXCEEDED_MESSAGE("host.limit-exceeded.message"),
 
     LEADERBOARD_LEVELING_HEADER("leaderboard.leveling.header"),
     LEADERBOARD_JUMP_HEADER("leaderboard.jump.header"),

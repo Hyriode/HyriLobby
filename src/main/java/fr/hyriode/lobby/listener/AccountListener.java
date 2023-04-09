@@ -3,6 +3,8 @@ package fr.hyriode.lobby.listener;
 import fr.hyriode.api.event.HyriEventHandler;
 import fr.hyriode.api.language.HyriLanguageUpdatedEvent;
 import fr.hyriode.api.player.event.ModerationUpdatedEvent;
+import fr.hyriode.api.player.event.NicknameUpdatedEvent;
+import fr.hyriode.api.player.event.RankUpdatedEvent;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.npc.LobbyNPCHandler;
 import fr.hyriode.lobby.player.LobbyPlayer;
@@ -51,6 +53,24 @@ public class AccountListener {
             final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayerId());
 
             lobbyPlayer.handleLogin(false, false);
+        }
+    }
+
+    @HyriEventHandler
+    public void onNicknameUpdated(NicknameUpdatedEvent event) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
+
+            lobbyPlayer.initPlayersVisibility(lobbyPlayer.asHyriPlayer().getSettings().getPlayersVisibilityLevel(), false);
+        }
+    }
+
+    @HyriEventHandler
+    public void onRankUpdated(RankUpdatedEvent event) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
+
+            lobbyPlayer.initPlayersVisibility(lobbyPlayer.asHyriPlayer().getSettings().getPlayersVisibilityLevel(), false);
         }
     }
 

@@ -62,12 +62,6 @@ public class ProfileGUI extends LobbyGUI {
         // Leveling
         this.setItem(21, levelingItem.build(), event -> this.openWithGoBack(49, new LevelingRewardsGUI(this.owner, this.plugin, levelingItem.removeLoreLines(2).build())));
 
-        // Statistics viewer
-        this.setItem(23, new ItemBuilder(Material.BOOK_AND_QUILL)
-                .withName(LobbyMessage.PROFILE_STATS_NAME.asString(this.account))
-                .withLore(LobbyMessage.PROFILE_STATS_LORE.asList(this.account))
-                .build());
-
         // Hyri+
         this.setItem(30, HEAD_ITEM.apply(UsefulHead.GOLD_BLOCK)
                 .withName(ChatColor.AQUA + "Hyri+")
@@ -92,7 +86,7 @@ public class ProfileGUI extends LobbyGUI {
         this.setItem(32, Language.getFrom(this.account.getSettings().getLanguage()).createItem(this.account), event -> this.openWithGoBack(49, new LanguageGUI(this.plugin, this.owner)));
 
         // Boosters
-        this.setItem(40, new ItemBuilder(new Potion(PotionType.WATER))
+        this.setItem(23, new ItemBuilder(new Potion(PotionType.WATER))
                 .withName(LobbyMessage.PROFILE_BOOSTERS_NAME.asString(this.account))
                 .withLore(LobbyMessage.PROFILE_BOOSTERS_LORE.asList(this.account))
                 .build(),
@@ -107,7 +101,7 @@ public class ProfileGUI extends LobbyGUI {
                 .replace("%premium%", this.account.getAuth().isPremium() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
                 .replace("%hyri+%", this.account.getHyriPlus().has() ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
                 .replace("%hyris%", NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."))
-                .replace("%hyodes%", NumberFormat.getInstance().format(this.account.getHyris().getAmount()).replace(",", "."))
+                .replace("%hyodes%", NumberFormat.getInstance().format(this.account.getHyodes().getAmount()).replace(",", "."))
                 .replace("%level%", String.valueOf(this.account.getNetworkLeveling().getLevel()))
                 .replace("%first_login%", TimeUtil.formatDate(new Date(this.account.getFirstLoginDate()), "dd/MM/yyyy HH:mm:ss"))
                 .replace("%play_time%",  playTime)

@@ -186,7 +186,7 @@
   "store.item.ranks.vip+.name": "&aVIP+ &8(à vie)",
   "store.item.ranks.vip+.description": "\n&8Avantages:\n&8▪ &7Message à la connexion: &a✔\n&8▪ &7Fly: &a✔\n&8▪ &7Accès prioritaire sur le serveur: &a✔\n&8▪ &7Créer une guilde: &a✔\n&8▪ &7Limite d'amis: &b30\n&8▪ &7Limite de groupe: &b20\n&8▪ &7Boost d'Hyris: &b50%\n&8▪ &7Boost d'XP: &b50%\n&8▪ &7Avantages du: &eVIP\n\n&8▪ &7Prix: &b17.99€",
   "store.item.ranks.epic.name": "&bEpic &8(à vie)",
-  "store.item.ranks.epic.description": "\n&8Avantages:\n&8▪ &7Hosts (par mois): &b10\n&8▪ &7Choisir la carte de jeu: &a✔\n&8▪ &7Limite d'amis: &b50\n&8▪ &7Limite de groupe: &b30\n&8▪ &7Boost d'Hyris: &b100%\n&8▪ &7Boost d'XP: &b100%\n&8▪ &7Avantages du: &aVIP+\n\n&8▪ &7Prix: &b34.99€",
+  "store.item.ranks.epic.description": "\n&8Avantages:\n&8▪ &7Choisir la carte de jeu: &a✔\n&8▪ &7Limite d'amis: &b50\n&8▪ &7Limite de groupe: &b30\n&8▪ &7Boost d'Hyris: &b100%\n&8▪ &7Boost d'XP: &b100%\n&8▪ &7Avantages du: &aVIP+\n\n&8▪ &7Prix: &b34.99€",
   "store.item.ranks.hyri+.name": "&6Hyri+ &8(durée limitée)",
   "store.item.ranks.hyri+.description": "\n&8Avantages:\n&8▪ &7Hosts (par mois): &billimitées\n&8▪ &7/nick: &a✔\n&8▪ &7/vanish: &a✔\n&8▪ &7Groupe accessible à tout le monde: &a✔\n&8▪ &7Limite de groupe: &b50\n&8▪ &7Boost d'Hyris: &b200%\n&8▪ &7Boost d'XP: &b200%\n&8▪ &7Avantages du: &bEpic\n\n&8▪ &7Prix: &b7.99€&8/mois",
 
@@ -229,6 +229,7 @@
   "host.click.to-create": "&3Cliquer pour créer l'host",
   "host.creating-host.bar": "&3Host &8┃ &fCréation de votre host en cours...",
   "host.advert.message": "%player% &fvous &ainvite &fà rejoindre son host%split%&l&b[➥ Rejoindre]",
+  "host.limit-exceeded.message": "&fIl y a actuellement trop d'&bhosts &fdémarrées. Merci de patienter.",
 
   "host.state.starting.display": "&eCréation",
   "host.state.whitelisted.display": "&9Accès restreint",
