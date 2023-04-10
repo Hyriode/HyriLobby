@@ -14,6 +14,7 @@ import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.hyrame.utils.TimeUtil;
 import fr.hyriode.hyrame.utils.list.ListReplacer;
 import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.gui.ConfirmGUI;
 import fr.hyriode.lobby.gui.LobbyGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.util.UsefulHead;
@@ -103,19 +104,26 @@ public class FriendsGUI extends LobbyGUI {
     private Consumer<InventoryClickEvent> clickEvent(IHyriFriend friend) {
         return event -> {
             if (event.isRightClick()) {
-                this.account.getFriends().remove(friend.getUniqueId());
-                this.account.update();
+                new ConfirmGUI(this.owner, this.plugin, new ItemBuilder(this.createFriendItem(friend)).removeLoreLines(2).build())
+                        .whenConfirm(e -> {
+                            this.account.getFriends().remove(friend.getUniqueId());
+                            this.account.update();
 
-                final IHyriPlayer friendAccount = IHyriPlayer.get(friend.getUniqueId());
+                            final IHyriPlayer friendAccount = IHyriPlayer.get(friend.getUniqueId());
 
-                friendAccount.getFriends().remove(this.owner.getUniqueId());
-                friendAccount.update();
+                            friendAccount.getFriends().remove(this.owner.getUniqueId());
+                            friendAccount.update();
 
-                this.owner.playSound(this.owner.getLocation(), Sound.FIZZ, 0.5F, 1.0F);
+                            this.owner.playSound(this.owner.getLocation(), Sound.FIZZ, 0.5F, 1.0F);
 
-                this.setupItems();
+                            this.setupItems();
 
-                this.paginationManager.updateGUI();
+                            this.paginationManager.updateGUI();
+                        })
+                        .whenCancel(e -> {
+                            this.init();
+                            this.open();
+                        });
             }
         };
     }

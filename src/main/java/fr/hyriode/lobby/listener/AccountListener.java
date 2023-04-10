@@ -5,6 +5,8 @@ import fr.hyriode.api.language.HyriLanguageUpdatedEvent;
 import fr.hyriode.api.player.event.ModerationUpdatedEvent;
 import fr.hyriode.api.player.event.NicknameUpdatedEvent;
 import fr.hyriode.api.player.event.RankUpdatedEvent;
+import fr.hyriode.hyrame.npc.NPC;
+import fr.hyriode.hyrame.npc.NPCManager;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.npc.LobbyNPCHandler;
 import fr.hyriode.lobby.player.LobbyPlayer;
@@ -38,6 +40,10 @@ public class AccountListener {
             for (LobbyNPCHandler handler : this.plugin.getNPCManager().getNPCHandlers()) {
                 handler.onLogout(player);
                 handler.onLogin(player);
+            }
+
+            for (NPC npc : NPCManager.getNPCs()) {
+                NPCManager.sendNPC(player, npc);
             }
 
             lobbyPlayer.getLobbyScoreboard().update(true);

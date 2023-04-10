@@ -18,7 +18,7 @@ public class StoreLootbox extends StoreItem {
     private final Lootbox handle;
 
     public StoreLootbox(String category, Lootbox handle) {
-        super(ItemBuilder.asHead().withHeadTexture(UsefulHead.ENDER_CHEST).build(), category, handle.name().toLowerCase().replace("_", "-"), handle.getPrice());
+        super(ItemBuilder.asHead().withHeadTexture(UsefulHead.ENDER_CHEST).build(), category, handle.name().toLowerCase().replace("_", "-"), handle.getPrices());
         this.handle = handle;
         this.name = HyriLanguageMessage.get("store.item.lootbox.name");
         this.description = HyriLanguageMessage.get("store.item.lootbox.description");

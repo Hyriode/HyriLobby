@@ -34,9 +34,9 @@
 
   "message.error-staff.display": "&cYou can't do this in moderation mode.",
 
-  "command.fly.result": "§bYour fly mode is %value%§b.",
-  "command.fly.value.on": "§3enabled",
-  "command.fly.value.off": "§3disabled",
+  "command.fly.result": "§fYour fly mode is %value%§f.",
+  "command.fly.value.on": "§aenabled",
+  "command.fly.value.off": "&cdisabled",
   "command.fly.error": "&cYou can't fly here.",
 
   "subtitle.basic.display": "&7Welcome back!",
@@ -60,8 +60,6 @@
   "gui.game-selector.item.vip.description": "&7Teleport yourself to the area\n&7dedicated to players with a\n&7rank.\n\n&3Click to teleport",
   "gui.game-selector.item.jump.name": "&aParkour",
   "gui.game-selector.item.jump.description": "&7Teleport yourself to the lobby\n&7parkour.\n\n&3Click to teleport",
-  "gui.game-selector.item.home.name": "&bHome",
-  "gui.game-selector.item.home.description": "&7Show the main menu to play\n&7to the available games.",
   "gui.game-selector.item.rotating-game.name": "&bRotating game",
   "gui.game-selector.item.rotating-game.description": "&fCurrent: &b%game%\n\n&7Play to emblematic games of\n&7the community every 2 weeks.\n\n&fPlayers: &b%players%\n\n&3Click to play",
 
@@ -131,7 +129,7 @@
   "gui.profile.item.statistics.lore": "&7See your stats in the\n&7different games that are\n&7on the server.\n\n&3Click to see",
 
   "gui.friends.name": "&8Friends",
-  "gui.friends.friend.item.lore": "&8▪ &7Online: %online%\n&8▪ &7Friends for: &b%friends_for% &8(%date%)\n&8▪ &7Premium: %premium%\n&8▪ &7Level: &b%level% ✯\n\n&cRight-click to remove friend",
+  "gui.friends.friend.item.lore": "&8▪ &7Online: %online%\n&8▪ &7Friends for: &b%friends_for%&8(%date%)\n&8▪ &7Premium: %premium%\n&8▪ &7Level: &b%level% ✯\n\n&cRight-click to remove friend",
   "gui.friends.add-friend.item.name": "&bAdd friend",
   "gui.friends.add-friend.item.lore": "&7Add a player in your friends\n&7list by sending to him a\n&7request.\n\n&3Click to add a friend",
   "gui.friends.add-friend.sign.line": "Player name",
@@ -178,38 +176,42 @@
   "gui.store.item.cosmetics.name": "&bCosmetics",
   "gui.store.item.cosmetics.lore": "&7Buy cosmetics (&bparticles&7, &bpets&7,\n&btrails&7, &barmors&7...) that can\n&7be used in lobbies.\n\n&3Click to see",
 
-  "gui.store.item.price": "&8▪ &7Price: &d%price% ⛃",
+  "gui.store.item.price": "&8▪ &7Price: %price%",
   "gui.store.item.own": "&cAlready bought",
 
   "gui.store-ranks.name": "&8Ranks",
   "store.item.ranks.vip.name": "&eVIP &8(for life)",
   "store.item.ranks.vip.description": "\n&8Perks:\n&8▪ &7VIP Area: &a✔\n&8▪ &7Exclusive cosmetics: &a✔\n&8▪ &7Priority in queues: &a✔\n&8▪ &7Friends limit: &b20\n&8▪ &7Party limit: &b10\n&8▪ &7Hyris Boost: &b25%\n&8▪ &7XP Boost: &b25%",
   "store.item.ranks.vip+.name": "&aVIP+ &8(for life)",
-  "store.item.ranks.vip+.description": "\n&8Perks:\n&8▪ &7Login message: &a✔\n&8▪ &7Fly: &a✔\n&8▪ &7Priority access on the server: &a✔\n&8▪ &7Create a guild: &a✔\n&8▪ &7Friends limit: &b30\n&8▪ &7Party limit: &b20\n&8▪ &7Hyris Boost: &b50%\n&8▪ &7XP Boost: &b50%\n&8▪ &7Perks of: &eVIP\n\n&8▪ &7Price: &b17.99€",
+  "store.item.ranks.vip+.description": "\n&8Perks:\n&8▪ &7Login message: &a✔\n&8▪ &7Fly: &a✔\n&8▪ &7Priority access on the server: &a✔\n&8▪ &7Create a guild: &a✔\n&8▪ &7Friends limit: &b30\n&8▪ &7Party limit: &b20\n&8▪ &7Hyris Boost: &b50%\n&8▪ &7XP Boost: &b50%\n&8▪ &7Perks of: &eVIP",
   "store.item.ranks.epic.name": "&bEpic &8(for life)",
-  "store.item.ranks.epic.description": "\n&8Perks:\n&8▪ &7Select map: &a✔\n&8▪ &7Friends limit: &b50\n&8▪ &7Party limit: &b30\n&8▪ &7Hyris Boost: &b100%\n&8▪ &7XP Boost: &b100%\n&8▪ &7Perks of: &aVIP+\n\n&8▪ &7Price: &b34.99€",
+  "store.item.ranks.epic.description": "\n&8Perks:\n&8▪ &7Select map: &a✔\n&8▪ &7Friends limit: &b50\n&8▪ &7Party limit: &b30\n&8▪ &7Hyris Boost: &b100%\n&8▪ &7XP Boost: &b100%\n&8▪ &7Perks of: &aVIP+",
   "store.item.ranks.hyri+.name": "&6Hyri+ &8(limited time)",
-  "store.item.ranks.hyri+.description": "\n&8Perks:\n&8▪ &7Hosts (per month): &binfinite\n&8▪ &7/nick: &a✔\n&8▪ &7/vanish: &a✔\n&8▪ &7Party accessible to everyone: &a✔\n&8▪ &7Party limit: &b50\n&8▪ &7Hyris Boost: &b200%\n&8▪ &7XP Boost: &b200%\n&8▪ &7Perks of: &bEpic\n\n&8▪ &7Price: &b7.99€&8/month",
+  "store.item.ranks.hyri+.description": "\n&8Perks:\n&8▪ &7Hosts (per month): &binfinite\n&8▪ &7/nick: &a✔\n&8▪ &7/vanish: &a✔\n&8▪ &7Party accessible to everyone: &a✔\n&8▪ &7Party limit: &b50\n&8▪ &7Hyris Boost: &b200%\n&8▪ &7XP Boost: &b200%\n&8▪ &7Perks of: &bEpic",
 
   "gui.store-boosters.name": "&8Boosters",
   "gui.store-boosters.item.type.name": "&bType",
   "gui.store-boosters.item.type.description": "&7The type of the booster sets the percentage\n&7of supplementary &dHyris&7.\n\n&8Status:\n%values%\n\n&3Click to change",
-  "gui.store-boosters.item.global.name": "&bGlobal",
-  "gui.store-boosters.item.global.description": "&7Sets whether the booster will be applied\n&7on the network or only on a game.\n\n&8Status:\n&8▪ %yes_color%Yes\n&8▪ %no_color%No\n\n&3Click to change",
   "store.item.boosters.booster.name": "&bBooster",
-  "store.item.boosters.booster.description": "&7A booster increases the amount\n&7of &dHyris &7you will earn.\n\n&8▪ &7Boost: &b%boost% &8(%multiplier%)\n&8▪ &7Global: %global%\n&8▪ &7Duration: &b1h",
+  "store.item.boosters.booster.description": "&7A booster increases the amount\n&7of &dHyris &7you will earn.\n\n&8▪ &7Boost: &b%boost% &8(%multiplier%)\n&8▪ &7Duration: &b1h",
 
-  "gui.store-cosmetics.name": "&8Cosmetics",
+  "gui.store-confirm.money-edit.name": "&bCurrency",
+  "gui.store-confirm.money-edit.description": "&7Edit the currency to use to\n&7purchase this item.\n\n&8Statut:\n%currencies%\n\n&3Click to edit",
 
   "gui.store-lootboxes.name": "&8Lootboxes",
   "store.item.lootbox.name": "&bLootbox %stars%",
   "store.item.lootbox.description": "&7A &blootbox &7allows you to earn\n&7many rewards (&dHyris&7, &bcosmetics&7, etc).\n&7Rewards depend of the rarity of the\n&7lootbox.",
 
+  "gui.store-cosmetics.name": "&8Cosmetics",
+
   "gui.confirm.name": "&8Confirm",
   "gui.confirm.item.confirm.name": "&aConfirm",
   "gui.confirm.item.cancel.name": "&cCancel",
 
-  "message.store.not-enough-money": "&fYou &cdon't &fhave enough &dHyris&f!",
+  "store.currency.hyris.display": "&dHyris",
+  "store.currency.hyodes.display": "&aHyodes",
+
+  "message.store.not-enough-money": "&fYou &cdon't &fhave enough %money%&f!",
   "message.store.purchase-confirmed": "&fPurchase has been &aconfirmed&f.",
   "message.store.purchase-cancelled": "&fPurchase has been &ccancelled&f.",
   "message.store.only-on-website": "&fThis item must be &abought &fon our online &bwebsite&f.",
@@ -228,7 +230,7 @@
   "host.type-item.name": "&bHost type",
   "host.type-item.lore": "&7Edit the type of the host. Each type\n&7has a different number of\n&7permissions and commands.\n\n&8Status:\n&8▪ %public_color%Public\n&8▪ %private_color%Private\n\n&3Click to change",
   "host.click.to-create": "&3Click to create the host",
-  "host.creating-host.bar": "&3Host &8┃ &fCreation of your host in progress...",
+  "host.creating-host.bar": "&3Host &f┃ Creation of your host in progress...",
   "host.advert.message": "%player% &ainvited &fyou to join his host%split%&l&b[➥ Join]",
   "host.limit-exceeded.message": "&fThere are currently too much &bhosts &fstarted. Please wait a bit.",
 

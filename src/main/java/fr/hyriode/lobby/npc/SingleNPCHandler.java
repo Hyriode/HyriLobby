@@ -37,8 +37,6 @@ public abstract class SingleNPCHandler extends LobbyNPCHandler {
             return;
         }
 
-        NPCManager.sendNPC(player, npc);
-
         this.npcs.put(player.getUniqueId(), npc);
     }
 

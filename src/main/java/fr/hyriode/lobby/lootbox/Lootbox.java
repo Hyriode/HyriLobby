@@ -1,6 +1,7 @@
 package fr.hyriode.lobby.lootbox;
 
 import fr.hyriode.api.lootbox.HyriLootboxRarity;
+import fr.hyriode.lobby.store.StorePrice;
 
 /**
  * Created by AstFaster
@@ -8,26 +9,26 @@ import fr.hyriode.api.lootbox.HyriLootboxRarity;
  */
 public enum Lootbox {
 
-    ONE_STAR(1500L),
-    TWO_STARS(3500L),
-    THREE_STARS(5500L),
-    FOUR_STARS(8000L),
-    FIVE_STARS(10000L);
+    ONE_STAR(new StorePrice(StorePrice.Currency.HYRIS, 1500L), new StorePrice(StorePrice.Currency.HYODES, 450)),
+    TWO_STARS(new StorePrice(StorePrice.Currency.HYRIS, 3500L), new StorePrice(StorePrice.Currency.HYODES, 550)),
+    THREE_STARS(new StorePrice(StorePrice.Currency.HYRIS, 5500L), new StorePrice(StorePrice.Currency.HYODES, 700)),
+    FOUR_STARS(new StorePrice(StorePrice.Currency.HYRIS, 8000L), new StorePrice(StorePrice.Currency.HYODES, 850)),
+    FIVE_STARS(new StorePrice(StorePrice.Currency.HYRIS, 10000L), new StorePrice(StorePrice.Currency.HYODES, 1000));
 
     private final HyriLootboxRarity rarity;
-    private final long price;
+    private final StorePrice[] prices;
 
-    Lootbox(long price) {
+    Lootbox(StorePrice... prices) {
         this.rarity = HyriLootboxRarity.valueOf(this.name());
-        this.price = price;
+        this.prices = prices;
     }
 
     public HyriLootboxRarity getRarity() {
         return this.rarity;
     }
 
-    public long getPrice() {
-        return this.price;
+    public StorePrice[] getPrices() {
+        return this.prices;
     }
 
 }

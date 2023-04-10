@@ -1,17 +1,16 @@
 package fr.hyriode.lobby.store;
 
 import fr.hyriode.api.language.HyriLanguageMessage;
-import fr.hyriode.api.money.IHyriMoney;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.ConfirmGUI;
+import fr.hyriode.lobby.gui.store.StoreConfirmGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
+import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,12 +30,12 @@ public class StoreItem extends StoreIcon {
     protected Consumer<IHyriPlayer> whenPurchased;
 
     protected final String category;
-    protected long price;
+    protected StorePrice[] prices;
 
-    public StoreItem(ItemStack itemStack, String category, String id, long price) {
+    public StoreItem(ItemStack itemStack, String category, String id, StorePrice... prices) {
         super(id, itemStack);
         this.category = category;
-        this.price = price;
+        this.prices = prices;
     }
 
     @Override
@@ -48,9 +47,18 @@ public class StoreItem extends StoreIcon {
         final String description = this.getDescription().getValue(account);
         final List<String> lore = new ArrayList<>(Arrays.asList(description.split("\n")));
 
-        if (this.price >= 0) {
+        if (this.prices.length > 0) {
             lore.add("");
-            lore.add(LobbyMessage.STORE_PRICE_LINE.asString(account).replace("%price%", NumberFormat.getInstance().format(this.price).replace(",", ".")));
+
+            final StringBuilder prices = new StringBuilder();
+
+            for (int i = 0; i < this.prices.length; i++) {
+                final StorePrice price = this.prices[i];
+
+                prices.append(price.getCurrency().formatAmount(price.getAmount())).append(i + 1 == this.prices.length ? "" : ChatColor.GRAY + " / ");
+            }
+
+            lore.add(LobbyMessage.STORE_PRICE_LINE.asString(account).replace("%price%", prices));
         }
 
         if (purchaseLine) {
@@ -66,10 +74,6 @@ public class StoreItem extends StoreIcon {
     }
 
     public void purchase(HyriLobby plugin, Player player) {
-        if (this.price < 0) {
-            return;
-        }
-
         final IHyriPlayer account = IHyriPlayer.get(player.getUniqueId());
 
         if (this.owningCheck.test(account)) {
@@ -77,17 +81,17 @@ public class StoreItem extends StoreIcon {
             return;
         }
 
-        final IHyriMoney hyris = account.getHyris();
-
-        if (hyris.getAmount() < this.price) {
-            player.sendMessage(LobbyMessage.STORE_NOT_ENOUGH_MONEY_MESSAGE.asString(account));
-            return;
-        }
-
-        new ConfirmGUI(player, plugin, this.createItem(account, false))
-                .whenConfirm(event -> {
+        new StoreConfirmGUI(player, plugin, this.createItem(account, false), this)
+                .whenConfirm((event, price) -> {
                     player.closeInventory();
-                    hyris.remove(this.price).exec();
+
+                    if (!price.getCurrency().hasAmount(account, price.getAmount())) {
+                        player.sendMessage(LobbyMessage.STORE_NOT_ENOUGH_MONEY_MESSAGE.asString(account).replace("%money%", price.getCurrency().getDisplay().getValue(account)));
+                        return;
+                    }
+
+                    price.getCurrency().removeAmount(account, price.getAmount());
+
                     player.sendMessage(LobbyMessage.STORE_PURCHASE_CONFIRMED_MESSAGE.asString(account));
                     player.playSound(player.getLocation(), Sound.LEVEL_UP, 1.0F, 2.0F);
 
@@ -108,14 +112,6 @@ public class StoreItem extends StoreIcon {
         return this.category;
     }
 
-    public long getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(long price) {
-        this.price = price;
-    }
-
     public StoreItem withOwningCheck(Predicate<IHyriPlayer> owningCheck) {
         this.owningCheck = owningCheck;
         return this;
@@ -134,6 +130,10 @@ public class StoreItem extends StoreIcon {
     @Override
     public HyriLanguageMessage getDescription() {
         return this.description == null ? this.description = HyriLanguageMessage.get("store.item." + this.category + "." + this.id + ".description") : this.description;
+    }
+
+    public StorePrice[] getPrices() {
+        return this.prices;
     }
 
 }

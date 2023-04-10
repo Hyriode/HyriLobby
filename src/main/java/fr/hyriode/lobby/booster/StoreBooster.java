@@ -6,6 +6,7 @@ import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.hyrame.utils.list.ListReplacer;
 import fr.hyriode.lobby.store.StoreItem;
+import fr.hyriode.lobby.store.StorePrice;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -18,20 +19,19 @@ public class StoreBooster extends StoreItem {
 
     public enum Type {
 
-        ONE_FIVE(1.5D, 15000, 8000), // +50%%
-        TWO(2.0D, 20000, 12000), // +100%
-        TWO_FIVE(2.5D, 25000, 17000), // +150%
-        THREE(3.0D, 30000, 22000) // +200%
+        ONE_FIVE(1.5D, new StorePrice(StorePrice.Currency.HYRIS, 15000), new StorePrice(StorePrice.Currency.HYODES, 300)), // +50%%
+        TWO(2.0D, new StorePrice(StorePrice.Currency.HYRIS, 20000), new StorePrice(StorePrice.Currency.HYODES, 450)), // +100%
+        TWO_FIVE(2.5D, new StorePrice(StorePrice.Currency.HYODES, 600)), // +150%
+        THREE(3.0D, new StorePrice(StorePrice.Currency.HYODES, 750)) // +200%
+
         ;
 
         private final double multiplier;
-        private final long globalPrice;
-        private final long selectablePrice;
+        private final StorePrice[] prices;
 
-        Type(double multiplier, long globalPrice, long selectablePrice) {
+        Type(double multiplier, StorePrice... prices) {
             this.multiplier = multiplier;
-            this.globalPrice = globalPrice;
-            this.selectablePrice = selectablePrice;
+            this.prices = prices;
         }
 
         public String format() {
@@ -42,21 +42,16 @@ public class StoreBooster extends StoreItem {
             return this.multiplier;
         }
 
-        public long getGlobalPrice() {
-            return this.globalPrice;
-        }
-
-        public long getSelectablePrice() {
-            return this.selectablePrice;
+        public StorePrice[] getPrices() {
+            return this.prices;
         }
 
     }
 
     private Type type;
-    private boolean global = false;
 
     public StoreBooster(String category) {
-        super(new ItemStack(Material.POTION), category, "booster", -1);
+        super(new ItemStack(Material.POTION), category, "booster");
         this.type = Type.ONE_FIVE;
         this.whenPurchased = player -> HyriAPI.get().getBoosterManager().giveBooster(player, this.type.getMultiplier(), 3600);
 
@@ -74,14 +69,13 @@ public class StoreBooster extends StoreItem {
 
         builder.withLore(ListReplacer.replace(builder.getLore(), "%boost%", this.type.format())
                 .replace("%multiplier%", "x" + this.type.getMultiplier())
-                .replace("%global%", this.global ? ChatColor.GREEN + Symbols.TICK_BOLD : ChatColor.RED + Symbols.CROSS_STYLIZED_BOLD)
                 .list());
 
         return builder.build();
     }
 
     private void updatePrice() {
-        this.price = this.global ? this.type.getGlobalPrice() : this.type.getSelectablePrice();
+        this.prices = this.type.getPrices();
     }
 
     public Type getType() {
@@ -90,16 +84,6 @@ public class StoreBooster extends StoreItem {
 
     public void setType(Type type) {
         this.type = type;
-
-        this.updatePrice();
-    }
-
-    public boolean isGlobal() {
-        return this.global;
-    }
-
-    public void setGlobal(boolean global) {
-        this.global = global;
 
         this.updatePrice();
     }

@@ -42,7 +42,7 @@ public class LobbyLeaderboardManager implements Listener {
     }
 
     private void addLevelingDisplays() {
-        final HyriLeaderboardDisplay display = new HyriLeaderboardDisplay.Builder(this.plugin, NetworkLeveling.LEADERBOARD_TYPE, NetworkLeveling.LEADERBOARD_NAME, new Location(IHyrame.WORLD.get(), -14.5, 185.5, 8.5))
+        final HyriLeaderboardDisplay display = new HyriLeaderboardDisplay.Builder(this.plugin, NetworkLeveling.LEADERBOARD_TYPE, NetworkLeveling.LEADERBOARD_NAME, new Location(IHyrame.WORLD.get(), -13.5, 185.5, 8.5))
                 .withHeader(LobbyMessage.LEADERBOARD_LEVELING_HEADER::asString)
                 .withUpdateTime(20L * 60L)
                 .withScoreFormatter((target, score) -> (score == 0.0D ? "0" : String.valueOf(NetworkLeveling.ALGORITHM.experienceToLevel(score))) + " ✯")

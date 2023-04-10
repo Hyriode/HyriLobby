@@ -155,8 +155,9 @@ public enum LobbyMessage {
 
     STORE_BOOSTERS_TYPE_NAME("gui.store-boosters.item.type.name"),
     STORE_BOOSTERS_TYPE_DESCRIPTION("gui.store-boosters.item.type.description"),
-    STORE_BOOSTERS_GLOBAL_NAME("gui.store-boosters.item.global.name"),
-    STORE_BOOSTERS_GLOBAL_DESCRIPTION("gui.store-boosters.item.global.description"),
+
+    STORE_MONEY_EDIT_NAME("gui.store-confirm.money-edit.name"),
+    STORE_MONEY_EDIT_DESCRIPTION("gui.store-confirm.money-edit.description"),
 
     STORE_PRICE_LINE("gui.store.item.price"),
     STORE_OWN_LINE("gui.store.item.own"),

@@ -64,18 +64,12 @@ public class GameSelectorGUI extends LobbyGUI {
     }
 
     private void addOtherItems()  {
-//        final ItemStack homeItem = ItemBuilder.asHead()
-//                .withHeadTexture(UsefulHead.GLOBE)
-//                .withName(LobbyMessage.SELECTOR_HOME_ITEM_NAME.asString(this.account))
-//                .withLore(LobbyMessage.SELECTOR_HOME_ITEM_DESCRIPTION.asList(this.account))
-//                .build();
-
         final ItemStack vipItem = new ItemBuilder(Material.GOLD_INGOT)
                 .withName(LobbyMessage.SELECTOR_VIP_ITEM_NAME.asString(this.account))
                 .withLore(LobbyMessage.SELECTOR_VIP_ITEM_DESCRIPTION.asList(this.account))
                 .build();
 
-        final ItemStack jumpItem = new ItemBuilder(Material.GOLD_INGOT)
+        final ItemStack jumpItem = new ItemBuilder(Material.FEATHER)
                 .withName(LobbyMessage.SELECTOR_JUMP_ITEM_NAME.asString(this.account))
                 .withLore(LobbyMessage.SELECTOR_JUMP_ITEM_DESCRIPTION.asList(this.account))
                 .build();
@@ -87,7 +81,6 @@ public class GameSelectorGUI extends LobbyGUI {
                 .appendLore("", LobbyMessage.CLICK_TO_SHOW.asString(this.account))
                 .build();
 
-//        this.setItem(4, homeItem);
         this.setItem(4, hostItem, event -> new HostGUI(this.owner, this.plugin, false).open());
         this.setItem(18, jumpItem, event -> this.owner.teleport(this.plugin.config().getJumpLocation().asBukkit()));
         this.setItem(27, vipItem, event -> this.owner.teleport(this.plugin.config().getVIPLocation().asBukkit()));
@@ -114,7 +107,7 @@ public class GameSelectorGUI extends LobbyGUI {
                 .withLore(LobbyMessage.SELECTOR_ROTATING_GAME_ITEM_DESCRIPTION.asList(this.owner))
                 .build();
 
-        this.setItem(35, rotatingGameItem, event -> {
+        this.setItem(40, rotatingGameItem, event -> {
             final IHyriRotatingGame game = HyriAPI.get().getGameManager().getRotatingGameManager().getRotatingGame();
 
             if (game == null || game.getInfo() == null) {

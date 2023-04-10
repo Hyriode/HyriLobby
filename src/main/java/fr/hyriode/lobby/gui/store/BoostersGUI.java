@@ -43,7 +43,6 @@ public class BoostersGUI extends LobbyGUI {
 
         this.addBoosterItem();
         this.addTypeItem();
-        this.addGlobalItem();
     }
 
     private void addBoosterItem() {
@@ -66,7 +65,7 @@ public class BoostersGUI extends LobbyGUI {
                 .withLore(lore)
                 .build();
 
-        this.setItem(30, item, event -> {
+        this.setItem(31, item, event -> {
             final List<StoreBooster.Type> types = Arrays.asList(StoreBooster.Type.values());
 
             int nextIndex = types.indexOf(this.booster.getType()) + 1;
@@ -80,24 +79,6 @@ public class BoostersGUI extends LobbyGUI {
 
             this.addBoosterItem();
             this.addTypeItem();
-        });
-    }
-
-    private void addGlobalItem() {
-        final List<String> lore = ListReplacer.replace(LobbyMessage.STORE_BOOSTERS_GLOBAL_DESCRIPTION.asList(this.account), "%yes_color%", String.valueOf(this.booster.isGlobal() ? ChatColor.AQUA : ChatColor.GRAY))
-                .replace("%no_color%", String.valueOf(!this.booster.isGlobal() ? ChatColor.AQUA : ChatColor.GRAY))
-                .list();
-        final ItemStack item = ItemBuilder.asHead(UsefulHead.GLOBE)
-                .withName(LobbyMessage.STORE_BOOSTERS_GLOBAL_NAME.asString(this.account))
-                .withLore(lore)
-                .build();
-
-        this.setItem(32, item, event -> {
-            this.owner.playSound(this.owner.getLocation(), Sound.CLICK, 0.5F, 2.0F);
-            this.booster.setGlobal(!this.booster.isGlobal());
-
-            this.addBoosterItem();
-            this.addGlobalItem();
         });
     }
 

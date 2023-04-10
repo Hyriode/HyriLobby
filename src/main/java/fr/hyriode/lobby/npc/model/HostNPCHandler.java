@@ -7,6 +7,7 @@ import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.host.HostGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.npc.SingleNPCHandler;
+import fr.hyriode.lobby.util.UsefulSkin;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -29,7 +30,7 @@ public class HostNPCHandler extends SingleNPCHandler {
 
     @Override
     public NPC createNPC(Player player) {
-        return NPCManager.createNPC(this.npcLocation, LobbyMessage.NPC_HOST_HEADER.asList(player).toArray(new String[0]))
+        return NPCManager.createNPC(this.npcLocation, UsefulSkin.HOST_SKIN, LobbyMessage.NPC_HOST_HEADER.asList(player).toArray(new String[0]))
                 .setTrackingPlayer(false)
                 .setShowingToAll(false)
                 .addPlayer(player)

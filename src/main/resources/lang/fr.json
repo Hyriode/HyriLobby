@@ -34,9 +34,9 @@
 
   "message.error-staff.display": "&cVous ne pouvez pas faire ceci en mode modération.",
 
-  "command.fly.result": "§bVotre fly a été %value%§b.",
-  "command.fly.value.on": "§3activé",
-  "command.fly.value.off": "§3désactivé",
+  "command.fly.result": "§fVotre fly a été %value%§f.",
+  "command.fly.value.on": "§aactivé",
+  "command.fly.value.off": "§cdésactivé",
   "command.fly.error": "&cVous ne pouvez pas fly ici.",
 
   "subtitle.basic.display": "&7Bon retour parmi nous !",
@@ -60,8 +60,6 @@
   "gui.game-selector.item.vip.description": "&7Téléporte toi à la zone dédiée\n&7aux joueurs possédant un\n&7grade.\n\n&3Cliquer pour se téléporter",
   "gui.game-selector.item.jump.name": "&aParcours",
   "gui.game-selector.item.jump.description": "&7Téléporte toi au parcours\n&7du lobby.\n\n&3Cliquer pour se téléporter",
-  "gui.game-selector.item.home.name": "&bAccueil",
-  "gui.game-selector.item.home.description": "&7Affiche le menu principal pour\n&7jouer aux différents jeux\n&7disponibles.",
   "gui.game-selector.item.rotating-game.name": "&bJeu rotatif",
   "gui.game-selector.item.rotating-game.description": "&fActuel: &b%game%\n\n&7Joue à des jeux emblématiques\n&7de la communauté toutes les\n&72 semaines.\n\n&fJoueurs: &b%players%\n\n&3Cliquer pour jouer",
 
@@ -131,7 +129,7 @@
   "gui.profile.item.statistics.lore": "&7Affiche tes statistiques dans les\n&7différents jeux présents sur le\n&7serveur.\n\n&3Cliquer pour voir",
 
   "gui.friends.name": "&8Amis",
-  "gui.friends.friend.item.lore": "&8▪ &7En ligne: %online%\n&8▪ &7Amis depuis: &b%friends_for% &8(%date%)\n&8▪ &7Premium: %premium%\n&8▪ &7Niveau: &b%level% ✯\n\n&cClic-droit pour retirer l'ami",
+  "gui.friends.friend.item.lore": "&8▪ &7En ligne: %online%\n&8▪ &7Amis depuis: &b%friends_for%&8(%date%)\n&8▪ &7Premium: %premium%\n&8▪ &7Niveau: &b%level% ✯\n\n&cClic-droit pour retirer l'ami",
   "gui.friends.add-friend.item.name": "&bAjouter un ami",
   "gui.friends.add-friend.item.lore": "&7Ajoute un joueur à ta liste\n&7d'amis en lui envoyant une\n&7requête.\n\n&3Cliquer pour ajouter un ami",
   "gui.friends.add-friend.sign.line": "Nom du joueur",
@@ -177,38 +175,42 @@
   "gui.store.item.cosmetics.name": "&bCosmétiques",
   "gui.store.item.cosmetics.lore": "&7Achète des cosmétiques (&bparticules&7,\n&bpets&7, &btrainées&7, &barmures&7...) pouvant\n&7être utilisé dans les lobbies.\n\n&3Cliquer pour voir",
 
-  "gui.store.item.price": "&8▪ &7Prix: &d%price% ⛃",
+  "gui.store.item.price": "&8▪ &7Prix: %price%",
   "gui.store.item.own": "&cDéjà acheté",
 
   "gui.store-ranks.name": "&8Grades",
   "store.item.ranks.vip.name": "&eVIP &8(à vie)",
   "store.item.ranks.vip.description": "\n&8Avantages:\n&8▪ &7Zone VIP: &a✔\n&8▪ &7Cosmétiques exclusifs: &a✔\n&8▪ &7Priorité dans les queues: &a✔\n&8▪ &7Limite d'amis: &b20\n&8▪ &7Limite de groupe: &b10\n&8▪ &7Boost d'Hyris: &b25%\n&8▪ &7Boost d'XP: &b25%",
   "store.item.ranks.vip+.name": "&aVIP+ &8(à vie)",
-  "store.item.ranks.vip+.description": "\n&8Avantages:\n&8▪ &7Message à la connexion: &a✔\n&8▪ &7Fly: &a✔\n&8▪ &7Accès prioritaire sur le serveur: &a✔\n&8▪ &7Créer une guilde: &a✔\n&8▪ &7Limite d'amis: &b30\n&8▪ &7Limite de groupe: &b20\n&8▪ &7Boost d'Hyris: &b50%\n&8▪ &7Boost d'XP: &b50%\n&8▪ &7Avantages du: &eVIP\n\n&8▪ &7Prix: &b17.99€",
+  "store.item.ranks.vip+.description": "\n&8Avantages:\n&8▪ &7Message à la connexion: &a✔\n&8▪ &7Fly: &a✔\n&8▪ &7Accès prioritaire sur le serveur: &a✔\n&8▪ &7Créer une guilde: &a✔\n&8▪ &7Limite d'amis: &b30\n&8▪ &7Limite de groupe: &b20\n&8▪ &7Boost d'Hyris: &b50%\n&8▪ &7Boost d'XP: &b50%\n&8▪ &7Avantages du: &eVIP",
   "store.item.ranks.epic.name": "&bEpic &8(à vie)",
-  "store.item.ranks.epic.description": "\n&8Avantages:\n&8▪ &7Choisir la carte de jeu: &a✔\n&8▪ &7Limite d'amis: &b50\n&8▪ &7Limite de groupe: &b30\n&8▪ &7Boost d'Hyris: &b100%\n&8▪ &7Boost d'XP: &b100%\n&8▪ &7Avantages du: &aVIP+\n\n&8▪ &7Prix: &b34.99€",
+  "store.item.ranks.epic.description": "\n&8Avantages:\n&8▪ &7Limite d'amis: &b50\n&8▪ &7Limite de groupe: &b30\n&8▪ &7Boost d'Hyris: &b100%\n&8▪ &7Boost d'XP: &b100%\n&8▪ &7Avantages du: &aVIP+",
   "store.item.ranks.hyri+.name": "&6Hyri+ &8(durée limitée)",
-  "store.item.ranks.hyri+.description": "\n&8Avantages:\n&8▪ &7Hosts (par mois): &billimitées\n&8▪ &7/nick: &a✔\n&8▪ &7/vanish: &a✔\n&8▪ &7Groupe accessible à tout le monde: &a✔\n&8▪ &7Limite de groupe: &b50\n&8▪ &7Boost d'Hyris: &b200%\n&8▪ &7Boost d'XP: &b200%\n&8▪ &7Avantages du: &bEpic\n\n&8▪ &7Prix: &b7.99€&8/mois",
+  "store.item.ranks.hyri+.description": "\n&8Avantages:\n&8▪ &7Hosts (par mois): &billimitées\n&8▪ &7/nick: &a✔\n&8▪ &7/vanish: &a✔\n&8▪ &7Groupe accessible à tout le monde: &a✔\n&8▪ &7Limite de groupe: &b50\n&8▪ &7Boost d'Hyris: &b200%\n&8▪ &7Boost d'XP: &b200%\n&8▪ &7Avantages du: &bEpic",
 
   "gui.store-boosters.name": "&8Boosters",
   "gui.store-boosters.item.type.name": "&bType",
   "gui.store-boosters.item.type.description": "&7Le type du booster définit le pourcentage\n&7d'&dHyris &7supplémentaires.\n\n&8Statut:\n%values%\n\n&3Cliquer pour changer",
-  "gui.store-boosters.item.global.name": "&bGlobal",
-  "gui.store-boosters.item.global.description": "&7Défini si le booster s'appliquera sur\n&7l'intégralité du serveur ou sur un jeu.\n\n&8Statut:\n&8▪ %yes_color%Oui\n&8▪ %no_color%Non\n\n&3Cliquer pour changer",
   "store.item.boosters.booster.name": "&bBooster",
-  "store.item.boosters.booster.description": "&7Un booster te permet d'augmenter le\n&7nombre d'&dHyris &7gagné en fin de partie.\n\n&8▪ &7Boost: &b%boost% &8(%multiplier%)\n&8▪ &7Global: %global%\n&8▪ &7Durée: &b1h",
+  "store.item.boosters.booster.description": "&7Un booster te permet d'augmenter le\n&7nombre d'&dHyris &7gagné en fin de partie.\n\n&8▪ &7Boost: &b%boost% &8(%multiplier%)\n&8▪ &7Durée: &b1h",
 
-  "gui.store-cosmetics.name": "&8Cosmétiques",
+  "gui.store-confirm.money-edit.name": "&bMonnaie",
+  "gui.store-confirm.money-edit.description": "&7Modifie la monnaie à utiliser\n&7pour acheter cet objet.\n\n&8Statut:\n%currencies%\n\n&3Cliquer pour changer",
 
+  "message.store.not-enough-money": "&fTu ne possèdes &cpas assez &fd'%money%&f!",
   "gui.store-lootboxes.name": "&8Lootboxes",
   "store.item.lootbox.name": "&bLootbox %stars%",
   "store.item.lootbox.description": "&7Une &blootbox &7te permet d'obtenir\n&7de nombreuses récompenses (&dHyris&7,\n&bcosmétiques&7, etc).\n&7Les récompenses diffèrent selon la\n&7rareté de la lootbox.",
+
+  "gui.store-cosmetics.name": "&8Cosmétiques",
 
   "gui.confirm.name": "&8Confirmer",
   "gui.confirm.item.confirm.name": "&aConfirmer",
   "gui.confirm.item.cancel.name": "&cAnnuler",
 
-  "message.store.not-enough-money": "&fTu ne possèdes &cpas assez &fd'&dHyris&f!",
+  "store.currency.hyris.display": "&dHyris",
+  "store.currency.hyodes.display": "&aHyodes",
+
   "message.store.purchase-confirmed": "&fL'achat a été &aconfirmé&f.",
   "message.store.purchase-cancelled": "&fL'achat a été &cannulé&f.",
   "message.store.only-on-website": "&fCet objet doit être &aacheté &fsur notre &bboutique &fen ligne.",
@@ -227,7 +229,7 @@
   "host.type-item.name": "&bType de l'host",
   "host.type-item.lore": "&7Modifie le type de l'host. Chaque type\n&7possède un nombre de permissions\n&7et commandes différent.\n\n&8Statut:\n&8▪ %public_color%Publique\n&8▪ %private_color%Privée\n\n&3Cliquer pour changer",
   "host.click.to-create": "&3Cliquer pour créer l'host",
-  "host.creating-host.bar": "&3Host &8┃ &fCréation de votre host en cours...",
+  "host.creating-host.bar": "&3Host &f┃ Création de votre host en cours...",
   "host.advert.message": "%player% &fvous &ainvite &fà rejoindre son host%split%&l&b[➥ Rejoindre]",
   "host.limit-exceeded.message": "&fIl y a actuellement trop d'&bhosts &fdémarrées. Merci de patienter.",
 

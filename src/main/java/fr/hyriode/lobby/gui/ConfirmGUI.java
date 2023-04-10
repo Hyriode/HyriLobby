@@ -16,10 +16,10 @@ import java.util.function.Consumer;
  */
 public class ConfirmGUI extends LobbyGUI {
 
-    private Consumer<InventoryClickEvent> whenConfirm;
-    private Consumer<InventoryClickEvent> whenCancel;
+    protected Consumer<InventoryClickEvent> whenConfirm;
+    protected Consumer<InventoryClickEvent> whenCancel;
 
-    private final ItemStack item;
+    protected final ItemStack item;
 
     public ConfirmGUI(Player owner, HyriLobby plugin, ItemStack item) {
         super(owner, plugin, () -> "confirm", 54);

@@ -11,8 +11,8 @@ public class StoreDependentItem extends StoreItem {
 
     private final StoreItem depends;
 
-    public StoreDependentItem(ItemStack itemStack, String category, String id, long price, StoreItem depends) {
-        super(itemStack, category, id, price);
+    public StoreDependentItem(ItemStack itemStack, String category, String id, StoreItem depends, StorePrice... prices) {
+        super(itemStack, category, id, prices);
         this.depends = depends;
     }
 

@@ -67,8 +67,6 @@ public class GameNPCHandler extends LobbyNPCHandler {
             }
 
             npcs.add(npc);
-
-            NPCManager.sendNPC(player, npc);
         }
 
         this.npcs.put(playerId, npcs);
