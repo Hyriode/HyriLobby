@@ -1,5 +1,6 @@
 package fr.hyriode.lobby.jump;
 
+import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.hyrame.actionbar.ActionBar;
 import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.hyrame.utils.LocationWrapper;
@@ -15,8 +16,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 /**
  * Project: HyriLobby
- * Created by Akkashi
- * on 18/05/2022 at 16:30
+ * Created by Akkashi & Calyx
+ * on 18/05/2022 at 16:30 & 11/04/2023 at 23:28
  */
 public class LobbyJumpHandler extends HyriListener<HyriLobby> {
 
@@ -27,6 +28,9 @@ public class LobbyJumpHandler extends HyriListener<HyriLobby> {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         final Player player = event.getPlayer();
+
+        if (IHyriPlayerSession.get(player.getUniqueId()).isModerating()) return;
+
         final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
         final Location location = event.getPlayer().getLocation();
 
