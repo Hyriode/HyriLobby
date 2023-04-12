@@ -1,6 +1,8 @@
 package fr.hyriode.lobby.gui.store;
 
+import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.api.player.event.RankUpdatedEvent;
 import fr.hyriode.api.player.model.IHyriPlus;
 import fr.hyriode.api.player.transaction.HyriPlusTransaction;
 import fr.hyriode.api.rank.PlayerRank;
@@ -77,6 +79,8 @@ public class RanksGUI extends LobbyGUI {
                     }
 
                     account.getTransactions().add(HyriPlusTransaction.TRANSACTIONS_TYPE, new HyriPlusTransaction(duration));
+
+                    HyriAPI.get().getEventBus().publish(new RankUpdatedEvent(account.getUniqueId()));
                 });
 
 

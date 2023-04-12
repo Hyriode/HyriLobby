@@ -159,9 +159,11 @@
   "leveling.reward-not-level.line": "&cInsufficient level",
   "leveling.reward.item.name": "&bRewards &8┃ &7Level %level%",
   "leveling.hyris.description": "&8+&d%amount% ⛃",
+  "leveling.hyodes.description": "&8+&a%amount% ✦",
+  "leveling.experience.description": "&8+&a%amount% XP",
   "leveling.cosmetic.description": "&8+TODO Cosmetic",
   "leveling.lootbox.description": "&8+&7%amount% Lootbox %stars%",
-  "leveling.booster.description": "&8+&7%amount% &dHyris &7booster &b+%boost%% &8(%multiplier%) (%type%)",
+  "leveling.booster.description": "&8+&7%amount% &dHyris &7booster &b+%boost%% &8(%multiplier%)",
   "leveling.plus-color.description": "&8+&7Hyri%color%+ &7color",
   "leveling.host.description": "&8+%amount% &7host &bticket(s)",
 

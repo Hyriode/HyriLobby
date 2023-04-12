@@ -55,7 +55,7 @@
 
   "gui.game-selector.name": "&8Menu Principal",
   "gui.game-selector.item.host.name": "&bHosts",
-  "gui.game-selector.item.host.description": "&7Affiche les hosts créées par\n&7les autres joueurs du serveur.",
+  "gui.game-selector.item.host.description": "&7Affiche les hosts créés par\n&7les autres joueurs du serveur.",
   "gui.game-selector.item.vip.name": "&eZone VIP",
   "gui.game-selector.item.vip.description": "&7Téléporte toi à la zone dédiée\n&7aux joueurs possédant un\n&7grade.\n\n&3Cliquer pour se téléporter",
   "gui.game-selector.item.jump.name": "&aParcours",
@@ -159,8 +159,10 @@
   "leveling.reward-not-level.line": "&cNiveau insuffisant",
   "leveling.reward.item.name": "&bRécompenses &8┃ &7Niveau %level%",
   "leveling.hyris.description": "&8+&d%amount% ⛃",
+  "leveling.hyodes.description": "&8+&a%amount% ✦",
+  "leveling.experience.description": "&8+&a%amount% XP",
   "leveling.lootbox.description": "&8+&7%amount% Lootbox %stars%",
-  "leveling.booster.description": "&8+&7%amount% Booster d'&dHyris &b+%boost%% &8(%multiplier%) (%type%)",
+  "leveling.booster.description": "&8+&7%amount% Booster d'&dHyris &b+%boost%% &8(%multiplier%)",
   "leveling.plus-color.description": "&8+&7Couleur Hyri%color%+",
   "leveling.host.description": "&8+%amount% &bticket(s) &7d'host",
 
@@ -186,7 +188,7 @@
   "store.item.ranks.epic.name": "&bEpic &8(à vie)",
   "store.item.ranks.epic.description": "\n&8Avantages:\n&8▪ &7Limite d'amis: &b50\n&8▪ &7Limite de groupe: &b30\n&8▪ &7Boost d'Hyris: &b100%\n&8▪ &7Boost d'XP: &b100%\n&8▪ &7Avantages du: &aVIP+",
   "store.item.ranks.hyri+.name": "&6Hyri+ &8(durée limitée)",
-  "store.item.ranks.hyri+.description": "\n&8Avantages:\n&8▪ &7Hosts (par mois): &billimitées\n&8▪ &7/nick: &a✔\n&8▪ &7/vanish: &a✔\n&8▪ &7Groupe accessible à tout le monde: &a✔\n&8▪ &7Limite de groupe: &b50\n&8▪ &7Boost d'Hyris: &b200%\n&8▪ &7Boost d'XP: &b200%\n&8▪ &7Avantages du: &bEpic",
+  "store.item.ranks.hyri+.description": "\n&8Avantages:\n&8▪ &7Hosts (par mois): &billimités\n&8▪ &7/nick: &a✔\n&8▪ &7/vanish: &a✔\n&8▪ &7Groupe accessible à tout le monde: &a✔\n&8▪ &7Limite de groupe: &b50\n&8▪ &7Boost d'Hyris: &b200%\n&8▪ &7Boost d'XP: &b200%\n&8▪ &7Avantages du: &bEpic",
 
   "gui.store-boosters.name": "&8Boosters",
   "gui.store-boosters.item.type.name": "&bType",
@@ -221,7 +223,7 @@
   "gui.host.game-type-selector.name": "&8Choix du mode",
   "host.item.lore": "\n&8Informations:\n &8▪ &7Hôte: %owner%\n &8▪ &7Jeu: &b%game%\n &8▪ &7Mode: &b%game_type%\n\n&8Statut:\n &8▪ &7Phase: %state%\n &8▪ &7Joueurs: &b%players%/%slots%",
   "host.create-item.name": "&bCréer mon host",
-  "host.create-item.lore": "&7Crée ta propre host avec le jeu\n&7et la configuration que tu souhaites.\n\n&fHosts disponibles: &b%available_hosts%\n\n&3Cliquer pour créer",
+  "host.create-item.lore": "&7Crée ton propre host avec le jeu\n&7et la configuration que tu souhaites.\n\n&fHosts disponibles: &b%available_hosts%\n\n&3Cliquer pour créer",
   "host.unlimited.word": "illimitées",
   "host.create.error.message": "&cTu n'as pas d'hosts disponibles! Achètes-en sur la boutique ou achète le grade %rank%&c.",
   "host.spectating-item.name": "&bObservation",
@@ -231,7 +233,7 @@
   "host.click.to-create": "&3Cliquer pour créer l'host",
   "host.creating-host.bar": "&3Host &f┃ Création de votre host en cours...",
   "host.advert.message": "%player% &fvous &ainvite &fà rejoindre son host%split%&l&b[➥ Rejoindre]",
-  "host.limit-exceeded.message": "&fIl y a actuellement trop d'&bhosts &fdémarrées. Merci de patienter.",
+  "host.limit-exceeded.message": "&fIl y a actuellement trop d'&bhosts &fdémarrés. Merci de patienter.",
 
   "host.state.starting.display": "&eCréation",
   "host.state.whitelisted.display": "&9Accès restreint",

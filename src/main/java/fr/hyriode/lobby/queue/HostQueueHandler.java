@@ -128,8 +128,6 @@ public class HostQueueHandler implements IHyriQueueHandler, Listener {
             bar.send(player);
 
             this.hyrame.getItemManager().giveItem(player, 0, LeaveQueueItem.class);
-
-            this.sendQueueMessage(player, queue, LobbyMessage.QUEUE_NORMAL_PLAYER_LEFT_MESSAGE);
         }
     }
 

@@ -28,9 +28,6 @@ public class LobbyJumpHandler extends HyriListener<HyriLobby> {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         final Player player = event.getPlayer();
-
-        if (IHyriPlayerSession.get(player.getUniqueId()).isModerating()) return;
-
         final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
         final Location location = event.getPlayer().getLocation();
 

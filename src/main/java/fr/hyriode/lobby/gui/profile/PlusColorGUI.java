@@ -12,6 +12,7 @@ import fr.hyriode.lobby.gui.LobbyGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -69,11 +70,11 @@ public class PlusColorGUI extends LobbyGUI {
 
         lore.add("");
 
-        if (own) {
-            lore.add(LobbyMessage.CLICK_TO_CHANGE.asString(this.account));
-        } else if (selected) {
+        if (selected) {
             lore.add(LobbyMessage.HYRIPLUS_SELECTED_LINE.asString(this.account));
-        }else {
+        } else if (own) {
+            lore.add(LobbyMessage.CLICK_TO_CHANGE.asString(this.account));
+        } else {
             lore.add(LobbyMessage.HYRIPLUS_NOT_UNLOCKED_LINE.asString(this.account).replace("%level%", String.valueOf(color.getLevel())));
         }
 
@@ -97,6 +98,7 @@ public class PlusColorGUI extends LobbyGUI {
 
                 this.account.update();
                 this.owner.sendMessage(LobbyMessage.HYRIPLUS_CHANGED_MESSAGE.asString(this.account));
+                this.owner.playSound(this.owner.getLocation(), Sound.NOTE_PLING, 1.0f, 2.0f);
             } else {
                 this.owner.sendMessage(LobbyMessage.HYRIPLUS_NOT_UNLOCKED_MESSAGE.asString(this.account));
             }

@@ -50,15 +50,25 @@ public class AccountListener {
             lobbyPlayer.giveDefaultItems();
 
             this.plugin.getLeaderboardManager().refreshLeaderboards(player);
-        }, 1L);
+        }, 5L);
     }
 
     @HyriEventHandler
     public void onModeration(ModerationUpdatedEvent event) {
         if (!event.isModerating()) {
+            Bukkit.getScheduler().runTaskLater(this.plugin, () -> {
+                final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayerId());
+
+                if (lobbyPlayer == null) {
+                    return;
+                }
+
+                lobbyPlayer.handleLogin(false, false);
+            }, 1L);
+        } else {
             final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayerId());
 
-            lobbyPlayer.handleLogin(false, false);
+            lobbyPlayer.leaveJump(false);
         }
     }
 

@@ -58,6 +58,10 @@ public class LevelingRewardsGUI extends LobbyGUI {
             final boolean notLevel = leveling.getLevel() < level;
 
             pagination.add(PaginatedItem.from(this.createItem(reward, claimed, notLevel), event -> {
+                if (reward.getHandler() == null) {
+                    return;
+                }
+
                 if (claimed) {
                     this.owner.sendMessage(LobbyMessage.LEVELING_REWARD_ALREADY_CLAIMED.asString(this.account));
                 } else {
@@ -86,7 +90,7 @@ public class LevelingRewardsGUI extends LobbyGUI {
         final LevelingReward.Handler<?> handler = reward.getHandler();
 
         lore.add("");
-        lore.addAll(handler == null ? Collections.singletonList(ChatColor.DARK_GRAY + "+1 None") : Arrays.asList(handler.getDescription(this.account).split("\n")));
+        lore.addAll(handler == null ? Collections.singletonList(ChatColor.DARK_GRAY + "Soon...") : Arrays.asList(handler.getDescription(this.account).split("\n")));
         lore.add("");
         lore.add((claimed ? LobbyMessage.LEVELING_REWARD_ALREADY_CLAIMED_LINE : (notLevel ? LobbyMessage.LEVELING_REWARD_NOT_LEVEL_LINE : LobbyMessage.CLICK_TO_CLAIM)).asString(this.account));
 

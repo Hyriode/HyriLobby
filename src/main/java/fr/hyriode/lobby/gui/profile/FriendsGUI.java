@@ -123,7 +123,8 @@ public class FriendsGUI extends LobbyGUI {
                         .whenCancel(e -> {
                             this.init();
                             this.open();
-                        });
+                        })
+                        .open();
             }
         };
     }
