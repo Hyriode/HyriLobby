@@ -68,7 +68,7 @@ public class AccountListener {
         } else {
             final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayerId());
 
-            lobbyPlayer.leaveJump(false);
+            lobbyPlayer.leaveJump0();
         }
     }
 

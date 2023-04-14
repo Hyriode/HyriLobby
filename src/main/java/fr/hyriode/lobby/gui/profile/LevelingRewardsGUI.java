@@ -11,6 +11,7 @@ import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.leveling.LevelingReward;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -75,6 +76,7 @@ public class LevelingRewardsGUI extends LobbyGUI {
                     leveling.claimReward(level);
 
                     this.account.update();
+                    this.owner.playSound(this.owner.getLocation(), Sound.NOTE_PLING, 1.0f, 2.0f);
                     this.owner.sendMessage(LobbyMessage.LEVELING_REWARD_CLAIMED.asString(this.account).replace("%level%", String.valueOf(level)));
 
                     this.setupItems();

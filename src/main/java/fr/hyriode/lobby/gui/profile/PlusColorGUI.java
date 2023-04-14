@@ -32,7 +32,6 @@ public class PlusColorGUI extends LobbyGUI {
         this.init();
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     protected void init() {
         this.applyDesign(Design.BORDER);
@@ -91,6 +90,8 @@ public class PlusColorGUI extends LobbyGUI {
                 if (selected) {
                     return;
                 }
+
+                this.init();
 
                 hyriPlus.setColor(initialColor);
 

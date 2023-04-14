@@ -69,6 +69,9 @@ public class LobbyPlayer {
         }
 
         if (IHyriPlayerSession.get(this.uuid).isModerating()) {
+            if (login) {
+                this.setupScoreboard();
+            }
             return;
         }
 
@@ -171,9 +174,7 @@ public class LobbyPlayer {
 
         player.sendMessage(LobbyMessage.JUMP_LEAVE_MESSAGE.asString(player));
 
-        this.jump.getTimer().cancel();
-        this.jump.setActualCheckPoint(null);
-        this.jump = null;
+        this.leaveJump0();
 
         this.handleLogin(false, false);
 
@@ -182,6 +183,12 @@ public class LobbyPlayer {
         if (teleport) {
             player.teleport(this.plugin.config().getJumpLocation().asBukkit());
         }
+    }
+
+    public void leaveJump0() {
+        this.jump.getTimer().cancel();
+        this.jump.setActualCheckPoint(null);
+        this.jump = null;
     }
 
     public void setInPvP(boolean inPvp) {
