@@ -92,8 +92,6 @@ public class PlusColorGUI extends LobbyGUI {
                     return;
                 }
 
-                this.init();
-
                 hyriPlus.setColor(initialColor);
 
                 HyriAPI.get().getEventBus().publish(new RankUpdatedEvent(this.owner.getUniqueId()));
@@ -101,6 +99,8 @@ public class PlusColorGUI extends LobbyGUI {
                 this.account.update();
                 this.owner.sendMessage(LobbyMessage.HYRIPLUS_CHANGED_MESSAGE.asString(this.account));
                 this.owner.playSound(this.owner.getLocation(), Sound.NOTE_PLING, 1.0f, 2.0f);
+
+                this.init();
             } else {
                 this.owner.sendMessage(LobbyMessage.HYRIPLUS_NOT_UNLOCKED_MESSAGE.asString(this.account));
             }
