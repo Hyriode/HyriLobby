@@ -61,7 +61,7 @@
   "gui.game-selector.item.jump.name": "&aParcours",
   "gui.game-selector.item.jump.description": "&7Téléporte toi au parcours\n&7du lobby.\n\n&3Cliquer pour se téléporter",
   "gui.game-selector.item.rotating-game.name": "&bJeu rotatif",
-  "gui.game-selector.item.rotating-game.description": "&fActuel: &b%game%\n\n&7Joue à des jeux emblématiques\n&7de la communauté toutes les\n&72 semaines.\n\n&fJoueurs: &b%players%\n\n&3Cliquer pour jouer",
+  "gui.game-selector.item.rotating-game.description": "&fActuel: &b%game%\n\n&7Joue à des jeux emblématiques\n&7de la communauté toutes les\n&7semaines.\n\n&fJoueurs: &b%players%\n\n&3Cliquer pour jouer",
 
   "prefix.settings": "&3Paramètres &f┃ ",
   "message.settings.lang-changed": "&fVotre &blangue &fa été &amodifiée &8(%lang%)",

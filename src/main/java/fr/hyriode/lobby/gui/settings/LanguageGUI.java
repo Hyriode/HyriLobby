@@ -47,6 +47,10 @@ public class LanguageGUI extends LobbyGUI {
                 this.setItem(20 + y + x, this.createItem(language), event -> {
                     final HyriLanguage newLang = language.getInitial();
 
+                    if (this.settings.getLanguage() == newLang) {
+                        return;
+                    }
+
                     this.settings.setLanguage(newLang);
                     this.account.update();
                     this.owner.closeInventory();

@@ -5,6 +5,7 @@ import fr.hyriode.api.language.HyriLanguageUpdatedEvent;
 import fr.hyriode.api.player.event.ModerationUpdatedEvent;
 import fr.hyriode.api.player.event.NicknameUpdatedEvent;
 import fr.hyriode.api.player.event.RankUpdatedEvent;
+import fr.hyriode.api.player.event.VanishUpdatedEvent;
 import fr.hyriode.hyrame.npc.NPC;
 import fr.hyriode.hyrame.npc.NPCManager;
 import fr.hyriode.lobby.HyriLobby;
@@ -64,11 +65,29 @@ public class AccountListener {
                 }
 
                 lobbyPlayer.handleLogin(false, false);
+
             }, 1L);
         } else {
             final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayerId());
 
             lobbyPlayer.leaveJump0();
+            lobbyPlayer.setInPvP(false);
+        }
+    }
+
+    @HyriEventHandler
+    public void onVanish(VanishUpdatedEvent event) {
+        if (event.isVanished()) {
+            final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayerId());
+
+            if (lobbyPlayer == null) {
+                return;
+            }
+
+            if (lobbyPlayer.isInPvp()) {
+                lobbyPlayer.handleLogin(false, true);
+                lobbyPlayer.setInPvP(false);
+            }
         }
     }
 

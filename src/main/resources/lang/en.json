@@ -61,7 +61,7 @@
   "gui.game-selector.item.jump.name": "&aParkour",
   "gui.game-selector.item.jump.description": "&7Teleport yourself to the lobby\n&7parkour.\n\n&3Click to teleport",
   "gui.game-selector.item.rotating-game.name": "&bRotating game",
-  "gui.game-selector.item.rotating-game.description": "&fCurrent: &b%game%\n\n&7Play to emblematic games of\n&7the community every 2 weeks.\n\n&fPlayers: &b%players%\n\n&3Click to play",
+  "gui.game-selector.item.rotating-game.description": "&fCurrent: &b%game%\n\n&7Play to emblematic games of\n&7the community every week.\n\n&fPlayers: &b%players%\n\n&3Click to play",
 
   "prefix.settings": "&3Settings &f┃ ",
   "message.settings.lang-changed": "&fYour &blanguage &fhas been &achanged &8(%lang%)",

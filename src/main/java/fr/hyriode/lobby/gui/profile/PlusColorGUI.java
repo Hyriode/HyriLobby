@@ -10,6 +10,7 @@ import fr.hyriode.hyrame.utils.list.ListReplacer;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.LobbyGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
+import fr.hyriode.lobby.leveling.LevelingReward;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -108,18 +109,18 @@ public class PlusColorGUI extends LobbyGUI {
 
     private enum Color {
 
-        BLACK(DyeColor.BLACK, 84),
-        DARK_GREEN(DyeColor.GREEN, 70),
-        DARK_AQUA(DyeColor.CYAN, 77),
-        DARK_RED(new ItemStack(Material.REDSTONE), 63),
-        DARK_PURPLE(DyeColor.PURPLE, 91),
-        GOLD(DyeColor.ORANGE, 98),
-        GRAY(DyeColor.SILVER, 28),
-        DARK_GRAY(DyeColor.GRAY, 49),
-        BLUE(DyeColor.BLUE, 35),
-        GREEN(DyeColor.LIME, 56),
-        AQUA(DyeColor.LIGHT_BLUE, 7),
-        RED(DyeColor.RED, 21),
+        BLACK(DyeColor.BLACK, LevelingReward.LEVEL_84),
+        DARK_GREEN(DyeColor.GREEN, LevelingReward.LEVEL_70),
+        DARK_AQUA(DyeColor.CYAN, LevelingReward.LEVEL_77),
+        DARK_RED(new ItemStack(Material.REDSTONE), LevelingReward.LEVEL_63),
+        DARK_PURPLE(DyeColor.PURPLE, LevelingReward.LEVEL_91),
+        GOLD(DyeColor.ORANGE, LevelingReward.LEVEL_98),
+        GRAY(DyeColor.SILVER, LevelingReward.LEVEL_28),
+        DARK_GRAY(DyeColor.GRAY, LevelingReward.LEVEL_49),
+        BLUE(DyeColor.BLUE, LevelingReward.LEVEL_35),
+        GREEN(DyeColor.LIME, LevelingReward.LEVEL_56),
+        AQUA(DyeColor.LIGHT_BLUE, LevelingReward.LEVEL_7),
+        RED(DyeColor.RED, LevelingReward.LEVEL_21),
         LIGHT_PURPLE(DyeColor.PINK, 0),
         YELLOW(DyeColor.YELLOW, 42),
         WHITE(DyeColor.WHITE, 14);
@@ -139,9 +140,18 @@ public class PlusColorGUI extends LobbyGUI {
             this(new ItemBuilder(Material.INK_SACK, 1, dye.getDyeData()).build(), level);
         }
 
+        Color(ItemStack itemStack, LevelingReward level) {
+            this(itemStack, level.getLevel());
+        }
+
+        Color(DyeColor dye, LevelingReward level) {
+            this(dye, level.getLevel());
+        }
+
         public HyriChatColor getInitial() {
             return this.initial;
         }
+
         public int getLevel() {
             return this.level;
         }

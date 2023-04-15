@@ -192,7 +192,9 @@ public class LobbyPlayer {
     }
 
     public void setInPvP(boolean inPvp) {
-        if (IHyriPlayerSession.get(this.uuid).isModerating()) {
+        final IHyriPlayerSession session = IHyriPlayerSession.get(this.uuid);
+
+        if (session.isModerating() || session.isVanished()) {
             return;
         }
 
