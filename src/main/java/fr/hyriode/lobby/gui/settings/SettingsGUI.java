@@ -160,7 +160,10 @@ public class SettingsGUI extends LobbyGUI {
     public void onClose(InventoryCloseEvent event) {
         super.onClose(event);
 
-        this.account.update();
+        final IHyriPlayer account = IHyriPlayer.get(this.owner.getUniqueId());
+
+        account.setSettings(this.settings);
+        account.update();
 
         if (this.clicked) {
             this.owner.sendMessage(LobbyMessage.SETTINGS_UPDATED_MESSAGE.asString(this.account));
