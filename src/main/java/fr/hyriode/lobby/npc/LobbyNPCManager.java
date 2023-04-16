@@ -37,15 +37,15 @@ public class LobbyNPCManager {
         this.registerHandler(new RotatingGameNPCHandler(plugin));
         this.registerHandler(new HostNPCHandler(plugin));
 
-//        this.registerHandler(new ZeroZeroSevenNPC(plugin));
+       this.registerHandler(new ZeroZeroSevenNPC(plugin));
 
-//        this.registerQuests(plugin);
+        this.registerQuests(plugin);
     }
 
     private void registerQuests(HyriLobby plugin) {
         final Set<AQuest> questSet = new HashSet<>();
 
-        questSet.add(new TestQuest(plugin));
+      //  questSet.add(new TestQuest(plugin));
 
         for (AQuest quest : questSet) {
             this.registerHandler(quest);

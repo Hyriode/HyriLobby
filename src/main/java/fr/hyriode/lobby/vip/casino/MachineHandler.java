@@ -6,7 +6,7 @@ import fr.hyriode.hyrame.utils.LocationWrapper;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.config.LobbyConfig;
 import fr.hyriode.lobby.vip.casino.game.rollermachines.RollerMachinesGame;
-import fr.hyriode.lobby.vip.casino.game.whowantstobeamillionaire.WhoWantsToBeAMillionaire;
+import fr.hyriode.lobby.vip.casino.game.wwtbam.WhoWantsToBeAMillionaireGame;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,10 +28,10 @@ public class MachineHandler extends HyriListener<HyriLobby> {
         if(block != null && casinoArea.isInArea(block.getLocation())) {
             switch (block.getType()) {
                 case LEVER:
-                    new RollerMachinesGame().init(player);
+                    new RollerMachinesGame(player).init();
                     break;
                 case STONE_BUTTON:
-                    new WhoWantsToBeAMillionaire().init(player);
+                    new WhoWantsToBeAMillionaireGame(player).init();
                     break;
                 default:
                     break;

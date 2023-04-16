@@ -294,6 +294,35 @@
   "leaderboard.leveling.header": "&3Niveau &8┃ &7Classement",
   "leaderboard.jump.header": "&3Parcours &8┃ &7Classement",
 
-  "game.casino.roller-machines.name": "Machines à rouleaux"
+  "game.casino.roller-machines.name": "Machines à rouleaux",
+  "game.casino.wwtbam.name": "Qui veut gagner des millions ?",
+
+  "click.to-confirm-bet": "&3Confirmer votre mise",
+  "message.casino.dont-have-hyris": "&cVous n'avez pas assez d'Hyris.",
+
+  "message.won": "&aVous avez gagné ",
+  "message.lost": "&cVous avez perdu ",
+  "message.draw": "&7Egalitée, vous n'avez ni gagné, ni perdu d'Hyris",
+
+
+  "game.casino.007.reload": "&aRecharger",
+  "game.casino.007.shoot": "&cTirer",
+  "game.casino.007.protect": "&7Se protéger",
+
+  "game.casino.007.reload-before": "Vous devez d'abord recharger avant de tirer",
+
+  "message.casino.007.reload": "&aVous avez rechargé",
+  "message.casino.007.shoot": "&aVous avez tiré",
+  "message.casino.007.protect": "&aVous vous êtes protégé",
+
+  "message.casino.007.bot-reload": "&cVotre adversaire a rechargé",
+  "message.casino.007.bot-shoot": "&cVotre adversaire a tiré",
+  "message.casino.007.bot-protect": "&cVotre adversaire s'est protégé",
+
+  "game.casino.wwtbam.recover-bet": "&aRécuperer votre mise",
+  "game.casino.wwtbam.put-them-back": "&rLes remettre en jeu",
+  "game.casino.wwtbam.continue": "Continuer ? Vous avez ",
+
+  "message.casino.cancel-bet": "&cVous avez annulé votre mise"
 
 }
