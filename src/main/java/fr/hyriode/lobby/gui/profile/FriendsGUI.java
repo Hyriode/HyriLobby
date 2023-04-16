@@ -117,8 +117,9 @@ public class FriendsGUI extends LobbyGUI {
                             this.owner.playSound(this.owner.getLocation(), Sound.FIZZ, 0.5F, 1.0F);
 
                             this.setupItems();
-
                             this.paginationManager.updateGUI();
+
+                            this.open();
                         })
                         .whenCancel(e -> {
                             this.init();
