@@ -30,7 +30,7 @@ public class ZeroZeroSevenGame extends AGame {
                 .setGame(this)
                 .setButtonAction(hyris -> {
                     if(IHyriPlayer.get(this.player.getUniqueId()).getHyris().getAmount() < hyris) {
-                        this.player.sendMessage("§cCasino §8" + Symbols.QUOTE_MARK_RIGHT + " " + LobbyMessage.DO_NOT_HAVE_ENOUGH_HYRIS.asString(this.player));
+                        this.player.sendMessage(LobbyMessage.DO_NOT_HAVE_ENOUGH_HYRIS.asString(this.player));
                         return;
                     }
                     this.start(hyris);

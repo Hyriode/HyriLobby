@@ -35,7 +35,7 @@ public abstract class AGame {
         hyriPlayer.getHyris().add(hyris).withMultiplier(false).exec();
         hyriPlayer.update();
 
-        this.player.sendMessage(LobbyMessage.WON.asString(this.player) + hyris + " Hyris");
+        this.player.sendMessage(LobbyMessage.WON.asString(this.player) + "§e" + hyris + " Hyris" + "§6.");
     }
 
     protected abstract HyriInventory getInventory();

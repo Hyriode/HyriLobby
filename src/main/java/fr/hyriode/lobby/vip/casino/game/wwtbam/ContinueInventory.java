@@ -22,11 +22,11 @@ public class ContinueInventory extends HyriInventory {
 
         this.setItem(21, (new ItemBuilder(Material.STAINED_CLAY, 1, (short) 9).withName(LobbyMessage.CASINO_PUT_THEM_BACK.asString(this.getOwner()))).build(), (event) -> {
             this.close();
-            game.play((long) (hyris * 1.5));
+            this.game.play((long) (this.hyris * 1.5));
         });
         this.setItem(23, (new ItemBuilder(Material.STAINED_CLAY, 1, (short) 5).withName(LobbyMessage.CASINO_RECOVER_BET.asString(this.getOwner()))).build(), (event) -> {
             this.close();
-            this.game.onWinning(hyris);
+            this.game.onWinning(this.hyris);
         });
     }
 

@@ -62,7 +62,7 @@ public class WhoWantsToBeAMillionaireGame extends AGame {
         if(this.result()) {
             new ContinueInventory(this, (long) (hyris * 1.5)).open();
         } else {
-            this.player.sendMessage(LobbyMessage.LOST.asString(this.player));
+            this.player.sendMessage(LobbyMessage.LOST.asString(this.player) + ".");
             this.player.getOpenInventory().close();
         }
     }

@@ -300,9 +300,9 @@
   "click.to-confirm-bet": "&3Confirmer votre mise",
   "message.casino.dont-have-hyris": "&cVous n'avez pas assez d'Hyris.",
 
-  "message.won": "&aVous avez gagné ",
+  "message.won": "&6Vous avez gagné ",
   "message.lost": "&cVous avez perdu ",
-  "message.draw": "&7Egalitée, vous n'avez ni gagné, ni perdu d'Hyris",
+  "message.draw": "&7Egalitée, vous n'avez ni gagné, ni perdu d'Hyris.",
 
 
   "game.casino.007.reload": "&aRecharger",
@@ -323,6 +323,7 @@
   "game.casino.wwtbam.put-them-back": "&rLes remettre en jeu",
   "game.casino.wwtbam.continue": "Continuer ? Vous avez ",
 
-  "message.casino.cancel-bet": "&cVous avez annulé votre mise"
+  "message.casino.cancel-bet": "&cVous avez annulé votre mise.",
 
+  "prefix.casino": "&cCasino &8» "
 }

@@ -301,7 +301,7 @@
   "click.to-confirm-bet": "&3Click to confirm your bet",
   "message.dont-have-hyris": "&cYou don't have enough Hyris.",
 
-  "message.won": "&aYou won ",
+  "message.won": "&6You won ",
   "message.lost": "&cYou lost ",
   "message.draw": "&7Draw, you didn't win or loose Hyris",
 
@@ -313,17 +313,19 @@
   "game.casino.007.reload-before": "You have to reload first before shooting.",
 
   "message.casino.007.reload": "&aYou reloaded.",
-  "message.casino.007.shoot": "&aYou shoot",
-  "message.casino.007.protect": "&aYou have protected yourself",
+  "message.casino.007.shoot": "&aYou shoot.",
+  "message.casino.007.protect": "&aYou have protected yourself.",
 
-  "message.casino.007.bot-reload": "&cYour opponent reloaded",
-  "message.casino.007.bot-shoot": "&cYour opponent shoot",
-  "message.casino.007.bot-protect": "&cYour opponent has protected himself",
+  "message.casino.007.bot-reload": "&cYour opponent reloaded.",
+  "message.casino.007.bot-shoot": "&cYour opponent shoot.",
+  "message.casino.007.bot-protect": "&cYour opponent has protected himself.",
 
   "game.casino.wwtbam.recover-bet": "&aRecover your bet",
   "game.casino.wwtbam.put-them-back": "&rPut them back into play",
   "game.casino.wwtbam.continue": "Continue ? You have ",
 
-  "message.casino.cancel-bet": "&cYou cancelled your bet"
+  "message.casino.cancel-bet": "&cYou cancelled your bet.",
+
+  "prefix.casino": "&cCasino &8» "
 
 }

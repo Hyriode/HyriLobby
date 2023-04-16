@@ -254,31 +254,33 @@ public enum LobbyMessage {
     PREVIOUS_ITEM_LORE("basic.item.page.previous.lore"),
     NEXT_ITEM_NAME("basic.item.page.next.name"),
     NEXT_ITEM_LORE("basic.item.page.next.lore"),
+
+    CASINO_PREFIX("prefix.casino"),
     ROLLER_MACHINES_NAME("game.casino.roller-machines.name"),
     WWTBAM_NAME("game.casino.wwtbam.name"),
-    DO_NOT_HAVE_ENOUGH_HYRIS("message.casino.dont-have-hyris"),
+    DO_NOT_HAVE_ENOUGH_HYRIS("message.casino.dont-have-hyris", CASINO_PREFIX),
 
-    WON("message.won"),
-    LOST("message.lost"),
-    DRAW("message.draw"),
+    WON("message.won", CASINO_PREFIX),
+    LOST("message.lost", CASINO_PREFIX),
+    DRAW("message.draw", CASINO_PREFIX),
 
     CASINO_RELOAD("game.casino.007.reload"),
     CASINO_SHOOT("game.casino.007.shoot"),
     CASINO_PROTECT("game.casino.007.protect"),
-    CASINO_RELOAD_BEFORE_SHOOTING("game.casino.007.reload-before"),
+    CASINO_RELOAD_BEFORE_SHOOTING("game.casino.007.reload-before", CASINO_PREFIX),
 
-    CASINO_PLAYER_RELOAD("message.casino.007.reload"),
-    CASINO_PLAYER_SHOOT("message.casino.007.shoot"),
-    CASINO_PLAYER_PROTECT("message.casino.007.protect"),
+    CASINO_PLAYER_RELOAD("message.casino.007.reload", CASINO_PREFIX),
+    CASINO_PLAYER_SHOOT("message.casino.007.shoot", CASINO_PREFIX),
+    CASINO_PLAYER_PROTECT("message.casino.007.protect", CASINO_PREFIX),
 
-    CASINO_BOT_RELOAD("message.casino.007.bot-reload"),
-    CASINO_BOT_SHOOT("message.casino.007.bot-shoot"),
-    CASINO_BOT_PROTECT("message.casino.007.bot-protect"),
+    CASINO_BOT_RELOAD("message.casino.007.bot-reload", CASINO_PREFIX),
+    CASINO_BOT_SHOOT("message.casino.007.bot-shoot", CASINO_PREFIX),
+    CASINO_BOT_PROTECT("message.casino.007.bot-protect", CASINO_PREFIX),
     CASINO_RECOVER_BET("game.casino.wwtbam.recover-bet"),
     CASINO_PUT_THEM_BACK("game.casino.wwtbam.put-them-back"),
     CASINO_CONTINUE("game.casino.wwtbam.continue"),
     CASINO_CONFIRM_BET("click.to-confirm-bet"),
-    CASINO_CANCEL_BET("message.casino.cancel-bet")
+    CASINO_CANCEL_BET("message.casino.cancel-bet", CASINO_PREFIX),
     ;
 
     private HyriLanguageMessage languageMessage;
