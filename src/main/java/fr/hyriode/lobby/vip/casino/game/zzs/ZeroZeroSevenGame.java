@@ -2,6 +2,7 @@ package fr.hyriode.lobby.vip.casino.game.zzs;
 
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.inventory.HyriInventory;
+import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.vip.casino.game.AGame;
 import fr.hyriode.lobby.vip.casino.game.inventory.GameInventoryBuilder;
@@ -27,7 +28,13 @@ public class ZeroZeroSevenGame extends AGame {
                 .setMaximum(5000)
                 .setModifiers(new int[]{10, 100, 500})
                 .setGame(this)
-                .setButtonAction(hyris -> this.start(hyris))
+                .setButtonAction(hyris -> {
+                    if(IHyriPlayer.get(this.player.getUniqueId()).getHyris().getAmount() < hyris) {
+                        this.player.sendMessage("§cCasino §8" + Symbols.QUOTE_MARK_RIGHT + " " + LobbyMessage.DO_NOT_HAVE_ENOUGH_HYRIS.asString(this.player));
+                        return;
+                    }
+                    this.start(hyris);
+                })
                 .build();
     }
 

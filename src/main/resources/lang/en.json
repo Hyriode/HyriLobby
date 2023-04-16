@@ -310,9 +310,9 @@
   "game.casino.007.shoot": "&cShoot",
   "game.casino.007.protect": "&7Protect yourself",
 
-  "game.casino.007.reload-before": "You have to reload first before shooting",
+  "game.casino.007.reload-before": "You have to reload first before shooting.",
 
-  "message.casino.007.reload": "&aYou reloaded",
+  "message.casino.007.reload": "&aYou reloaded.",
   "message.casino.007.shoot": "&aYou shoot",
   "message.casino.007.protect": "&aYou have protected yourself",
 
