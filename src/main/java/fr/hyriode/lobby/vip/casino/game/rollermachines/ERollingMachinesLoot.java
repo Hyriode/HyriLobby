@@ -6,36 +6,32 @@ import org.bukkit.inventory.ItemStack;
 
 public enum ERollingMachinesLoot {
 
-    //TODO: changer les names par des keys de langues
-
-    QUINTUPLE(0.005F, 5,  new ItemBuilder(Material.DIAMOND_BLOCK).withName("0")),
-    QUADRUPLE(0.02F, 4, new ItemBuilder(Material.GOLDEN_APPLE).withName("1")),
-    TRIPLE(0.05F, 3, new ItemBuilder(Material.TNT).withName("2")),
-    DOUBLE(0.175F, 2, new ItemBuilder(Material.LEVER).withName("3")),
-    NOTHING(0.75F, 0);
+    TEN_THOUSAND(0.02F, 10000L, new ItemBuilder(Material.DIAMOND_BLOCK).withName("§r10 000 Hyris")),
+    ONE_THOUSAND(0.08F, 1000L, new ItemBuilder(Material.EMERALD).withName("§r1 000 Hyris")),
+    SEVEN_HUNDRED_FIFTY(0.23F, 750L, new ItemBuilder(Material.GOLD_BLOCK).withName("§r750 Hyris")),
+    FIVE_HUNDRED(0.28F, 500L, new ItemBuilder(Material.GOLDEN_APPLE).withName("§r500 Hyris")),
+    TWO_HUNDRED_FIFTY(0.53F, 250, new ItemBuilder(Material.REDSTONE).withName("§r250 Hyris")),
+    ONE_HUNDRED(0.77F, 100, new ItemBuilder(Material.TNT).withName("§r100 Hyris")),
+    FIFTY(1.0F, 50, new ItemBuilder(Material.LEVER).withName("§r50 Hyris"));
 
     private final float probability;
-    private final int coefficient;
+    private final long hyris;
     private final ItemStack itemStack;
 
-    ERollingMachinesLoot(float probability, int coefficient, ItemBuilder itemBuilder) {
-        this(probability, coefficient, itemBuilder.build());
-    }
-
-    ERollingMachinesLoot(float probability, int coefficient, ItemStack itemStack) {
+    ERollingMachinesLoot(float probability, long hyris, ItemBuilder itemBuilder) {
         this.probability = probability;
-        this.coefficient = coefficient;
-        this.itemStack = itemStack;
+        this.hyris = hyris;
+        this.itemStack = itemBuilder.build();
     }
 
-    ERollingMachinesLoot(float probability, int coefficient) {
-        this(probability, coefficient, (ItemStack) null);
-    }
 
     public float getProbability() {
         return probability;
     }
 
+    public long getHyris() {
+        return hyris;
+    }
 
     public ItemStack getItemStack() {
         return itemStack;

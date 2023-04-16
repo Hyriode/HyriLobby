@@ -295,5 +295,35 @@
   "leaderboard.leveling.header": "&3Leveling &8┃ &7Leaderboard",
   "leaderboard.jump.header": "&3Parkour &8┃ &7Leaderboard",
 
-  "game.casino.roller-machines.name": "Roller machines"
+  "game.casino.roller-machines.name": "Roller machines",
+  "game.casino.wwtbam.name": "Who wants to be a milionaire ?",
+
+  "click.to-confirm-bet": "&3Click to confirm your bet",
+  "message.dont-have-hyris": "&cYou don't have enough Hyris.",
+
+  "message.won": "&aYou won ",
+  "message.lost": "&cYou lost ",
+  "message.draw": "&7Draw, you didn't win or loose Hyris",
+
+
+  "game.casino.007.reload": "&aReload",
+  "game.casino.007.shoot": "&cShoot",
+  "game.casino.007.protect": "&7Protect yourself",
+
+  "game.casino.007.reload-before": "You have to reload first before shooting",
+
+  "message.casino.007.reload": "&aYou reloaded",
+  "message.casino.007.shoot": "&aYou shoot",
+  "message.casino.007.protect": "&aYou have protected yourself",
+
+  "message.casino.007.bot-reload": "&cYour opponent reloaded",
+  "message.casino.007.bot-shoot": "&cYour opponent shoot",
+  "message.casino.007.bot-protect": "&cYour opponent has protected himself",
+
+  "game.casino.wwtbam.recover-bet": "&aRecover your bet",
+  "game.casino.wwtbam.put-them-back": "&rPut them back into play",
+  "game.casino.wwtbam.continue": "Continue ? You have ",
+
+  "message.casino.cancel-bet": "&cYou cancelled your bet"
+
 }
