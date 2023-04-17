@@ -6,6 +6,7 @@ import fr.hyriode.api.server.event.LobbyRestartingEvent;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.language.LobbyMessage;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 /**
@@ -28,6 +29,7 @@ public class InternalListener {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.sendMessage(LobbyMessage.LOBBY_RESTARTING_MESSAGE.asString(player)
                         .replace("%count%", String.valueOf(count)));
+                player.playSound(player.getLocation(), Sound.ORB_PICKUP, 2.0F, 0.5F);
             }
         }
     }
