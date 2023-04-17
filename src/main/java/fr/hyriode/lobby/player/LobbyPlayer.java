@@ -207,7 +207,7 @@ public class LobbyPlayer {
 
     public void leaveJump0() {
         this.reactivateCosmetics();
-        this.jump.getTimer().cancel();
+        if (jump.getTimer() != null) this.jump.getTimer().cancel();
         this.jump.setActualCheckPoint(null);
         this.jump = null;
     }
