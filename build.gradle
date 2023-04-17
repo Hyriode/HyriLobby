@@ -46,6 +46,16 @@ repositories {
     }
 
     maven {
+        name = 'HyriCosmetics_maven'
+        url 'https://maven.pkg.github.com/Hyriode/HyriCosmetics/'
+
+        credentials {
+            username System.getenv("GITHUB_USERNAME")
+            password System.getenv("GITHUB_TOKEN")
+        }
+    }
+
+    maven {
         name = 'spigotmc-repo'
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
     }
@@ -59,6 +69,7 @@ repositories {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'fr.hyriode:hyrame:1.3.9-SNAPSHOT'
+    implementation 'fr.hyriode:cosmetics:1.0.0-SNAPSHOT'
 }
 
 processResources {
