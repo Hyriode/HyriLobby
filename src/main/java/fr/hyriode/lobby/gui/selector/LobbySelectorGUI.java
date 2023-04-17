@@ -49,7 +49,7 @@ public class LobbySelectorGUI extends LobbyGUI {
                 final String serverName = nbt.getString(NBT);
                 final HyggServer server = HyriAPI.get().getServerManager().getServer(serverName);
 
-                if (server == null) {
+                if (server == null || server.getState() != HyggServer.State.READY) {
                     this.init();
                     break;
                 }
