@@ -2,6 +2,7 @@ package fr.hyriode.lobby.listener;
 
 import fr.hyriode.api.event.HyriEventHandler;
 import fr.hyriode.api.language.HyriLanguageUpdatedEvent;
+import fr.hyriode.api.leveling.event.LevelingLevelEvent;
 import fr.hyriode.api.player.event.ModerationUpdatedEvent;
 import fr.hyriode.api.player.event.NicknameUpdatedEvent;
 import fr.hyriode.api.player.event.RankUpdatedEvent;

@@ -20,6 +20,7 @@ import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.item.hotbar.GameSelectorItem;
 import fr.hyriode.lobby.item.queue.LeaveQueueItem;
 import fr.hyriode.lobby.language.LobbyMessage;
+import fr.hyriode.lobby.player.LobbyPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -64,10 +65,14 @@ public class HostQueueHandler implements IHyriQueueHandler, Listener {
         final Player player = Bukkit.getPlayer(event.getPlayerId());
 
         if (player != null) {
-            this.hyrame.getItemManager().giveItem(player, 0, LeaveQueueItem.class);
-
             this.createActionBar(player, queue);
             this.sendQueueMessage(player, queue, LobbyMessage.QUEUE_HOST_PLAYER_JOINED_MESSAGE);
+
+            final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
+
+            if (!lobbyPlayer.hasJump() && !lobbyPlayer.isInPvp()) {
+                this.hyrame.getItemManager().giveItem(player, 0, LeaveQueueItem.class);
+            }
         }
     }
 
@@ -127,7 +132,11 @@ public class HostQueueHandler implements IHyriQueueHandler, Listener {
                     .replace("%server%", server.getName()));
             bar.send(player);
 
-            this.hyrame.getItemManager().giveItem(player, 0, LeaveQueueItem.class);
+            final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(playerId);
+
+            if (!lobbyPlayer.hasJump() && !lobbyPlayer.isInPvp()) {
+                this.hyrame.getItemManager().giveItem(player, 0, LeaveQueueItem.class);
+            }
         }
     }
 
@@ -148,6 +157,12 @@ public class HostQueueHandler implements IHyriQueueHandler, Listener {
 
             this.removeActionBar(player);
             this.sendQueueMessage(player, queue, LobbyMessage.QUEUE_HOST_PLAYER_LEFT_MESSAGE);
+
+            final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(playerId);
+
+            if (!lobbyPlayer.hasJump() && !lobbyPlayer.isInPvp()) {
+                this.hyrame.getItemManager().giveItem(player, 0, GameSelectorItem.class);
+            }
         }
     }
 
