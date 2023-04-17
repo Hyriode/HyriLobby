@@ -81,7 +81,7 @@ public class NormalQueueHandler implements IHyriQueueHandler, Listener {
         final Player player = Bukkit.getPlayer(event.getPlayerId());
 
         if (player != null) {
-            final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(playerId);
+            final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
 
             if (!lobbyPlayer.hasJump() && !lobbyPlayer.isInPvp()) {
                 this.hyrame.getItemManager().giveItem(player, 0, GameSelectorItem.class);
