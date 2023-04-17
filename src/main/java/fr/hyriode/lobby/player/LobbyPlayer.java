@@ -39,10 +39,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -63,7 +60,7 @@ public class LobbyPlayer {
 
     private LobbyScoreboard lobbyScoreboard;
 
-    List<Cosmetics> activeCosmetics;
+    List<Cosmetics> activeCosmetics = new ArrayList<>();
 
     public LobbyPlayer(UUID uuid, HyriLobby plugin) {
         this.uuid = uuid;
@@ -73,6 +70,8 @@ public class LobbyPlayer {
     public void handleLogin(boolean login, boolean teleport) {
         final Player player = this.asPlayer();
         final IHyriPlayer account = this.asHyriPlayer();
+
+        this.reactivateCosmetics();
 
         if (teleport) {
             this.teleportToSpawn();
@@ -207,6 +206,7 @@ public class LobbyPlayer {
     }
 
     public void leaveJump0() {
+        this.reactivateCosmetics();
         this.jump.getTimer().cancel();
         this.jump.setActualCheckPoint(null);
         this.jump = null;
@@ -240,8 +240,6 @@ public class LobbyPlayer {
             player.getInventory().setHeldItemSlot(0);
 
             player.closeInventory();
-        } else {
-            this.reactivateCosmetics();
         }
 
         this.initPlayersVisibility(this.asHyriPlayer().getSettings().getPlayersVisibilityLevel(), inPvp);
