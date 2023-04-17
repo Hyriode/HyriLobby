@@ -12,9 +12,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
  * Created by Akkashi
  * on 25/04/2022 at 00:13
  */
-public class PlayerConnectionHandler extends HyriListener<HyriLobby> {
+public class ConnectionListener extends HyriListener<HyriLobby> {
 
-    public PlayerConnectionHandler(HyriLobby plugin) {
+    public ConnectionListener(HyriLobby plugin) {
         super(plugin);
     }
 

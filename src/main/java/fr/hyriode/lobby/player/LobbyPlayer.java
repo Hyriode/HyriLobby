@@ -109,10 +109,6 @@ public class LobbyPlayer {
     }
 
     public void startJump() {
-        if (IHyriPlayerSession.get(this.uuid).isModerating()) {
-            return;
-        }
-
         final Player player = this.asPlayer();
         final LobbyJump jump = new LobbyJump(this.plugin);
         final IItemManager itemManager = this.plugin.getHyrame().getItemManager();

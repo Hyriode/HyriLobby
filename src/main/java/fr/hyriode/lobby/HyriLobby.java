@@ -12,6 +12,7 @@ import fr.hyriode.lobby.game.LobbyGameManager;
 import fr.hyriode.lobby.host.HostHandler;
 import fr.hyriode.lobby.leaderboard.LobbyLeaderboardManager;
 import fr.hyriode.lobby.listener.AccountListener;
+import fr.hyriode.lobby.listener.InternalListener;
 import fr.hyriode.lobby.npc.LobbyNPCManager;
 import fr.hyriode.lobby.player.LobbyPlayerManager;
 import fr.hyriode.lobby.queue.HostQueueHandler;
@@ -82,11 +83,12 @@ public class HyriLobby extends JavaPlugin {
         }
 
         HyriAPI.get().getEventBus().register(new AccountListener(this));
+        HyriAPI.get().getNetworkManager().getEventBus().register(new InternalListener(this));
         HyriAPI.get().getQueueManager().addHandler(new NormalQueueHandler(this));
         HyriAPI.get().getQueueManager().addHandler(new HostQueueHandler(this));
 
-        HyriAPI.get().getServer().setState(HyggServer.State.READY);
         HyriAPI.get().getServer().setSlots(ILobbyAPI.MAX_PLAYERS);
+        HyriAPI.get().getServer().setState(HyggServer.State.READY);
     }
 
     @Override

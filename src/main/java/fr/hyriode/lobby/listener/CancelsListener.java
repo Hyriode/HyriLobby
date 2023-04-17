@@ -20,9 +20,9 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
  * Created by Akkashi
  * on 25/04/2022 at 18:43
  */
-public class LobbyCancelsHandler extends HyriListener<HyriLobby> {
+public class CancelsListener extends HyriListener<HyriLobby> {
 
-    public LobbyCancelsHandler(HyriLobby plugin) {
+    public CancelsListener(HyriLobby plugin) {
         super(plugin);
     }
 

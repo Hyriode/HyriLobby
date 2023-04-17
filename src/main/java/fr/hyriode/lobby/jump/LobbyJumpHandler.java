@@ -33,6 +33,10 @@ public class LobbyJumpHandler extends HyriListener<HyriLobby> {
 
         if (this.checkLocation(location, this.plugin.config().getJumpStart().asBukkit())) {
             if (!lobbyPlayer.hasJump()) {
+                if (IHyriPlayerSession.get(player.getUniqueId()).isModerating()) {
+                    return;
+                }
+
                 lobbyPlayer.startJump();
                 this.playStartSound(lobbyPlayer.asPlayer());
             } else {

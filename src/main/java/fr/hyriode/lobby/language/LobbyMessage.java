@@ -23,6 +23,10 @@ public enum LobbyMessage {
     JOIN_MESSAGE("message.join.display", (target, input) -> input.replace("%website%", HyriConstants.WEBSITE_URL).replace("%store%", HyriConstants.STORE_WEBSITE_URL).replace("%discord%", HyriConstants.DISCORD_URL)),
     JOIN_VIP_MESSAGE("message.join-vip.display"),
 
+    STAFF_ERROR("message.error-staff.display"),
+
+    LOBBY_RESTARTING_MESSAGE("message.lobby-restarting.display"),
+
     QUEUE_PREFIX("prefix.queue"),
     QUEUE_NORMAL_PLAYER_JOINED_MESSAGE("message.normal-queue.player-joined", QUEUE_PREFIX),
     QUEUE_NORMAL_PLAYER_LEFT_MESSAGE("message.normal-queue.player-left", QUEUE_PREFIX),
@@ -40,9 +44,6 @@ public enum LobbyMessage {
     JUMP_SUCCESS_ALL_MESSAGE("message.jump-success", JUMP_PREFIX),
     JUMP_RESPAWN_BAR("bar.jump-respawn"),
     JUMP_TIME_BAR("bar.jump-time", JUMP_PREFIX),
-
-    STAFF_ERROR("message.error-staff.display"),
-    IN_PARTY_ERROR("message.queue-party-error.display"),
 
     FLY_COMMAND_RESULT("command.fly.result"),
     FLY_COMMAND_ERROR("command.fly.error"),
