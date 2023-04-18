@@ -49,6 +49,9 @@ public class ZeroZeroSevenGame extends AGame {
 
     private void start(long hyris) {
         this.hyris = hyris;
+        final IHyriPlayer hyriPlayer = IHyriPlayer.get(this.player.getUniqueId());
+        hyriPlayer.getHyris().remove(this.hyris).withMultiplier(false).exec();
+        hyriPlayer.update();
         this.gameInfos = new ZeroZeroSevenGameInfos(this);
         new ZeroZeroSevenGameInventory(this).open();
     }
@@ -68,7 +71,7 @@ public class ZeroZeroSevenGame extends AGame {
         if(playerAction == E007Action.SHOOT && botAction == E007Action.SHOOT) {
             this.draw();
         } else if(playerAction == E007Action.SHOOT && botAction == E007Action.RELOAD) {
-            this.onWinning((long) (this.hyris*1.7));
+            this.onWinning((long) (this.hyris + this.hyris*1.7));
         } else if (playerAction == E007Action.RELOAD && botAction == E007Action.SHOOT) {
             this.loose();
         }
@@ -107,11 +110,7 @@ public class ZeroZeroSevenGame extends AGame {
     }
 
     protected void loose() {
-        final IHyriPlayer hyriPlayer = IHyriPlayer.get(this.player.getUniqueId());
-        hyriPlayer.getHyris().remove(this.hyris).withMultiplier(false).exec();
-        hyriPlayer.update();
-
-        this.player.sendMessage( LobbyMessage.LOST.asString(this.player) + hyris + " Hyris");
+        this.player.sendMessage( LobbyMessage.LOST.asString(this.player) + this.hyris + " Hyris");
         this.end();
     }
 
