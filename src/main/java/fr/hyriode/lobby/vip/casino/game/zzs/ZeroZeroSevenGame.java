@@ -2,11 +2,9 @@ package fr.hyriode.lobby.vip.casino.game.zzs;
 
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.inventory.HyriInventory;
-import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.vip.casino.game.AGame;
 import fr.hyriode.lobby.vip.casino.game.inventory.GameInventoryBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Random;
@@ -16,6 +14,7 @@ public class ZeroZeroSevenGame extends AGame {
     protected boolean isEnd = false;
     private ZeroZeroSevenGameInfos gameInfos;
     private long hyris;
+    private int playingTime = 0;
 
     public ZeroZeroSevenGame(Player player) {
         super(player);
@@ -55,7 +54,6 @@ public class ZeroZeroSevenGame extends AGame {
     }
 
     protected void play(E007Action playerAction) {
-
         if(playerAction == null) {
             return;
         }
@@ -74,10 +72,14 @@ public class ZeroZeroSevenGame extends AGame {
         } else if (playerAction == E007Action.RELOAD && botAction == E007Action.SHOOT) {
             this.loose();
         }
-
+        this.playingTime++;
     }
 
     private E007Action getBotAction() {
+        if(this.playingTime == 0) {
+            return this.gameInfos.getBotGame().reload();
+        }
+
         final E007Action botAction = E007Action.values()[new Random().nextInt(E007Action.values().length)];
         switch (botAction) {
             case PROTECT:
