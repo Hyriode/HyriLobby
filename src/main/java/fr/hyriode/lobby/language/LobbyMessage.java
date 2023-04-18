@@ -113,6 +113,8 @@ public enum LobbyMessage {
 
     PROFILE_BOOSTERS_NAME("gui.profile.item.boosters.name"),
     PROFILE_BOOSTERS_LORE("gui.profile.item.boosters.lore"),
+    PROFILE_LOOTBOXES_NAME("gui.profile.item.lootboxes.name"),
+    PROFILE_LOOTBOXES_DESCRIPTION("gui.profile.item.lootboxes.description"),
 
     PROFILE_STATS_NAME("gui.profile.item.statistics.name"),
     PROFILE_STATS_LORE("gui.profile.item.statistics.lore"),

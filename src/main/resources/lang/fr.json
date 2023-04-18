@@ -206,6 +206,11 @@
 
   "gui.store-cosmetics.name": "&8Cosmétiques",
 
+  "gui.profile.item.lootboxes.name": "&bLootboxes",
+  "gui.profile.item.lootboxes.description": "&7Les &blootboxes &7permettent d'obtenir\n&7de nombreuses récompenses (&dHyris&7,\n&bcosmétiques&7, etc)&7.\nElles peuvent s'obtenir en allant dans la &6boutique.",
+
+
+
   "gui.confirm.name": "&8Confirmer",
   "gui.confirm.item.confirm.name": "&aConfirmer",
   "gui.confirm.item.cancel.name": "&cAnnuler",
