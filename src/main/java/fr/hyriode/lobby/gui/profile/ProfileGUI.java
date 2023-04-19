@@ -50,9 +50,9 @@ public class ProfileGUI extends LobbyGUI {
 
         // Friends
         this.setItem(22, HEAD_ITEM.apply(UsefulHead.CRATE)
-                .withName(LobbyMessage.PROFILE_FRIENDS_NAME.asString(this.account))
-                .withLore(LobbyMessage.PROFILE_FRIENDS_LORE.asList(this.account))
-                .build(),
+                        .withName(LobbyMessage.PROFILE_FRIENDS_NAME.asString(this.account))
+                        .withLore(LobbyMessage.PROFILE_FRIENDS_LORE.asList(this.account))
+                        .build(),
                 event -> this.openWithGoBack(49, new FriendsGUI(this.plugin, this.owner)));
 
         final ItemBuilder levelingItem = new ItemBuilder(Material.EXP_BOTTLE)
@@ -64,9 +64,9 @@ public class ProfileGUI extends LobbyGUI {
 
         // Hyri+
         this.setItem(30, HEAD_ITEM.apply(UsefulHead.GOLD_BLOCK)
-                .withName(ChatColor.AQUA + "Hyri+")
-                .withLore(this.getHyriPlusLore())
-                .build(),
+                        .withName(ChatColor.AQUA + "Hyri+")
+                        .withLore(this.getHyriPlusLore())
+                        .build(),
                 event -> {
                     if (this.account.getHyriPlus().has()) {
                         this.openWithGoBack(49, new PlusColorGUI(this.owner, this.plugin));
@@ -87,10 +87,17 @@ public class ProfileGUI extends LobbyGUI {
 
         // Boosters
         this.setItem(23, new ItemBuilder(new Potion(PotionType.WATER))
-                .withName(LobbyMessage.PROFILE_BOOSTERS_NAME.asString(this.account))
-                .withLore(LobbyMessage.PROFILE_BOOSTERS_LORE.asList(this.account))
-                .build(),
+                        .withName(LobbyMessage.PROFILE_BOOSTERS_NAME.asString(this.account))
+                        .withLore(LobbyMessage.PROFILE_BOOSTERS_LORE.asList(this.account))
+                        .build(),
                 event -> this.openWithGoBack(49, new BoostersGUI(this.plugin, this.owner)));
+
+        // Lootboxes
+        this.setItem(40, new ItemBuilder(Material.ENDER_CHEST)
+                        .withName(LobbyMessage.PROFILE_LOOTBOXES_NAME.asString(this.account))
+                        .withLore(LobbyMessage.PROFILE_LOOTBOXES_DESCRIPTION.asString(this.account))
+                        .build(),
+                event -> this.openWithGoBack(49, new LootboxesGUI(this.owner, this.plugin)));
     }
 
     private List<String> getAccountLore() {
@@ -104,7 +111,7 @@ public class ProfileGUI extends LobbyGUI {
                 .replace("%hyodes%", NumberFormat.getInstance().format(this.account.getHyodes().getAmount()).replace(",", "."))
                 .replace("%level%", String.valueOf(this.account.getNetworkLeveling().getLevel()))
                 .replace("%first_login%", TimeUtil.formatDate(new Date(this.account.getFirstLoginDate()), "dd/MM/yyyy HH:mm:ss"))
-                .replace("%play_time%",  playTime)
+                .replace("%play_time%", playTime)
                 .list();
     }
 

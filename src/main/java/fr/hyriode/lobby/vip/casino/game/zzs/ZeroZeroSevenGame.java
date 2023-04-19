@@ -2,11 +2,9 @@ package fr.hyriode.lobby.vip.casino.game.zzs;
 
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.inventory.HyriInventory;
-import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.vip.casino.game.AGame;
 import fr.hyriode.lobby.vip.casino.game.inventory.GameInventoryBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Random;
@@ -16,6 +14,7 @@ public class ZeroZeroSevenGame extends AGame {
     protected boolean isEnd = false;
     private ZeroZeroSevenGameInfos gameInfos;
     private long hyris;
+    private int playingTime = 0;
 
     public ZeroZeroSevenGame(Player player) {
         super(player);
@@ -50,12 +49,14 @@ public class ZeroZeroSevenGame extends AGame {
 
     private void start(long hyris) {
         this.hyris = hyris;
+        final IHyriPlayer hyriPlayer = IHyriPlayer.get(this.player.getUniqueId());
+        hyriPlayer.getHyris().remove(this.hyris).withMultiplier(false).exec();
+        hyriPlayer.update();
         this.gameInfos = new ZeroZeroSevenGameInfos(this);
         new ZeroZeroSevenGameInventory(this).open();
     }
 
     protected void play(E007Action playerAction) {
-
         if(playerAction == null) {
             return;
         }
@@ -70,14 +71,18 @@ public class ZeroZeroSevenGame extends AGame {
         if(playerAction == E007Action.SHOOT && botAction == E007Action.SHOOT) {
             this.draw();
         } else if(playerAction == E007Action.SHOOT && botAction == E007Action.RELOAD) {
-            this.onWinning((long) (this.hyris*1.7));
+            this.onWinning((long) (this.hyris + this.hyris*1.7));
         } else if (playerAction == E007Action.RELOAD && botAction == E007Action.SHOOT) {
             this.loose();
         }
-
+        this.playingTime++;
     }
 
     private E007Action getBotAction() {
+        if(this.playingTime == 0) {
+            return this.gameInfos.getBotGame().reload();
+        }
+
         final E007Action botAction = E007Action.values()[new Random().nextInt(E007Action.values().length)];
         switch (botAction) {
             case PROTECT:
@@ -105,11 +110,7 @@ public class ZeroZeroSevenGame extends AGame {
     }
 
     protected void loose() {
-        final IHyriPlayer hyriPlayer = IHyriPlayer.get(this.player.getUniqueId());
-        hyriPlayer.getHyris().remove(this.hyris).withMultiplier(false).exec();
-        hyriPlayer.update();
-
-        this.player.sendMessage( LobbyMessage.LOST.asString(this.player) + hyris + " Hyris");
+        this.player.sendMessage( LobbyMessage.LOST.asString(this.player) + this.hyris + " Hyris");
         this.end();
     }
 

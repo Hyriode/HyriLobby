@@ -10,6 +10,11 @@ import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.api.player.model.SettingsLevel;
 import fr.hyriode.api.queue.IHyriQueueManager;
 import fr.hyriode.api.rank.PlayerRank;
+import fr.hyriode.cosmetics.HyriCosmetics;
+import fr.hyriode.cosmetics.common.CosmeticCategory;
+import fr.hyriode.cosmetics.common.Cosmetics;
+import fr.hyriode.cosmetics.user.CosmeticUser;
+import fr.hyriode.cosmetics.user.PlayerCosmetic;
 import fr.hyriode.hyrame.actionbar.ActionBar;
 import fr.hyriode.hyrame.item.IItemManager;
 import fr.hyriode.hyrame.item.ItemBuilder;
@@ -34,8 +39,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.TimeZone;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Project: HyriLobby
@@ -53,6 +58,8 @@ public class LobbyPlayer {
 
     private LobbyScoreboard lobbyScoreboard;
 
+    List<Cosmetics> activeCosmetics = new ArrayList<>();
+
     public LobbyPlayer(UUID uuid, HyriLobby plugin) {
         this.uuid = uuid;
         this.plugin = plugin;
@@ -61,6 +68,8 @@ public class LobbyPlayer {
     public void handleLogin(boolean login, boolean teleport) {
         final Player player = this.asPlayer();
         final IHyriPlayer account = this.asHyriPlayer();
+
+        this.reactivateCosmetics();
 
         if (teleport) {
             this.teleportToSpawn();
@@ -107,6 +116,8 @@ public class LobbyPlayer {
     }
 
     public void startJump() {
+        this.unequipCosmetics();
+
         final Player player = this.asPlayer();
         final LobbyJump jump = new LobbyJump(this.plugin);
         final IItemManager itemManager = this.plugin.getHyrame().getItemManager();
@@ -130,6 +141,8 @@ public class LobbyPlayer {
     }
 
     public void endJump() {
+        this.reactivateCosmetics();
+
         if (IHyriPlayerSession.get(this.uuid).isModerating()) {
             return;
         }
@@ -149,6 +162,17 @@ public class LobbyPlayer {
         this.plugin.getLeaderboardManager().getJumpLeaderboard().updatePlayerScore(this.uuid, time);
 
         this.handleLogin(false, false);
+    }
+
+    public void unequipCosmetics() {
+        activeCosmetics = asCosmeticUser().getEquippedCosmetics().values().stream().map(playerCosmetic -> playerCosmetic.getCosmetic().getCosmetic()).collect(Collectors.toList());
+        HyriCosmetics.get().getCategories().forEach(category -> asCosmeticUser().unequipCosmetic(category, false));
+    }
+
+    public void reactivateCosmetics() {
+        for (Cosmetics cosmetics : activeCosmetics) {
+            asCosmeticUser().equipCosmetic(cosmetics, false);
+        }
     }
 
     public void resetTimer() {
@@ -180,7 +204,8 @@ public class LobbyPlayer {
     }
 
     public void leaveJump0() {
-        this.jump.getTimer().cancel();
+        this.reactivateCosmetics();
+        if (jump.getTimer() != null) this.jump.getTimer().cancel();
         this.jump.setActualCheckPoint(null);
         this.jump = null;
     }
@@ -193,6 +218,7 @@ public class LobbyPlayer {
         }
 
         if (inPvp) {
+            this.unequipCosmetics();
             final Player player = this.asPlayer();
 
             final ItemStack sword = new ItemBuilder(Material.STONE_SWORD).unbreakable().build();
@@ -363,6 +389,10 @@ public class LobbyPlayer {
 
     public void setJump(LobbyJump jump) {
         this.jump = jump;
+    }
+
+    public CosmeticUser asCosmeticUser() {
+        return HyriCosmetics.get().getUserProvider().getUser(this.asPlayer());
     }
 
 }
