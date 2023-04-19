@@ -10,6 +10,7 @@ import fr.hyriode.api.player.event.VanishUpdatedEvent;
 import fr.hyriode.hyrame.npc.NPC;
 import fr.hyriode.hyrame.npc.NPCManager;
 import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.host.HostWaitingAnimation;
 import fr.hyriode.lobby.npc.LobbyNPCHandler;
 import fr.hyriode.lobby.player.LobbyPlayer;
 import org.bukkit.Bukkit;
@@ -73,6 +74,12 @@ public class AccountListener {
 
             lobbyPlayer.leaveJump0();
             lobbyPlayer.setInPvP(false);
+
+            final HostWaitingAnimation hostAnimation = HostWaitingAnimation.ANIMATIONS.remove(lobbyPlayer.getUniqueId());
+
+            if (hostAnimation != null) {
+                hostAnimation.stop();
+            }
         }
     }
 

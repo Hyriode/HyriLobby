@@ -1,6 +1,5 @@
 package fr.hyriode.lobby.vip;
 
-import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.rank.PlayerRank;
 import fr.hyriode.hyrame.listener.HyriListener;
@@ -25,12 +24,10 @@ public class VIPZoneHandler extends HyriListener<HyriLobby> {
         final Area pvp = this.plugin.config().getPvpZone().asArea();
         final Player player = e.getPlayer();
         final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
-        final IHyriPlayer hyriPlayer = HyriAPI.get().getPlayerManager().getPlayer(player.getUniqueId());
+        final IHyriPlayer account = IHyriPlayer.get(player.getUniqueId());
 
-        if (vip.isInArea(player.getLocation())) {
-            if (hyriPlayer.getRank().is(PlayerRank.PLAYER)) {
-                player.teleport(this.plugin.config().getVIPLocation().asBukkit());
-            }
+        if (vip.isInArea(player.getLocation()) && account.getRank().is(PlayerRank.PLAYER)) {
+            player.teleport(this.plugin.config().getVIPLocation().asBukkit());
         }
 
         if (!lobbyPlayer.isInPvp()) {

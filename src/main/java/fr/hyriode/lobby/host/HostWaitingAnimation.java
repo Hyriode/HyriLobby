@@ -8,9 +8,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by AstFaster
@@ -18,20 +18,26 @@ import java.util.List;
  */
 public class HostWaitingAnimation {
 
+    public static final Map<UUID, HostWaitingAnimation> ANIMATIONS = new HashMap<>();
+
     private static final List<String> PHASES = Arrays.asList("▇▇▆▅▄▃▂▁▁", "▇▇▇▆▅▄▃▂▁", "▆▇▇▇▆▅▄▃▂", "▅▆▇▇▇▆▅▄▃", "▄▅▆▇▇▇▆▅▄", "▃▄▅▆▇▇▇▆▅", "▂▃▄▅▆▇▇▇▆", "▁▂▃▄▅▆▇▇▇", "▁▁▂▃▄▅▆▇▇");
+
+    private BukkitTask task;
+    private ActionBar actionBar;
 
     private final Player player;
 
     public HostWaitingAnimation(Player player) {
         this.player = player;
+
+        ANIMATIONS.put(player.getUniqueId(), this);
     }
 
     public void start(JavaPlugin plugin) {
-        final ActionBar actionBar = new ActionBar(LobbyMessage.HOST_CREATING_HOST_BAR.asString(this.player));
+        this.actionBar = new ActionBar(LobbyMessage.HOST_CREATING_HOST_BAR.asString(this.player));
+        this.actionBar.sendPermanent(plugin, this.player);
 
-        actionBar.sendPermanent(plugin, this.player);
-
-        new BukkitRunnable() {
+        this.task = new BukkitRunnable() {
 
             private int phaseIndex = 0;
             private boolean reversing;
@@ -58,6 +64,11 @@ public class HostWaitingAnimation {
                 }
             }
         }.runTaskTimer(plugin, 3L, 3L);
+    }
+
+    public void stop() {
+        this.actionBar.remove();
+        this.task.cancel();
     }
 
 }

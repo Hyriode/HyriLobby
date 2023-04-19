@@ -44,8 +44,6 @@ import java.util.UUID;
  */
 public class LobbyPlayer {
 
-    private boolean queue = false;
-
     private final UUID uuid;
     private final HyriLobby plugin;
 
