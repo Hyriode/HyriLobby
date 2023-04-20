@@ -189,6 +189,11 @@ public class LobbyPlayer {
 
     public void leaveJump0() {
         HyriCosmetics.get().getUserProvider().getUser(getUniqueId()).reactivateCosmeticsTemporarilyUnequipped();
+
+        if (this.jump == null) {
+            return;
+        }
+
         if (jump.getTimer() != null) this.jump.getTimer().cancel();
         this.jump.setActualCheckPoint(null);
         this.jump = null;

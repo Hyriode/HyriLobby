@@ -66,7 +66,7 @@ public class BoostersGUI extends LobbyGUI {
     }
 
     private ItemStack createBoosterItem(HyriBoosterTransaction booster) {
-        final String boost = "+" + ((int) booster.getMultiplier() * 100 - 100) + "%";
+        final String boost = "+" + ((int) (booster.getMultiplier() * 100 - 100)) + "%";
         final String duration = new DurationFormatter().format(this.account.getSettings().getLanguage(), booster.getDuration() * 1000);
         final List<String> lore = ListReplacer.replace(LobbyMessage.BOOSTERS_BOOSTER_ITEM_LORE.asList(this.account), "%boost%", boost)
                 .replace("%multiplier%", "x" + booster.getMultiplier())
