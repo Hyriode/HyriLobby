@@ -334,6 +334,24 @@
 
   "message.casino.cancel-bet": "&cYou cancelled your bet.",
 
-  "prefix.casino": "&cCasino &8» "
+  "prefix.casino": "§3Casino §f┃ ",
+
+  "gui.cosmetic.name": "Cosmetics",
+  "gui.cosmetic.filter.name": "Filters",
+  "gui.cosmetic.rarity": "§7Rarity",
+  "gui.cosmetic.unlocked": "§b%percentage%% unlocked §7(%unlocked%/%total%)",
+  "gui.cosmetic.price_two_option": "§7Price: %price1% §7or %price2%",
+  "gui.cosmetic.price_one_option": "§7Price: %price1%",
+
+  "gui.cosmetic.cant_unlock": "§cYou can't unlock this cosmetic",
+  "gui.cosmetic.click_to_buy": "§3Click to buy",
+  "gui.cosmetic.click_to_equip": "§3Click to equip",
+  "gui.cosmetic.click_to_unequip": "§cClick to unequip",
+  "gui.cosmetic.click_to_edit": "§3Click to edit",
+  "gui.cosmetic.already_equipped": "§aCosmetic already equipped",
+  "gui.cosmetic.equipped.none.name": "§3No %type% equipped",
+  "gui.cosmetic.unequip.all": "§cUnequip everything",
+  "gui.cosmetic.variants" : "§7Variants of cosmetics",
+  "gui.cosmetic.variant.color.rainbow": "§cR§6a§ei§an§3b§9o§5w"
 
 }

@@ -334,5 +334,25 @@
 
   "message.casino.cancel-bet": "&cVous avez annulé votre mise.",
 
-  "prefix.casino": "&cCasino &8» "
+  "prefix.casino": "§3Casino §f┃ ",
+
+  "gui.cosmetic.name": "Cosmetiques",
+  "gui.cosmetic.filter.item.name": "§bTrier",
+  "gui.cosmetic.filter.item.lore": "§7Permet de trier les cosmétiques.\n§7 \n§3Possédée:\n§8▪ %owned_yes%\n§8▪ %owned_no%\n§8\n§3Rareté:\n§8▪ %rarity_no%\n§8▪ %rarity_ascending%\n§8▪ %rarity_descending%\n§8\n§3Prix:\n§8▪ %price_no%\n§8▪ %price_ascending%\n§8▪ %price_descending%\n§8\n§3Cliquer pour modifier",
+  "gui.cosmetic.filter.name": "Filtres",
+  "gui.cosmetic.rarity": "§7Rareté",
+  "gui.cosmetic.unlocked": "§b%percentage%% débloqué(s) §7(%unlocked%/%total%)",
+  "gui.cosmetic.price_two_option": "§7Prix: %price1% §7ou %price2%",
+  "gui.cosmetic.price_one_option": "§7Prix: %price1%",
+
+  "gui.cosmetic.cant_unlock": "§cVous ne pouvez pas débloquer ce cosmétique.",
+  "gui.cosmetic.click_to_buy": "§3Cliquer pour acheter",
+  "gui.cosmetic.click_to_equip": "§3Cliquer pour équiper",
+  "gui.cosmetic.click_to_unequip": "§cCliquer pour déséquiper",
+  "gui.cosmetic.click_to_edit": "§3Cliquer pour modifier",
+  "gui.cosmetic.already_equipped": "§cCosmétique déjà équipé",
+  "gui.cosmetic.equipped.none.name": "§3Pas de %type% équipé(e)",
+  "gui.cosmetic.unequip.all": "§cTout déséquiper",
+  "gui.cosmetic.variants" : "§7Variants du cosmétique",
+  "gui.cosmetic.variant.color.rainbow": "§cM§6u§el§at§3i§9c§5o§cl§6o§er§ae"
 }
