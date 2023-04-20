@@ -1,5 +1,5 @@
 name: HyriLobby
 main: fr.hyriode.lobby.HyriLobby
 version: @version@
-depend: [Hyrame]
+depend: [Hyrame, HyriCosmetics]
 authors: [Yggdrasil80, Akkashi, AstFaster]

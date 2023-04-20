@@ -62,7 +62,9 @@ public class LobbyPlayer {
         final Player player = this.asPlayer();
         final IHyriPlayer account = this.asHyriPlayer();
 
-        HyriCosmetics.get().getUserProvider().getUser(getUniqueId()).reactivateCosmeticsTemporarilyUnequipped();
+        if (HyriCosmetics.get().getUserProvider().getUser(getUniqueId()) != null) {
+            HyriCosmetics.get().getUserProvider().getUser(getUniqueId()).reactivateCosmeticsTemporarilyUnequipped();
+        }
 
         if (teleport) {
             this.teleportToSpawn();
