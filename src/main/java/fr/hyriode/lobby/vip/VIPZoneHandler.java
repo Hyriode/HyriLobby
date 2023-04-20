@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffectType;
 
 public class VIPZoneHandler extends HyriListener<HyriLobby> {
 
@@ -28,6 +29,13 @@ public class VIPZoneHandler extends HyriListener<HyriLobby> {
 
         if (vip.isInArea(player.getLocation()) && account.getRank().is(PlayerRank.PLAYER)) {
             player.teleport(this.plugin.config().getVIPLocation().asBukkit());
+            if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
+                player.removePotionEffect(PotionEffectType.NIGHT_VISION);
+            }
+        } else {
+            if (!player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
+                player.addPotionEffect(PotionEffectType.NIGHT_VISION.createEffect(Integer.MAX_VALUE, 1));
+            }
         }
 
         if (!lobbyPlayer.isInPvp()) {
