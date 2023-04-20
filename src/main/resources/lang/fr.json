@@ -61,7 +61,7 @@
   "gui.game-selector.item.jump.name": "&aParcours",
   "gui.game-selector.item.jump.description": "&7Téléporte toi au parcours\n&7du lobby.\n\n&3Cliquer pour se téléporter",
   "gui.game-selector.item.rotating-game.name": "&bJeu rotatif",
-  "gui.game-selector.item.rotating-game.description": "&fActuel: &b%game%\n\n&7Joue à des jeux emblématiques\n&7de la communauté toutes les\n&7semaines.\n\n&fJoueurs: &b%players%\n\n&3Cliquer pour jouer",
+  "gui.game-selector.item.rotating-game.description": "&fActuel: &b%game%\n\n&7Joue à des jeux emblématiques\n&7de la communauté toutes les\n&7semaines.\n\n&fJoueurs: &b%players%\n%booster%\n&3Cliquer pour jouer",
 
   "prefix.settings": "&3Paramètres &f┃ ",
   "message.settings.lang-changed": "&fVotre &blangue &fa été &amodifiée &8(%lang%)",
@@ -145,10 +145,14 @@
   "gui.boosters.name": "&8Boosters",
   "gui.boosters.booster.item.name": "&bBooster &8┃ &7%boost%",
   "gui.boosters.booster.item.lore": "\n&8Informations:\n&8▪ &7Boost: &b%boost% &8(%multiplier%)\n&8▪ &7Durée: &b%duration%\n\n&3Cliquer pour activer",
-  "boosters.booster.game": "Jeu",
-  "boosters.booster.global": "Global",
 
   "gui.booster-game-selector.name": "&8Choix du jeu",
+  "booster-game-selector.item.lore": "\n&8File d'attente:\n%queue%\n\n&8Informations:\n&8▪ &b%time_slot%\n\n&3Cliquer pour booster",
+  "booster-game-selector.no-booster": "&8▪ &cAucun booster",
+  "booster-game-selector.time-slot": "&b%start% → %end%",
+  "booster-game-selector.icon.time-slot": "&8▪ &7Créneau horaire: %time_slot%",
+  "booster-game-selector.current": "&a(Actuel)",
+  "booster.added-in-queue.message": "&3Boosters &f┃ &fVotre &bbooster &fa été &aajouté &fdans la &bfile d'attente&f. Il sera activé à %enabled_date%&f.",
 
   "prefix.leveling": "&3Niveaux &f┃ ",
   "gui.leveling.name": "&8Niveaux",
@@ -208,8 +212,6 @@
 
   "gui.profile.item.lootboxes.name": "&bLootboxes",
   "gui.profile.item.lootboxes.description": "&7Les &blootboxes &7permettent d'obtenir\n&7de nombreuses récompenses (&dHyris&7,\n&bcosmétiques&7, etc)&7.\nElles peuvent s'obtenir en allant dans la &6boutique.",
-
-
 
   "gui.confirm.name": "&8Confirmer",
   "gui.confirm.item.confirm.name": "&aConfirmer",
@@ -277,9 +279,11 @@
   "game.sheepwars.description": "Elimine l'équipe adverse à l'aide\nde beaucoup de moutons donnant de\nnombreux effets aléatoires: éxplosion,\ntéléportation, soin, etc.",
 
   "game.state.new.display": "&a&lNOUVEAU",
-  "game.state.popular.display": "&b&lPOPULAIRE",
+  "game.state.popular.display": "&e&lPOPULAIRE",
   "game.state.soon.display": "&c&lBIENTOT",
   "game.state.blocked.display": "&c&lMAINTENANCE",
+
+  "game.booster.line": "&fBooster: %owner% &8(+%boost%%)",
 
   "game.npc.header.players": "&b%players% &fjoueurs",
   "game.npc.header.play": "JOUER ",

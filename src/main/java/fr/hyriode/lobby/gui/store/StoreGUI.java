@@ -5,6 +5,7 @@ import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.LobbyGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.util.UsefulHead;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -50,7 +51,7 @@ public class StoreGUI extends LobbyGUI {
                 .withHeadTexture(UsefulHead.COSMETICS_CHEST)
                 .withName(LobbyMessage.STORE_COSMETICS_NAME.asString(this.account))
                 .withLore(LobbyMessage.STORE_COSMETICS_LORE.asList(this.account))
-                .build(), event -> this.openWithGoBack(49, new CosmeticsGUI(this.owner, this.plugin)));
+                .build(), event -> this.owner.performCommand("c"));
     }
 
 }

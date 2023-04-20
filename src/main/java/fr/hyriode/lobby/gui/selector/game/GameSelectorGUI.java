@@ -1,8 +1,10 @@
 package fr.hyriode.lobby.gui.selector.game;
 
 import fr.hyriode.api.HyriAPI;
+import fr.hyriode.api.booster.IHyriBooster;
 import fr.hyriode.api.game.IHyriGameInfo;
 import fr.hyriode.api.game.rotating.IHyriRotatingGame;
+import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.game.LobbyGame;
@@ -15,10 +17,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static fr.hyriode.lobby.game.LobbyGame.State;
 
@@ -102,20 +102,30 @@ public class GameSelectorGUI extends LobbyGUI {
                 break;
         }
 
+        final IHyriRotatingGame game = HyriAPI.get().getGameManager().getRotatingGameManager().getRotatingGame();
+        final List<IHyriBooster> boosters = HyriAPI.get().getBoosterManager().getActiveBoosters(game.getInfo().getName())
+                .stream()
+                .sorted((o1, o2) -> o2.getType().compareTo(o1.getType()))
+                .collect(Collectors.toList());
+        final List<String> lore = LobbyMessage.SELECTOR_ROTATING_GAME_ITEM_DESCRIPTION.asList(this.owner);
+
+        if (boosters.size() > 0){
+            final IHyriBooster booster = boosters.get(0);
+
+            lore.add(lore.indexOf("%booster%"), LobbyMessage.GAME_BOOSTER_LINE.asString(this.account)
+                    .replace("%owner%", IHyriPlayer.get(booster.getOwner()).getNameWithRank())
+                    .replace("%boost%", String.valueOf(((int) (booster.getMultiplier() * 100 - 100)))));
+            lore.add("");
+        }
+
+        lore.remove("%booster%");
+
         final ItemStack rotatingGameItem = ItemBuilder.asHead(head)
                 .withName(LobbyMessage.SELECTOR_ROTATING_GAME_ITEM_NAME.asString(this.owner))
-                .withLore(LobbyMessage.SELECTOR_ROTATING_GAME_ITEM_DESCRIPTION.asList(this.owner))
+                .withLore(lore)
                 .build();
 
-        this.setItem(40, rotatingGameItem, event -> {
-            final IHyriRotatingGame game = HyriAPI.get().getGameManager().getRotatingGameManager().getRotatingGame();
-
-            if (game == null || game.getInfo() == null) {
-                return;
-            }
-
-            new RotatingGameTypeSelectorGUI(this.plugin, this.owner, true).open();
-        });
+        this.setItem(40, rotatingGameItem, event -> new RotatingGameTypeSelectorGUI(this.plugin, this.owner, true).open());
     }
 
     private void addGameItem(int slot, LobbyGame game) {
@@ -123,11 +133,25 @@ public class GameSelectorGUI extends LobbyGUI {
         final State state = game.getState();
         final List<String> lore = new ArrayList<>();
 
+        final List<IHyriBooster> boosters = HyriAPI.get().getBoosterManager().getActiveBoosters(game.getName())
+                .stream()
+                .sorted((o1, o2) -> o2.getType().compareTo(o1.getType()))
+                .collect(Collectors.toList());
+
         lore.add(game.formatType(this.owner));
         lore.add("");
         lore.addAll(game.getDescription(this.owner));
         lore.add("");
-        lore.add(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.owner) + ChatColor.AQUA + game.getPlayers());
+        lore.add(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.account) + ChatColor.AQUA + game.getPlayers());
+
+        if (boosters.size() > 0) {
+            final IHyriBooster booster = boosters.get(0);
+
+            lore.add(LobbyMessage.GAME_BOOSTER_LINE.asString(this.account)
+                    .replace("%owner%", IHyriPlayer.get(booster.getOwner()).getNameWithRank())
+                    .replace("%boost%", String.valueOf(((int) (booster.getMultiplier() * 100 - 100)))));
+        }
+
         lore.add("");
         lore.add(LobbyMessage.PLAY.asString(this.owner));
 

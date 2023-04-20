@@ -131,6 +131,15 @@ public enum LobbyMessage {
     HYRIPLUS_NOT_UNLOCKED_MESSAGE("hyriplus.not-unlocked.message", HYRIPLUS_PREFIX),
     HYRIPLUS_CHANGED_MESSAGE("hyriplus.changed.message", HYRIPLUS_PREFIX),
 
+    BOOSTERS_BOOSTER_ITEM_NAME("gui.boosters.booster.item.name"),
+    BOOSTERS_BOOSTER_ITEM_LORE("gui.boosters.booster.item.lore"),
+
+    BOOSTER_GAME_SELECTOR_ITEM_LORE("booster-game-selector.item.lore"),
+    BOOSTER_GAME_SELECTOR_NO_BOOSTER("booster-game-selector.no-booster"),
+    BOOSTER_GAME_SELECTOR_ICON_TIME_SLOT("booster-game-selector.icon.time-slot"),
+    BOOSTER_GAME_SELECTOR_TIME_SLOT("booster-game-selector.time-slot"),
+    BOOSTER_GAME_SELECTOR_CURRENT("booster-game-selector.current"),
+
     LEVELING_PREFIX("prefix.leveling"),
     LEVELING_REWARD_NOT_LEVEL("leveling.reward-not-level.message", LEVELING_PREFIX),
     LEVELING_REWARD_CLAIMED("leveling.reward-claimed.message", LEVELING_PREFIX),
@@ -138,11 +147,6 @@ public enum LobbyMessage {
     LEVELING_REWARD_ALREADY_CLAIMED_LINE("leveling.reward-already-claimed.line"),
     LEVELING_REWARD_NOT_LEVEL_LINE("leveling.reward-not-level.line"),
     LEVELING_REWARD_ITEM("leveling.reward.item.name"),
-
-    BOOSTERS_BOOSTER_ITEM_NAME("gui.boosters.booster.item.name"),
-    BOOSTERS_BOOSTER_ITEM_LORE("gui.boosters.booster.item.lore"),
-    BOOSTERS_BOOSTER_GAME("boosters.booster.game"),
-    BOOSTERS_BOOSTER_GLOBAL("boosters.booster.global"),
 
     STORE_PREFIX("prefix.store"),
     STORE_LOOTBOXES_NAME("gui.store.item.lootboxes.name"),
@@ -195,7 +199,14 @@ public enum LobbyMessage {
         if (gameInfo == null) {
             return input;
         }
-        return input.replace("%game%", gameInfo.getDisplayName()).replace("%players%", String.valueOf(HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter().getCategory(gameInfo.getName()).getPlayers()));
+
+        final int players = HyriAPI.get().getNetworkManager().getNetwork()
+                .getPlayerCounter()
+                .getCategory(gameInfo.getName())
+                .getPlayers();
+
+        return input.replace("%game%", gameInfo.getDisplayName())
+                .replace("%players%", String.valueOf(players));
     }),
 
     GAME_NPC_HEADER_PLAYERS("game.npc.header.players"),
@@ -232,8 +243,8 @@ public enum LobbyMessage {
     HOST_ADVERT_MESSAGE("host.advert.message"),
     HOST_LIMIT_EXCEEDED_MESSAGE("host.limit-exceeded.message"),
 
-    LEADERBOARD_LEVELING_HEADER("leaderboard.leveling.header"),
-    LEADERBOARD_JUMP_HEADER("leaderboard.jump.header"),
+    GAME_BOOSTER_LINE("game.booster.line"),
+    BOOSTER_ADDED_IN_QUEUE_MESSAGE("booster.added-in-queue.message"),
 
     CLICK_TO_CHANGE("click.to-change"),
     CLICK_TO_BUY("click.to-buy"),
@@ -242,6 +253,9 @@ public enum LobbyMessage {
     CLICK_TO_SELECT("click.to-select"),
     CLICK_TO_SHOW("click.to-show"),
     CLICK_TO_CLAIM("click.to-claim"),
+
+    LEADERBOARD_LEVELING_HEADER("leaderboard.leveling.header"),
+    LEADERBOARD_JUMP_HEADER("leaderboard.jump.header"),
 
     FRIENDS("basic.friends"),
     CONNECTED_LINE("basic.connected"),

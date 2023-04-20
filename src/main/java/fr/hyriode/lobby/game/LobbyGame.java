@@ -120,6 +120,10 @@ public class LobbyGame {
         this.hostCompatible = hostCompatible;
     }
 
+    public boolean isBoostable() {
+        return true;
+    }
+
     public StoreCategory getStoreCategory() {
         return this.storeCategory;
     }

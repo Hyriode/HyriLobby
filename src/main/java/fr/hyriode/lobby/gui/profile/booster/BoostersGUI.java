@@ -9,7 +9,6 @@ import fr.hyriode.hyrame.utils.DurationFormatter;
 import fr.hyriode.hyrame.utils.Pagination;
 import fr.hyriode.hyrame.utils.list.ListReplacer;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.ConfirmGUI;
 import fr.hyriode.lobby.gui.LobbyGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import org.bukkit.Material;
@@ -58,23 +57,16 @@ public class BoostersGUI extends LobbyGUI {
 
             final ItemStack itemStack = this.createBoosterItem(booster);
 
-            pagination.add(PaginatedItem.from(itemStack, event -> new ConfirmGUI(this.owner, this.plugin, new ItemBuilder(itemStack).removeLoreLines(2).build())
-                    .whenConfirm(e -> {
-                        this.owner.closeInventory();
-
-                        HyriAPI.get().getBoosterManager().enableBooster(this.owner.getUniqueId(), "global", booster.getMultiplier(), booster.getDuration());
-
-                        booster.setUsed(true);
-
-                        this.account.update();
-                    })
-                    .whenCancel(e -> this.open())
+            pagination.add(PaginatedItem.from(itemStack, event ->
+                    new BoosterGameSelectorGUI(this.owner, this.plugin, entry.getKey(), booster, new ItemBuilder(itemStack.clone())
+                        .removeLoreLines(2)
+                        .build())
                     .open()));
         }
     }
 
     private ItemStack createBoosterItem(HyriBoosterTransaction booster) {
-        final String boost = "+" + ((int) booster.getMultiplier() * 100);
+        final String boost = "+" + ((int) booster.getMultiplier() * 100 - 100) + "%";
         final String duration = new DurationFormatter().format(this.account.getSettings().getLanguage(), booster.getDuration() * 1000);
         final List<String> lore = ListReplacer.replace(LobbyMessage.BOOSTERS_BOOSTER_ITEM_LORE.asList(this.account), "%boost%", boost)
                 .replace("%multiplier%", "x" + booster.getMultiplier())

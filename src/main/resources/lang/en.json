@@ -61,7 +61,7 @@
   "gui.game-selector.item.jump.name": "&aParkour",
   "gui.game-selector.item.jump.description": "&7Teleport yourself to the lobby\n&7parkour.\n\n&3Click to teleport",
   "gui.game-selector.item.rotating-game.name": "&bRotating game",
-  "gui.game-selector.item.rotating-game.description": "&fCurrent: &b%game%\n\n&7Play to emblematic games of\n&7the community every week.\n\n&fPlayers: &b%players%\n\n&3Click to play",
+  "gui.game-selector.item.rotating-game.description": "&fCurrent: &b%game%\n\n&7Play to emblematic games of\n&7the community every week.\n\n&fPlayers: &b%players%\n%booster%\n&3Click to play",
 
   "prefix.settings": "&3Settings &f┃ ",
   "message.settings.lang-changed": "&fYour &blanguage &fhas been &achanged &8(%lang%)",
@@ -145,10 +145,14 @@
   "gui.boosters.name": "&8Boosters",
   "gui.boosters.booster.item.name": "&bBooster &8┃ &7%boost%",
   "gui.boosters.booster.item.lore": "\n&8Information:\n&8▪ &7Boost: &b%boost% &8(%multiplier%)\n&8▪ &7Duration: &b%duration%\n\n&3Click to enable",
-  "boosters.booster.game": "Jeu",
-  "boosters.booster.global": "Global",
 
   "gui.booster-game-selector.name": "&8Game selector",
+  "booster-game-selector.item.lore": "\n&8Queue:\n%queue%\n\n&8Information:\n&8▪ &b%time_slot%\n\n&3Click to boost",
+  "booster-game-selector.no-booster": "&8▪ &cNo booster",
+  "booster-game-selector.time-slot": "&b%start% → %end%",
+  "booster-game-selector.icon.time-slot": "&8▪ &7Time slot: %time_slot%",
+  "booster-game-selector.current": "&a(Actuel)",
+  "booster.added-in-queue.message": "&3Boosters &f┃ &fYour &bbooster &fhas been &aadded &fin the &bqueue&f. It will be enabled at &b%enabled_date%&f.",
 
   "prefix.leveling": "&3Leveling &f┃ ",
   "gui.leveling.name": "&8Leveling",
@@ -208,7 +212,6 @@
 
   "gui.profile.item.lootboxes.name": "&bLootboxes",
   "gui.profile.item.lootboxes.description": "&bLootboxes &7allow you to earn\n&7many rewards (&dHyris&7,\n&bcosmetics&7, etc)&7.\nLootboxes can be obtained in the &6store.",
-
 
   "gui.confirm.name": "&8Confirm",
   "gui.confirm.item.confirm.name": "&aConfirm",
@@ -277,9 +280,11 @@
   "game.sheepwars.description": "Eliminate the enemy team with\nmany sheeps that give random effects:\nexplosion, teleportation, healing, etc.",
 
   "game.state.new.display": "&a&lNEW",
-  "game.state.popular.display": "&b&lPOPULAR",
+  "game.state.popular.display": "&e&lPOPULAR",
   "game.state.soon.display": "&c&lSOON",
   "game.state.blocked.display": "&c&lMAINTENANCE",
+
+  "game.booster.line": "&fBooster: %owner% &8(+%boost%%)",
 
   "game.npc.header.players": "&b%players% &fplayers",
   "game.npc.header.play": "PLAY",
@@ -308,7 +313,6 @@
   "message.won": "&6You won ",
   "message.lost": "&cYou lost ",
   "message.draw": "&7Draw, you didn't win or loose Hyris",
-
 
   "game.casino.007.reload": "&aReload",
   "game.casino.007.shoot": "&cShoot",
