@@ -27,8 +27,8 @@ public class VIPZoneHandler extends HyriListener<HyriLobby> {
         final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
         final IHyriPlayer account = IHyriPlayer.get(player.getUniqueId());
 
-        if (vip.isInArea(player.getLocation()) && account.getRank().is(PlayerRank.PLAYER)) {
-            player.teleport(this.plugin.config().getVIPLocation().asBukkit());
+        if (vip.isInArea(player.getLocation())) {
+            if (account.getRank().is(PlayerRank.PLAYER)) player.teleport(this.plugin.config().getVIPLocation().asBukkit());
             if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
                 player.removePotionEffect(PotionEffectType.NIGHT_VISION);
             }
