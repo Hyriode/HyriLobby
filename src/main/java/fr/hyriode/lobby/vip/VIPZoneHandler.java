@@ -32,7 +32,7 @@ public class VIPZoneHandler extends HyriListener<HyriLobby> {
             if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
                 player.removePotionEffect(PotionEffectType.NIGHT_VISION);
             }
-        } else {
+        } else if (vip.isInArea(player.getLocation()) && account.getRank().isSuperior(PlayerRank.VIP)){
             if (!player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
                 player.addPotionEffect(PotionEffectType.NIGHT_VISION.createEffect(Integer.MAX_VALUE, 1));
             }
