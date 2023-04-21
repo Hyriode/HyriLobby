@@ -36,6 +36,6 @@ public class CosmeticsCommand extends HyriCommand<HyriLobby> {
             return;
         }
 
-        new CosmeticsMainGui(player).open();
+        new CosmeticsMainGui(player, this.plugin).open();
     }
 }

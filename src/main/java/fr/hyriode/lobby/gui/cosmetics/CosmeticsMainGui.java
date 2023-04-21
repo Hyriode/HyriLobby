@@ -8,25 +8,37 @@ import fr.hyriode.cosmetics.utils.StringUtil;
 import fr.hyriode.hyrame.inventory.HyriInventory;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.language.HyrameMessage;
+import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.gui.LobbyGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class CosmeticsMainGui extends HyriInventory {
+public class CosmeticsMainGui extends LobbyGUI {
 
     private final CosmeticUser user;
 
-    public CosmeticsMainGui(Player owner) {
-        super(owner, name(owner, "gui.cosmetic.name"), 9 * 6);
+    public CosmeticsMainGui(Player owner, HyriLobby plugin) {
+        super(owner, plugin, name(owner, "gui.cosmetic.name"), 9 * 6);
         this.user = HyriCosmetics.get().getUserProvider().getUser(owner.getUniqueId());
+
+        this.init();
     }
 
     @Override
-    public void open() {
-        super.open();
+    protected void init() {
         this.applyDesign(Design.BORDER);
+
+        this.setItem(51, new ItemBuilder(Material.BARRIER)
+                .withName(ChatColor.RED + HyriLanguageMessage.get("gui.cosmetic.unequip.all").getValue(owner))
+                .build(), event -> user.unequipCosmetics(false));
+
+        this.addCategoriesItem();
+    }
+
+    private void addCategoriesItem() {
         HyriCosmetics.get().getCosmetics().forEach((category, cosmetics) -> {
             final List<Cosmetic> unlockedCosmetics = user.getUnlockedCosmetics(category);
             this.setItem(
@@ -43,11 +55,7 @@ public class CosmeticsMainGui extends HyriInventory {
                             .appendLore("")
                             .appendLore(HyrameMessage.CLICK_TO_SEE.asString(owner))
                             .build()
-            , event -> new CosmeticsGui(owner, category).open());
+                    , event -> this.openWithGoBack(49, new CosmeticsGui(owner, plugin, category)));
         });
-
-        this.setItem(49, new ItemBuilder(Material.BARRIER)
-                .withName(ChatColor.RED + HyriLanguageMessage.get("gui.cosmetic.unequip.all").getValue(owner))
-                .build(), event -> user.unequipCosmetics(false));
     }
 }

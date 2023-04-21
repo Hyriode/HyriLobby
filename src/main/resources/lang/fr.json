@@ -340,10 +340,10 @@
   "gui.cosmetic.filter.item.name": "§bTrier",
   "gui.cosmetic.filter.item.lore": "§7Permet de trier les cosmétiques.\n§7 \n§3Possédée:\n§8▪ %owned_yes%\n§8▪ %owned_no%\n§8\n§3Rareté:\n§8▪ %rarity_no%\n§8▪ %rarity_ascending%\n§8▪ %rarity_descending%\n§8\n§3Prix:\n§8▪ %price_no%\n§8▪ %price_ascending%\n§8▪ %price_descending%\n§8\n§3Cliquer pour modifier",
   "gui.cosmetic.filter.name": "Filtres",
-  "gui.cosmetic.rarity": "§7Rareté",
+  "gui.cosmetic.rarity": "§8▪ §7Rareté",
   "gui.cosmetic.unlocked": "§b%percentage%% débloqué(s) §7(%unlocked%/%total%)",
-  "gui.cosmetic.price_two_option": "§7Prix: %price1% §7ou %price2%",
-  "gui.cosmetic.price_one_option": "§7Prix: %price1%",
+  "gui.cosmetic.price_two_option": "§8▪ §7Prix: %price1% §7/ %price2%",
+  "gui.cosmetic.price_one_option": "§8▪ §7Prix: %price1%",
 
   "gui.cosmetic.cant_unlock": "§cVous ne pouvez pas débloquer ce cosmétique.",
   "gui.cosmetic.click_to_buy": "§3Cliquer pour acheter",
