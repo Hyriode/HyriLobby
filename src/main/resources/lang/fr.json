@@ -347,6 +347,21 @@
 
   "message.casino.cancel-bet": "&cVous avez annulé votre mise.",
 
+  "message.casino.shifumi.rock": "&aVous avez joué la pierre.",
+  "message.casino.shifumi.paper": "&aVous avez joué le papier.",
+  "message.casino.shifumi.scissors": "&aVous avez joué les ciseaux.",
+
+  "message.casino.shifumi.bot-rock": "&cVotre adversaire a joué la pierre.",
+  "message.casino.shifumi.bot-paper": "&cVotre adversaire a joué le papier.",
+  "message.casino.shifumi.bot-scissors": "&cVotre adversaire a joué les ciseaux.",
+
+  "game.casino.shifumi.rock": "&8Pierre",
+  "game.casino.shifumi.paper": "&fFeuille",
+  "game.casino.shifumi.scissors": "&7Ciseaux",
+
+  "game.casino.shifumi.equality": "&7Egalité, rejouez la partie.",
+
+
   "prefix.casino": "§3Casino §f┃ ",
 
   "gui.cosmetic.name": "Cosmetiques",
