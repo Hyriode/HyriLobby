@@ -55,7 +55,7 @@ public class CosmeticsGui extends LobbyGUI {
                         .withLore(StringUtil.splitIntoPhrases(category.getTranslatedDescription().getValue(owner), 40))
                         .appendLore("§7")
                         .appendLore(HyriLanguageMessage.get("gui.cosmetic.unlocked").getValue(owner)
-                                .replace("%percentage%", String.valueOf((unlockedCosmetics.size() / (cosmetics.size() == 0 ? 1 : cosmetics.size())) * 100))
+                                .replace("%percentage%", String.valueOf((int) (((double) unlockedCosmetics.size() / (cosmetics.size() == 0 ? 1 : (double) cosmetics.size())) * 100.0D)))
                                 .replace("%unlocked%", String.valueOf(unlockedCosmetics.size()))
                                 .replace("%total%", String.valueOf(cosmetics.size()))
                         ).build()
