@@ -124,7 +124,7 @@
   "gui.profile.item.hyriplus-store-link.name": "&3Cliquer pour voir le lien de la boutique",
   "gui.profile.item.hyriplus-change-color.name": "&3Cliquer pour modifier la couleur",
   "gui.profile.item.boosters.name": "&bBoosters",
-  "gui.profile.item.boosters.lore": "&7Les boosters permettent d'augmenter\n&7les gains d'&bxp &7ou d'&bHyris &7dans\n&7un jeu spécifique ou sur l'intégralité\n&7du serveur.\n\n&3Cliquer pour voir",
+  "gui.profile.item.boosters.lore": "&7Les boosters permettent d'augmenter\n&7les gains d'&bxp &7ou d'&bHyris &7dans\n&7un jeu spécifique.\n\n&3Cliquer pour voir",
   "gui.profile.item.statistics.name": "&bStatistiques",
   "gui.profile.item.statistics.lore": "&7Affiche tes statistiques dans les\n&7différents jeux présents sur le\n&7serveur.\n\n&3Cliquer pour voir",
 
@@ -175,7 +175,7 @@
   "gui.store.item.lootboxes.name": "&bLootboxes",
   "gui.store.item.lootboxes.lore": "&7Les lootboxes permettent de gagner\n&7des &brécompenses &7aléatoires.\n\n&3Cliquer pour voir",
   "gui.store.item.boosters.name": "&bBoosters",
-  "gui.store.item.boosters.lore": "&7Les boosters permettent d'augmenter\n&7les gains d'&bxp &7ou d'&bHyris &7dans\n&7un jeu spécifique ou sur l'intégralité\n&7du serveur.\n\n&3Cliquer pour voir",
+  "gui.store.item.boosters.lore": "&7Les boosters permettent d'augmenter\n&7les gains d'&bxp &7ou d'&bHyris &7dans\n&7un jeu spécifique.\n\n&3Cliquer pour voir",
   "gui.store.item.ranks.name": "&bGrades",
   "gui.store.item.ranks.lore": "&7Les grades donnent de nombreux\n&7avantages: boosts d'&bxp &7et d'&bHyris&7,\n&bpréfixe&7, &bpriorité &7sur le serveur, etc.\n\n&3Cliquer pour voir",
   "gui.store.item.cosmetics.name": "&bCosmétiques",
