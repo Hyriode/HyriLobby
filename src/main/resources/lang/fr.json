@@ -344,6 +344,7 @@
   "gui.cosmetic.unlocked": "§b%percentage%% débloqué(s) §7(%unlocked%/%total%)",
   "gui.cosmetic.price_two_option": "§8▪ §7Prix: %price1% §7/ %price2%",
   "gui.cosmetic.price_one_option": "§8▪ §7Prix: %price1%",
+  "gui.cosmetic.offered_with_rank": "§8▪ §7Offert avec le grade: %rank%",
 
   "gui.cosmetic.cant_unlock": "§cVous ne pouvez pas débloquer ce cosmétique.",
   "gui.cosmetic.click_to_buy": "§3Cliquer pour acheter",
