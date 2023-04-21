@@ -23,6 +23,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class CosmeticsGui extends LobbyGUI {
 
@@ -99,7 +100,7 @@ public class CosmeticsGui extends LobbyGUI {
             ));
         }
 
-        List<Cosmetic> cosmetics = new ArrayList<>(HyriCosmetics.get().getFilteredCosmetics(user, category));
+        List<Cosmetic> cosmetics = new ArrayList<>(user.getUnlockedCosmetics().stream().filter(cosmetic -> cosmetic.getCategory() == category).collect(Collectors.toList()));
         if (user.hasEquippedCosmetic(category)) {
             cosmetics.remove(user.getEquippedCosmetic(category));
         }
