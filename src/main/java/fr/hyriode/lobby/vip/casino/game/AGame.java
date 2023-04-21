@@ -30,12 +30,18 @@ public abstract class AGame {
         this.getInventory().open();
     }
 
-    public void onWinning(long hyris) {
+
+
+    public void onWinning(long hyrisReturned, long hyrisMessage) {
         final IHyriPlayer hyriPlayer = IHyriPlayer.get(this.player.getUniqueId());
-        hyriPlayer.getHyris().add(hyris).withMultiplier(false).exec();
+        hyriPlayer.getHyris().add(hyrisReturned).withMultiplier(false).exec();
         hyriPlayer.update();
 
-        this.player.sendMessage(LobbyMessage.WON.asString(this.player) + "§e" + hyris + " Hyris" + "§6.");
+        this.player.sendMessage(LobbyMessage.CASINO_WON.asString(this.player) + "§e" + hyrisMessage + " Hyris" + "§6.");
+    }
+
+    public void onWinning(long hyris) {
+        this.onWinning(hyris, hyris);
     }
 
     protected abstract HyriInventory getInventory();

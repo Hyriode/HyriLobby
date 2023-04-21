@@ -71,7 +71,7 @@ public class ZeroZeroSevenGame extends AGame {
         if(playerAction == E007Action.SHOOT && botAction == E007Action.SHOOT) {
             this.draw();
         } else if(playerAction == E007Action.SHOOT && botAction == E007Action.RELOAD) {
-            this.onWinning((long) (this.hyris + this.hyris*1.7));
+            this.onWinning((long) (this.hyris + this.hyris*1.7), (long) (this.hyris*1.7));
         } else if (playerAction == E007Action.RELOAD && botAction == E007Action.SHOOT) {
             this.loose();
         }
@@ -99,18 +99,22 @@ public class ZeroZeroSevenGame extends AGame {
 
 
     @Override
-    public void onWinning(long hyris) {
-        super.onWinning(hyris);
+    public void onWinning(long hyrisReturned, long hyrisMessage) {
+        super.onWinning(hyrisReturned, hyrisReturned);
         this.end();
     }
 
     protected void draw() {
-        this.player.sendMessage(LobbyMessage.DRAW.asString(this.player));
+        final IHyriPlayer hyriPlayer = IHyriPlayer.get(this.player.getUniqueId());
+        hyriPlayer.getHyris().add(this.hyris).withMultiplier(false).exec();
+        hyriPlayer.update();
+
+        this.player.sendMessage(LobbyMessage.CASINO_DRAW.asString(this.player));
         this.end();
     }
 
     protected void loose() {
-        this.player.sendMessage( LobbyMessage.LOST.asString(this.player) + this.hyris + " Hyris");
+        this.player.sendMessage( LobbyMessage.CASINO_LOST.asString(this.player) + this.hyris + " Hyris");
         this.end();
     }
 
