@@ -2,6 +2,7 @@ package fr.hyriode.lobby.gui.cosmetics;
 
 import fr.hyriode.cosmetics.HyriCosmetics;
 import fr.hyriode.cosmetics.common.Cosmetic;
+import fr.hyriode.cosmetics.transaction.CosmeticTransaction;
 import fr.hyriode.cosmetics.user.CosmeticUser;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Symbols;
@@ -112,10 +113,8 @@ public class CosmeticsPurchaseConfirmGui extends LobbyGUI {
 
             this.owner.sendMessage(LobbyMessage.STORE_PURCHASE_CONFIRMED_MESSAGE.asString(account));
             this.owner.playSound(this.owner.getLocation(), Sound.LEVEL_UP, 1.0F, 2.0F);
-
-            final CosmeticUser cosmeticUser = HyriCosmetics.get().getUserProvider().getUser(this.owner.getUniqueId());
-            cosmeticUser.addUnlockedCosmetic(cosmetic);
-
+            
+            account.getTransactions().add(CosmeticTransaction.TYPE, new CosmeticTransaction(cosmetic.getId()));
             account.update();
         };
     }
