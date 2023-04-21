@@ -5,7 +5,6 @@ import fr.hyriode.hyrame.inventory.HyriInventory;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.vip.casino.game.AGame;
 import fr.hyriode.lobby.vip.casino.game.inventory.GameInventoryBuilder;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Random;
@@ -62,7 +61,7 @@ public class WhoWantsToBeAMillionaireGame extends AGame {
         if(this.result()) {
             new ContinueInventory(this, (long) (hyris * 1.5)).open();
         } else {
-            this.player.sendMessage(LobbyMessage.LOST.asString(this.player) + ".");
+            this.player.sendMessage(LobbyMessage.CASINO_LOST.asString(this.player) + ".");
             this.player.getOpenInventory().close();
         }
     }
