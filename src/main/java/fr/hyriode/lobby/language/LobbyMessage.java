@@ -277,9 +277,9 @@ public enum LobbyMessage {
     WWTBAM_NAME("game.casino.wwtbam.name"),
     DO_NOT_HAVE_ENOUGH_HYRIS("message.casino.dont-have-hyris", CASINO_PREFIX),
 
-    WON("message.won", CASINO_PREFIX),
-    LOST("message.lost", CASINO_PREFIX),
-    DRAW("message.draw", CASINO_PREFIX),
+    CASINO_WON("message.won", CASINO_PREFIX),
+    CASINO_LOST("message.lost", CASINO_PREFIX),
+    CASINO_DRAW("message.draw", CASINO_PREFIX),
 
     CASINO_RELOAD("game.casino.007.reload"),
     CASINO_SHOOT("game.casino.007.shoot"),
@@ -298,6 +298,8 @@ public enum LobbyMessage {
     CASINO_CONTINUE("game.casino.wwtbam.continue"),
     CASINO_CONFIRM_BET("click.to-confirm-bet"),
     CASINO_CANCEL_BET("message.casino.cancel-bet", CASINO_PREFIX),
+
+    ROLLER_MACHINES_DESCRIPTION("hologram.casino.roller-machines.description")
     ;
 
     private HyriLanguageMessage languageMessage;
