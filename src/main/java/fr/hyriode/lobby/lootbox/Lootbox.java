@@ -1,7 +1,9 @@
 package fr.hyriode.lobby.lootbox;
 
 import fr.hyriode.api.lootbox.HyriLootboxRarity;
+import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.store.StorePrice;
+import org.bukkit.ChatColor;
 
 /**
  * Created by AstFaster
@@ -29,6 +31,15 @@ public enum Lootbox {
 
     public StorePrice[] getPrices() {
         return this.prices;
+    }
+
+    public String format() {
+        final StringBuilder stars = new StringBuilder();
+
+        for (int i = 1; i <= 5; i++) {
+            stars.append(this.rarity.getId() < i ? ChatColor.GRAY : ChatColor.YELLOW).append(Symbols.STAR);
+        }
+        return stars.toString();
     }
 
 }

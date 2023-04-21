@@ -10,7 +10,9 @@ import fr.hyriode.hyrame.utils.TimeUtil;
 import fr.hyriode.hyrame.utils.list.ListReplacer;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.LobbyGUI;
+import fr.hyriode.lobby.gui.cosmetics.CosmeticsMainGui;
 import fr.hyriode.lobby.gui.profile.booster.BoostersGUI;
+import fr.hyriode.lobby.gui.profile.lootbox.LootboxesGUI;
 import fr.hyriode.lobby.gui.settings.LanguageGUI;
 import fr.hyriode.lobby.gui.settings.SettingsGUI;
 import fr.hyriode.lobby.language.Language;
@@ -64,9 +66,9 @@ public class ProfileGUI extends LobbyGUI {
 
         // Hyri+
         this.setItem(30, HEAD_ITEM.apply(UsefulHead.GOLD_BLOCK)
-                        .withName(ChatColor.AQUA + "Hyri+")
-                        .withLore(this.getHyriPlusLore())
-                        .build(),
+                .withName(ChatColor.AQUA + "Hyri+")
+                .withLore(this.getHyriPlusLore())
+                .build(),
                 event -> {
                     if (this.account.getHyriPlus().has()) {
                         this.openWithGoBack(49, new PlusColorGUI(this.owner, this.plugin));
@@ -77,9 +79,9 @@ public class ProfileGUI extends LobbyGUI {
 
         // Settings
         this.setItem(31, new ItemBuilder(Material.REDSTONE_COMPARATOR)
-                        .withName(LobbyMessage.PROFILE_SETTINGS_NAME.asString(this.account))
-                        .withLore(LobbyMessage.PROFILE_SETTINGS_LORE.asList(this.account))
-                        .build(),
+                .withName(LobbyMessage.PROFILE_SETTINGS_NAME.asString(this.account))
+                .withLore(LobbyMessage.PROFILE_SETTINGS_LORE.asList(this.account))
+                .build(),
                 event -> this.openWithGoBack(49, new SettingsGUI(this.plugin, this.owner, false)));
 
         // Language
@@ -87,17 +89,24 @@ public class ProfileGUI extends LobbyGUI {
 
         // Boosters
         this.setItem(23, new ItemBuilder(new Potion(PotionType.WATER))
-                        .withName(LobbyMessage.PROFILE_BOOSTERS_NAME.asString(this.account))
-                        .withLore(LobbyMessage.PROFILE_BOOSTERS_LORE.asList(this.account))
-                        .build(),
+                .withName(LobbyMessage.PROFILE_BOOSTERS_NAME.asString(this.account))
+                .withLore(LobbyMessage.PROFILE_BOOSTERS_LORE.asList(this.account))
+                .build(),
                 event -> this.openWithGoBack(49, new BoostersGUI(this.plugin, this.owner)));
 
         // Lootboxes
-        this.setItem(40, new ItemBuilder(Material.ENDER_CHEST)
-                        .withName(LobbyMessage.PROFILE_LOOTBOXES_NAME.asString(this.account))
-                        .withLore(LobbyMessage.PROFILE_LOOTBOXES_DESCRIPTION.asString(this.account))
-                        .build(),
-                event -> this.openWithGoBack(49, new LootboxesGUI(this.owner, this.plugin)));
+        this.setItem(39, ItemBuilder.asHead(UsefulHead.ENDER_CHEST)
+                .withName(LobbyMessage.PROFILE_LOOTBOXES_NAME.asString(this.account))
+                .withLore(LobbyMessage.PROFILE_LOOTBOXES_DESCRIPTION.asString(this.account))
+                .build(),
+                event -> this.openWithGoBack(49, new LootboxesGUI(this.plugin, this.owner)));
+
+        // Cosmetics
+        this.setItem(41, ItemBuilder.asHead()
+                .withHeadTexture(UsefulHead.COSMETICS_CHEST)
+                .withName(LobbyMessage.STORE_COSMETICS_NAME.asString(this.account))
+                .withLore(LobbyMessage.STORE_COSMETICS_LORE.asList(this.account))
+                .build(), event -> this.openWithGoBack(49, new CosmeticsMainGui(this.owner, this.plugin)));
     }
 
     private List<String> getAccountLore() {

@@ -57,11 +57,10 @@ public class BoostersGUI extends LobbyGUI {
 
             final ItemStack itemStack = this.createBoosterItem(booster);
 
-            pagination.add(PaginatedItem.from(itemStack, event ->
+            pagination.add(PaginatedItem.from(itemStack, event -> this.openWithGoBack(49,
                     new BoosterGameSelectorGUI(this.owner, this.plugin, entry.getKey(), booster, new ItemBuilder(itemStack.clone())
-                        .removeLoreLines(2)
-                        .build())
-                    .open()));
+                    .removeLoreLines(2)
+                    .build()))));
         }
     }
 

@@ -1,6 +1,7 @@
 package fr.hyriode.lobby.gui.cosmetics;
 
 import fr.hyriode.api.language.HyriLanguageMessage;
+import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.cosmetics.HyriCosmetics;
 import fr.hyriode.cosmetics.common.Cosmetic;
 import fr.hyriode.cosmetics.common.CosmeticCategory;
@@ -74,6 +75,10 @@ public class CosmeticsGui extends LobbyGUI {
                 }
         );
 
+        this.setItem(49, new ItemBuilder(Material.ARROW)
+                .withName(LobbyMessage.BACK_ITEM.asString(this.account))
+                .build(), event -> new CosmeticsMainGui(this.owner, this.plugin).open());
+
         this.addPagesItems(27, 35);
     }
 
@@ -84,6 +89,7 @@ public class CosmeticsGui extends LobbyGUI {
 
     private void setupItems() {
         final Pagination<PaginatedItem> pagination = this.paginationManager.getPagination();
+
         pagination.clear();
 
         if (!user.hasEquippedCosmetic(category)) {
@@ -129,10 +135,11 @@ public class CosmeticsGui extends LobbyGUI {
                         return;
                     }
                 }
+
                 this.user.equipCosmetic(cosmetic, true);
                 this.owner.playSound(this.owner.getLocation(), Sound.VILLAGER_IDLE, 0.5F, 1.0F);
-                this.owner.getOpenInventory().close();
-                new CosmeticsGui(this.owner, plugin, category).open();
+
+                new CosmeticsGui(this.owner, this.plugin, this.category).open();
             }
         };
     }

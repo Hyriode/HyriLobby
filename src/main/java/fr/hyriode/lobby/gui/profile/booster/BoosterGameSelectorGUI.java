@@ -46,13 +46,12 @@ public class BoosterGameSelectorGUI extends LobbyGUI {
         this.booster = booster;
         this.boosterIcon = boosterIcon;
 
-        this.newUpdate(3 * 20L);
-
         this.init();
     }
 
     @Override
     protected void init() {
+        this.newUpdate(3 * 20L);
         this.applyDesign(Design.BORDER);
 
         this.setItem(4, this.boosterIcon);
@@ -128,7 +127,8 @@ public class BoosterGameSelectorGUI extends LobbyGUI {
                             HyriAPI.get().getBoosterManager().enableBooster(this.owner.getUniqueId(), game.getName(), this.booster.getMultiplier(), this.booster.getDuration());
                         })
                         .whenCancel(e -> {
-                            new BoosterGameSelectorGUI(this.owner, this.plugin, this.transaction, this.booster, this.boosterIcon).open();
+                            this.init();
+                            this.open();
 
                             this.owner.playSound(this.owner.getLocation(), Sound.FIZZ, 0.5F, 1.0F);
                         }).open();

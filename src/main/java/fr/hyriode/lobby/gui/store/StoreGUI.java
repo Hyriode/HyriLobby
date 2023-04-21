@@ -48,8 +48,7 @@ public class StoreGUI extends LobbyGUI {
                 .build(), event -> this.openWithGoBack(49, new RanksGUI(this.owner, this.plugin)));
         
         // Cosmetics
-        this.setItem(31, ItemBuilder.asHead()
-                .withHeadTexture(UsefulHead.COSMETICS_CHEST)
+        this.setItem(31, ItemBuilder.asHead(UsefulHead.COSMETICS_CHEST)
                 .withName(LobbyMessage.STORE_COSMETICS_NAME.asString(this.account))
                 .withLore(LobbyMessage.STORE_COSMETICS_LORE.asList(this.account))
                 .build(), event -> this.openWithGoBack(49, new CosmeticsMainGui(this.owner, this.plugin)));

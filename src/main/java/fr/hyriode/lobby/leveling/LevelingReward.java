@@ -5,6 +5,9 @@ import fr.hyriode.api.color.HyriChatColor;
 import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.lootbox.HyriLootboxRarity;
 import fr.hyriode.api.player.IHyriPlayer;
+import fr.hyriode.cosmetics.HyriCosmetics;
+import fr.hyriode.cosmetics.common.Cosmetic;
+import fr.hyriode.cosmetics.user.CosmeticUser;
 import fr.hyriode.hyrame.utils.Symbols;
 import org.bukkit.ChatColor;
 
@@ -21,7 +24,7 @@ public enum LevelingReward {
     LEVEL_3(3, new ExperienceHandler(500.0D)),
     LEVEL_4(4, new HyrisHandler(2000L)),
     LEVEL_5(5, new LootboxHandler(new LootboxHandler.Data(HyriLootboxRarity.ONE_STAR, 1))),
-    LEVEL_6(6, null),
+    LEVEL_6(6, new CosmeticHandler(Cosmetic.YELLOW_BALLOON)),
     LEVEL_7(7, new PlusColorHandler(HyriChatColor.AQUA)),
     LEVEL_8(8, new BoosterHandler(new BoosterHandler.Data(1, 1.75D, 3600))),
     LEVEL_9(9, new HyrisHandler(2800L)),
@@ -33,7 +36,7 @@ public enum LevelingReward {
     LEVEL_15(15, new HyrisHandler(3300L)),
     LEVEL_16(16, new LootboxHandler(new LootboxHandler.Data(HyriLootboxRarity.ONE_STAR, 2))),
     LEVEL_17(17, new BoosterHandler(new BoosterHandler.Data(1, 1.75, 7200))),
-    LEVEL_18(18, null),
+    LEVEL_18(18, new CosmeticHandler(Cosmetic.RED_BALLOON)),
     LEVEL_19(19, new HyrisHandler(4000L)),
     LEVEL_20(20, new BoosterHandler(new BoosterHandler.Data(1, 1.75, 7200))),
     LEVEL_21(21, new PlusColorHandler(HyriChatColor.RED)),
@@ -42,7 +45,7 @@ public enum LevelingReward {
     LEVEL_24(24, new BoosterHandler(new BoosterHandler.Data(1, 1.75, 10800))),
     LEVEL_25(25, new HyrisHandler(5000L)),
     LEVEL_26(26, new HyodesHandler(100L)),
-    LEVEL_27(27, null),
+    LEVEL_27(27, new CosmeticHandler(Cosmetic.BLUE_BALLOON)),
     LEVEL_28(28, new PlusColorHandler(HyriChatColor.GRAY)),
     LEVEL_29(29, new LootboxHandler(new LootboxHandler.Data(HyriLootboxRarity.TWO_STARS, 2))),
     LEVEL_30(30, new BoosterHandler(new BoosterHandler.Data(1, 1.75, 10800))),
@@ -53,7 +56,7 @@ public enum LevelingReward {
     LEVEL_35(35, new PlusColorHandler(HyriChatColor.BLUE)),
     LEVEL_36(36, new HyrisHandler(7000L)),
     LEVEL_37(37, new LootboxHandler(new LootboxHandler.Data(HyriLootboxRarity.TWO_STARS, 4))),
-    LEVEL_38(38, null),
+    LEVEL_38(38, new CosmeticHandler(Cosmetic.GREEN_BALLOON)),
     LEVEL_39(39, new BoosterHandler(new BoosterHandler.Data(1, 2.25D, 3600))),
     LEVEL_40(40, new HostHandler(1)),
     LEVEL_41(41, new HyrisHandler(8000L)),
@@ -62,7 +65,7 @@ public enum LevelingReward {
     LEVEL_44(44, new BoosterHandler(new BoosterHandler.Data(1, 2.25D, 3600))),
     LEVEL_45(45, new HyodesHandler(100L)),
     LEVEL_46(46, new HyrisHandler(9000L)),
-    LEVEL_47(47, null),
+    LEVEL_47(47, new CosmeticHandler(Cosmetic.PURPLE_BALLOON)),
     LEVEL_48(48, new BoosterHandler(new BoosterHandler.Data(1, 2.25D, 7200))),
     LEVEL_49(49, new PlusColorHandler(HyriChatColor.DARK_GRAY)),
     LEVEL_50(50, new LootboxHandler(new LootboxHandler.Data(HyriLootboxRarity.THREE_STARS, 2))),
@@ -74,7 +77,7 @@ public enum LevelingReward {
     LEVEL_56(56, new PlusColorHandler(HyriChatColor.GREEN)),
     LEVEL_57(57, new HyrisHandler(10000L)),
     LEVEL_58(58, new BoosterHandler(new BoosterHandler.Data(1, 2.25D, 10800))),
-    LEVEL_59(59, null),
+    LEVEL_59(59, new CosmeticHandler(Cosmetic.ORANGE_BALLOON)),
     LEVEL_60(60, new HyodesHandler(100L)),
     LEVEL_61(61, new LootboxHandler(new LootboxHandler.Data(HyriLootboxRarity.FOUR_STARS, 1))),
     LEVEL_62(62, new HyrisHandler(10000L)),
@@ -84,14 +87,14 @@ public enum LevelingReward {
     LEVEL_66(66, new HyodesHandler(100L)),
     LEVEL_67(67, new HyrisHandler(10000L)),
     LEVEL_68(68, new LootboxHandler(new LootboxHandler.Data(HyriLootboxRarity.FOUR_STARS, 2))),
-    LEVEL_69(69, null),
+    LEVEL_69(69, new CosmeticHandler(Cosmetic.PINK_BALLOON)),
     LEVEL_70(70, new PlusColorHandler(HyriChatColor.DARK_GREEN)),
     LEVEL_71(71, new BoosterHandler(new BoosterHandler.Data(1, 2.25D, 14400))),
     LEVEL_72(72, new HyrisHandler(11000L)),
     LEVEL_73(73, new HyodesHandler(100L)),
     LEVEL_74(74, new BoosterHandler(new BoosterHandler.Data(1, 2.75D, 3600))),
     LEVEL_75(75, new LootboxHandler(new LootboxHandler.Data(HyriLootboxRarity.FOUR_STARS, 4))),
-    LEVEL_76(76, null),
+    LEVEL_76(76, new CosmeticHandler(Cosmetic.LIGHT_BLUE_BALLOON)),
     LEVEL_77(77, new PlusColorHandler(HyriChatColor.DARK_AQUA)),
     LEVEL_78(78, new HyrisHandler(12500L)),
     LEVEL_79(79, new BoosterHandler(new BoosterHandler.Data(1, 2.75D, 3600))),
@@ -104,17 +107,17 @@ public enum LevelingReward {
     LEVEL_86(86, new HostHandler(1)),
     LEVEL_87(87, new HyrisHandler(16000L)),
     LEVEL_88(88, new LootboxHandler(new LootboxHandler.Data(HyriLootboxRarity.FIVE_STARS, 2))),
-    LEVEL_89(89, null),
+    LEVEL_89(89, new CosmeticHandler(Cosmetic.LIME_BALLOON)),
     LEVEL_90(90, new BoosterHandler(new BoosterHandler.Data(1, 2.75D, 7200))),
     LEVEL_91(91, new PlusColorHandler(HyriChatColor.DARK_PURPLE)),
     LEVEL_92(92, new HyrisHandler(19000L)),
     LEVEL_93(93, new HyodesHandler(100L)),
-    LEVEL_94(94, null),
+    LEVEL_94(94, new CosmeticHandler(Cosmetic.GRAY_BALLOON)),
     LEVEL_95(95, new LootboxHandler(new LootboxHandler.Data(HyriLootboxRarity.FIVE_STARS, 4))),
     LEVEL_96(96, new BoosterHandler(new BoosterHandler.Data(1, 2.75D, 10800))),
     LEVEL_97(97, new HyrisHandler(25000L)),
     LEVEL_98(98, new PlusColorHandler(HyriChatColor.GOLD)),
-    LEVEL_99(99, null),
+    LEVEL_99(99, new CosmeticHandler(Cosmetic.DARK_BLUE_BALLOON)),
     LEVEL_100(100, new HyodesHandler(100L)),
 
     ;
@@ -223,20 +226,23 @@ public enum LevelingReward {
 
     }
 
-    private static class CosmeticHandler extends Handler<Long> {
+    private static class CosmeticHandler extends Handler<Cosmetic> {
 
-        public CosmeticHandler(Long data) {
+        public CosmeticHandler(Cosmetic data) {
             super("cosmetic", data);
         }
 
         @Override
         public void claim(IHyriPlayer player) {
+            final CosmeticUser user = HyriCosmetics.get().getUserProvider().getUser(player.getUniqueId());
 
+            user.addUnlockedCosmetic(this.data);
         }
 
         @Override
         public String getDescription(IHyriPlayer player) {
-            return this.description.get().getValue(player);
+            return this.description.get().getValue(player)
+                    .replace("%cosmetic%", data.getTranslatedName().getValue(player));
         }
 
     }

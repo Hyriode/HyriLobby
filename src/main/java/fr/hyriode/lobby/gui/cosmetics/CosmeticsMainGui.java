@@ -55,7 +55,7 @@ public class CosmeticsMainGui extends LobbyGUI {
                             .appendLore("")
                             .appendLore(HyrameMessage.CLICK_TO_SEE.asString(owner))
                             .build()
-                    , event -> this.openWithGoBack(49, new CosmeticsGui(owner, plugin, category)));
+                    , event -> new CosmeticsGui(owner, plugin, category).open());
         });
     }
 }

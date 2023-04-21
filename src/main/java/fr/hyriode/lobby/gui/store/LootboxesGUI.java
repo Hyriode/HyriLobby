@@ -1,7 +1,10 @@
 package fr.hyriode.lobby.gui.store;
 
+import fr.hyriode.api.HyriAPI;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.LobbyGUI;
+import fr.hyriode.lobby.lootbox.Lootbox;
+import fr.hyriode.lobby.lootbox.StoreLootbox;
 import fr.hyriode.lobby.store.StoreCategory;
 import fr.hyriode.lobby.store.StoreItem;
 import org.bukkit.entity.Player;
@@ -14,14 +17,14 @@ public class LootboxesGUI extends LobbyGUI {
 
     private static final StoreCategory CATEGORY = new StoreCategory(null, "lootboxes");
 
-    /*static {
+    static {
         for (Lootbox lootbox : Lootbox.values()) {
             final StoreItem item = new StoreLootbox(CATEGORY.getId(), lootbox)
                     .whenPurchased(account -> HyriAPI.get().getLootboxManager().giveLootbox(account, lootbox.getRarity()));
 
             CATEGORY.addContent(item);
         }
-    }*/
+    }
 
     public LootboxesGUI(Player owner, HyriLobby plugin) {
         super(owner, plugin, () -> "store-lootboxes", 54);

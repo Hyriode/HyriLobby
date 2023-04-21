@@ -110,12 +110,12 @@ public class CosmeticsPurchaseConfirmGui extends LobbyGUI {
             }
 
             price.getCurrency().removeAmount(account, price.getAmount());
+            account.update();
 
             this.owner.sendMessage(LobbyMessage.STORE_PURCHASE_CONFIRMED_MESSAGE.asString(account));
             this.owner.playSound(this.owner.getLocation(), Sound.LEVEL_UP, 1.0F, 2.0F);
 
-            account.getTransactions().add(CosmeticTransaction.TYPE, new CosmeticTransaction(cosmetic.getId()));
-            account.update();
+            HyriCosmetics.get().getUserProvider().getUser(this.owner).addUnlockedCosmetic(cosmetic);
         };
     }
 

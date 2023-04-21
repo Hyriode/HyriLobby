@@ -44,7 +44,7 @@ public abstract class LobbyGUI extends PaginatedInventory {
 
     protected HyriLobby plugin;
     protected final IHyrame hyrame;
-    protected final IHyriPlayer account;
+    protected IHyriPlayer account;
     protected final IHyriPlayerSession session;
 
     public LobbyGUI(Player owner, HyriLobby plugin, String name, int size) {
@@ -64,7 +64,7 @@ public abstract class LobbyGUI extends PaginatedInventory {
     @Override
     public void updatePagination(int page, List<PaginatedItem> items) {
         if (this.pagesItem) {
-            this.addDefaultPagesItems(this.previousPageSlot, this.nextPageSlot);
+            this.addPagesItems(this.previousPageSlot, this.nextPageSlot);
         }
     }
 
@@ -81,7 +81,9 @@ public abstract class LobbyGUI extends PaginatedInventory {
         this.previousPageSlot = previousSlot;
         this.nextPageSlot = nextSlot;
 
-        this.addDefaultPagesItems(previousSlot, nextSlot);
+        if (this.paginationManager.getPagination().totalPages() > 1) {
+            this.addDefaultPagesItems(previousSlot, nextSlot);
+        }
     }
 
 }

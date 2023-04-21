@@ -148,6 +148,9 @@ public enum LobbyMessage {
     LEVELING_REWARD_NOT_LEVEL_LINE("leveling.reward-not-level.line"),
     LEVELING_REWARD_ITEM("leveling.reward.item.name"),
 
+    LOOTBOX_ITEM_NAME("gui.lootboxes.item.name"),
+    LOOTBOX_REWARD_MESSAGE("lootbox.reward.message"),
+
     STORE_PREFIX("prefix.store"),
     STORE_LOOTBOXES_NAME("gui.store.item.lootboxes.name"),
     STORE_LOOTBOXES_LORE("gui.store.item.lootboxes.lore"),
@@ -252,7 +255,9 @@ public enum LobbyMessage {
     CLICK_TO_SPECTATE("click.to-spectate"),
     CLICK_TO_SELECT("click.to-select"),
     CLICK_TO_SHOW("click.to-show"),
+    CLICK_TO_SEE("click.to-see"),
     CLICK_TO_CLAIM("click.to-claim"),
+    CLICK_TO_OPEN("click.to-open"),
 
     LEADERBOARD_LEVELING_HEADER("leaderboard.leveling.header"),
     LEADERBOARD_JUMP_HEADER("leaderboard.jump.header"),

@@ -124,9 +124,9 @@
   "gui.profile.item.hyriplus-store-link.name": "&3Click to see the store link",
   "gui.profile.item.hyriplus-change-color.name": "&3Click to change color",
   "gui.profile.item.boosters.name": "&bBoosters",
-  "gui.profile.item.boosters.lore": "&7Boosters increase the gains of\n&bxp &7or &bHyris &7in a specific game.\n\n&3Click to see",
-  "gui.profile.item.statistics.name": "&bStatistics",
-  "gui.profile.item.statistics.lore": "&7See your stats in the\n&7different games that are\n&7on the server.\n\n&3Click to see",
+  "gui.profile.item.boosters.lore": "&7Boosters increase the gains of\n&bxp &7or &bHyris &7in a specific game.\n&7Boosters are obtained in the &6store&7.\n\n&3Click to see",
+  "gui.profile.item.lootboxes.name": "&bLootboxes",
+  "gui.profile.item.lootboxes.description": "&bLootboxes &7allow you to earn\n&7many rewards (&dHyris&7,\n&bcosmetics&7, etc)&7.\n&7Lootboxes are obtained in the &6store&7.\n\n&3Click to see",
 
   "gui.friends.name": "&8Friends",
   "gui.friends.friend.item.lore": "&8▪ &7Online: %online%\n&8▪ &7Friends for: &b%friends_for%&8(%date%)\n&8▪ &7Premium: %premium%\n&8▪ &7Level: &b%level% ✯\n\n&cRight-click to remove friend",
@@ -165,11 +165,25 @@
   "leveling.hyris.description": "&8+&d%amount% ⛃",
   "leveling.hyodes.description": "&8+&a%amount% ✦",
   "leveling.experience.description": "&8+&a%amount% XP",
-  "leveling.cosmetic.description": "&8+TODO Cosmetic",
   "leveling.lootbox.description": "&8+&7%amount% Lootbox %stars%",
   "leveling.booster.description": "&8+&7%amount% &dHyris &7booster &b+%boost%% &8(%multiplier%)",
   "leveling.plus-color.description": "&8+&7Hyri%color%+ &7color",
   "leveling.host.description": "&8+%amount% &7host &bticket(s)",
+  "leveling.cosmetic.description": "&8+%cosmetic%",
+
+  "gui.lootboxes.name": "&8Lootboxes",
+  "gui.lootboxes.item.name": "&bLootbox &8┃ %stars%",
+  "gui.lootbox-preview.name": "&8Preview",
+
+  "lootbox.reward.message": "&3Lootbox &f ┃ You just &aearn &fthe reward: %reward%&f.",
+
+  "lootbox-reward.hyris.name": "&d%amount% Hyris",
+  "lootbox-reward.hyodes.name": "&a%amount% Hyodes",
+  "lootbox-reward.experience.name": "&a%amount% XP",
+  "lootbox-reward.booster.name": "&bBooster &8┃ &7%boost%",
+  "lootbox-reward.booster.description": "\n&8Information:\n&8▪ &7Boost: &b%boost% &8(%multiplier%)\n&8▪ &7Duration: &b1h",
+  "lootbox-reward.lootbox.name": "&bLootbox &8┃ %stars%",
+  "lootbox-reward.hosts.name": "&b%tickets% host ticket(s)",
 
   "prefix.store": "&3Store &f┃ ",
   "gui.store.name": "&8Store",
@@ -205,13 +219,10 @@
   "gui.store-confirm.money-edit.description": "&7Edit the currency to use to\n&7purchase this item.\n\n&8Statut:\n%currencies%\n\n&3Click to edit",
 
   "gui.store-lootboxes.name": "&8Lootboxes",
-  "store.item.lootbox.name": "&bLootbox %stars%",
-  "store.item.lootbox.description": "&7A &blootbox &7allows you to earn\n&7many rewards (&dHyris&7, &bcosmetics&7, etc).\n&7Rewards depend of the rarity of the\n&7lootbox.",
+  "store.item.lootbox.name": "&bLootbox &8┃ %stars%",
+  "store.item.lootbox.description": "&7A &blootbox &7allows you to earn\n&7many rewards (&bHyris&7, &bcosmetics&7, etc).\n&7Rewards depend of the rarity of the\n&7lootbox.",
 
   "gui.store-cosmetics.name": "&8Cosmetics",
-
-  "gui.profile.item.lootboxes.name": "&bLootboxes",
-  "gui.profile.item.lootboxes.description": "&bLootboxes &7allow you to earn\n&7many rewards (&dHyris&7,\n&bcosmetics&7, etc)&7.\nLootboxes can be obtained in the &6store.",
 
   "gui.confirm.name": "&8Confirm",
   "gui.confirm.item.confirm.name": "&aConfirm",
@@ -295,7 +306,9 @@
   "click.to-spectate": "&3Click to spectate",
   "click.to-select": "&3Click to select",
   "click.to-show": "&3Click to show",
+  "click.to-see": "&3Click to see",
   "click.to-claim": "&3Click to claim",
+  "click.to-open": "&3Click to ouvrir",
 
   "npc.language.header": "&3Language\n&fSelect your language\n&8» &bCLICK &8«",
   "npc.rotating-game.header": "&f&kE&r &bRotating game &r&f&kE\n&3&l%rotating_game%\n&b%players% &fplayers",

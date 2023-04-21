@@ -28,6 +28,7 @@ public class LobbyScoreboard extends HyriScoreboard {
         this.addBlankLine(10);
 
         this.addLines();
+        this.setLine(11, this.getServerIp(), new IPLine(HyriConstants.SERVER_IP), 2);
     }
 
     public void update(boolean all) {
@@ -45,7 +46,6 @@ public class LobbyScoreboard extends HyriScoreboard {
     private void addLines() {
         this.setLine(3, this.getServer());
         this.setLine(5, this.getProfile());
-        this.setLine(11, this.getServerIp(), new IPLine(HyriConstants.SERVER_IP), 2);
 
         this.addUpdatableLines();
     }

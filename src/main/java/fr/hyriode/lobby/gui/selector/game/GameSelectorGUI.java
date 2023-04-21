@@ -115,9 +115,9 @@ public class GameSelectorGUI extends LobbyGUI {
             lore.add(lore.indexOf("%booster%"), LobbyMessage.GAME_BOOSTER_LINE.asString(this.account)
                     .replace("%owner%", IHyriPlayer.get(booster.getOwner()).getNameWithRank())
                     .replace("%boost%", String.valueOf(((int) (booster.getMultiplier() * 100 - 100)))));
-            lore.add("");
         }
 
+        lore.add(lore.indexOf("%booster%") + 1, "");
         lore.remove("%booster%");
 
         final ItemStack rotatingGameItem = ItemBuilder.asHead(head)
