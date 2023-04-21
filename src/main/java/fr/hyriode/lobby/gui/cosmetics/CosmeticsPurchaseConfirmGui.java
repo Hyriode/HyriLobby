@@ -1,9 +1,7 @@
 package fr.hyriode.lobby.gui.cosmetics;
 
-import fr.hyriode.api.player.model.IHyriTransaction;
 import fr.hyriode.cosmetics.HyriCosmetics;
 import fr.hyriode.cosmetics.common.Cosmetic;
-import fr.hyriode.cosmetics.transaction.CosmeticTransaction;
 import fr.hyriode.cosmetics.user.CosmeticUser;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Symbols;
@@ -11,7 +9,6 @@ import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.gui.LobbyGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.store.StorePrice;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -119,13 +116,6 @@ public class CosmeticsPurchaseConfirmGui extends LobbyGUI {
             final CosmeticUser cosmeticUser = HyriCosmetics.get().getUserProvider().getUser(this.owner.getUniqueId());
             cosmeticUser.addUnlockedCosmetic(cosmetic);
 
-            if (cosmeticUser.asHyriPlayer().getTransactions().getAll(CosmeticTransaction.TYPE) != null) {
-                for (IHyriTransaction transaction : cosmeticUser.asHyriPlayer().getTransactions().getAll(CosmeticTransaction.TYPE)) {
-                    CosmeticTransaction cosmeticTransaction = (CosmeticTransaction) transaction;
-                    Bukkit.broadcastMessage(cosmeticTransaction.getCosmeticId());
-                    Bukkit.broadcastMessage(HyriCosmetics.get().getCosmetic(cosmeticTransaction.getCosmeticId()).getTranslatedName().getValue(this.owner));
-                }
-            }
             account.update();
         };
     }
