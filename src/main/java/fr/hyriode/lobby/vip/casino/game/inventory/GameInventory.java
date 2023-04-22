@@ -72,8 +72,8 @@ class GameInventory extends HyriInventory {
             } else if(this.value < this.minimum) {
                 this.value = this.minimum;
             }
-            this.owner.playSound(this.owner.getLocation(), Sound.CLICK, 0.5F, 2.0F);
             this.addItems();
+            this.owner.playSound(this.owner.getLocation(), Sound.NOTE_STICKS, 0.5F, 1.0F);
         });
     }
 }

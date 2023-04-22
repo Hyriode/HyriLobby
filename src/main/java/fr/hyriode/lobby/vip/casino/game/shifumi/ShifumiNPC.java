@@ -20,7 +20,7 @@ public class ShifumiNPC extends SingleNPCHandler {
 
     @Override
     public NPC createNPC(Player player) {
-        return NPCManager.createNPC(this.npcLocation, UsefulSkin.SHIFUMU_SKIN, Collections.singletonList("Shifumi"))
+        return NPCManager.createNPC(this.npcLocation, UsefulSkin.SHIFUMU_SKIN, Collections.singletonList("§eShifumi"))
                 .setShowingToAll(false)
                 .addPlayer(player)
                 .setInteractCallback((b, player1) -> {

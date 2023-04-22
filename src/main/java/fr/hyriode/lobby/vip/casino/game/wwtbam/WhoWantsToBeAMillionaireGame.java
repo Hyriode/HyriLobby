@@ -11,6 +11,7 @@ import java.util.Random;
 
 public class WhoWantsToBeAMillionaireGame extends AGame {
 
+    private long hyris;
     private int playingTime = 0;
 
     public WhoWantsToBeAMillionaireGame(Player player) {
@@ -23,7 +24,7 @@ public class WhoWantsToBeAMillionaireGame extends AGame {
                 .setGame(this)
                 .setMinimum(0)
                 .setMaximum(300)
-                .setModifiers(new int[] {1, 10})
+                .setModifiers(new int[] {1, 10, 100})
                 .setButtonAction((hyris) -> {
                     if(hyris == 0) return;
                     this.play(hyris);
@@ -53,7 +54,9 @@ public class WhoWantsToBeAMillionaireGame extends AGame {
             return;
         }
 
+
         if(this.playingTime == 0) {
+            this.hyris = hyris;
             hyriPlayer.getHyris().remove(hyris).exec();
             hyriPlayer.update();
         }
@@ -61,7 +64,7 @@ public class WhoWantsToBeAMillionaireGame extends AGame {
         if(this.result()) {
             new ContinueInventory(this, (long) (hyris * 1.5)).open();
         } else {
-            this.player.sendMessage(LobbyMessage.CASINO_LOST.asString(this.player) + ".");
+            this.player.sendMessage(LobbyMessage.CASINO_LOST.asString(this.player) + "§e" + this.hyris + " Hyris" + "§6.");
             this.player.getOpenInventory().close();
         }
     }
