@@ -33,36 +33,26 @@ public class LanguageGUI extends LobbyGUI {
 
         this.applyDesign(Design.BORDER);
 
-        final List<Language> languages = Arrays.asList(Language.values());
+        this.setLanguageItem(21, Language.FRENCH);
+        this.setLanguageItem(23, Language.ENGLISH);
+    }
 
-        int index = 0;
-        for (int y = 0; y <= 1; y++) {
-            for (int x = 0; x <= 4; x++) {
-                if (languages.size() <= index) {
-                    break;
-                }
+    private void setLanguageItem(int slot, Language language) {
+        this.setItem(slot, this.createItem(language), event -> {
+            final HyriLanguage newLang = language.getInitial();
 
-                final Language language = languages.get(index);
-
-                this.setItem(20 + y + x, this.createItem(language), event -> {
-                    final HyriLanguage newLang = language.getInitial();
-
-                    if (this.settings.getLanguage() == newLang) {
-                        return;
-                    }
-
-                    this.settings.setLanguage(newLang);
-                    this.account.update();
-                    this.owner.closeInventory();
-
-                    final IHyriPlayer newAccount = IHyriPlayer.get(this.owner.getUniqueId());
-
-                    this.owner.sendMessage(LobbyMessage.LANG_UPDATED_MESSAGE.asString(newAccount).replace("%lang%", language.getDisplay(newAccount)));
-                });
-
-                index++;
+            if (this.settings.getLanguage() == newLang) {
+                return;
             }
-        }
+
+            this.settings.setLanguage(newLang);
+            this.account.update();
+            this.owner.closeInventory();
+
+            final IHyriPlayer newAccount = IHyriPlayer.get(this.owner.getUniqueId());
+
+            this.owner.sendMessage(LobbyMessage.LANG_UPDATED_MESSAGE.asString(newAccount).replace("%lang%", language.getDisplay(newAccount)));
+        });
     }
 
     private ItemStack createItem(Language language) {
