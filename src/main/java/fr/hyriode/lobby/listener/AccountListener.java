@@ -1,9 +1,11 @@
 package fr.hyriode.lobby.listener;
 
+import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.event.HyriEventHandler;
 import fr.hyriode.api.language.HyriLanguage;
 import fr.hyriode.api.language.HyriLanguageUpdatedEvent;
 import fr.hyriode.api.leveling.event.LevelingLevelEvent;
+import fr.hyriode.api.leveling.event.NetworkLevelEvent;
 import fr.hyriode.api.player.event.ModerationUpdatedEvent;
 import fr.hyriode.api.player.event.NicknameUpdatedEvent;
 import fr.hyriode.api.player.event.RankUpdatedEvent;
@@ -30,6 +32,8 @@ public class AccountListener {
 
     public AccountListener(HyriLobby plugin) {
         this.plugin = plugin;
+
+        HyriAPI.get().getNetworkManager().getEventBus().register(this);
     }
 
     @HyriEventHandler
@@ -127,6 +131,17 @@ public class AccountListener {
 
             lobbyPlayer.initPlayersVisibility(lobbyPlayer.asHyriPlayer().getSettings().getPlayersVisibilityLevel(), false);
         }
+    }
+
+    @HyriEventHandler
+    public void onLevelUp(NetworkLevelEvent event) {
+        final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayerId());
+
+        if (lobbyPlayer == null) {
+            return;
+        }
+
+        lobbyPlayer.asPlayer().setExhaustion(lobbyPlayer.getExp(lobbyPlayer.asHyriPlayer().getNetworkLeveling()));
     }
 
 }
