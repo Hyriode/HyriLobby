@@ -46,8 +46,9 @@ public class CosmeticGiveCommand extends HyriCommand<HyriLobby> {
                 return;
             }
 
-            target.getTransactions().add(CosmeticTransaction.TYPE, new CosmeticTransaction(cosmetic.getId()));
-            target.update();
+            final IHyriPlayer account = IHyriPlayer.get(target.getUniqueId());
+            account.getTransactions().add(CosmeticTransaction.TYPE, new CosmeticTransaction(cosmetic.getId()));
+            account.update();
 
             player.sendMessage("§aCosmetic given to " + target.getName() + " " + cosmetic.getTranslatedName().getValue(player));
         });
