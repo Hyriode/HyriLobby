@@ -382,6 +382,7 @@
   "gui.cosmetic.equipped.none.name": "§3No %type% equipped",
   "gui.cosmetic.unequip.all": "§cUnequip everything",
   "gui.cosmetic.variants" : "§7Variants of cosmetics",
-  "gui.cosmetic.variant.color.rainbow": "§cR§6a§ei§an§3b§9o§5w"
+  "gui.cosmetic.variant.color.rainbow": "§cR§6a§ei§an§3b§9o§5w",
 
+  "hologram.casino.roller-machines.description": "&3Roller Machines.\n&3Price : &d500 Hyris&3.\n&3To play, you have to click on the &7lever&3."
 }

@@ -4,6 +4,7 @@ import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.HyriConstants;
 import fr.hyriode.api.game.IHyriGameInfo;
 import fr.hyriode.api.game.rotating.IHyriRotatingGame;
+import fr.hyriode.api.language.HyriLanguage;
 import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.player.IHyriPlayer;
 import org.bukkit.entity.Player;
@@ -316,7 +317,8 @@ public enum LobbyMessage {
     CASINO_SHIFUMI_ROCK("game.casino.shifumi.rock"),
     CASINO_SHIFUMI_PAPER("game.casino.shifumi.paper"),
     CASINO_SHIFUMI_SCISSORS("game.casino.shifumi.scissors"),
-    CASINO_SHIFUMI_EQUALITY(  "game.casino.shifumi.equality", CASINO_PREFIX)
+    CASINO_SHIFUMI_EQUALITY(  "game.casino.shifumi.equality", CASINO_PREFIX),
+    HOLOGRAM_CASINO_ROLLER_MACHINES_DESCRIPTION("hologram.casino.roller-machines.description")
     ;
 
     private HyriLanguageMessage languageMessage;
@@ -360,6 +362,10 @@ public enum LobbyMessage {
 
     public List<String> asList(Player player) {
         return this.asList(IHyriPlayer.get(player.getUniqueId()));
+    }
+
+    public List<String> asList(HyriLanguage language) {
+        return new ArrayList<>(Arrays.asList(this.asLang().getValue(language).split("\n")));
     }
 
 }

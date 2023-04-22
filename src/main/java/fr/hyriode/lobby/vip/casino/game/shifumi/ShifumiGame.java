@@ -13,7 +13,6 @@ import java.util.Random;
 public class ShifumiGame extends AGame {
 
     private long hyris;
-    private boolean end = false;
     public ShifumiGame(Player player) {
         super(player);
     }
@@ -62,17 +61,12 @@ public class ShifumiGame extends AGame {
     @Override
     public void onWinning(long hyris) {
         super.onWinning(hyris);
-        this.end();
+        this.player.closeInventory();
     }
 
     @Override
     public void loose(long hyris) {
         super.loose(hyris);
-        this.end();
-    }
-
-    private void end() {
-        this.end = true;
         this.player.closeInventory();
     }
 
@@ -84,9 +78,5 @@ public class ShifumiGame extends AGame {
     @Override
     protected long getHyrisPrice() {
         return 0;
-    }
-
-    public boolean isEnd() {
-        return end;
     }
 }

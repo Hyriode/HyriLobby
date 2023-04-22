@@ -1,15 +1,18 @@
 package fr.hyriode.lobby.listener;
 
 import fr.hyriode.api.event.HyriEventHandler;
+import fr.hyriode.api.language.HyriLanguage;
 import fr.hyriode.api.language.HyriLanguageUpdatedEvent;
 import fr.hyriode.api.leveling.event.LevelingLevelEvent;
 import fr.hyriode.api.player.event.ModerationUpdatedEvent;
 import fr.hyriode.api.player.event.NicknameUpdatedEvent;
 import fr.hyriode.api.player.event.RankUpdatedEvent;
 import fr.hyriode.api.player.event.VanishUpdatedEvent;
+import fr.hyriode.hyrame.hologram.Hologram;
 import fr.hyriode.hyrame.npc.NPC;
 import fr.hyriode.hyrame.npc.NPCManager;
 import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.hologram.LobbyHologramManager;
 import fr.hyriode.lobby.host.HostWaitingAnimation;
 import fr.hyriode.lobby.npc.LobbyNPCHandler;
 import fr.hyriode.lobby.player.LobbyPlayer;
@@ -47,6 +50,15 @@ public class AccountListener {
 
             for (NPC npc : NPCManager.getNPCs()) {
                 NPCManager.sendNPC(player, npc);
+            }
+
+            this.plugin.getHologramManager().getEnglishHolograms().forEach(hologram -> hologram.removeReceiver(player));
+            this.plugin.getHologramManager().getFrenchHolograms().forEach(hologram -> hologram.removeReceiver(player));
+
+            if(event.getLanguage() == HyriLanguage.FR) {
+                this.plugin.getHologramManager().getFrenchHolograms().forEach(hologram -> hologram.addReceiver(player));
+            } else {
+                this.plugin.getHologramManager().getEnglishHolograms().forEach(hologram -> hologram.addReceiver(player));
             }
 
             lobbyPlayer.getLobbyScoreboard().update(true);
