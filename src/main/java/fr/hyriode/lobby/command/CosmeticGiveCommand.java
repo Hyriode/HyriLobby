@@ -26,15 +26,12 @@ public class CosmeticGiveCommand extends HyriCommand<HyriLobby> {
     public void handle(CommandContext ctx) {
         final Player player = ctx.getSender();
 
-        if (!IHyriPlayer.get(player.getUniqueId()).getRank().isSuperior(StaffRank.ADMINISTRATOR)) {
+        if (!IHyriPlayer.get(player.getUniqueId()).getRank().isSuperior(StaffRank.DEVELOPER)) {
             player.sendMessage(HyrameMessage.PERMISSION_ERROR.asString(player));
             return;
         }
 
         ctx.registerArgument("%player% %input%", output -> {
-            if (ctx.getArgs().length < 2) {
-                return;
-            }
             final IHyriPlayer target = output.get(IHyriPlayer.class);
             final String comseticId = output.get(String.class);
 
