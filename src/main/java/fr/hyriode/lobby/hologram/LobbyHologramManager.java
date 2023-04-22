@@ -25,7 +25,7 @@ public class LobbyHologramManager {
 
         plugin.getServer().getPluginManager().registerEvents(new Handler(), plugin);
 
-        this.registerHologram(new LobbyHologram(plugin, new LocationWrapper(-342D, 166D, -24D), LobbyMessage.HOLOGRAM_CASINO_ROLLER_MACHINES_DESCRIPTION));
+        this.registerHologram(new LobbyHologram(plugin, new LocationWrapper(-343D, 166.7D, -24D), LobbyMessage.HOLOGRAM_CASINO_ROLLER_MACHINES_DESCRIPTION));
     }
 
     private void registerHologram(LobbyHologram lobbyHologram) {
