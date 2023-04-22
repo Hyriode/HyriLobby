@@ -6,6 +6,7 @@ import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.vip.casino.game.AGame;
 import fr.hyriode.lobby.vip.casino.game.inventory.GameInventoryBuilder;
 import fr.hyriode.lobby.vip.casino.game.zzs.E007Action;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import java.util.Random;
