@@ -340,7 +340,7 @@ public class LobbyPlayer {
         }
     }
 
-    private float getExp(IHyriLeveling leveling) {
+    public float getExp(IHyriLeveling leveling) {
         final double currentLevelExperience = leveling.getAlgorithm().levelToExperience(leveling.getLevel());
         final double currentExperience = leveling.getExperience() - currentLevelExperience;
         final double totalExperience = leveling.getAlgorithm().levelToExperience(leveling.getLevel() + 1) - currentLevelExperience;
