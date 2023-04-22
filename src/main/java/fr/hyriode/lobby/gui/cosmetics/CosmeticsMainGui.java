@@ -44,11 +44,11 @@ public class CosmeticsMainGui extends LobbyGUI {
             this.setItem(
                     category.getGuiSlot(),
                     new ItemBuilder(category.getIcon())
-                            .withName(ChatColor.AQUA + category.getTranslatedName().getValue(owner))
+                            .withName("§b" + category.getTranslatedName().getValue(owner))
                             .withLore(StringUtil.splitIntoPhrases(category.getTranslatedDescription().getValue(owner), 40))
-                            .appendLore("")
+                            .appendLore("§7")
                             .appendLore(HyriLanguageMessage.get("gui.cosmetic.unlocked").getValue(owner)
-                                    .replace("%percentage%", String.valueOf(unlockedCosmetics.size() / (cosmetics.size() == 0 ? 1 : cosmetics.size()) * 100))
+                                    .replace("%percentage%", String.valueOf((int) (((double) unlockedCosmetics.size() / (cosmetics.size() == 0.0D ? 1.0D : (double) cosmetics.size())) * 100.0D)))
                                     .replace("%unlocked%", String.valueOf(unlockedCosmetics.size()))
                                     .replace("%total%", String.valueOf(cosmetics.size()))
                             )
