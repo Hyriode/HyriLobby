@@ -385,6 +385,6 @@
   "gui.cosmetic.variants" : "§7Variants du cosmétique",
   "gui.cosmetic.variant.color.rainbow": "§cM§6u§el§at§3i§9c§5o§cl§6o§er§ae",
 
-  "hologram.casino.roller-machines.description": "&3Machines à rouleaux.\nPrix : &e500 Hyris&3.\nPour jouer, vous devez cliquer sur le &7levier&3."
+  "hologram.casino.roller-machines.description": "&3Machines à rouleaux.\n&3Prix : &d500 Hyris&3.\n&3Pour jouer, vous devez cliquer sur le &7levier&3."
 
 }
