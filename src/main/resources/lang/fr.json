@@ -385,6 +385,7 @@
   "gui.cosmetic.variants" : "§7Variants du cosmétique",
   "gui.cosmetic.variant.color.rainbow": "§cM§6u§el§at§3i§9c§5o§cl§6o§er§ae",
 
-  "hologram.casino.roller-machines.description": "&bMachines à rouleaux.\n&bPrix : &d500 Hyris&3.\n&bPour jouer, vous devez cliquer sur le &7levier&b.\nLe principe est simple, les lots vont défiler dans votre inventaire\net vous allez gagner un lot associé à &b3 items alignés&f."
+  "hologram.casino.roller-machines.description": "&bMachines à rouleaux.\n&bPrix : &d500 Hyris&3.\n&bPour jouer, vous devez cliquer sur le &7levier&b.\nLe principe est simple, les lots vont défiler dans votre inventaire\net vous allez gagner un lot associé à &b3 items alignés&f.",
+  "hologram.casino.wwtbam.description": "&bQui veut gagner des millions ?\n&bPour jouer, vous devez cliquer sur le &7bouton&b.\nLe principe est simple, Vous allez parier la somme que vous souhaitez\npuis, vous avez une certaine chance de multiplier votre mise. Suite à cela,\nvous pouvez la remettre en jeu pour tenter d'augmenter votre gain."
 
 }

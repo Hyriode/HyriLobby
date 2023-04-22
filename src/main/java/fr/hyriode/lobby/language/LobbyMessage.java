@@ -318,7 +318,8 @@ public enum LobbyMessage {
     CASINO_SHIFUMI_PAPER("game.casino.shifumi.paper"),
     CASINO_SHIFUMI_SCISSORS("game.casino.shifumi.scissors"),
     CASINO_SHIFUMI_EQUALITY(  "game.casino.shifumi.equality", CASINO_PREFIX),
-    HOLOGRAM_CASINO_ROLLER_MACHINES_DESCRIPTION("hologram.casino.roller-machines.description")
+    HOLOGRAM_CASINO_ROLLER_MACHINES_DESCRIPTION("hologram.casino.roller-machines.description"),
+    HOLOGRAM_CASINO_WWTBAM_DESCRIPTION("hologram.casino.wwtbam.description")
     ;
 
     private HyriLanguageMessage languageMessage;

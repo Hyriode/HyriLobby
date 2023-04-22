@@ -384,5 +384,8 @@
   "gui.cosmetic.variants" : "§7Variants of cosmetics",
   "gui.cosmetic.variant.color.rainbow": "§cR§6a§ei§an§3b§9o§5w",
 
-  "hologram.casino.roller-machines.description": "&bRoller machines.\n&bPrice: &d500 Hyrisb3.\n&bTo play, you have to click on the &7lever&b.\nThe goal is simple, the prizes will scroll through your inventory\nand you will win a prize associated à with &b3 aligned items&f."
+  "hologram.casino.roller-machines.description": "&bRoller machines.\n&bPrice: &d500 Hyrisb3.\n&bTo play, you have to click on the &7lever&b.\nThe goal is simple, the prizes will scroll through your inventory\nand you will win a prize associated à with &b3 aligned items&f.",
+  "hologram.casino.wwtbam.description": "&bWho wants to be a milionaire ?\n&bTo play, you have to click on the &7boutton&b.\nthe goal is simple, you will bet the amount you want\nthen, the you have a chance to multiply your bet. After this,\nyou can put it back into play to try to increase your gain."
+
+
 }
