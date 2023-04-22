@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 import java.util.Collections;
 
 public class ShifumiNPC extends SingleNPCHandler {
-    private final Location npcLocation = new Location(IHyrame.WORLD.get(), -363D, 163D, -18D, -100F, 0F);
+    private final Location npcLocation = new Location(IHyrame.WORLD.get(), -340D, 168D, -6D, 100F, 0F);
     public ShifumiNPC(HyriLobby plugin) {
         super(plugin);
     }
