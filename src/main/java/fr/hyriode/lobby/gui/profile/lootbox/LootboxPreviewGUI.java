@@ -45,16 +45,14 @@ public class LootboxPreviewGUI extends LobbyGUI {
         this.setItem(13, new ItemBuilder(this.lootboxIcon)
                 .appendLore("", LobbyMessage.CLICK_TO_OPEN.asString(this.account))
                 .build(),
-                event -> {
-                    new ConfirmGUI(this.owner, this.plugin, this.lootboxIcon)
-                            .whenConfirm(e -> this.triggerLootbox())
-                            .whenCancel(e -> {
-                                this.open();
+                event -> new ConfirmGUI(this.owner, this.plugin, this.lootboxIcon)
+                        .whenConfirm(e -> this.triggerLootbox())
+                        .whenCancel(e -> {
+                            this.open();
 
-                                this.owner.playSound(this.owner.getLocation(), Sound.FIZZ, 0.5F, 1.0F);
-                            })
-                            .open();
-                });
+                            this.owner.playSound(this.owner.getLocation(), Sound.FIZZ, 0.5F, 1.0F);
+                        })
+                        .open());
 
         this.addLoots();
     }
