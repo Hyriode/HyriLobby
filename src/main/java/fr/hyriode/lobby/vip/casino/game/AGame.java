@@ -40,6 +40,14 @@ public abstract class AGame {
         this.player.sendMessage(LobbyMessage.CASINO_WON.asString(this.player) + "§e" + hyrisMessage + " Hyris" + "§6.");
     }
 
+    public void loose(long hyris) {
+        final IHyriPlayer hyriPlayer = IHyriPlayer.get(this.player.getUniqueId());
+        hyriPlayer.getHyris().remove(hyris).withMultiplier(false).exec();
+        hyriPlayer.update();
+
+        this.player.sendMessage(LobbyMessage.CASINO_LOST.asString(this.player) + "§e" + hyris + " Hyris" + "§6.");
+    }
+
     public void onWinning(long hyris) {
         this.onWinning(hyris, hyris);
     }

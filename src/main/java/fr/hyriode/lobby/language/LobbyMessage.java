@@ -304,7 +304,19 @@ public enum LobbyMessage {
     CASINO_CONFIRM_BET("click.to-confirm-bet"),
     CASINO_CANCEL_BET("message.casino.cancel-bet", CASINO_PREFIX),
 
-    ROLLER_MACHINES_DESCRIPTION("hologram.casino.roller-machines.description")
+    ROLLER_MACHINES_DESCRIPTION("hologram.casino.roller-machines.description"),
+
+    CASINO_SHIFUMI_PLAYER_ROCK("message.casino.shifumi.rock", CASINO_PREFIX),
+    CASINO_SHIFUMI_PLAYER_PAPER("message.casino.shifumi.paper", CASINO_PREFIX),
+    CASINO_SHIFUMI_PLAYER_SCISSORS("message.casino.shifumi.scissors", CASINO_PREFIX),
+    CASINO_SHIFUMI_BOT_ROCK("message.casino.shifumi.bot-rock", CASINO_PREFIX),
+    CASINO_SHIFUMI_BOT_PAPER("message.casino.shifumi.bot-paper", CASINO_PREFIX),
+    CASINO_SHIFUMI_BOT_SCISSORS("message.casino.shifumi.bot-scissors", CASINO_PREFIX),
+
+    CASINO_SHIFUMI_ROCK("game.casino.shifumi.rock"),
+    CASINO_SHIFUMI_PAPER("game.casino.shifumi.paper"),
+    CASINO_SHIFUMI_SCISSORS("game.casino.shifumi.scissors"),
+    CASINO_SHIFUMI_EQUALITY(  "game.casino.shifumi.equality", CASINO_PREFIX)
     ;
 
     private HyriLanguageMessage languageMessage;

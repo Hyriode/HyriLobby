@@ -347,6 +347,22 @@
 
   "message.casino.cancel-bet": "&cYou cancelled your bet.",
 
+  "message.casino.shifumi.rock": "&aYou played the rock.",
+  "message.casino.shifumi.paper": "&aYou played the paper.",
+  "message.casino.shifumi.scissors": "&aYou played scissors.",
+
+  "message.casino.shifumi.bot-rock": "&cYour opponent played the rock.",
+  "message.casino.shifumi.bot-paper": "&cYour opponent played the paper.",
+  "message.casino.shifumi.bot-scissors": "&cYour opponent played scissors.",
+
+
+  "game.casino.shifumi.rock": "&8Rock",
+  "game.casino.shifumi.paper": "&fPaper",
+  "game.casino.shifumi.scissors": "&7Scissors",
+
+  "game.casino.shifumi.equality": "&7Equality, replay the game",
+
+
   "prefix.casino": "§3Casino §f┃ ",
 
   "gui.cosmetic.name": "Cosmetics",

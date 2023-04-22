@@ -6,7 +6,7 @@ import fr.hyriode.lobby.npc.model.HostNPCHandler;
 import fr.hyriode.lobby.npc.model.LanguageNPCHandler;
 import fr.hyriode.lobby.npc.model.RotatingGameNPCHandler;
 import fr.hyriode.lobby.quest.AQuest;
-import fr.hyriode.lobby.quest.TestQuest;
+import fr.hyriode.lobby.vip.casino.game.shifumi.ShifumiNPC;
 import fr.hyriode.lobby.vip.casino.game.zzs.ZeroZeroSevenNPC;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,7 +37,8 @@ public class LobbyNPCManager {
         this.registerHandler(new RotatingGameNPCHandler(plugin));
         this.registerHandler(new HostNPCHandler(plugin));
 
-        this.registerHandler(new ZeroZeroSevenNPC(plugin));
+        //this.registerHandler(new ZeroZeroSevenNPC(plugin));
+        this.registerHandler(new ShifumiNPC(plugin));
 
         this.registerQuests(plugin);
     }
