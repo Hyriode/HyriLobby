@@ -30,6 +30,8 @@ public class HostInvitationCommand extends HyriCommand<HyriLobby> {
 
             HyriAPI.get().getQueueManager().addPlayerInQueue(player.getUniqueId(), serverName);
         });
+
+        super.handle(ctx);
     }
 
 }

@@ -32,7 +32,7 @@ public class CosmeticGiveCommand extends HyriCommand<HyriLobby> {
         }
 
         ctx.registerArgument("%player% %input%", output -> {
-            if (ctx.getArgs().length < 3) {
+            if (ctx.getArgs().length < 2) {
                 return;
             }
             final IHyriPlayer target = output.get(IHyriPlayer.class);

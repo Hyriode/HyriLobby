@@ -24,7 +24,10 @@ public class StoreLootbox extends StoreItem {
 
     @Override
     public ItemStack createItem(IHyriPlayer account, boolean purchaseLine) {
-        final ItemBuilder builder = new ItemBuilder(super.createItem(account, purchaseLine));
+        final ItemStack itemStack = super.createItem(account, purchaseLine);
+        final ItemBuilder builder = new ItemBuilder(itemStack);
+
+        itemStack.setAmount(this.handle.getRarity().getId());
 
         return builder.withName(builder.getName().replace("%stars%", this.handle.format())).build();
     }
