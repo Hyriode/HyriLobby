@@ -136,11 +136,19 @@ public class AccountListener {
 
         final IHyriNickname nickname = event.getNickname();
 
-        if (nickname.has()) {
-            lobbyPlayer.initStatusBar(IHyriPlayerSession.get(playerId));
-        } else {
-            lobbyPlayer.removeStatusBar(IHyriPlayerSession.get(playerId));
-        }
+        Bukkit.getScheduler().runTaskLater(this.plugin, () -> {
+            final LobbyPlayer newLobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(playerId);
+
+            if (newLobbyPlayer == null) {
+                return;
+            }
+
+            if (nickname.has()) {
+                newLobbyPlayer.initStatusBar(IHyriPlayerSession.get(playerId));
+            } else {
+                newLobbyPlayer.removeStatusBar(IHyriPlayerSession.get(playerId));
+            }
+        }, 2L);
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             final LobbyPlayer target = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
