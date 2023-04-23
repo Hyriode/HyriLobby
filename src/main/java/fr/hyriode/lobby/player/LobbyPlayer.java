@@ -120,7 +120,7 @@ public class LobbyPlayer {
         final boolean vanished = session.isVanished();
         final boolean nickname = session.getNickname().has();
 
-        if (!vanished && !nickname) {
+        if ((!vanished && !nickname) || session.isModerating()) {
             return;
         }
 
