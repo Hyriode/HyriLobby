@@ -152,6 +152,14 @@ public class LobbyPlayer {
     }
 
     public void removeStatusBar(IHyriPlayerSession session) {
+        final boolean nickname = session.getNickname().has();
+        final boolean vanished = session.isVanished();
+
+        if ((nickname && !vanished) || (!nickname && vanished)) {
+            this.initStatusBar(session);
+            return;
+        }
+
         if (session.isVanished() || session.getNickname().has()) {
             return;
         }
