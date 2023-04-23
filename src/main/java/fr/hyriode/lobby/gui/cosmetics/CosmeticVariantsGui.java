@@ -64,6 +64,7 @@ public class CosmeticVariantsGui extends LobbyGUI {
     private Consumer<InventoryClickEvent> clickEvent(String variant, AbstractCosmetic<?> cosmetic) {
         return event -> {
             cosmetic.setVariant(variant);
+            playerCosmetic.getUser().updateData();
             this.owner.playSound(this.owner.getLocation(), Sound.VILLAGER_IDLE, 0.5F, 1.0F);
             this.owner.getOpenInventory().close();
             new CosmeticsGui(owner, plugin, cosmetic.getCategory()).open();

@@ -33,7 +33,10 @@ public class CosmeticsMainGui extends LobbyGUI {
 
         this.setItem(51, new ItemBuilder(Material.BARRIER)
                 .withName(ChatColor.RED + HyriLanguageMessage.get("gui.cosmetic.unequip.all").getValue(owner))
-                .build(), event -> user.unequipCosmetics(false));
+                .build(), event -> {
+                    user.unequipCosmetics(false);
+                    user.updateData();
+        });
 
         this.addCategoriesItem();
     }
