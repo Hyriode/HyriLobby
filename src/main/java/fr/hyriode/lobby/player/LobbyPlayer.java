@@ -156,7 +156,9 @@ public class LobbyPlayer {
             return;
         }
 
-        this.statusBar.remove();
+        if (this.statusBar != null) {
+            this.statusBar.remove();
+        }
     }
 
     public void startJump() {
