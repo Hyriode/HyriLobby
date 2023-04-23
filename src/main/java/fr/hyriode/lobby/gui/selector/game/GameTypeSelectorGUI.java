@@ -67,7 +67,7 @@ public class GameTypeSelectorGUI extends LobbyGUI {
     private void addTypesItems() {
         final IHyriGameInfo gameInfo = this.game.getGameInfo();
         final List<IHyriGameType> types = gameInfo.getTypes().stream().sorted(Comparator.comparingInt(IHyriGameType::getId)).collect(Collectors.toList());
-        final IHyriGlobalCounter playerCount = HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter();
+        final IHyriGlobalCounter playerCount = HyriAPI.get().getNetworkManager().getPlayerCounter();
 
         for (IHyriGameType type : types) {
             final int players = playerCount.getCategory(gameInfo.getName()).getPlayers(type.getName());
@@ -97,7 +97,7 @@ public class GameTypeSelectorGUI extends LobbyGUI {
     }
 
     private int getPlayersCount() {
-        return HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter().getCategory(this.game.getName()).getPlayers();
+        return HyriAPI.get().getNetworkManager().getPlayerCounter().getCategory(this.game.getName()).getPlayers();
     }
 
     private void sendPlayerToGame(Player player, String type) {

@@ -92,7 +92,7 @@ public class LobbyGame {
     }
 
     public IHyriCategoryCounter getPlayerCounter() {
-        return HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter().getCategory(this.name);
+        return HyriAPI.get().getNetworkManager().getPlayerCounter().getCategory(this.name);
     }
 
     public int getPlayers() {

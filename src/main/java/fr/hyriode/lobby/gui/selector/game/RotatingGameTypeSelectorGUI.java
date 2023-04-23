@@ -64,7 +64,7 @@ public class RotatingGameTypeSelectorGUI extends LobbyGUI {
 
     private void addTypesItems() {
         final List<IHyriGameType> types = this.game.getTypes().stream().sorted(Comparator.comparingInt(IHyriGameType::getId)).collect(Collectors.toList());
-        final IHyriGlobalCounter playerCount = HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter();
+        final IHyriGlobalCounter playerCount = HyriAPI.get().getNetworkManager().getPlayerCounter();
 
         for (IHyriGameType type : types) {
             final int players = playerCount.getCategory(this.game.getName()).getPlayers(type.getName());

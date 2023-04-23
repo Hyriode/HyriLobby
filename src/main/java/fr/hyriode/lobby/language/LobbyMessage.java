@@ -205,7 +205,7 @@ public enum LobbyMessage {
             return input;
         }
 
-        final int players = HyriAPI.get().getNetworkManager().getNetwork()
+        final int players = HyriAPI.get().getNetworkManager()
                 .getPlayerCounter()
                 .getCategory(gameInfo.getName())
                 .getPlayers();
@@ -230,7 +230,7 @@ public enum LobbyMessage {
         if (gameInfo == null) {
             return input;
         }
-        return input.replace("%rotating_game%", gameInfo.getDisplayName()).replace("%players%", String.valueOf(HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter().getCategory(gameInfo.getName()).getPlayers()));
+        return input.replace("%rotating_game%", gameInfo.getDisplayName()).replace("%players%", String.valueOf(HyriAPI.get().getNetworkManager().getPlayerCounter().getCategory(gameInfo.getName()).getPlayers()));
     }),
     NPC_HOST_HEADER("npc.host.header"),
 

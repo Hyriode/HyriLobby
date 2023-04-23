@@ -64,7 +64,7 @@ public class LobbyScoreboard extends HyriScoreboard {
     }
 
     private String getPlayers() {
-        return this.getLinePrefix("players").replace("%value%", String.valueOf(HyriAPI.get().getNetworkManager().getNetwork().getPlayerCounter().getPlayers()));
+        return this.getLinePrefix("players").replace("%value%", String.valueOf(HyriAPI.get().getNetworkManager().getPlayerCounter().getPlayers()));
     }
 
     private String getServer() {
