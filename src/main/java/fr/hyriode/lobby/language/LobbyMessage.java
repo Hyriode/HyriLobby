@@ -364,7 +364,7 @@ public enum LobbyMessage {
     }
 
     public List<String> asList(Player player) {
-        return new ArrayList<>(Arrays.asList(this.asLang().getValue(player).split("\n")));
+        return new ArrayList<>(Arrays.asList(this.asString(player).split("\n")));
     }
 
     public List<String> asList(HyriLanguage language) {
