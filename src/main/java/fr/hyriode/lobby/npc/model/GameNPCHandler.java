@@ -104,7 +104,9 @@ public class GameNPCHandler extends LobbyNPCHandler {
                 .setShowingToAll(false)
                 .setInteractCallback((rightClick, target) -> {
                     if (rightClick) {
-                        new GameTypeSelectorGUI(this.plugin, target, game, false).open();
+                        if (game.isEnabled()) {
+                            new GameTypeSelectorGUI(this.plugin, target, game, false).open();
+                        }
                     }
                 })
                 .addPlayer(player);
