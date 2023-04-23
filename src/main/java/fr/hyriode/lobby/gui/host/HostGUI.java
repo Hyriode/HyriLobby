@@ -61,7 +61,7 @@ public class HostGUI extends LobbyGUI {
                 .build(),
                 event -> {
                     if (this.account.getHosts().getAvailableHosts() < 1) {
-                        this.owner.sendMessage(LobbyMessage.HOST_CREATE_ERROR.asString(this.account).replace("%rank%", PlayerRank.EPIC.getDefaultPrefix()));
+                        this.owner.sendMessage(LobbyMessage.HOST_CREATE_ERROR.asString(this.account));
                         return;
                     } else if (this.plugin.getHostHandler().isWaiting(this.owner.getUniqueId())) {
                         return;

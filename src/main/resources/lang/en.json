@@ -244,7 +244,7 @@
   "host.create-item.name": "&bCreate my host",
   "host.create-item.lore": "&7Create your own host with the game\n&7and the configuration you want.\n\n&fAvailable hosts: &b%available_hosts%\n\n&3Click to create",
   "host.unlimited.word": "unlimited",
-  "host.create.error.message": "&cYou don't have available hosts! Buy it from the store or buy %rank% &crank.",
+  "host.create.error.message": "&cYou don't have available hosts! Gain it in lootboxes or with &6Hyri+ &foffer.",
   "host.spectating-item.name": "&bObservation",
   "host.spectating-item.lore": "&7Show the playing hosts that can be\n&7spectated by other players.\n\n&8Status:\n&8▪ %enabled_color%Enabled\n&8▪ %disabled_color%Disabled\n\n&3Click to change",
   "host.type-item.name": "&bHost type",
