@@ -317,6 +317,10 @@
   "leaderboard.leveling.header": "&3Leveling &8┃ &7Leaderboard",
   "leaderboard.jump.header": "&3Parkour &8┃ &7Leaderboard",
 
+  "action-bar.session-status.display": "&fYou are %values%",
+  "action-bar.session-status.vanish": "&bVANISH",
+  "action-bar.session-status.nick": "&bNICK",
+
   "game.casino.roller-machines.name": "Roller machines",
   "game.casino.wwtbam.name": "Who wants to be a milionaire ?",
 
@@ -355,13 +359,11 @@
   "message.casino.shifumi.bot-paper": "&cYour opponent played the paper.",
   "message.casino.shifumi.bot-scissors": "&cYour opponent played scissors.",
 
-
   "game.casino.shifumi.rock": "&8Rock",
   "game.casino.shifumi.paper": "&fPaper",
   "game.casino.shifumi.scissors": "&7Scissors",
 
   "game.casino.shifumi.equality": "&7Equality, replay the game",
-
 
   "prefix.casino": "§3Casino §f┃ ",
 
@@ -386,6 +388,4 @@
 
   "hologram.casino.roller-machines.description": "&bRoller machines.\n&bPrice: &d500 Hyrisb3.\n&bTo play, you have to click on the &7lever&b.\nThe goal is simple, the prizes will scroll through your inventory\nand you will win a prize associated à with &b3 aligned items&f.",
   "hologram.casino.wwtbam.description": "&bWho wants to be a milionaire ?\n&bTo play, you have to click on the &7boutton&b.\nthe goal is simple, you will bet the amount you want\nthen, the you have a chance to multiply your bet. After this,\nyou can put it back into play to try to increase your gain."
-
-
 }

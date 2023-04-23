@@ -264,6 +264,10 @@ public enum LobbyMessage {
     LEADERBOARD_LEVELING_HEADER("leaderboard.leveling.header"),
     LEADERBOARD_JUMP_HEADER("leaderboard.jump.header"),
 
+    PLAYER_STATUS_ACTION_BAR("action-bar.session-status.display"),
+    PLAYER_STATUS_NICK("action-bar.session-status.nick"),
+    PLAYER_STATUS_VANISH("action-bar.session-status.vanish"),
+
     FRIENDS("basic.friends"),
     CONNECTED_LINE("basic.connected"),
     PLAY("basic.play"),

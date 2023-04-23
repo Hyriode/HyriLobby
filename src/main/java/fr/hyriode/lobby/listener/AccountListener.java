@@ -6,10 +6,12 @@ import fr.hyriode.api.language.HyriLanguage;
 import fr.hyriode.api.language.HyriLanguageUpdatedEvent;
 import fr.hyriode.api.leveling.event.LevelingLevelEvent;
 import fr.hyriode.api.leveling.event.NetworkLevelEvent;
+import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.api.player.event.ModerationUpdatedEvent;
 import fr.hyriode.api.player.event.NicknameUpdatedEvent;
 import fr.hyriode.api.player.event.RankUpdatedEvent;
 import fr.hyriode.api.player.event.VanishUpdatedEvent;
+import fr.hyriode.api.player.model.IHyriNickname;
 import fr.hyriode.hyrame.hologram.Hologram;
 import fr.hyriode.hyrame.npc.NPC;
 import fr.hyriode.hyrame.npc.NPCManager;
@@ -20,6 +22,8 @@ import fr.hyriode.lobby.npc.LobbyNPCHandler;
 import fr.hyriode.lobby.player.LobbyPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+
+import java.util.UUID;
 
 
 /**
@@ -101,26 +105,47 @@ public class AccountListener {
 
     @HyriEventHandler
     public void onVanish(VanishUpdatedEvent event) {
-        if (event.isVanished()) {
-            final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayerId());
+        final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(event.getPlayerId());
 
-            if (lobbyPlayer == null) {
-                return;
-            }
+        if (lobbyPlayer == null) {
+            return;
+        }
+
+        if (event.isVanished()) {
+            lobbyPlayer.initStatusBar(event.getSession());
 
             if (lobbyPlayer.isInPvp()) {
                 lobbyPlayer.handleLogin(false, true);
                 lobbyPlayer.setInPvP(false);
             }
+        } else {
+            lobbyPlayer.initPlayersVisibility(lobbyPlayer.asHyriPlayer().getSettings().getPlayersVisibilityLevel(), false);
+
+            lobbyPlayer.removeStatusBar(event.getSession());
         }
     }
 
     @HyriEventHandler
     public void onNicknameUpdated(NicknameUpdatedEvent event) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
+        final UUID playerId = event.getPlayerId();
+        final LobbyPlayer lobbyPlayer = this.plugin.getPlayerManager().getLobbyPlayer(playerId);
 
-            lobbyPlayer.initPlayersVisibility(lobbyPlayer.asHyriPlayer().getSettings().getPlayersVisibilityLevel(), false);
+        if (lobbyPlayer == null) {
+            return;
+        }
+
+        final IHyriNickname nickname = event.getNickname();
+
+        if (nickname.has()) {
+            lobbyPlayer.initStatusBar(IHyriPlayerSession.get(playerId));
+        } else {
+            lobbyPlayer.removeStatusBar(IHyriPlayerSession.get(playerId));
+        }
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            final LobbyPlayer target = this.plugin.getPlayerManager().getLobbyPlayer(player.getUniqueId());
+
+            target.initPlayersVisibility(target.asHyriPlayer().getSettings().getPlayersVisibilityLevel(), false);
         }
     }
 

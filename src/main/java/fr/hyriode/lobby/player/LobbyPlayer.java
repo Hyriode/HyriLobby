@@ -7,6 +7,7 @@ import fr.hyriode.api.leveling.IHyriLeveling;
 import fr.hyriode.api.party.IHyriParty;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.player.IHyriPlayerSession;
+import fr.hyriode.api.player.model.IHyriNickname;
 import fr.hyriode.api.player.model.SettingsLevel;
 import fr.hyriode.api.queue.IHyriQueueManager;
 import fr.hyriode.api.rank.PlayerRank;
@@ -47,10 +48,11 @@ public class LobbyPlayer {
     private final UUID uuid;
     private final HyriLobby plugin;
 
+    private ActionBar statusBar;
+
     private boolean inPvp;
 
     private LobbyJump jump;
-
     private LobbyScoreboard lobbyScoreboard;
 
     public LobbyPlayer(UUID uuid, HyriLobby plugin) {
@@ -61,16 +63,19 @@ public class LobbyPlayer {
     public void handleLogin(boolean login, boolean teleport) {
         final Player player = this.asPlayer();
         final IHyriPlayer account = this.asHyriPlayer();
+        final CosmeticUser cosmeticUser = HyriCosmetics.get().getUserProvider().getUser(this.uuid);
 
-        if (HyriCosmetics.get().getUserProvider().getUser(getUniqueId()) != null) {
-            HyriCosmetics.get().getUserProvider().getUser(getUniqueId()).reactivateCosmeticsTemporarilyUnequipped();
+        if (cosmeticUser != null) {
+            cosmeticUser.reactivateCosmeticsTemporarilyUnequipped();
         }
+
+        final IHyriPlayerSession session = IHyriPlayerSession.get(this.uuid);
 
         if (teleport) {
             this.teleportToSpawn();
         }
 
-        if (IHyriPlayerSession.get(this.uuid).isModerating()) {
+        if (session.isModerating()) {
             if (login) {
                 this.setupScoreboard();
             }
@@ -93,6 +98,7 @@ public class LobbyPlayer {
         if (login) {
             this.initPlayersVisibility(account.getSettings().getPlayersVisibilityLevel(), false);
             this.setupScoreboard();
+            this.initStatusBar(session);
 
             this.sendJoinTitle();
             this.sendJoinMessage();
@@ -108,6 +114,49 @@ public class LobbyPlayer {
         this.leaveJump(false);
 
         HyriAPI.get().getServer().removePlayerPlaying(this.uuid);
+    }
+
+    public void initStatusBar(IHyriPlayerSession session) {
+        final boolean vanished = session.isVanished();
+        final boolean nickname = session.getNickname().has();
+
+        if (!vanished && !nickname) {
+            return;
+        }
+
+        final Player player = this.asPlayer();
+
+        if (this.statusBar == null) {
+            this.statusBar = new ActionBar("");
+        } else {
+            this.statusBar.remove(player);
+        }
+
+        final String display = LobbyMessage.PLAYER_STATUS_ACTION_BAR.asString(player);
+        final StringBuilder values = new StringBuilder();
+
+        if (nickname) {
+            values.append(LobbyMessage.PLAYER_STATUS_NICK.asString(player));
+
+            if (vanished) {
+                values.append(ChatColor.WHITE).append(", ");
+            }
+        }
+
+        if (vanished) {
+            values.append(ChatColor.DARK_AQUA).append(LobbyMessage.PLAYER_STATUS_VANISH.asString(player));
+        }
+
+        this.statusBar.setMessage(display.replace("%values%", values.toString()));
+        this.statusBar.sendPermanent(this.plugin, player);
+    }
+
+    public void removeStatusBar(IHyriPlayerSession session) {
+        if (session.isVanished() || session.getNickname().has()) {
+            return;
+        }
+
+        this.statusBar.remove();
     }
 
     public void startJump() {
@@ -382,6 +431,10 @@ public class LobbyPlayer {
 
     public CosmeticUser asCosmeticUser() {
         return HyriCosmetics.get().getUserProvider().getUser(this.asPlayer());
+    }
+
+    public boolean hasStatusBar() {
+        return this.statusBar != null;
     }
 
 }
