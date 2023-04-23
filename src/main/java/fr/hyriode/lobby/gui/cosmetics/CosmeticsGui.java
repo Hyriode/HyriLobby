@@ -67,6 +67,7 @@ public class CosmeticsGui extends LobbyGUI {
                 event -> {
                     if (user.hasEquippedCosmetic(category)) {
                         user.unequipCosmetic(category, true);
+                        user.updateData();
                         event.getWhoClicked().closeInventory();
                         update();
                         new CosmeticsGui((Player) event.getWhoClicked(), plugin, category).open();
@@ -137,6 +138,7 @@ public class CosmeticsGui extends LobbyGUI {
                 }
 
                 this.user.equipCosmetic(cosmetic, true);
+                this.user.updateData();
                 this.owner.playSound(this.owner.getLocation(), Sound.VILLAGER_IDLE, 0.5F, 1.0F);
 
                 new CosmeticsGui(this.owner, this.plugin, this.category).open();
