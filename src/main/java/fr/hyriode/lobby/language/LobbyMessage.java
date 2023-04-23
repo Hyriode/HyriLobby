@@ -7,6 +7,7 @@ import fr.hyriode.api.game.rotating.IHyriRotatingGame;
 import fr.hyriode.api.language.HyriLanguage;
 import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.player.IHyriPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -326,9 +327,9 @@ public enum LobbyMessage {
     private HyriLanguageMessage languageMessage;
 
     private final String key;
-    private final BiFunction<IHyriPlayer, String, String> formatter;
+    private final BiFunction<Player, String, String> formatter;
 
-    LobbyMessage(String key, BiFunction<IHyriPlayer, String, String> formatter) {
+    LobbyMessage(String key, BiFunction<Player, String, String> formatter) {
         this.key = key;
         this.formatter = formatter;
     }
@@ -347,11 +348,11 @@ public enum LobbyMessage {
     }
 
     public String asString(IHyriPlayer account) {
-        return this.formatter.apply(account, this.asLang().getValue(account));
+        return this.formatter.apply(Bukkit.getPlayer(account.getUniqueId()), this.asLang().getValue(account));
     }
 
     public String asString(Player player) {
-        return this.asString(IHyriPlayer.get(player.getUniqueId()));
+        return this.formatter.apply(player, this.asLang().getValue(player));
     }
 
     public void sendTo(Player player) {
@@ -363,7 +364,7 @@ public enum LobbyMessage {
     }
 
     public List<String> asList(Player player) {
-        return this.asList(IHyriPlayer.get(player.getUniqueId()));
+        return new ArrayList<>(Arrays.asList(this.asLang().getValue(player).split("\n")));
     }
 
     public List<String> asList(HyriLanguage language) {
