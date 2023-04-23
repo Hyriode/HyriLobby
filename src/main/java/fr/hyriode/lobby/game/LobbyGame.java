@@ -124,6 +124,10 @@ public class LobbyGame {
         return true;
     }
 
+    public boolean isEnabled() {
+        return true;
+    }
+
     public StoreCategory getStoreCategory() {
         return this.storeCategory;
     }

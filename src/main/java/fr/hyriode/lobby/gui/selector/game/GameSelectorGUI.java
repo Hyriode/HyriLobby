@@ -158,7 +158,12 @@ public class GameSelectorGUI extends LobbyGUI {
         this.setItem(slot, new ItemBuilder(game.getIcon())
                 .withName(ChatColor.AQUA + (gameInfo == null ? "Unknown" : gameInfo.getDisplayName()) + (state != State.OPENED ? " " + state.getDisplay().getValue(this.owner) : ""))
                 .withLore(lore)
-                .build(), event -> new GameTypeSelectorGUI(this.plugin, this.owner, game, true).open());
+                .build(),
+                event -> {
+                    if (game.isEnabled()) {
+                        new GameTypeSelectorGUI(this.plugin, this.owner, game, true).open();
+                    }
+                });
     }
 
     private enum SlotConfiguration {
