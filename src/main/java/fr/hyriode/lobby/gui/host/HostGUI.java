@@ -57,7 +57,7 @@ public class HostGUI extends LobbyGUI {
 
         this.setItem(51, ItemBuilder.asHead(UsefulHead.MONITOR_PLUS)
                 .withName(LobbyMessage.HOST_CREATE_ITEM_NAME.asString(this.account))
-                .withLore(ListReplacer.replace(LobbyMessage.HOST_CREATE_ITEM_LORE.asList(this.account), "%available_hosts%", this.account.getRank().isSuperior(PlayerRank.EPIC) ? LobbyMessage.HOST_UNLIMITED_WORD.asString(this.account) : String.valueOf(this.account.getHosts().getAvailableHosts())).list())
+                .withLore(ListReplacer.replace(LobbyMessage.HOST_CREATE_ITEM_LORE.asList(this.account), "%available_hosts%", this.account.getHyriPlus().has() ? LobbyMessage.HOST_UNLIMITED_WORD.asString(this.account) : String.valueOf(this.account.getHosts().getAvailableHosts())).list())
                 .build(),
                 event -> {
                     if (this.account.getHosts().getAvailableHosts() < 1) {

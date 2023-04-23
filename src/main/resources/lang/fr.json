@@ -243,7 +243,7 @@
   "host.item.lore": "\n&8Informations:\n &8▪ &7Hôte: %owner%\n &8▪ &7Jeu: &b%game%\n &8▪ &7Mode: &b%game_type%\n\n&8Statut:\n &8▪ &7Phase: %state%\n &8▪ &7Joueurs: &b%players%/%slots%",
   "host.create-item.name": "&bCréer mon host",
   "host.create-item.lore": "&7Crée ton propre host avec le jeu\n&7et la configuration que tu souhaites.\n\n&fHosts disponibles: &b%available_hosts%\n\n&3Cliquer pour créer",
-  "host.unlimited.word": "illimitées",
+  "host.unlimited.word": "illimités",
   "host.create.error.message": "&cTu n'as pas d'hosts disponibles! Obtiens en dans des lootboxes ou avec l'offre &6Hyri+&f.",
   "host.spectating-item.name": "&bObservation",
   "host.spectating-item.lore": "&7Affiche les hosts en jeu pouvant être\n&7observées par d'autres joueurs.\n\n&8Statut:\n&8▪ %enabled_color%Activé\n&8▪ %disabled_color%Désactivé\n\n&3Cliquer pour changer",
