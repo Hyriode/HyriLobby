@@ -16,12 +16,12 @@ public class BedWarsGame extends LobbyGame {
     public BedWarsGame() {
         super("bedwars", Material.BED, State.BLOCKED);
         this.npcData = new NPCData(new Location(IHyrame.WORLD.get(), -45.5, 187, 2.5, -90, 0), UsefulSkin.BED_WARS).addEquipment(EnumItemSlot.MAIN_HAND, Material.BED);
-        this.hostCompatible = false;
+        this.hostCompatible = true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
 }
