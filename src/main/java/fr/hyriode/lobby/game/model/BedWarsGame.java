@@ -14,7 +14,7 @@ import org.bukkit.Material;
 public class BedWarsGame extends LobbyGame {
 
     public BedWarsGame() {
-        super("bedwars", Material.BED, State.BLOCKED);
+        super("bedwars", Material.BED, State.OPENED);
         this.npcData = new NPCData(new Location(IHyrame.WORLD.get(), -45.5, 187, 2.5, -90, 0), UsefulSkin.BED_WARS).addEquipment(EnumItemSlot.MAIN_HAND, Material.BED);
         this.hostCompatible = true;
     }
