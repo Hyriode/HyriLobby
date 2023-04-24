@@ -10,6 +10,7 @@ import fr.hyriode.api.player.IHyriPlayerSession;
 import fr.hyriode.api.player.model.IHyriNickname;
 import fr.hyriode.api.player.model.SettingsLevel;
 import fr.hyriode.api.queue.IHyriQueueManager;
+import fr.hyriode.api.rank.IHyriRank;
 import fr.hyriode.api.rank.PlayerRank;
 import fr.hyriode.cosmetics.HyriCosmetics;
 import fr.hyriode.cosmetics.user.CosmeticUser;
@@ -48,6 +49,8 @@ public class LobbyPlayer {
     private final UUID uuid;
     private final HyriLobby plugin;
 
+    private IHyriRank cachedRank;
+
     private ActionBar statusBar;
 
     private boolean inPvp;
@@ -64,6 +67,8 @@ public class LobbyPlayer {
         final Player player = this.asPlayer();
         final IHyriPlayer account = this.asHyriPlayer();
         final CosmeticUser cosmeticUser = HyriCosmetics.get().getUserProvider().getUser(this.uuid);
+
+        this.cachedRank = account.getRank();
 
         if (cosmeticUser != null) {
             cosmeticUser.reactivateCosmeticsTemporarilyUnequipped();
@@ -445,6 +450,14 @@ public class LobbyPlayer {
 
     public boolean hasStatusBar() {
         return this.statusBar != null;
+    }
+
+    public IHyriRank getCachedRank() {
+        return this.cachedRank;
+    }
+
+    public void setCachedRank(IHyriRank cachedRank) {
+        this.cachedRank = cachedRank;
     }
 
 }
