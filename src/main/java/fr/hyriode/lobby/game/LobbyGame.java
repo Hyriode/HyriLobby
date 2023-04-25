@@ -125,7 +125,7 @@ public class LobbyGame {
     }
 
     public boolean isEnabled() {
-        return true;
+        return this.state != State.BLOCKED;
     }
 
     public StoreCategory getStoreCategory() {
