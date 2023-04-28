@@ -169,7 +169,7 @@
   "leveling.booster.description": "&8+&7%amount% Booster d'&dHyris &b+%boost%% &8(%multiplier%)",
   "leveling.plus-color.description": "&8+&7Couleur Hyri%color%+",
   "leveling.host.description": "&8+%amount% &bticket(s) &7d'host",
-  "leveling.cosmetic.description": "&8+%cosmetic%",
+  "leveling.cosmetic.description": "&8+Cosmétique: &b%cosmetic%",
 
   "gui.lootboxes.name": "&8Lootboxes",
   "gui.lootboxes.item.name": "&bLootbox &8┃ %stars%",

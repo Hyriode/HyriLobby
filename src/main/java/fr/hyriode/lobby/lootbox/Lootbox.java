@@ -11,11 +11,11 @@ import org.bukkit.ChatColor;
  */
 public enum Lootbox {
 
-    ONE_STAR(new StorePrice(StorePrice.Currency.HYRIS, 1500L), new StorePrice(StorePrice.Currency.HYODES, 450)),
-    TWO_STARS(new StorePrice(StorePrice.Currency.HYRIS, 3500L), new StorePrice(StorePrice.Currency.HYODES, 550)),
-    THREE_STARS(new StorePrice(StorePrice.Currency.HYRIS, 5500L), new StorePrice(StorePrice.Currency.HYODES, 700)),
-    FOUR_STARS(new StorePrice(StorePrice.Currency.HYRIS, 8000L), new StorePrice(StorePrice.Currency.HYODES, 850)),
-    FIVE_STARS(new StorePrice(StorePrice.Currency.HYRIS, 10000L), new StorePrice(StorePrice.Currency.HYODES, 1000));
+    ONE_STAR(new StorePrice(StorePrice.Currency.HYRIS, 1500L), new StorePrice(StorePrice.Currency.HYODES, 350)),
+    TWO_STARS(new StorePrice(StorePrice.Currency.HYRIS, 3500L), new StorePrice(StorePrice.Currency.HYODES, 450)),
+    THREE_STARS(new StorePrice(StorePrice.Currency.HYRIS, 5500L), new StorePrice(StorePrice.Currency.HYODES, 550)),
+    FOUR_STARS(new StorePrice(StorePrice.Currency.HYRIS, 8000L), new StorePrice(StorePrice.Currency.HYODES, 650)),
+    FIVE_STARS(new StorePrice(StorePrice.Currency.HYRIS, 10000L), new StorePrice(StorePrice.Currency.HYODES, 750));
 
     private final HyriLootboxRarity rarity;
     private final StorePrice[] prices;

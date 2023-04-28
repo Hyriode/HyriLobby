@@ -2,6 +2,7 @@ package fr.hyriode.lobby.listener;
 
 import fr.hyriode.hyrame.listener.HyriListener;
 import fr.hyriode.lobby.HyriLobby;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -22,7 +23,11 @@ public class ConnectionListener extends HyriListener<HyriLobby> {
     public void onPlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
 
+        final long before = System.currentTimeMillis();
+
         this.plugin.getPlayerManager().handleLogin(player.getUniqueId());
+
+        Bukkit.broadcastMessage(player.getName() + ": " + (System.currentTimeMillis() - before) + "ms");
     }
 
     @EventHandler
