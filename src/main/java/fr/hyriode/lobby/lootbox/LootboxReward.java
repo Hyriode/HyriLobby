@@ -183,17 +183,17 @@ public enum LootboxReward {
 
         @Override
         public String getName(Player player) {
-            return this.cosmetic.getTranslatedName().getValue(player);
+            return this.cosmetic.getInfo().getTranslatedName().getValue(player);
         }
 
         @Override
         public ItemStack createItem(Player player) {
-            return this.cosmetic.toItemStack(Bukkit.getPlayer(player.getUniqueId()), false);
+            return new fr.hyriode.lobby.cosmetic.CosmeticItem(this.cosmetic).toItemStack(Bukkit.getPlayer(player.getUniqueId()), false);
         }
 
         @Override
         public ItemStack getIcon() {
-            return this.cosmetic.getIcon();
+            return this.cosmetic.getInfo().getIcon();
         }
 
         @Override

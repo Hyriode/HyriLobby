@@ -8,6 +8,7 @@ import fr.hyriode.hyrame.inventory.pagination.PaginationArea;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Pagination;
 import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.cosmetic.CosmeticItem;
 import fr.hyriode.lobby.gui.LobbyGUI;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -29,7 +30,7 @@ public class CosmeticVariantsGui extends LobbyGUI {
 
         this.paginationManager.setArea(new PaginationArea(20, 33));
 
-        this.setItem(4, playerCosmetic.getAbstractCosmetic().getType().toItemStack(owner, false));
+        this.setItem(4, new CosmeticItem(playerCosmetic.getAbstractCosmetic().getType()).toItemStack(owner, false));
         this.setItem(49,
                 new ItemBuilder(Material.ARROW).withName(name(owner, "go-back.display")).build(), event -> {
                     this.owner.closeInventory();

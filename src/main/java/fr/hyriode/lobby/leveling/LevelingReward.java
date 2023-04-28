@@ -242,7 +242,7 @@ public enum LevelingReward {
         @Override
         public String getDescription(IHyriPlayer player) {
             return this.description.get().getValue(player)
-                    .replace("%cosmetic%", data.getTranslatedName().getValue(player));
+                    .replace("%cosmetic%", data.getInfo().getTranslatedName().getValue(player));
         }
 
     }
