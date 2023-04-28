@@ -13,6 +13,7 @@ import fr.hyriode.hyrame.inventory.pagination.PaginationArea;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Pagination;
 import fr.hyriode.lobby.HyriLobby;
+import fr.hyriode.lobby.cosmetic.CosmeticItem;
 import fr.hyriode.lobby.gui.LobbyGUI;
 import fr.hyriode.lobby.gui.store.StoreConfirmGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
@@ -101,7 +102,7 @@ public class CosmeticsGui extends LobbyGUI {
             ));
         } else {
             pagination.add(PaginatedItem.from(
-                    user.getEquippedCosmetic(category).toItemStack(owner, true),
+                    new CosmeticItem(user.getEquippedCosmetic(category)).toItemStack(owner, true),
                     this.clickEvent(user.getEquippedCosmetic(category))
             ));
         }
@@ -111,7 +112,7 @@ public class CosmeticsGui extends LobbyGUI {
             cosmetics.remove(user.getEquippedCosmetic(category));
         }
         for (Cosmetic cosmetic : cosmetics) {
-            pagination.add(PaginatedItem.from(cosmetic.toItemStack(owner, true), this.clickEvent(cosmetic)));
+            pagination.add(PaginatedItem.from(new CosmeticItem(cosmetic).toItemStack(owner, true), this.clickEvent(cosmetic)));
         }
 
         this.paginationManager.updateGUI();
@@ -121,7 +122,7 @@ public class CosmeticsGui extends LobbyGUI {
         return event -> {
             if (event.isLeftClick() || event.isRightClick()) {
                 if (!user.hasUnlockedCosmetic(cosmetic)) {
-                    if (cosmetic.isBuyable()) {
+                    if (cosmetic.getInfo().isBuyable()) {
                         this.openWithGoBack(49, new CosmeticsPurchaseConfirmGui(this.owner, this.plugin, cosmetic, event.getCurrentItem()));
                         return;
                     }

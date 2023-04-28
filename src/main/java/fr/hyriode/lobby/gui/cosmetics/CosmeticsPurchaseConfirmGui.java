@@ -34,8 +34,8 @@ public class CosmeticsPurchaseConfirmGui extends LobbyGUI {
         super(owner, plugin, name(owner, "gui.confirm.name"), 6 * 9);
         this.cosmetic = cosmetic;
         this.icon = icon;
-        final int hyodesPrice = cosmetic.getHyodesPrice();
-        final int hyrisPrice = cosmetic.getHyrisPrice();
+        final int hyodesPrice = cosmetic.getInfo().getHyodesPrice();
+        final int hyrisPrice = cosmetic.getInfo().getHyrisPrice();
         if (hyodesPrice > 1) {
             prices.add(new StorePrice(StorePrice.Currency.HYODES, hyodesPrice));
         }
