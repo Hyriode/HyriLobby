@@ -28,7 +28,16 @@ import java.util.stream.Collectors;
  */
 public enum LootboxReward {
 
-    ONE_STAR(new HyrisItem(500L, 100.0D)),
+    ONE_STAR(new HyrisItem(1000L, 35.0D),
+            new HyodesItem(100L, 10.0D),
+            new BoosterItem(StoreBooster.Type.ONE_FIVE, 10.0D),
+            new HostsItem(1, 7.0D),
+            new LootboxItem(Lootbox.TWO_STARS, 5.5D),
+            new LootboxItem(Lootbox.THREE_STARS, 3.5D),
+            new LootboxItem(Lootbox.FOUR_STARS, 1.5D),
+            new LootboxItem(Lootbox.FIVE_STARS, 0.5D)
+            ),
+
     TWO_STARS(),
     THREE_STARS(),
     FOUR_STARS(),
@@ -254,11 +263,11 @@ public enum LootboxReward {
 
     }
 
-    public static class HostsHandler extends Item {
+    public static class HostsItem extends Item {
 
         private final int tickets;
 
-        public HostsHandler(int tickets, double probability) {
+        public HostsItem(int tickets, double probability) {
             super(HyriLanguageMessage.get("lootbox-reward.hosts.name"), new ItemStack(Material.NAME_TAG), probability);
             this.tickets = tickets;
         }
