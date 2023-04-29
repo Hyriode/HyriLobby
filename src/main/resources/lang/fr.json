@@ -238,6 +238,7 @@
   "message.store.purchase-cancelled": "&fL'achat a été &cannulé&f.",
   "message.store.only-on-website": "&fCet objet doit être &aacheté &fsur notre &bboutique &fen ligne.",
   "message.store.already-own": "&fVous possédez &cdéjà &fcet objet!",
+  "message.store.depends-not-owned": "&fVous &cdevez &fpossédez l'objet: %object% &favant d'acheter cet objet.",
 
   "gui.host.name": "&8Hosts",
   "gui.host.game-selector.name": "&8Choix du jeu",

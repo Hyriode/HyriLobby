@@ -179,6 +179,7 @@ public enum LobbyMessage {
     STORE_PURCHASE_CANCELLED_MESSAGE("message.store.purchase-cancelled", STORE_PREFIX),
     STORE_ONLY_ON_WEBSITE_MESSAGE("message.store.only-on-website", STORE_PREFIX),
     STORE_ALREADY_OWN_MESSAGE("message.store.already-own", STORE_PREFIX),
+    STORE_DEPENDS_NOT_OWNED_MESSAGE("message.store.depends-not-owned", STORE_PREFIX),
 
     CONFIRM_ITEM_CONFIRM_NAME("gui.confirm.item.confirm.name"),
     CONFIRM_ITEM_CANCEL_NAME("gui.confirm.item.cancel.name"),

@@ -47,7 +47,7 @@ public class RanksGUI extends LobbyGUI {
                     account.getRank().setPlayerType(PlayerRank.VIP);
                 });
 
-        final StoreItem vipPlus = new StoreDependentItem(itemCreator.apply(UsefulHead.LIME_GREEN_CUBE), categoryId, PlayerRank.VIP_PLUS.getName(), vip,
+        final StoreItem vipPlus = new StoreItem(itemCreator.apply(UsefulHead.LIME_GREEN_CUBE), categoryId, PlayerRank.VIP_PLUS.getName(),
                 new StorePrice(StorePrice.Currency.HYODES, 1700))
                 .withOwningCheck(owningCheck.apply(PlayerRank.VIP_PLUS))
                 .whenPurchased(account -> {
@@ -55,7 +55,7 @@ public class RanksGUI extends LobbyGUI {
                     account.getRank().setPlayerType(PlayerRank.VIP_PLUS);
                 });
 
-        final StoreItem epic = new StoreDependentItem(itemCreator.apply(UsefulHead.DEEP_SKY_BLUE), categoryId, PlayerRank.EPIC.getName(), vipPlus,
+        final StoreItem epic = new StoreItem(itemCreator.apply(UsefulHead.DEEP_SKY_BLUE), categoryId, PlayerRank.EPIC.getName(),
                 new StorePrice(StorePrice.Currency.HYODES, 4500))
                 .withOwningCheck(owningCheck.apply(PlayerRank.EPIC))
                 .whenPurchased(account -> {

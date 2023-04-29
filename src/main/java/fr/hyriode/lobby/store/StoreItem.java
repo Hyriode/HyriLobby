@@ -108,6 +108,10 @@ public class StoreItem extends StoreIcon {
                 .open();
     }
 
+    public boolean isOwning(IHyriPlayer account) {
+        return this.owningCheck.test(account);
+    }
+
     public String getCategory() {
         return this.category;
     }
