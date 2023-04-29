@@ -184,6 +184,8 @@
   "lootbox-reward.booster.description": "\n&8Informations:\n&8▪ &7Boost: &b%boost% &8(%multiplier%)\n&8▪ &7Durée: &b1h",
   "lootbox-reward.lootbox.name": "&bLootbox &8┃ %stars%",
   "lootbox-reward.hosts.name": "&b%tickets% ticket(s) host",
+  "lootbox-reward.cosmetics.name": "&bCosmétique &cA&6l&eé&aa&3t&9o&5i&cr&6e",
+  "lootbox-reward.cosmetics.description": "&8▪ &7Rareté: %rarity%",
 
   "prefix.store": "&3Boutique &f┃ ",
   "gui.store.name": "&8Boutique",

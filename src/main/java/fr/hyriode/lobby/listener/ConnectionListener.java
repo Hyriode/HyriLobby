@@ -23,11 +23,7 @@ public class ConnectionListener extends HyriListener<HyriLobby> {
     public void onPlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
 
-        final long before = System.currentTimeMillis();
-
         this.plugin.getPlayerManager().handleLogin(player.getUniqueId());
-
-        Bukkit.broadcastMessage(player.getName() + ": " + (System.currentTimeMillis() - before) + "ms");
     }
 
     @EventHandler

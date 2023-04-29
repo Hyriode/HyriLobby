@@ -5,6 +5,7 @@ import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.cosmetics.HyriCosmetics;
 import fr.hyriode.cosmetics.common.Cosmetic;
+import fr.hyriode.cosmetics.common.CosmeticRarity;
 import fr.hyriode.cosmetics.user.CosmeticUser;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.list.ListReplacer;
@@ -28,15 +29,16 @@ import java.util.stream.Collectors;
  */
 public enum LootboxReward {
 
-    ONE_STAR(new HyrisItem(1000L, 35.0D),
-            new HyodesItem(100L, 10.0D),
-            new BoosterItem(StoreBooster.Type.ONE_FIVE, 10.0D),
+    ONE_STAR(new HyrisItem(1000L, 55.5D),
+            new CosmeticsItem(CosmeticRarity.COMMON, 16.0D),
+            new BoosterItem(StoreBooster.Type.ONE_FIVE, 5.0D),
             new HostsItem(1, 7.0D),
             new LootboxItem(Lootbox.TWO_STARS, 5.5D),
             new LootboxItem(Lootbox.THREE_STARS, 3.5D),
             new LootboxItem(Lootbox.FOUR_STARS, 1.5D),
-            new LootboxItem(Lootbox.FIVE_STARS, 0.5D)
-            ),
+            new LootboxItem(Lootbox.FIVE_STARS, 0.5D),
+            new HyodesItem(100L, 1.0D)
+    ),
 
     TWO_STARS(),
     THREE_STARS(),
@@ -61,12 +63,6 @@ public enum LootboxReward {
             }
         }
         return this.getRandomItem();
-    }
-
-    public List<Item> getSortedItems() {
-        return this.items.stream()
-                .sorted(Comparator.comparingDouble(Item::getProbability))
-                .collect(Collectors.toList());
     }
 
     public List<Item> getItems() {
@@ -181,35 +177,25 @@ public enum LootboxReward {
 
     }
 
-    public static class CosmeticItem extends Item {
+    public static class CosmeticsItem extends Item {
 
-        private final Cosmetic cosmetic;
+        private final CosmeticRarity rarity;
 
-        public CosmeticItem(Cosmetic cosmetic, double probability) {
-            super(null, null, probability);
-            this.cosmetic = cosmetic;
+        public CosmeticsItem(CosmeticRarity rarity, double probability) {
+            super(HyriLanguageMessage.get("lootbox-reward.cosmetics.name"), ItemBuilder.asHead(UsefulHead.COSMETICS_CHEST).build(), probability);
+            this.rarity = rarity;
         }
 
         @Override
-        public String getName(Player player) {
-            return this.cosmetic.getInfo().getTranslatedName().getValue(player);
-        }
+        public List<String> getDescription(Player player) {
+            final List<String> description = Arrays.asList(HyriLanguageMessage.get("lootbox-reward.cosmetics.description").getValue(player).split("\n"));
 
-        @Override
-        public ItemStack createItem(Player player) {
-            return new fr.hyriode.lobby.cosmetic.CosmeticItem(this.cosmetic).toItemStack(Bukkit.getPlayer(player.getUniqueId()), false);
-        }
-
-        @Override
-        public ItemStack getIcon() {
-            return this.cosmetic.getInfo().getIcon();
+            return ListReplacer.replace(description, "%rarity%", this.rarity.getTranslatedName(player)).list();
         }
 
         @Override
         public void give(IHyriPlayer account) {
-            final CosmeticUser user = HyriCosmetics.get().getUserProvider().getUser(account.getUniqueId());
 
-            user.addUnlockedCosmetic(this.cosmetic);
         }
 
     }
@@ -230,7 +216,9 @@ public enum LootboxReward {
 
         @Override
         public List<String> getDescription(Player player) {
-            return ListReplacer.replace(super.getDescription(player), "%boost%", this.booster.format())
+            final List<String> description = Arrays.asList(HyriLanguageMessage.get("lootbox-reward.booster.description").getValue(player).split("\n"));
+
+            return ListReplacer.replace(description, "%boost%", this.booster.format())
                     .replace("%multiplier%", String.valueOf(this.booster.getMultiplier()))
                     .list();
         }
