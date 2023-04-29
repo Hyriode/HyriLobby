@@ -17,6 +17,7 @@ import fr.hyriode.lobby.cosmetic.CosmeticItem;
 import fr.hyriode.lobby.gui.LobbyGUI;
 import fr.hyriode.lobby.gui.store.StoreConfirmGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -53,7 +54,7 @@ public class CosmeticsGui extends LobbyGUI {
 
         this.setItem(4,
                 new ItemBuilder(category.getIcon())
-                        .withName("§b" + category.getTranslatedName().getValue(owner))
+                        .withName(ChatColor.RESET + "" + ChatColor.AQUA + category.getTranslatedName().getValue(owner))
                         .withLore(StringUtil.splitIntoPhrases(category.getTranslatedDescription().getValue(owner), 40))
                         .appendLore("§7")
                         .appendLore(HyriLanguageMessage.get("gui.cosmetic.unlocked").getValue(owner)

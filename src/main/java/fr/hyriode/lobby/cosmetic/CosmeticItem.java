@@ -11,6 +11,7 @@ import fr.hyriode.cosmetics.common.CosmeticInfo;
 import fr.hyriode.cosmetics.user.CosmeticUser;
 import fr.hyriode.cosmetics.utils.StringUtil;
 import fr.hyriode.hyrame.item.ItemBuilder;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -32,7 +33,7 @@ public class CosmeticItem {
 
         final ItemBuilder builder = new ItemBuilder(user.hasUnlockedCosmetic(this.cosmetic) ? this.info.getIcon() :
                 new ItemStack(Material.INK_SACK, 1, (short) 8))
-                .withName(this.info.getTranslatedName().getValue(player))
+                .withName(ChatColor.RESET + "" + ChatColor.AQUA + this.info.getTranslatedName().getValue(player))
                 .withLore(StringUtil.splitIntoPhrases(info.getTranslatedDescription().getValue(player), 35))
                 .appendLore("")
                 .appendLore(getRarityInfo(player));
