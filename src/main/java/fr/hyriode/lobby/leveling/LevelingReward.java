@@ -312,7 +312,7 @@ public enum LevelingReward {
         public String getDescription(IHyriPlayer player) {
             return this.description.get().getValue(player)
                     .replace("%amount%", String.valueOf(this.data.getAmount()))
-                    .replace("%boost%", String.valueOf((int) this.data.getMultiplier() * 100))
+                    .replace("%boost%", String.valueOf(((int) (this.data.getMultiplier() * 100 - 100))))
                     .replace("%multiplier%", String.valueOf(this.data.getMultiplier()));
         }
 
