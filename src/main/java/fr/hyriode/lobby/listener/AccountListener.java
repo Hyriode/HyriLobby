@@ -143,6 +143,8 @@ public class AccountListener {
                 return;
             }
 
+            newLobbyPlayer.giveDefaultItems();
+
             if (nickname.has()) {
                 newLobbyPlayer.initStatusBar(IHyriPlayerSession.get(playerId));
             } else {

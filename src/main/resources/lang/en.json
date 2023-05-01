@@ -11,7 +11,7 @@
   "message.join.display": "\n&3&m---------------------&r&b Hyriode &3&m---------------------&r\n \n                       &7Website: &b%website%\n                       &7Store: &b%store%\n                      &7Discord: &b%discord%\n \n&3&m--------------------------------------------------&r\n \n",
   "message.join-vip.display": "%player%&6 joined the lobby!",
   "message.error-staff.display": "&cError: You can't do this in moderation mode.",
-  "message.lobby-restarting.display": "&3&m--------------------------------------------------&r\n&3Warning: &fthis &blobby &fwill &arestart &fin &b%count% &fseconds!\n&3&m--------------------------------------------------",
+  "message.lobby-restarting.display": "&c&m--------------------------------------------------&r\n&cWarning: &fthis &blobby &fwill &arestart &fin &c%count% &fseconds!\n&c&m--------------------------------------------------",
 
   "prefix.queue": "&3Queue &f┃ ",
   "message.normal-queue.player-joined": "&fYou &ajoined &fthe queue for &3%game% &8(%game_type%)",

@@ -87,7 +87,7 @@ public class HyriLobby extends JavaPlugin {
 
 
         HyriAPI.get().getEventBus().register(new AccountListener(this));
-        HyriAPI.get().getNetworkManager().getEventBus().register(new InternalListener(this));
+        HyriAPI.get().getNetworkManager().getEventBus().register(new InternalListener());
         HyriAPI.get().getQueueManager().addHandler(new NormalQueueHandler(this));
         HyriAPI.get().getQueueManager().addHandler(new HostQueueHandler(this));
 

@@ -15,12 +15,6 @@ import org.bukkit.entity.Player;
  */
 public class InternalListener {
 
-    private final HyriLobby plugin;
-
-    public InternalListener(HyriLobby plugin) {
-        this.plugin = plugin;
-    }
-
     @HyriEventHandler
     public void onLobbyRestarting(LobbyRestartingEvent event) {
         if (HyriAPI.get().getServer().getName().equals(event.getLobby())) {
