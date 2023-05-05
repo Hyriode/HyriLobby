@@ -163,7 +163,7 @@ public class ProfileGUI extends LobbyGUI {
         if (hyriPlus.has()) {
             final long enabledDate = hyriPlus.getEnabledDate();
             final Date purchase = new Date(enabledDate);
-            final Date expiration = new Date(enabledDate + hyriPlus.getDuration() * 1000);
+            final Date expiration = new Date(enabledDate + hyriPlus.getDuration());
 
             lineBuilder.accept(LobbyMessage.PROFILE_HYRIPLUS_BUY_DATE.asString(this.account), enabledDate <= 0 ? "-" : TimeUtil.formatDate(purchase));
             lineBuilder.accept(LobbyMessage.PROFILE_HYRIPLUS_EXPIRE_DATE.asString(this.account), enabledDate <= 0 ? "-" : TimeUtil.formatDate(expiration));
