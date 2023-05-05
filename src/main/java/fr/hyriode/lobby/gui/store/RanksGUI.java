@@ -70,7 +70,7 @@ public class RanksGUI extends LobbyGUI {
                     final IHyriPlus handle = account.getHyriPlus();
                     final boolean expired = handle.hasExpire();
                     final LocalDateTime start = LocalDateTime.now();
-                    final long duration = start.until(start.plus(Period.parse("P1M")), ChronoUnit.SECONDS);
+                    final long duration = start.until(start.plus(Period.parse("P1M")), ChronoUnit.MILLIS);
 
                     handle.setDuration(handle.getDuration() + duration);
 
