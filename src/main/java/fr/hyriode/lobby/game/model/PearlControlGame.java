@@ -1,5 +1,6 @@
 package fr.hyriode.lobby.game.model;
 
+import fr.hyriode.api.HyriAPI;
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.reflection.entity.EnumItemSlot;
 import fr.hyriode.lobby.game.LobbyGame;
@@ -15,7 +16,17 @@ public class PearlControlGame extends LobbyGame {
 
     public PearlControlGame() {
         super("pearlcontrol", Material.ENDER_PEARL, State.OPENED);
-        this.npcData = new NPCData(new Location(IHyrame.WORLD.get(), -48.5, 187, 9.5, -90, 0), UsefulSkin.PEARL_CONTROL).addEquipment(EnumItemSlot.MAIN_HAND, Material.ENDER_PEARL);
+        this.usedInSelector = false;
+    }
+
+    @Override
+    public boolean isBoostable() {
+        return HyriAPI.get().getGameManager()
+                .getRotatingGameManager()
+                .getRotatingGame()
+                .getInfo()
+                .getName()
+                .equals(this.name);
     }
 
 }
