@@ -288,7 +288,7 @@
   "game.bedwars.description": "Protect your bed and destroy those\nof other opponents. Kill all the players\nto win the game.",
   "game.lasergame.type": "&3Shooter, Arcade",
   "game.lasergame.description": "Shoot your opponents to gain a maximum\nof points. Collect the bonuses dispersed\non the map to obtain useful abilities.",
-  "game.getdown.type": "&3Race, PvP",
+  "game.getdown.type": "&3Jump, PvP",
   "game.getdown.description": "Drop down the map while\ncollecting coins to eliminate\nyour opponents!",
   "game.sheepwars.type": "&3PvP, Strategy",
   "game.sheepwars.description": "Eliminate the enemy team with\nmany sheeps that give random effects:\nexplosion, teleportation, healing, etc.",

@@ -288,7 +288,7 @@
   "game.bedwars.description": "Protège ton lit et détruit ceux de\ntes adversaires. Elimine tous les joueurs\npour remporter la partie.",
   "game.lasergame.type": "&3Jeu de tir, Arcade",
   "game.lasergame.description": "Tirez sur vos adversaires pour gagner\nun maximum de points. Récupérez les bonus\ndispersés sur la carte pour obtenir\ndes capacités utiles.",
-  "game.getdown.type": "&3Course, PvP",
+  "game.getdown.type": "&3Jump, PvP",
   "game.getdown.description": "Descend tout en bas de la carte\ntout en gagnant des coins pour élminer\ntes adversaires.",
   "game.sheepwars.type": "&3PvP, Stratégie",
   "game.sheepwars.description": "Elimine l'équipe adverse à l'aide\nde beaucoup de moutons donnant de\nnombreux effets aléatoires: éxplosion,\ntéléportation, soin, etc.",
