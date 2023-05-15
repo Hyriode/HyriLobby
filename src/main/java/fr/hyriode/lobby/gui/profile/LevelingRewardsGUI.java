@@ -1,6 +1,7 @@
 package fr.hyriode.lobby.gui.profile;
 
 import fr.hyriode.api.leveling.NetworkLeveling;
+import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.inventory.pagination.PaginatedItem;
 import fr.hyriode.hyrame.inventory.pagination.PaginationArea;
 import fr.hyriode.hyrame.item.ItemBuilder;
@@ -71,11 +72,16 @@ public class LevelingRewardsGUI extends LobbyGUI {
                         return;
                     }
 
-                    reward.getHandler().claim(this.account);
+                    // Some rewards can be overwritten (ex: cosmetics)
+                    if (reward.getHandler().claim(this.account)) {
+                        leveling.claimReward(level);
+                        this.account.update();
+                    } else {
+                        this.account = IHyriPlayer.get(this.owner.getUniqueId());
+                        this.account.getNetworkLeveling().claimReward(level);
+                        this.account.update();
+                    }
 
-                    leveling.claimReward(level);
-
-                    this.account.update();
                     this.owner.playSound(this.owner.getLocation(), Sound.NOTE_PLING, 1.0f, 2.0f);
                     this.owner.sendMessage(LobbyMessage.LEVELING_REWARD_CLAIMED.asString(this.account).replace("%level%", String.valueOf(level)));
 

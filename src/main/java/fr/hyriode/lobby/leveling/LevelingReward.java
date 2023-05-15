@@ -162,7 +162,7 @@ public enum LevelingReward {
             this.description = () -> HyriLanguageMessage.get("leveling." + this.name + ".description");
         }
 
-        public abstract void claim(IHyriPlayer player);
+        public abstract boolean claim(IHyriPlayer player);
 
         public abstract String getDescription(IHyriPlayer player);
 
@@ -175,10 +175,12 @@ public enum LevelingReward {
         }
 
         @Override
-        public void claim(IHyriPlayer player) {
+        public boolean claim(IHyriPlayer player) {
             player.getHyris().add(this.data)
                     .withMultiplier(false)
                     .exec();
+
+            return true;
         }
 
         @Override
@@ -195,10 +197,12 @@ public enum LevelingReward {
         }
 
         @Override
-        public void claim(IHyriPlayer player) {
+        public boolean claim(IHyriPlayer player) {
             player.getHyodes().add(this.data)
                     .withMultiplier(false)
                     .exec();
+
+            return true;
         }
 
         @Override
@@ -215,8 +219,10 @@ public enum LevelingReward {
         }
 
         @Override
-        public void claim(IHyriPlayer player) {
+        public boolean claim(IHyriPlayer player) {
             player.getNetworkLeveling().setExperience(player.getNetworkLeveling().getExperience() + this.data);
+
+            return true;
         }
 
         @Override
@@ -233,10 +239,12 @@ public enum LevelingReward {
         }
 
         @Override
-        public void claim(IHyriPlayer player) {
+        public boolean claim(IHyriPlayer player) {
             final CosmeticUser user = HyriCosmetics.get().getUserProvider().getUser(player.getUniqueId());
 
             user.addUnlockedCosmetic(this.data);
+
+            return false;
         }
 
         @Override
@@ -254,10 +262,12 @@ public enum LevelingReward {
         }
 
         @Override
-        public void claim(IHyriPlayer player) {
+        public boolean claim(IHyriPlayer player) {
             for (int i = 0; i < this.data.getAmount(); i++) {
                 HyriAPI.get().getLootboxManager().giveLootbox(player, this.data.getRarity());
             }
+
+            return true;
         }
 
         @Override
@@ -302,10 +312,12 @@ public enum LevelingReward {
         }
 
         @Override
-        public void claim(IHyriPlayer player) {
+        public boolean claim(IHyriPlayer player) {
             for (int i = 0; i < this.data.getAmount(); i++) {
                 HyriAPI.get().getBoosterManager().giveBooster(player, this.data.getMultiplier(), this.data.getDuration());
             }
+
+            return true;
         }
 
         @Override
@@ -350,8 +362,10 @@ public enum LevelingReward {
         }
 
         @Override
-        public void claim(IHyriPlayer player) {
+        public boolean claim(IHyriPlayer player) {
             player.getHyriPlus().addColor(this.data);
+
+            return true;
         }
 
         @Override
@@ -368,8 +382,10 @@ public enum LevelingReward {
         }
 
         @Override
-        public void claim(IHyriPlayer player) {
+        public boolean claim(IHyriPlayer player) {
             player.getHosts().addAvailableHosts(this.data);
+
+            return true;
         }
 
         @Override
