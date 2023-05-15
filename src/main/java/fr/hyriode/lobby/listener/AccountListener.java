@@ -143,7 +143,9 @@ public class AccountListener {
                 return;
             }
 
-            newLobbyPlayer.giveDefaultItems();
+            if (!newLobbyPlayer.hasJump() && !newLobbyPlayer.isInPvp()) {
+                newLobbyPlayer.giveDefaultItems();
+            }
 
             if (nickname.has()) {
                 newLobbyPlayer.initStatusBar(IHyriPlayerSession.get(playerId));
