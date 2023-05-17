@@ -292,6 +292,8 @@
   "game.getdown.description": "Drop down the map while\ncollecting coins to eliminate\nyour opponents!",
   "game.sheepwars.type": "&3PvP, Strategy",
   "game.sheepwars.description": "Eliminate the enemy team with\nmany sheeps that give random effects:\nexplosion, teleportation, healing, etc.",
+  "game.teamfight.type": "&3PvP, Competition",
+  "game.teamfight.description": "Eliminate the enemy players several times to win the game and climb the leaderboards.",
 
   "game.state.new.display": "&a&lNEW",
   "game.state.popular.display": "&e&lPOPULAR",

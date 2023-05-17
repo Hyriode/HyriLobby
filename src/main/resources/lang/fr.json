@@ -292,6 +292,8 @@
   "game.getdown.description": "Descend tout en bas de la carte\ntout en gagnant des coins pour élminer\ntes adversaires.",
   "game.sheepwars.type": "&3PvP, Stratégie",
   "game.sheepwars.description": "Elimine l'équipe adverse à l'aide\nde beaucoup de moutons donnant de\nnombreux effets aléatoires: éxplosion,\ntéléportation, soin, etc.",
+  "game.teamfight.type": "&3PvP, Compétition",
+  "game.teamfight.description": "Elimine tous les joueurs de l'équipe\nadverse à plusieurs reprises pour remporter\nla partie et monter dans les classements.",
 
   "game.state.new.display": "&a&lNOUVEAU",
   "game.state.popular.display": "&e&lPOPULAIRE",

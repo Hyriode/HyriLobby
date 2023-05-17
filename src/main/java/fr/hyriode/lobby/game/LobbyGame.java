@@ -5,6 +5,7 @@ import fr.hyriode.api.game.IHyriGameInfo;
 import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.network.counter.IHyriCategoryCounter;
 import fr.hyriode.api.util.Skin;
+import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.reflection.entity.EnumItemSlot;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.store.StoreCategory;
@@ -42,7 +43,7 @@ public class LobbyGame {
 
     public LobbyGame(String name, ItemStack icon, State state) {
         this.name = name;
-        this.icon = icon;
+        this.icon = new ItemBuilder(icon).withAllItemFlags().build();
         this.state = state;
         this.description = HyriLanguageMessage.get("game." + this.name + ".description");
         this.type = HyriLanguageMessage.get("game." + this.name + ".type");
