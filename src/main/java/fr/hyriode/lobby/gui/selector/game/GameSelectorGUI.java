@@ -24,10 +24,16 @@ import static fr.hyriode.lobby.game.LobbyGame.State;
 
 public class GameSelectorGUI extends LobbyGUI {
 
+    private List<Integer> gameSlots;
+
     private int rotatingGameAnimation;
 
     public GameSelectorGUI(HyriLobby plugin, Player owner) {
         super(owner, plugin, () -> "game-selector", 54);
+
+        final List<LobbyGame> games = this.plugin.getGameManager().getGamesInSelector();
+
+        this.gameSlots = SlotConfiguration.getSlots(games.size() + 1);
 
         this.init();
         this.newUpdate(20L);
@@ -54,10 +60,13 @@ public class GameSelectorGUI extends LobbyGUI {
 
     private void addGameItems() {
         final List<LobbyGame> games = this.plugin.getGameManager().getGamesInSelector();
-        final List<Integer> slots = SlotConfiguration.getSlots(games.size());
 
         int gameIndex = 0;
-        for (int slot : slots) {
+        for (int slot : this.gameSlots) {
+            if (gameIndex == games.size()) {
+                break;
+            }
+
             this.addGameItem(slot, games.get(gameIndex));
             gameIndex++;
         }
@@ -125,7 +134,7 @@ public class GameSelectorGUI extends LobbyGUI {
                 .withLore(lore)
                 .build();
 
-        this.setItem(40, rotatingGameItem, event -> new RotatingGameTypeSelectorGUI(this.plugin, this.owner, true).open());
+        this.setItem(this.gameSlots.get(this.gameSlots.size() - 1), rotatingGameItem, event -> new RotatingGameTypeSelectorGUI(this.plugin, this.owner, true).open());
     }
 
     private void addGameItem(int slot, LobbyGame game) {

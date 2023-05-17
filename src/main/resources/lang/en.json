@@ -16,7 +16,7 @@
   "prefix.queue": "&3Queue &f┃ ",
   "message.normal-queue.player-joined": "&fYou &ajoined &fthe queue for &3%game% &8(%game_type%)",
   "message.normal-queue.player-left": "&fYou &cleft &fthe queue for &3%game% &8(%game_type%)",
-  "bar.normal-queue.display": "&fEn attente d'un serveur... - &b%game% &8(%game_type%)",
+  "bar.normal-queue.display": "&fWaiting for a server... - &b%game% &8(%game_type%)",
   "message.host-queue.player-joined": "&fYou &ajoined &fthe queue for &3%host% &8(%server%)",
   "message.host-queue.player-left": "&fYou &cleft &fthe queue for &3%host% &8(%server%)",
   "bar.host-queue.display": "&fWaiting for the server... - &b%host% &8(%server%)",
