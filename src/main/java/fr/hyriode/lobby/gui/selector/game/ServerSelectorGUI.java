@@ -59,6 +59,7 @@ public class ServerSelectorGUI extends LobbyGUI {
         final List<HyggServer> servers = new ArrayList<>(HyriAPI.get().getServerManager().getServers(this.game))
                 .stream()
                 .filter(server -> Objects.equals(server.getGameType(), this.gameType))
+                .filter(server -> server.getAccessibility() == HyggServer.Accessibility.PUBLIC)
                 .filter(server -> server.getState() == HyggServer.State.PLAYING || server.getState() == HyggServer.State.READY)
                 .collect(Collectors.toList());
 
