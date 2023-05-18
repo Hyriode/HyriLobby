@@ -73,11 +73,18 @@ public class GameTypeSelectorGUI extends LobbyGUI {
             final int players = playerCount.getCategory(gameInfo.getName()).getPlayers(type.getName());
 
             for (int i : SlotConfiguration.getSlots(types.size())) {
-                if(this.inventory.getItem(i) == null) {
+                if (this.inventory.getItem(i) == null) {
                     this.setItem(i, new ItemBuilder(this.game.getIcon())
                             .withName(ChatColor.AQUA + type.getDisplayName())
                             .withLore(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.account) + ChatColor.AQUA + players, "", LobbyMessage.PLAY.asLang().getValue(this.account))
-                            .build(), event -> this.sendPlayerToGame(type.getName()));
+                            .build(),
+                            event -> {
+                                if (event.isLeftClick()) {
+                                    this.sendPlayerToGame(type.getName());
+                                } else if (event.isRightClick()) {
+                                    this.openWithGoBack(49, new ServerSelectorGUI(this.plugin, this.owner, gameInfo.getName(), type.getName()));
+                                }
+                            });
                     break;
                 }
             }

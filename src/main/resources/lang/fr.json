@@ -48,8 +48,6 @@
   "item.store.name": "&6Boutique",
   "item.profile.name": "&bProfil",
 
-  "gui.game-type-selector.name": "&8Choix du mode",
-
   "gui.lobby-selector.name": "&8Changer de lobby",
   "gui.lobby-selector.item.name": "&fLobby ID: ",
 
@@ -62,6 +60,11 @@
   "gui.game-selector.item.jump.description": "&7Téléporte toi au parcours\n&7du lobby.\n\n&3Cliquer pour se téléporter",
   "gui.game-selector.item.rotating-game.name": "&bJeu rotatif",
   "gui.game-selector.item.rotating-game.description": "&fActuel: &b%game%\n\n&7Joue à des jeux emblématiques\n&7de la communauté toutes les\n&7semaines.\n\n&fJoueurs: &b%players%\n%booster%\n&3Cliquer pour jouer",
+
+  "gui.game-type-selector.name": "&8Choix du mode",
+
+  "gui.server-selector.name": "&8Choix du serveur",
+  "gui.server-selector.item.server.description": "&8▪ &7Etat: %state%\n&8▪ &7Joueurs: &b%players%/%slots%\n\n&3Cliquer pour rejoindre",
 
   "prefix.settings": "&3Paramètres &f┃ ",
   "message.settings.lang-changed": "&fVotre &blangue &fa été &amodifiée &8(%lang%)",
@@ -316,6 +319,9 @@
   "click.to-claim": "&3Cliquer pour récupérer",
   "click.to-open": "&3Cliquer pour ouvrir",
 
+  "state.ready.display": "&aPrêt",
+  "state.playing.display": "&cEn jeu",
+
   "npc.language.header": "&3Langue\n&fChoisis ta langue\n&8» &bCLIQUE &8«",
   "npc.rotating-game.header": "&f&kE&r &bJeu rotatif &r&f&kE\n&3&l%rotating_game%\n&b%players% &fjoueurs",
   "npc.host.header": "&3Hosts\n&fCrée ta partie\n&8» &bCLIQUE &8«",
@@ -397,5 +403,4 @@
   "hologram.casino.roller-machines.description": "&bMachines à rouleaux.\n&bPrix : &d500 Hyris&3.\n&bPour jouer, vous devez cliquer sur le &7levier&b.\nLe principe est simple, les lots vont défiler dans votre inventaire\net vous allez gagner un lot associé à &b3 items alignés&f.",
   "hologram.casino.wwtbam.description": "&bQui veut gagner des millions ?\n&bPour jouer, vous devez cliquer sur le &7bouton&b.\nLe principe est simple, Vous allez parier la somme que vous souhaitez\npuis, vous avez une certaine chance de multiplier votre mise. Suite à cela,\nvous pouvez la remettre en jeu pour tenter d'augmenter votre gain.",
   "hologram.casino.shifumi.description": "&bShifumi\nLe principe est simple, vous allez parier la somme que vous souhaitez\npuis, vous allez choisir entre la &8pierre&f, la feuille et les &7ciseaux&f,\nvotre adversaire fera de même. Les règles sont tout aussi simples,\nla pierre bat les ciseaux, la feuille bat la pierre, et les ciseaux battent la feuille."
-
 }

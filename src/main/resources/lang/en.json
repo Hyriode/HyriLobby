@@ -48,8 +48,6 @@
   "item.store.name": "&6Store",
   "item.profile.name": "&bProfile",
 
-  "gui.game-type-selector.name": "&8Mode selector",
-
   "gui.lobby-selector.name": "&8Change lobby",
   "gui.lobby-selector.item.name": "&fLobby ID: ",
 
@@ -62,6 +60,11 @@
   "gui.game-selector.item.jump.description": "&7Teleport yourself to the lobby\n&7parkour.\n\n&3Click to teleport",
   "gui.game-selector.item.rotating-game.name": "&bRotating game",
   "gui.game-selector.item.rotating-game.description": "&fCurrent: &b%game%\n\n&7Play to emblematic games of\n&7the community every week.\n\n&fPlayers: &b%players%\n%booster%\n&3Click to play",
+
+  "gui.game-type-selector.name": "&8Mode selector",
+
+  "gui.server-selector.name": "&8Server selector",
+  "gui.server-selector.item.server.description": "&8▪ &7State: %state%\n&8▪ &7Players: &b%players%/%slots%\n\n&3Click to join",
 
   "prefix.settings": "&3Settings &f┃ ",
   "message.settings.lang-changed": "&fYour &blanguage &fhas been &achanged &8(%lang%)",
@@ -315,6 +318,9 @@
   "click.to-see": "&3Click to see",
   "click.to-claim": "&3Click to claim",
   "click.to-open": "&3Click to ouvrir",
+
+  "state.ready.display": "&aReady",
+  "state.playing.display": "&cPlaying",
 
   "npc.language.header": "&3Language\n&fSelect your language\n&8» &bCLICK &8«",
   "npc.rotating-game.header": "&f&kE&r &bRotating game &r&f&kE\n&3&l%rotating_game%\n&b%players% &fplayers",

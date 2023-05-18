@@ -16,7 +16,7 @@ public enum HostState {
 
     STARTING("starting", UsefulHead.YELLOW_CUBE),
     WHITELISTED("whitelisted", UsefulHead.BLUE_CUBE),
-    WAITING("waiting", UsefulHead.LIME_CUBE),
+    WAITING("waiting", UsefulHead.LIME_GREEN_CUBE),
     PLAYING("playing", UsefulHead.RED_CUBE);
 
     private HyriLanguageMessage display;

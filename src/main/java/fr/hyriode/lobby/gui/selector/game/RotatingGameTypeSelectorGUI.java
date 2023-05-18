@@ -74,20 +74,25 @@ public class RotatingGameTypeSelectorGUI extends LobbyGUI {
                     this.setItem(i, ItemBuilder.asHead(UsefulHead.DICE_1)
                             .withName(ChatColor.AQUA + type.getDisplayName())
                             .withLore(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.owner) + ChatColor.AQUA + players, "", LobbyMessage.PLAY.asLang().getValue(this.owner))
-                            .build(), event -> this.sendPlayerToGame(this.owner, type.getName()));
+                            .build(),
+                            event -> {
+                                if (event.isLeftClick()) {
+                                    this.sendPlayerToGame(type.getName());
+                                } else if (event.isRightClick()) {
+                                    this.openWithGoBack(49, new ServerSelectorGUI(this.plugin, this.owner, this.game.getName(), type.getName()));
+                                }
+                            });
                     break;
                 }
             }
         }
     }
 
-    private void sendPlayerToGame(Player player, String type) {
-        final IHyriPlayerSession session = IHyriPlayerSession.get(player.getUniqueId());
-
-        if (session.isModerating()) {
-            player.sendMessage(LobbyMessage.STAFF_ERROR.asString(player));
+    private void sendPlayerToGame(String type) {
+        if (this.session.isModerating()) {
+            this.owner.sendMessage(LobbyMessage.STAFF_ERROR.asString(this.account));
         } else {
-            HyriAPI.get().getQueueManager().addPlayerInQueue(player.getUniqueId(), this.game.getName(), type, null);
+            HyriAPI.get().getQueueManager().addPlayerInQueue(this.owner.getUniqueId(), this.game.getName(), type, null);
 
             this.owner.closeInventory();
         }

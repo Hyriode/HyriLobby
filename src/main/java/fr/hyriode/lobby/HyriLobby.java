@@ -9,6 +9,7 @@ import fr.hyriode.hyrame.plugin.IPluginProvider;
 import fr.hyriode.hyrame.utils.LocationWrapper;
 import fr.hyriode.lobby.config.LobbyConfig;
 import fr.hyriode.lobby.game.LobbyGameManager;
+import fr.hyriode.lobby.gui.LobbyGUIManager;
 import fr.hyriode.lobby.hologram.LobbyHologramManager;
 import fr.hyriode.lobby.host.HostHandler;
 import fr.hyriode.lobby.leaderboard.LobbyLeaderboardManager;
@@ -36,6 +37,7 @@ public class HyriLobby extends JavaPlugin {
     private LobbyLeaderboardManager leaderboardManager;
     private HostHandler hostHandler;
     private LobbyHologramManager hologramManager;
+    private LobbyGUIManager guiManager;
 
     @Override
     public void onEnable() {
@@ -80,17 +82,16 @@ public class HyriLobby extends JavaPlugin {
         this.npcManager = new LobbyNPCManager(this);
         this.leaderboardManager = new LobbyLeaderboardManager(this);
         this.hologramManager = new LobbyHologramManager(this);
+        this.guiManager = new LobbyGUIManager();
 
         if(!HyriAPI.get().getConfig().isDevEnvironment()) {
             this.hostHandler = new HostHandler(this);
         }
 
-
         HyriAPI.get().getEventBus().register(new AccountListener(this));
         HyriAPI.get().getNetworkManager().getEventBus().register(new InternalListener());
         HyriAPI.get().getQueueManager().addHandler(new NormalQueueHandler(this));
         HyriAPI.get().getQueueManager().addHandler(new HostQueueHandler(this));
-
 
         HyriAPI.get().getServer().setSlots(ILobbyAPI.MAX_PLAYERS);
         HyriAPI.get().getServer().setState(HyggServer.State.READY);
@@ -131,6 +132,10 @@ public class HyriLobby extends JavaPlugin {
 
     public HostHandler getHostHandler() {
         return this.hostHandler;
+    }
+
+    public LobbyGUIManager getGUIManager() {
+        return this.guiManager;
     }
 
     /**

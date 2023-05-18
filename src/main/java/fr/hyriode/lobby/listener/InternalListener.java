@@ -3,7 +3,6 @@ package fr.hyriode.lobby.listener;
 import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.event.HyriEventHandler;
 import fr.hyriode.api.server.event.LobbyRestartingEvent;
-import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.language.LobbyMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
