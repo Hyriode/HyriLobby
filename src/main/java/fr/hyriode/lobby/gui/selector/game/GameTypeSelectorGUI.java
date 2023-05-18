@@ -25,7 +25,7 @@ public class GameTypeSelectorGUI extends LobbyGUI {
     private final boolean goBack;
 
     public GameTypeSelectorGUI(HyriLobby plugin, Player owner, LobbyGame game, boolean goBack) {
-        super(owner, plugin, game.getGameInfo().getDisplayName(), 6 * 9);
+        super(owner, plugin, ChatColor.DARK_GRAY + game.getGameInfo().getDisplayName(), 6 * 9);
         this.game = game;
         this.goBack = goBack;
 

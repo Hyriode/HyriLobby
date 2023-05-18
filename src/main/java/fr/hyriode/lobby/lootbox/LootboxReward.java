@@ -29,21 +29,65 @@ import java.util.stream.Collectors;
  */
 public enum LootboxReward {
 
-    ONE_STAR(new HyrisItem(1000L, 55.5D),
-            new CosmeticsItem(CosmeticRarity.COMMON, 16.0D),
+    ONE_STAR(new HyrisItem(2000L, 51.5D),
+            new CosmeticsItem(CosmeticRarity.COMMON, 25.5D),
             new BoosterItem(StoreBooster.Type.ONE_FIVE, 5.0D),
             new HostsItem(1, 7.0D),
-            new LootboxItem(Lootbox.TWO_STARS, 5.5D),
-            new LootboxItem(Lootbox.THREE_STARS, 3.5D),
-            new LootboxItem(Lootbox.FOUR_STARS, 1.5D),
-            new LootboxItem(Lootbox.FIVE_STARS, 0.5D),
-            new HyodesItem(100L, 1.0D)
+            new LootboxItem(Lootbox.TWO_STARS, 1, 5.5D),
+            new LootboxItem(Lootbox.THREE_STARS, 1, 3.5D),
+            new LootboxItem(Lootbox.FOUR_STARS, 1, 1.5D),
+            new LootboxItem(Lootbox.FIVE_STARS, 1, 0.5D),
+            new HyodesItem(250L, 0.5D)
     ),
 
-    TWO_STARS(),
-    THREE_STARS(),
-    FOUR_STARS(),
-    FIVE_STARS();
+    TWO_STARS(new HyrisItem(5000L, 48.0D),
+            new CosmeticsItem(CosmeticRarity.COMMON, 28.5D),
+            new BoosterItem(StoreBooster.Type.ONE_FIVE, 5.0D),
+            new HostsItem(1, 7.0D),
+            new LootboxItem(Lootbox.ONE_STAR, 1, 5.5D),
+            new LootboxItem(Lootbox.THREE_STARS, 1, 3.5D),
+            new LootboxItem(Lootbox.FOUR_STARS, 1, 1.5D),
+            new LootboxItem(Lootbox.FIVE_STARS, 1, 0.5D),
+            new HyodesItem(300L, 0.5D)),
+
+    THREE_STARS(new HyrisItem(8000L, 40.0D),
+            new CosmeticsItem(CosmeticRarity.COMMON, 26.5D),
+            new CosmeticsItem(CosmeticRarity.RARE, 9.5D),
+            new BoosterItem(StoreBooster.Type.TWO, 5.0D),
+            new HostsItem(2, 7.0D),
+            new LootboxItem(Lootbox.ONE_STAR, 2, 5.5D),
+            new LootboxItem(Lootbox.TWO_STARS, 1, 3.5D),
+            new LootboxItem(Lootbox.FOUR_STARS, 1, 1.5D),
+            new LootboxItem(Lootbox.FIVE_STARS, 1, 0.5D),
+            new HyodesItem(350L, 1.0D)),
+
+    FOUR_STARS(new HyrisItem(8000L, 37.0D),
+            new CosmeticsItem(CosmeticRarity.COMMON, 16.0D),
+            new CosmeticsItem(CosmeticRarity.RARE, 8.5D),
+            new CosmeticsItem(CosmeticRarity.EPIC, 6.5D),
+            new CosmeticsItem(CosmeticRarity.LEGENDARY, 4.5D),
+            new BoosterItem(StoreBooster.Type.TWO, 3.5D),
+            new BoosterItem(StoreBooster.Type.TWO_FIVE, 5.0D),
+            new HostsItem(3, 7.0D),
+            new LootboxItem(Lootbox.ONE_STAR, 2, 5.5D),
+            new LootboxItem(Lootbox.TWO_STARS, 2, 3.5D),
+            new LootboxItem(Lootbox.THREE_STARS, 1, 1.5D),
+            new LootboxItem(Lootbox.FIVE_STARS, 1, 0.5D),
+            new HyodesItem(500L, 1.0D)),
+
+    FIVE_STARS(new HyrisItem(8000L, 32.0D),
+            new CosmeticsItem(CosmeticRarity.COMMON, 13.0D),
+            new CosmeticsItem(CosmeticRarity.RARE, 8.5D),
+            new CosmeticsItem(CosmeticRarity.EPIC, 9.5D),
+            new CosmeticsItem(CosmeticRarity.LEGENDARY, 7.5D),
+            new BoosterItem(StoreBooster.Type.TWO_FIVE, 3.5D),
+            new BoosterItem(StoreBooster.Type.THREE, 6.0D),
+            new HostsItem(3, 8.0D),
+            new LootboxItem(Lootbox.ONE_STAR, 2, 5.5D),
+            new LootboxItem(Lootbox.TWO_STARS, 2, 3.5D),
+            new LootboxItem(Lootbox.THREE_STARS, 2, 1.5D),
+            new LootboxItem(Lootbox.FOUR_STARS, 1, 0.5D),
+            new HyodesItem(700L, 1.0D));
 
     private final List<Item> items;
 
@@ -155,28 +199,6 @@ public enum LootboxReward {
 
     }
 
-    public static class ExperienceItem extends Item {
-
-        private final double experience;
-
-        public ExperienceItem(double experience, double probability) {
-            super(HyriLanguageMessage.get("lootbox-reward.experience.name"), new ItemStack(Material.EMERALD), probability);
-            this.experience = experience;
-        }
-
-        @Override
-        public String getName(Player player) {
-            return super.getName(player).replace("%amount%", String.valueOf(this.experience));
-        }
-
-        @Override
-        public void give(IHyriPlayer account) {
-            account.getNetworkLeveling().addExperience(this.experience);
-            account.update();
-        }
-
-    }
-
     public static class CosmeticsItem extends Item {
 
         private final CosmeticRarity rarity;
@@ -233,20 +255,26 @@ public enum LootboxReward {
     public static class LootboxItem extends Item {
 
         private final Lootbox lootbox;
+        private final int amount;
 
-        public LootboxItem(Lootbox lootbox, double probability) {
+        public LootboxItem(Lootbox lootbox, int amount, double probability) {
             super(HyriLanguageMessage.get("lootbox-reward.booster.name"), ItemBuilder.asHead(UsefulHead.ENDER_CHEST).build(), probability);
             this.lootbox = lootbox;
+            this.amount = amount;
         }
 
         @Override
         public String getName(Player player) {
-            return super.getName(player).replace("%stars%", this.lootbox.format());
+            return super.getName(player)
+                    .replace("%amount%", String.valueOf(this.amount))
+                    .replace("%stars%", this.lootbox.format());
         }
 
         @Override
         public void give(IHyriPlayer account) {
-            HyriAPI.get().getLootboxManager().giveLootbox(account, this.lootbox.getRarity());
+            for (int i = 0; i < this.amount; i++) {
+                HyriAPI.get().getLootboxManager().giveLootbox(account, this.lootbox.getRarity());
+            }
         }
 
     }

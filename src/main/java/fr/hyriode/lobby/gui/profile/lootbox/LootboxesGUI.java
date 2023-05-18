@@ -58,13 +58,7 @@ public class LootboxesGUI extends LobbyGUI {
 
             final ItemStack itemStack = this.createLootboxItem(lootbox);
 
-            pagination.add(PaginatedItem.from(itemStack, event -> {
-                this.owner.sendMessage(HyrameMessage.PERMISSION_ERROR.asString(this.account));
-
-                // TODO
-
-//                this.openWithGoBack(49, new LootboxPreviewGUI(this.owner, this.plugin, entry.getKey(), lootbox, new ItemBuilder(itemStack).removeLoreLines(2).build()));
-            }));
+            pagination.add(PaginatedItem.from(itemStack, event -> this.openWithGoBack(49, new LootboxPreviewGUI(this.owner, this.plugin, entry.getKey(), lootbox, new ItemBuilder(itemStack).removeLoreLines(2).build()))));
         }
     }
 

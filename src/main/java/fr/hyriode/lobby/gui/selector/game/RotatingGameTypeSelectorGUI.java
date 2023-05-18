@@ -26,7 +26,7 @@ public class RotatingGameTypeSelectorGUI extends LobbyGUI {
     private final boolean goBack;
 
     public RotatingGameTypeSelectorGUI(HyriLobby plugin, Player owner, boolean goBack) {
-        super(owner, plugin, HyriAPI.get().getGameManager().getRotatingGameManager().getRotatingGame().getInfo().getDisplayName(), 6 * 9);
+        super(owner, plugin, ChatColor.DARK_GRAY + HyriAPI.get().getGameManager().getRotatingGameManager().getRotatingGame().getInfo().getDisplayName(), 6 * 9);
         this.goBack = goBack;
         this.game = HyriAPI.get().getGameManager().getRotatingGameManager().getRotatingGame().getInfo();
 
