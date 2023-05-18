@@ -214,7 +214,7 @@ public enum LobbyMessage {
         return input.replace("%game%", gameInfo.getDisplayName())
                 .replace("%players%", String.valueOf(players));
     }),
-    SELECTOR_SERVER_ITEM_DESCRIPTION("gui.server-selector.item.description"),
+    SELECTOR_SERVER_ITEM_DESCRIPTION("gui.server-selector.item.server.description"),
 
     GAME_NPC_HEADER_PLAYERS("game.npc.header.players"),
     GAME_NPC_HEADER_PLAY("game.npc.header.play"),
