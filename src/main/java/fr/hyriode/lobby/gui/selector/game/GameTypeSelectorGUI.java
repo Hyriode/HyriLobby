@@ -76,8 +76,8 @@ public class GameTypeSelectorGUI extends LobbyGUI {
                 if(this.inventory.getItem(i) == null) {
                     this.setItem(i, new ItemBuilder(this.game.getIcon())
                             .withName(ChatColor.AQUA + type.getDisplayName())
-                            .withLore(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.owner) + ChatColor.AQUA + players, "", LobbyMessage.PLAY.asLang().getValue(this.owner))
-                            .build(), event -> this.sendPlayerToGame(this.owner, type.getName()));
+                            .withLore(LobbyMessage.LOBBY_PLAYERS_LINE.asString(this.account) + ChatColor.AQUA + players, "", LobbyMessage.PLAY.asLang().getValue(this.account))
+                            .build(), event -> this.sendPlayerToGame(type.getName()));
                     break;
                 }
             }
@@ -100,13 +100,11 @@ public class GameTypeSelectorGUI extends LobbyGUI {
         return HyriAPI.get().getNetworkManager().getPlayerCounter().getCategory(this.game.getName()).getPlayers();
     }
 
-    private void sendPlayerToGame(Player player, String type) {
-        final IHyriPlayerSession session = IHyriPlayerSession.get(player.getUniqueId());
-
-        if (session.isModerating()) {
-            player.sendMessage(LobbyMessage.STAFF_ERROR.asString(player));
+    private void sendPlayerToGame(String type) {
+        if (this.session.isModerating()) {
+            this.owner.sendMessage(LobbyMessage.STAFF_ERROR.asString(this.account));
         } else {
-            HyriAPI.get().getQueueManager().addPlayerInQueue(player.getUniqueId(), this.game.getName(), type, null);
+            HyriAPI.get().getQueueManager().addPlayerInQueue(this.owner.getUniqueId(), this.game.getName(), type, null);
 
             this.owner.closeInventory();
         }

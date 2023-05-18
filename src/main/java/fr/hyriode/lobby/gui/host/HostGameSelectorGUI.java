@@ -61,9 +61,9 @@ public class HostGameSelectorGUI extends LobbyGUI {
                 .list();
 
         this.setItem(47, new ItemBuilder(Material.EYE_OF_ENDER)
-                        .withName(LobbyMessage.HOST_TYPE_ITEM_NAME.asString(this.account))
-                        .withLore(lore)
-                        .build(),
+                .withName(LobbyMessage.HOST_TYPE_ITEM_NAME.asString(this.account))
+                .withLore(lore)
+                .build(),
                 event -> {
                     this.owner.playSound(this.owner.getLocation(), Sound.CLICK, 0.5F, 2.0F);
 

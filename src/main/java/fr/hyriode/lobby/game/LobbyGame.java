@@ -147,6 +147,7 @@ public class LobbyGame {
         POPULAR("popular"),
         OPENED("opened"),
         SOON("soon"),
+        RANKED("ranked"),
         BLOCKED("blocked");
 
         private HyriLanguageMessage display;

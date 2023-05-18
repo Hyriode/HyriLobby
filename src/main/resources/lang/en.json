@@ -298,6 +298,7 @@
   "game.state.new.display": "&a&lNEW",
   "game.state.popular.display": "&e&lPOPULAR",
   "game.state.soon.display": "&c&lSOON",
+  "game.state.ranked.display": "&c&lRANKED",
   "game.state.blocked.display": "&c&lMAINTENANCE",
 
   "game.booster.line": "&fBooster: %owner% &8(+%boost%%)",

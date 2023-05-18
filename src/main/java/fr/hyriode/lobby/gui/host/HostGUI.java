@@ -60,6 +60,11 @@ public class HostGUI extends LobbyGUI {
                 .withLore(ListReplacer.replace(LobbyMessage.HOST_CREATE_ITEM_LORE.asList(this.account), "%available_hosts%", this.account.getHyriPlus().has() ? LobbyMessage.HOST_UNLIMITED_WORD.asString(this.account) : String.valueOf(this.account.getHosts().getAvailableHosts())).list())
                 .build(),
                 event -> {
+                    if (this.session.isModerating()) {
+                        this.owner.sendMessage(LobbyMessage.STAFF_ERROR.asString(this.account));
+                        return;
+                    }
+
                     if (this.account.getHosts().getAvailableHosts() < 1) {
                         this.owner.sendMessage(LobbyMessage.HOST_CREATE_ERROR.asString(this.account));
                         return;
@@ -145,7 +150,7 @@ public class HostGUI extends LobbyGUI {
             }
 
             pagination.add(PaginatedItem.from(itemStack, event -> {
-                if (this.spectating) {
+                if (this.spectating || this.session.isModerating()) {
                     HyriAPI.get().getServerManager().sendPlayerToServer(this.owner.getUniqueId(), server.getName());
                 } else {
                     this.sendToHost(server.getName());

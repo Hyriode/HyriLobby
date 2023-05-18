@@ -24,7 +24,7 @@ import static fr.hyriode.lobby.game.LobbyGame.State;
 
 public class GameSelectorGUI extends LobbyGUI {
 
-    private List<Integer> gameSlots;
+    private final List<Integer> gameSlots;
 
     private int rotatingGameAnimation;
 

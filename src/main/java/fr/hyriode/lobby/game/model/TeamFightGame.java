@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 public class TeamFightGame extends LobbyGame {
 
     public TeamFightGame() {
-        super("teamfight", new ItemStack(Material.DIAMOND_SWORD), State.OPENED);
+        super("teamfight", new ItemStack(Material.DIAMOND_SWORD), State.RANKED);
         this.hostCompatible = true;
     }
 
