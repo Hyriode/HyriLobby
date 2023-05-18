@@ -185,6 +185,7 @@ public class LobbyPlayer {
 
         jump.setActualCheckPoint(jump.getStart());
 
+        player.closeInventory();
         player.getInventory().clear();
         player.setAllowFlight(false);
         player.setFlying(false);
