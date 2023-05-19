@@ -12,7 +12,6 @@ import fr.hyriode.hyrame.inventory.pagination.PaginationArea;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Pagination;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.store.cosmetic.CosmeticItem;
 import fr.hyriode.lobby.ui.gui.LobbyGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import org.bukkit.ChatColor;

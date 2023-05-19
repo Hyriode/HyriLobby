@@ -1,4 +1,4 @@
-package fr.hyriode.lobby.store.cosmetic;
+package fr.hyriode.lobby.ui.gui.cosmetics;
 
 import fr.hyriode.api.color.HyriChatColor;
 import fr.hyriode.api.language.HyriLanguageMessage;

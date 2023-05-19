@@ -214,7 +214,7 @@ public enum LootboxReward {
         public List<String> getDescription(Player player) {
             final List<String> description = Arrays.asList(HyriLanguageMessage.get("lootbox-reward.cosmetics.description").getValue(player).split("\n"));
 
-            return ListReplacer.replace(description, "%rarity%", this.rarity.getTranslatedName(player)).list();
+            return ListReplacer.replace(description, "%rarity%", this.rarity.getColor().toString() + ChatColor.BOLD + this.rarity.getTranslatedName(player).toUpperCase()).list();
         }
 
         @Override
