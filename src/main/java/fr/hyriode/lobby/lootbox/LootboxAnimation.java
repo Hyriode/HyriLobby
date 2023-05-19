@@ -70,17 +70,20 @@ public class LootboxAnimation {
     }
 
     private void showItem() {
-        this.player.sendMessage(LobbyMessage.LOOTBOX_REWARD_MESSAGE.asString(this.player)
-                .replace("%reward%", Objects.requireNonNull(this.item.getName(this.player))));
-
         final IHyriPlayer account = IHyriPlayer.get(player.getUniqueId());
+        final LootboxGiveContext context = new LootboxGiveContext(account, this.item.getIcon(), this.item.getName(this.player), true);
 
-        this.item.give(account);
+        this.item.give(context);
 
         account.update();
 
+        if (context.isMessage()) {
+            this.player.sendMessage(LobbyMessage.LOOTBOX_REWARD_MESSAGE.asString(this.player)
+                    .replace("%reward%", Objects.requireNonNull(this.item.getName(this.player))));
+        }
+
         this.itemArmorStand = new ItemArmorStand();
-        this.itemArmorStand.show(this.animationArmorStand.getLocation());
+        this.itemArmorStand.show(context, this.animationArmorStand.getLocation());
     }
 
     public enum Shaking {
@@ -216,7 +219,10 @@ public class LootboxAnimation {
         private CustomEntityItem entityItem;
         private Location location;
 
-        public void show(Location location) {
+        private LootboxGiveContext context;
+
+        public void show(LootboxGiveContext context, Location location) {
+            this.context = context;
             this.location = location;
 
             this.createArmorStand();
@@ -232,7 +238,7 @@ public class LootboxAnimation {
         }
 
         private void createItem() {
-            this.entityItem = CustomEntityItem.create(this.location, item.getIcon());
+            this.entityItem = CustomEntityItem.create(this.location, this.context.getFloatingItem());
 
             PacketUtil.sendPacket(player, new PacketPlayOutSpawnEntity(this.entityItem, 2));
             PacketUtil.sendPacket(player, new PacketPlayOutEntityMetadata(this.entityItem.getId(), this.entityItem.getDataWatcher(), true));
@@ -249,7 +255,7 @@ public class LootboxAnimation {
             this.armorStand.setGravity(false);
             this.armorStand.setBasePlate(false);
             this.armorStand.setCustomNameVisible(true);
-            this.armorStand.setCustomName(item.getName(player));
+            this.armorStand.setCustomName(this.context.getFloatingText());
             this.armorStand.setLocation(this.location.getX(), this.location.getY() - 1.0D, this.location.getZ(), this.location.getYaw(), this.location.getPitch());
         }
 

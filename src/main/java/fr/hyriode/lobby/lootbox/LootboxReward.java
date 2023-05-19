@@ -13,6 +13,7 @@ import fr.hyriode.lobby.booster.StoreBooster;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.util.UsefulHead;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -124,7 +125,7 @@ public enum LootboxReward {
             this.probability = probability;
         }
 
-        public abstract void give(IHyriPlayer account);
+        public abstract void give(LootboxGiveContext context);
 
         public ItemStack getIcon() {
             return this.icon.clone();
@@ -171,8 +172,8 @@ public enum LootboxReward {
         }
 
         @Override
-        public void give(IHyriPlayer account) {
-            account.getHyris().add(this.amount).withMultiplier(false).exec();
+        public void give(LootboxGiveContext context) {
+            context.getPlayer().getHyris().add(this.amount).withMultiplier(false).exec();
         }
 
     }
@@ -192,8 +193,8 @@ public enum LootboxReward {
         }
 
         @Override
-        public void give(IHyriPlayer account) {
-            account.getHyris().add(this.amount).withMultiplier(false).exec();
+        public void give(LootboxGiveContext context) {
+            context.getPlayer().getHyris().add(this.amount).withMultiplier(false).exec();
         }
 
     }
@@ -217,7 +218,10 @@ public enum LootboxReward {
         }
 
         @Override
-        public void give(IHyriPlayer account) {
+        public void give(LootboxGiveContext context) {
+            context.setMessage(false);
+
+            final IHyriPlayer account = context.getPlayer();
             final List<CosmeticInfo> cosmetics = new ArrayList<>();
 
             for (List<CosmeticInfo> values : HyriCosmetics.get().getRegistry().getCosmetics().values()) {
@@ -245,11 +249,17 @@ public enum LootboxReward {
 
                 player.sendMessage(LobbyMessage.LOOTBOX_COSMETIC_ALREADY_OWNED_MESSAGE.asString(account)
                         .replace("%cosmetic%", randomCosmetic.getTranslatedName().getValue(account)));
+
+                context.setFloatingItem(new ItemStack(Material.BARRIER));
+                context.setFloatingText(ChatColor.LIGHT_PURPLE + "+" + compensation + " Hyris");
             } else {
                 cosmeticUser.addUnlockedCosmetic(randomCosmetic);
 
                 player.sendMessage(LobbyMessage.LOOTBOX_COSMETIC_REWARD_MESSAGE.asString(account)
                         .replace("%cosmetic%", randomCosmetic.getTranslatedName().getValue(account)));
+
+                context.setFloatingItem(randomCosmetic.getIcon());
+                context.setFloatingText(randomCosmetic.getTranslatedName().getValue(account));
             }
         }
 
@@ -279,8 +289,8 @@ public enum LootboxReward {
         }
 
         @Override
-        public void give(IHyriPlayer account) {
-            HyriAPI.get().getBoosterManager().giveBooster(account, this.booster.getMultiplier(), 3600);
+        public void give(LootboxGiveContext context) {
+            HyriAPI.get().getBoosterManager().giveBooster(context.getPlayer(), this.booster.getMultiplier(), 3600);
         }
 
     }
@@ -304,9 +314,9 @@ public enum LootboxReward {
         }
 
         @Override
-        public void give(IHyriPlayer account) {
+        public void give(LootboxGiveContext context) {
             for (int i = 0; i < this.amount; i++) {
-                HyriAPI.get().getLootboxManager().giveLootbox(account, this.lootbox.getRarity());
+                HyriAPI.get().getLootboxManager().giveLootbox(context.getPlayer(), this.lootbox.getRarity());
             }
         }
 
@@ -327,9 +337,8 @@ public enum LootboxReward {
         }
 
         @Override
-        public void give(IHyriPlayer account) {
-            account.getHosts().addAvailableHosts(this.tickets);
-            account.update();
+        public void give(LootboxGiveContext context) {
+            context.getPlayer().getHosts().addAvailableHosts(this.tickets);
         }
 
     }
