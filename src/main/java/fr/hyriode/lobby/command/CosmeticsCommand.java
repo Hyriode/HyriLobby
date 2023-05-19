@@ -9,7 +9,7 @@ import fr.hyriode.hyrame.command.CommandUsage;
 import fr.hyriode.hyrame.command.HyriCommand;
 import fr.hyriode.hyrame.language.HyrameMessage;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.cosmetics.CosmeticsMainGui;
+import fr.hyriode.lobby.ui.gui.cosmetics.CosmeticsMainGui;
 import org.bukkit.entity.Player;
 
 public class CosmeticsCommand extends HyriCommand<HyriLobby> {

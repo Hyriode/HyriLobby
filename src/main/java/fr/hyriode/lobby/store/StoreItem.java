@@ -4,7 +4,7 @@ import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.store.StoreConfirmGUI;
+import fr.hyriode.lobby.ui.gui.store.StoreConfirmGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;

@@ -1,17 +1,14 @@
 package fr.hyriode.lobby.vip.casino.game.zzs;
 
-import fr.hyriode.api.util.Skin;
 import fr.hyriode.hyrame.IHyrame;
 import fr.hyriode.hyrame.npc.NPC;
 import fr.hyriode.hyrame.npc.NPCManager;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.language.LobbyMessage;
-import fr.hyriode.lobby.npc.SingleNPCHandler;
+import fr.hyriode.lobby.ui.npc.SingleNPCHandler;
 import fr.hyriode.lobby.util.UsefulSkin;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 public class ZeroZeroSevenNPC extends SingleNPCHandler {

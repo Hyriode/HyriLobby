@@ -2,9 +2,7 @@ package fr.hyriode.lobby.store;
 
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.store.StoreConfirmGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

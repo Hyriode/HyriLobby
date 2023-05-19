@@ -5,7 +5,7 @@ import fr.hyriode.hyrame.command.CommandInfo;
 import fr.hyriode.hyrame.command.CommandUsage;
 import fr.hyriode.hyrame.command.HyriCommand;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.gui.profile.booster.BoostersGUI;
+import fr.hyriode.lobby.ui.gui.profile.booster.BoostersGUI;
 
 public class BoosterCommand extends HyriCommand<HyriLobby> {
 

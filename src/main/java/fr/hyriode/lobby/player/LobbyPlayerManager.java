@@ -1,7 +1,7 @@
 package fr.hyriode.lobby.player;
 
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.scoreboard.LobbyScoreboard;
+import fr.hyriode.lobby.ui.scoreboard.LobbyScoreboard;
 import org.bukkit.Bukkit;
 
 import java.util.HashSet;

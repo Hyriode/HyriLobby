@@ -4,7 +4,7 @@ import fr.hyriode.api.util.Skin;
 import fr.hyriode.hyrame.npc.NPC;
 import fr.hyriode.hyrame.npc.NPCManager;
 import fr.hyriode.lobby.HyriLobby;
-import fr.hyriode.lobby.npc.SingleNPCHandler;
+import fr.hyriode.lobby.ui.npc.SingleNPCHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
