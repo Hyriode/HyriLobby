@@ -226,13 +226,15 @@ public enum LootboxReward {
 
             for (List<CosmeticInfo> values : HyriCosmetics.get().getRegistry().getCosmetics().values()) {
                 for (CosmeticInfo cosmetic : values) {
+                    if (cosmetic.getRarity() != this.rarity) {
+                        continue;
+                    }
+
                     if (!cosmetic.isPurchasable() || cosmetic.isOnlyWithRank()) {
                         continue;
                     }
 
-                    if (cosmetic.getRarity() == rarity) {
-                        cosmetics.add(cosmetic);
-                    }
+                    cosmetics.add(cosmetic);
                 }
             }
 
