@@ -180,7 +180,7 @@
 
   "lootbox.reward.message": "&3Lootbox &f┃ You just &aearn &fthe reward: %reward%&f.",
   "lootbox.cosmetic-reward.message": "&3Lootbox &f┃ You just &aearn &fthe cosmetic: %cosmetic%&f.",
-  "lootbox.cosmetic-already-owned.message": "&3Lootbox &f┃ You &calready &fowned the cosmetic: %cosmetic%&f. So, you just earn &d%hyris% Hyris&f.",
+  "lootbox.cosmetic-already-owned.message": "&3Lootbox &f┃ You &calready &fowned the cosmetic: &b%cosmetic%&f. So, you just earn &d%hyris% Hyris&f.",
 
   "lootbox-reward.hyris.name": "&d%amount% Hyris",
   "lootbox-reward.hyodes.name": "&a%amount% Hyodes",

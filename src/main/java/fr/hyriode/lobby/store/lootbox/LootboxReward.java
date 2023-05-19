@@ -250,10 +250,11 @@ public enum LootboxReward {
                 account.getHyris().add(this.compensation).withMultiplier(false).exec();
 
                 player.sendMessage(LobbyMessage.LOOTBOX_COSMETIC_ALREADY_OWNED_MESSAGE.asString(account)
-                        .replace("%cosmetic%", randomCosmetic.getTranslatedName().getValue(account)));
+                        .replace("%cosmetic%", randomCosmetic.getTranslatedName().getValue(account))
+                        .replace("%hyris%", String.valueOf(this.compensation)));
 
                 context.setFloatingItem(new ItemStack(Material.BARRIER));
-                context.setFloatingText(ChatColor.LIGHT_PURPLE + "+" + compensation + " Hyris");
+                context.setFloatingText(ChatColor.LIGHT_PURPLE + "+" + this.compensation + " Hyris");
             } else {
                 cosmeticUser.addUnlockedCosmetic(randomCosmetic);
 

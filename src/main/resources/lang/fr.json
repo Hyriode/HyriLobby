@@ -180,7 +180,7 @@
 
   "lootbox.reward.message": "&3Lootbox &f┃ Vous avez &agagné &fla récompense: %reward%&f.",
   "lootbox.cosmetic-reward.message": "&3Lootbox &f┃ Vous avez &agagné &fle cosmétique: %cosmetic%&f.",
-  "lootbox.cosmetic-already-owned.message": "&3Lootbox &f┃ Vous possédiez &cdéjà &fle cosmétique: %cosmetic%&f. Vous avez donc gagné &d%hyris% Hyris&f.",
+  "lootbox.cosmetic-already-owned.message": "&3Lootbox &f┃ Vous possédiez &cdéjà &fle cosmétique: &b%cosmetic%&f. Vous avez donc gagné &d%hyris% Hyris&f.",
 
   "lootbox-reward.hyris.name": "&d%amount% Hyris",
   "lootbox-reward.hyodes.name": "&a%amount% Hyodes",
