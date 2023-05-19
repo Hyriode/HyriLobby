@@ -10,6 +10,7 @@ import fr.hyriode.cosmetics.common.CosmeticInfo;
 import fr.hyriode.cosmetics.user.CosmeticUser;
 import fr.hyriode.cosmetics.utils.StringUtil;
 import fr.hyriode.hyrame.item.ItemBuilder;
+import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.store.StorePrice;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -87,7 +88,7 @@ public class CosmeticItem {
                 prices.append(StorePrice.Currency.valueOf(entry.getKey().name()).formatAmount(entry.getValue())).append(i + 1 == entries.size() ? "" : ChatColor.GRAY + " / ");
             }
 
-            priceInfo = prices.toString();
+            priceInfo = LobbyMessage.STORE_PRICE_LINE.asString(player).replace("%price%", prices.toString());
         }
         if (!this.cosmetic.isOnlyWithRank() && this.cosmetic.getRank() != null && this.cosmetic.getRank() != PlayerRank.PLAYER) {
             builder.appendLore(getTranslation(player, "gui.cosmetic.offered_with_rank").replace("%rank%", this.cosmetic.getRank().getDefaultPrefix()));
