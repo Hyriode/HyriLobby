@@ -2,10 +2,9 @@ package fr.hyriode.lobby.gui.cosmetics;
 
 import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.cosmetics.HyriCosmetics;
-import fr.hyriode.cosmetics.common.Cosmetic;
+import fr.hyriode.cosmetics.common.CosmeticInfo;
 import fr.hyriode.cosmetics.user.CosmeticUser;
 import fr.hyriode.cosmetics.utils.StringUtil;
-import fr.hyriode.hyrame.inventory.HyriInventory;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.language.HyrameMessage;
 import fr.hyriode.lobby.HyriLobby;
@@ -42,8 +41,8 @@ public class CosmeticsMainGui extends LobbyGUI {
     }
 
     private void addCategoriesItem() {
-        HyriCosmetics.get().getCosmetics().forEach((category, cosmetics) -> {
-            final List<Cosmetic> unlockedCosmetics = user.getUnlockedCosmetics(category);
+        HyriCosmetics.get().getRegistry().getCosmetics().forEach((category, cosmetics) -> {
+            final List<CosmeticInfo> unlockedCosmetics = user.getUnlockedCosmetics(category);
             this.setItem(
                     category.getGuiSlot(),
                     new ItemBuilder(category.getIcon())

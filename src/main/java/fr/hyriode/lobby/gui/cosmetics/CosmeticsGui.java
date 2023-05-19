@@ -1,10 +1,9 @@
 package fr.hyriode.lobby.gui.cosmetics;
 
 import fr.hyriode.api.language.HyriLanguageMessage;
-import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.cosmetics.HyriCosmetics;
-import fr.hyriode.cosmetics.common.Cosmetic;
 import fr.hyriode.cosmetics.common.CosmeticCategory;
+import fr.hyriode.cosmetics.common.CosmeticInfo;
 import fr.hyriode.cosmetics.user.CosmeticUser;
 import fr.hyriode.cosmetics.user.PlayerCosmetic;
 import fr.hyriode.cosmetics.utils.StringUtil;
@@ -15,7 +14,6 @@ import fr.hyriode.hyrame.utils.Pagination;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.cosmetic.CosmeticItem;
 import fr.hyriode.lobby.gui.LobbyGUI;
-import fr.hyriode.lobby.gui.store.StoreConfirmGUI;
 import fr.hyriode.lobby.language.LobbyMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -31,14 +29,14 @@ public class CosmeticsGui extends LobbyGUI {
 
     private final CosmeticUser user;
     private final CosmeticCategory category;
-    private final List<Cosmetic> cosmetics;
-    private final List<Cosmetic> unlockedCosmetics;
+    private final List<CosmeticInfo> cosmetics;
+    private final List<CosmeticInfo> unlockedCosmetics;
 
     public CosmeticsGui(final Player owner, HyriLobby plugin, final CosmeticCategory category) {
         super(owner, plugin, name(owner, "gui.cosmetic.name"), 9 * 6);
         this.user = HyriCosmetics.get().getUserProvider().getUser(owner.getUniqueId());
         this.category = category;
-        this.cosmetics = new ArrayList<>(HyriCosmetics.get().getCosmetics().get(category));
+        this.cosmetics = new ArrayList<>(HyriCosmetics.get().getRegistry().getCosmetics().get(category));
         this.unlockedCosmetics = new ArrayList<>(user.getUnlockedCosmetics(category));
 
         this.paginationManager.setArea(new PaginationArea(20, 33));
@@ -108,28 +106,28 @@ public class CosmeticsGui extends LobbyGUI {
             ));
         }
 
-        List<Cosmetic> cosmetics = new ArrayList<>(HyriCosmetics.get().getFilteredCosmetics(user, category));
+        List<CosmeticInfo> cosmetics = new ArrayList<>(HyriCosmetics.get().getRegistry().getFilteredCosmetics(user, category));
         if (user.hasEquippedCosmetic(category)) {
             cosmetics.remove(user.getEquippedCosmetic(category));
         }
-        for (Cosmetic cosmetic : cosmetics) {
+        for (CosmeticInfo cosmetic : cosmetics) {
             pagination.add(PaginatedItem.from(new CosmeticItem(cosmetic).toItemStack(owner, true), this.clickEvent(cosmetic)));
         }
 
         this.paginationManager.updateGUI();
     }
 
-    private Consumer<InventoryClickEvent> clickEvent(Cosmetic cosmetic) {
+    private Consumer<InventoryClickEvent> clickEvent(CosmeticInfo cosmetic) {
         return event -> {
             if (event.isLeftClick() || event.isRightClick()) {
                 if (!user.hasUnlockedCosmetic(cosmetic)) {
-                    if (cosmetic.getInfo().isBuyable()) {
+                    if (cosmetic.isPurchasable()) {
                         this.openWithGoBack(49, new CosmeticsPurchaseConfirmGui(this.owner, this.plugin, cosmetic, event.getCurrentItem()));
                         return;
                     }
                     return;
                 } else {
-                    if (user.hasEquippedCosmetic(category) && user.getPlayerCosmetic(category).getAbstractCosmetic().getType() == cosmetic) {
+                    if (user.hasEquippedCosmetic(category) && user.getPlayerCosmetic(category).getAbstractCosmetic().getInfo() == cosmetic) {
                         PlayerCosmetic<?> equippedCosmetic = user.getPlayerCosmetic(category);
                         if (equippedCosmetic.getAbstractCosmetic().hasVariants()) {
                             this.openWithGoBack(49, new CosmeticVariantsGui(this.owner, this.plugin, equippedCosmetic));

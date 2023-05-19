@@ -1,9 +1,8 @@
 package fr.hyriode.lobby.gui.cosmetics;
 
 import fr.hyriode.cosmetics.HyriCosmetics;
-import fr.hyriode.cosmetics.common.Cosmetic;
-import fr.hyriode.cosmetics.transaction.CosmeticTransaction;
-import fr.hyriode.cosmetics.user.CosmeticUser;
+import fr.hyriode.cosmetics.common.CosmeticInfo;
+import fr.hyriode.cosmetics.transaction.CosmeticPrice;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.Symbols;
 import fr.hyriode.lobby.HyriLobby;
@@ -24,18 +23,20 @@ import java.util.function.Consumer;
 
 public class CosmeticsPurchaseConfirmGui extends LobbyGUI {
 
-    private final Cosmetic cosmetic;
+    private final CosmeticInfo cosmetic;
     private final ItemStack icon;
 
     private StorePrice price;
     protected List<StorePrice> prices = new ArrayList<>();
 
-    public CosmeticsPurchaseConfirmGui(Player owner, HyriLobby plugin, Cosmetic cosmetic, ItemStack icon) {
+    public CosmeticsPurchaseConfirmGui(Player owner, HyriLobby plugin, CosmeticInfo cosmetic, ItemStack icon) {
         super(owner, plugin, name(owner, "gui.confirm.name"), 6 * 9);
         this.cosmetic = cosmetic;
         this.icon = icon;
-        final int hyodesPrice = cosmetic.getInfo().getHyodesPrice();
-        final int hyrisPrice = cosmetic.getInfo().getHyrisPrice();
+
+        final int hyodesPrice = cosmetic.getPrice().getValue(CosmeticPrice.Currency.HYODES);
+        final int hyrisPrice = cosmetic.getPrice().getValue(CosmeticPrice.Currency.HYRIS);
+
         if (hyodesPrice > 1) {
             prices.add(new StorePrice(StorePrice.Currency.HYODES, hyodesPrice));
         }

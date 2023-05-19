@@ -1,14 +1,15 @@
 package fr.hyriode.lobby.lootbox;
 
+import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.packet.PacketUtil;
 import fr.hyriode.hyrame.reflection.entity.EnumItemSlot;
 import fr.hyriode.lobby.HyriLobby;
 import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.util.UsefulHead;
+import fr.hyriode.lobby.util.CustomEntityItem;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
-import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
@@ -16,7 +17,6 @@ import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 import xyz.xenondevs.particle.ParticleBuilder;
 import xyz.xenondevs.particle.ParticleEffect;
@@ -72,6 +72,12 @@ public class LootboxAnimation {
     private void showItem() {
         this.player.sendMessage(LobbyMessage.LOOTBOX_REWARD_MESSAGE.asString(this.player)
                 .replace("%reward%", Objects.requireNonNull(this.item.getName(this.player))));
+
+        final IHyriPlayer account = IHyriPlayer.get(player.getUniqueId());
+
+        this.item.give(account);
+
+        account.update();
 
         this.itemArmorStand = new ItemArmorStand();
         this.itemArmorStand.show(this.animationArmorStand.getLocation());
@@ -207,6 +213,7 @@ public class LootboxAnimation {
     private class ItemArmorStand {
 
         private EntityArmorStand armorStand;
+        private CustomEntityItem entityItem;
         private Location location;
 
         public void show(Location location) {
@@ -214,18 +221,30 @@ public class LootboxAnimation {
 
             this.createArmorStand();
             this.sendArmorStand();
+            this.createItem();
 
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                this.destroyItem();
                 this.destroyArmorStand();
 
                 player.playSound(this.location, Sound.ITEM_PICKUP, 2.0f, 1.0f);
             }, 5 * 20L);
         }
 
+        private void createItem() {
+            this.entityItem = CustomEntityItem.create(this.location, item.getIcon());
+
+            PacketUtil.sendPacket(player, new PacketPlayOutSpawnEntity(this.entityItem, 2));
+            PacketUtil.sendPacket(player, new PacketPlayOutEntityMetadata(this.entityItem.getId(), this.entityItem.getDataWatcher(), true));
+            PacketUtil.sendPacket(player, new PacketPlayOutAttachEntity(0, this.entityItem, itemArmorStand.armorStand));
+        }
+
+        private void destroyItem() {
+            PacketUtil.sendPacket(player, new PacketPlayOutEntityDestroy(this.entityItem.getId()));
+        }
+
         private void createArmorStand() {
             this.armorStand = new EntityArmorStand(((CraftWorld) this.location.getWorld()).getHandle());
-//            this.armorStand.setEquipment(EnumItemSlot.MAIN_HAND.getSlot(), CraftItemStack.asNMSCopy(Objects.requireNonNull(item).getIcon()));
-            this.armorStand.setRightArmPose(new Vector3f(270.0f, 0.0f, 0.0f));
             this.armorStand.setInvisible(true);
             this.armorStand.setGravity(false);
             this.armorStand.setBasePlate(false);

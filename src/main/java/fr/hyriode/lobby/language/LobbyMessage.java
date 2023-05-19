@@ -152,6 +152,8 @@ public enum LobbyMessage {
 
     LOOTBOX_ITEM_NAME("gui.lootboxes.item.name"),
     LOOTBOX_REWARD_MESSAGE("lootbox.reward.message"),
+    LOOTBOX_COSMETIC_REWARD_MESSAGE("lootbox.cosmetic-reward.message"),
+    LOOTBOX_COSMETIC_ALREADY_OWNED_MESSAGE("lootbox.cosmetic-already-owned.message"),
 
     STORE_PREFIX("prefix.store"),
     STORE_LOOTBOXES_NAME("gui.store.item.lootboxes.name"),

@@ -5,43 +5,46 @@ import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.api.rank.PlayerRank;
 import fr.hyriode.cosmetics.HyriCosmetics;
-import fr.hyriode.cosmetics.common.Cosmetic;
 import fr.hyriode.cosmetics.common.CosmeticCategory;
 import fr.hyriode.cosmetics.common.CosmeticInfo;
 import fr.hyriode.cosmetics.user.CosmeticUser;
 import fr.hyriode.cosmetics.utils.StringUtil;
 import fr.hyriode.hyrame.item.ItemBuilder;
+import fr.hyriode.lobby.store.StorePrice;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static fr.hyriode.cosmetics.transaction.CosmeticPrice.Currency;
+
 public class CosmeticItem {
 
-    private final Cosmetic cosmetic;
-    private final CosmeticInfo info;
+    private final CosmeticInfo cosmetic;
 
-    public CosmeticItem(Cosmetic cosmetic) {
+    public CosmeticItem(CosmeticInfo cosmetic) {
         this.cosmetic = cosmetic;
-        this.info = cosmetic.getInfo();
     }
 
     public ItemStack toItemStack(final Player player, boolean withAction) {
         final CosmeticUser user = HyriCosmetics.get().getUserProvider().getUser(player);
-        final IHyriPlayer hyriPlayer = user.asHyriPlayer();
-        final CosmeticCategory category = this.info.getCategory();
+        final CosmeticCategory category = this.cosmetic.getCategory();
 
-        final ItemBuilder builder = new ItemBuilder(user.hasUnlockedCosmetic(this.cosmetic) ? this.info.getIcon() :
+        final ItemBuilder builder = new ItemBuilder(user.hasUnlockedCosmetic(this.cosmetic) ? this.cosmetic.getIcon() :
                 new ItemStack(Material.INK_SACK, 1, (short) 8))
-                .withName(ChatColor.RESET + "" + ChatColor.AQUA + this.info.getTranslatedName().getValue(player))
-                .withLore(StringUtil.splitIntoPhrases(info.getTranslatedDescription().getValue(player), 35))
+                .withName(ChatColor.RESET + "" + ChatColor.AQUA + this.cosmetic.getTranslatedName().getValue(player))
+                .withLore(StringUtil.splitIntoPhrases(this.cosmetic.getTranslatedDescription().getValue(player), 35))
                 .appendLore("")
                 .appendLore(getRarityInfo(player));
 
         if (withAction) {
             String footer;
             if (!user.hasUnlockedCosmetic(this.cosmetic)) {
-                footer = getUnlockInfo(player, hyriPlayer, builder);
+                footer = getUnlockInfo(player, builder);
             } else {
                 footer = getEquipInfo(player, user, category, builder);
             }
@@ -52,16 +55,16 @@ public class CosmeticItem {
     }
 
     private String getRarityInfo(final Player player) {
-        final String rarityColor = this.info.getRarity().getColor().toString();
-        final String rarityName = HyriChatColor.BOLD + this.info.getRarity().getTranslatedName(player).toUpperCase();
+        final String rarityColor = this.cosmetic.getRarity().getColor().toString();
+        final String rarityName = HyriChatColor.BOLD + this.cosmetic.getRarity().getTranslatedName(player).toUpperCase();
         final String rarityLabel = getTranslation(player, "gui.cosmetic.rarity") + ": ";
         return rarityLabel + rarityColor + rarityName;
     }
 
-    private String getUnlockInfo(final Player player, final IHyriPlayer hyriPlayer, ItemBuilder builder) {
+    private String getUnlockInfo(final Player player, ItemBuilder builder) {
         String footer;
-        if (this.info.isBuyable() && this.info.canBuyIt(player)) {
-            final String priceInfo = getPriceInfo(player, hyriPlayer, builder);
+        if (this.cosmetic.isPurchasable() && this.cosmetic.canBuyIt(player)) {
+            final String priceInfo = getPriceInfo(player, builder);
             builder.appendLore(priceInfo);
             footer = getTranslation(player, "gui.cosmetic.click_to_buy");
         } else {
@@ -70,24 +73,24 @@ public class CosmeticItem {
         return footer;
     }
 
-    private String getPriceInfo(final Player player, final IHyriPlayer hyriPlayer, ItemBuilder builder) {
+    private String getPriceInfo(final Player player, ItemBuilder builder) {
         String priceInfo = "";
-        if (this.info.isBuyable()) {
+        if (this.cosmetic.isPurchasable()) {
             builder.appendLore("");
-            if (this.info.getHyodesPrice() > 0 && this.info.getHyrisPrice() > 0) {
-                priceInfo = getTranslation(player, "gui.cosmetic.price_two_option")
-                        .replace("%price1%", hyriPlayer.getHyris().getColor().toString() + info.getHyrisPrice() + " ⛃")
-                        .replace("%price2%", hyriPlayer.getHyodes().getColor().toString() + info.getHyodesPrice() + " ✦");
-            } else if (this.info.getHyrisPrice() > 0) {
-                priceInfo = getTranslation(player, "gui.cosmetic.price_one_option")
-                        .replace("%price1%", hyriPlayer.getHyris().getColor().toString() + info.getHyrisPrice() + " ⛃");
-            } else if (this.info.getHyodesPrice() > 0) {
-                priceInfo = getTranslation(player, "gui.cosmetic.price_one_option")
-                        .replace("%price1%", hyriPlayer.getHyodes().getColor().toString() + info.getHyodesPrice() + " ✦");
+
+            final StringBuilder prices = new StringBuilder();
+            final List<Map.Entry<Currency, Integer>> entries = new ArrayList<>(this.cosmetic.getPrice().getValues().entrySet());
+
+            for (int i = 0; i < entries.size(); i++) {
+                final Map.Entry<Currency, Integer> entry = entries.get(i);
+
+                prices.append(StorePrice.Currency.valueOf(entry.getKey().name()).formatAmount(entry.getValue())).append(i + 1 == entries.size() ? "" : ChatColor.GRAY + " / ");
             }
+
+            priceInfo = prices.toString();
         }
-        if (!info.isRequireRank() && info.getRank() != null && info.getRank() != PlayerRank.PLAYER) {
-            builder.appendLore(getTranslation(player, "gui.cosmetic.offered_with_rank").replace("%rank%", info.getRank().getDefaultPrefix()));
+        if (!this.cosmetic.isOnlyWithRank() && this.cosmetic.getRank() != null && this.cosmetic.getRank() != PlayerRank.PLAYER) {
+            builder.appendLore(getTranslation(player, "gui.cosmetic.offered_with_rank").replace("%rank%", this.cosmetic.getRank().getDefaultPrefix()));
         }
         return priceInfo;
     }

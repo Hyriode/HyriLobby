@@ -30,7 +30,7 @@ public class CosmeticVariantsGui extends LobbyGUI {
 
         this.paginationManager.setArea(new PaginationArea(20, 33));
 
-        this.setItem(4, new CosmeticItem(playerCosmetic.getAbstractCosmetic().getType()).toItemStack(owner, false));
+        this.setItem(4, new CosmeticItem(playerCosmetic.getAbstractCosmetic().getInfo()).toItemStack(owner, false));
         this.setItem(49,
                 new ItemBuilder(Material.ARROW).withName(name(owner, "go-back.display")).build(), event -> {
                     this.owner.closeInventory();

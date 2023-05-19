@@ -4,12 +4,13 @@ import fr.hyriode.api.HyriAPI;
 import fr.hyriode.api.language.HyriLanguageMessage;
 import fr.hyriode.api.player.IHyriPlayer;
 import fr.hyriode.cosmetics.HyriCosmetics;
-import fr.hyriode.cosmetics.common.Cosmetic;
+import fr.hyriode.cosmetics.common.CosmeticInfo;
 import fr.hyriode.cosmetics.common.CosmeticRarity;
 import fr.hyriode.cosmetics.user.CosmeticUser;
 import fr.hyriode.hyrame.item.ItemBuilder;
 import fr.hyriode.hyrame.utils.list.ListReplacer;
 import fr.hyriode.lobby.booster.StoreBooster;
+import fr.hyriode.lobby.language.LobbyMessage;
 import fr.hyriode.lobby.util.UsefulHead;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -18,10 +19,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 /**
  * Created by AstFaster
@@ -30,7 +29,7 @@ import java.util.stream.Collectors;
 public enum LootboxReward {
 
     ONE_STAR(new HyrisItem(2000L, 51.5D),
-            new CosmeticsItem(CosmeticRarity.COMMON, 25.5D),
+            new CosmeticsItem(CosmeticRarity.COMMON, 25.5D, 2000L),
             new BoosterItem(StoreBooster.Type.ONE_FIVE, 5.0D),
             new HostsItem(1, 7.0D),
             new LootboxItem(Lootbox.TWO_STARS, 1, 5.5D),
@@ -41,7 +40,7 @@ public enum LootboxReward {
     ),
 
     TWO_STARS(new HyrisItem(5000L, 48.0D),
-            new CosmeticsItem(CosmeticRarity.COMMON, 28.5D),
+            new CosmeticsItem(CosmeticRarity.COMMON, 28.5D, 5000L),
             new BoosterItem(StoreBooster.Type.ONE_FIVE, 5.0D),
             new HostsItem(1, 7.0D),
             new LootboxItem(Lootbox.ONE_STAR, 1, 5.5D),
@@ -51,8 +50,8 @@ public enum LootboxReward {
             new HyodesItem(300L, 0.5D)),
 
     THREE_STARS(new HyrisItem(8000L, 40.0D),
-            new CosmeticsItem(CosmeticRarity.COMMON, 26.5D),
-            new CosmeticsItem(CosmeticRarity.RARE, 9.5D),
+            new CosmeticsItem(CosmeticRarity.COMMON, 26.5D, 8000L),
+            new CosmeticsItem(CosmeticRarity.RARE, 9.5D, 8000L),
             new BoosterItem(StoreBooster.Type.TWO, 5.0D),
             new HostsItem(2, 7.0D),
             new LootboxItem(Lootbox.ONE_STAR, 2, 5.5D),
@@ -62,10 +61,10 @@ public enum LootboxReward {
             new HyodesItem(350L, 1.0D)),
 
     FOUR_STARS(new HyrisItem(8000L, 37.0D),
-            new CosmeticsItem(CosmeticRarity.COMMON, 16.0D),
-            new CosmeticsItem(CosmeticRarity.RARE, 8.5D),
-            new CosmeticsItem(CosmeticRarity.EPIC, 6.5D),
-            new CosmeticsItem(CosmeticRarity.LEGENDARY, 4.5D),
+            new CosmeticsItem(CosmeticRarity.COMMON, 16.0D, 8000L),
+            new CosmeticsItem(CosmeticRarity.RARE, 8.5D, 8000L),
+            new CosmeticsItem(CosmeticRarity.EPIC, 6.5D, 8000L),
+            new CosmeticsItem(CosmeticRarity.LEGENDARY, 4.5D, 8000L),
             new BoosterItem(StoreBooster.Type.TWO, 3.5D),
             new BoosterItem(StoreBooster.Type.TWO_FIVE, 5.0D),
             new HostsItem(3, 7.0D),
@@ -76,10 +75,10 @@ public enum LootboxReward {
             new HyodesItem(500L, 1.0D)),
 
     FIVE_STARS(new HyrisItem(8000L, 32.0D),
-            new CosmeticsItem(CosmeticRarity.COMMON, 13.0D),
-            new CosmeticsItem(CosmeticRarity.RARE, 8.5D),
-            new CosmeticsItem(CosmeticRarity.EPIC, 9.5D),
-            new CosmeticsItem(CosmeticRarity.LEGENDARY, 7.5D),
+            new CosmeticsItem(CosmeticRarity.COMMON, 13.0D, 8000L),
+            new CosmeticsItem(CosmeticRarity.RARE, 8.5D, 8000L),
+            new CosmeticsItem(CosmeticRarity.EPIC, 9.5D, 8000L),
+            new CosmeticsItem(CosmeticRarity.LEGENDARY, 7.5D, 8000L),
             new BoosterItem(StoreBooster.Type.TWO_FIVE, 3.5D),
             new BoosterItem(StoreBooster.Type.THREE, 6.0D),
             new HostsItem(3, 8.0D),
@@ -202,10 +201,12 @@ public enum LootboxReward {
     public static class CosmeticsItem extends Item {
 
         private final CosmeticRarity rarity;
+        private final long compensation;
 
-        public CosmeticsItem(CosmeticRarity rarity, double probability) {
+        public CosmeticsItem(CosmeticRarity rarity, double probability, long compensation) {
             super(HyriLanguageMessage.get("lootbox-reward.cosmetics.name"), ItemBuilder.asHead(UsefulHead.COSMETICS_CHEST).build(), probability);
             this.rarity = rarity;
+            this.compensation = compensation;
         }
 
         @Override
@@ -217,7 +218,39 @@ public enum LootboxReward {
 
         @Override
         public void give(IHyriPlayer account) {
+            final List<CosmeticInfo> cosmetics = new ArrayList<>();
 
+            for (List<CosmeticInfo> values : HyriCosmetics.get().getRegistry().getCosmetics().values()) {
+                for (CosmeticInfo cosmetic : values) {
+                    if (!cosmetic.isPurchasable() || cosmetic.isOnlyWithRank()) {
+                        continue;
+                    }
+
+                    if (cosmetic.getRarity() == rarity) {
+                        cosmetics.add(cosmetic);
+                    }
+                }
+            }
+
+            if (cosmetics.size() == 0) {
+                return;
+            }
+
+            final CosmeticInfo randomCosmetic = cosmetics.get(ThreadLocalRandom.current().nextInt(cosmetics.size()));
+            final Player player = Bukkit.getPlayer(account.getUniqueId());
+            final CosmeticUser cosmeticUser = HyriCosmetics.get().getUserProvider().getUser(player);
+
+            if (cosmeticUser.hasUnlockedCosmetic(randomCosmetic)) {
+                account.getHyris().add(this.compensation).withMultiplier(false).exec();
+
+                player.sendMessage(LobbyMessage.LOOTBOX_COSMETIC_ALREADY_OWNED_MESSAGE.asString(account)
+                        .replace("%cosmetic%", randomCosmetic.getTranslatedName().getValue(account)));
+            } else {
+                cosmeticUser.addUnlockedCosmetic(randomCosmetic);
+
+                player.sendMessage(LobbyMessage.LOOTBOX_COSMETIC_REWARD_MESSAGE.asString(account)
+                        .replace("%cosmetic%", randomCosmetic.getTranslatedName().getValue(account)));
+            }
         }
 
     }
@@ -258,7 +291,7 @@ public enum LootboxReward {
         private final int amount;
 
         public LootboxItem(Lootbox lootbox, int amount, double probability) {
-            super(HyriLanguageMessage.get("lootbox-reward.booster.name"), ItemBuilder.asHead(UsefulHead.ENDER_CHEST).build(), probability);
+            super(HyriLanguageMessage.get("lootbox-reward.lootbox.name"), ItemBuilder.asHead(UsefulHead.ENDER_CHEST).build(), probability);
             this.lootbox = lootbox;
             this.amount = amount;
         }

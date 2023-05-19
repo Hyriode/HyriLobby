@@ -178,13 +178,15 @@
   "gui.lootboxes.item.name": "&bLootbox &8┃ %stars%",
   "gui.lootbox-preview.name": "&8Preview",
 
-  "lootbox.reward.message": "&3Lootbox &f ┃ You just &aearn &fthe reward: %reward%&f.",
+  "lootbox.reward.message": "&3Lootbox &f┃ You just &aearn &fthe reward: %reward%&f.",
+  "lootbox.cosmetic-reward.message": "&3Lootbox &f┃ You just &aearn &fthe cosmetic: %cosmetic%&f.",
+  "lootbox.cosmetic-already-owned.message": "&3Lootbox &f┃ You &calready &fowned the cosmetic: %cosmetic%&f. So, you just earn &d%hyris% Hyris&f.",
 
   "lootbox-reward.hyris.name": "&d%amount% Hyris",
   "lootbox-reward.hyodes.name": "&a%amount% Hyodes",
   "lootbox-reward.booster.name": "&bBooster &8┃ &7%boost%",
   "lootbox-reward.booster.description": "\n&8Information:\n&8▪ &7Boost: &b%boost% &8(%multiplier%)\n&8▪ &7Duration: &b1h",
-  "lootbox-reward.lootbox.name": "&8x%amount% &bLootbox &8┃ %stars%",
+  "lootbox-reward.lootbox.name": "&8x&7%amount% &bLootbox &8┃ %stars%",
   "lootbox-reward.hosts.name": "&b%tickets% host ticket(s)",
   "lootbox-reward.cosmetics.name": "&cR&6a&en&ad&3o&9m &bcosmetic",
   "lootbox-reward.cosmetics.description": "&8▪ &7Rarity: %rarity%",
@@ -382,8 +384,6 @@
   "gui.cosmetic.filter.name": "Filters",
   "gui.cosmetic.rarity": "§8▪ §7Rarity",
   "gui.cosmetic.unlocked": "§b%percentage%% unlocked §7(%unlocked%/%total%)",
-  "gui.cosmetic.price_two_option": "§8▪ §7Price: %price1% §7/ %price2%",
-  "gui.cosmetic.price_one_option": "§8▪ §7Price: %price1%",
   "gui.cosmetic.offered_with_rank": "§8▪ §7Offered with the rank: %rank%",
 
   "gui.cosmetic.cant_unlock": "§cYou can't unlock this cosmetic",
