@@ -337,6 +337,10 @@ public class LobbyPlayer {
             final UUID targetId = target.getUniqueId();
             final IHyriPlayer targetAccount = IHyriPlayer.get(targetId);
 
+            if (IHyriPlayerSession.get(targetId).isModerating()) {
+                continue;
+            }
+
             if (level == SettingsLevel.ALL || targetAccount.getRank().isStaff() || showAll) {
                 player.showPlayer(target);
                 continue;
